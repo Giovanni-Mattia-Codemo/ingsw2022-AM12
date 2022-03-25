@@ -2,7 +2,6 @@ package it.polimi.ingsw2022am12.server;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertTrue;
 
 
 public class CoinCollectionTest {

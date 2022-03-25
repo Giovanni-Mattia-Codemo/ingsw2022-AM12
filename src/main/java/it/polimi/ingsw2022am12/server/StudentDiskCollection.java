@@ -23,9 +23,7 @@ public class StudentDiskCollection implements Position, Selectable{
      * @return ArrayList students
      */
     public ArrayList<Student> getAllStudents(){
-        ArrayList<Student> result = new ArrayList<>();
-        result.addAll(students);
-        return result;
+        return new ArrayList<>(students);
     }
 
     /**

@@ -15,15 +15,15 @@ public class Game{
     private final int numOfPlayers;
     private int round;
     private int turn;
-    private CoinCollection freeCoins;
-    private ArrayList<SchoolBoard> turnOrder;
-    private IslandTileList islandList;
-    private StudentDiskCollection[] clouds;
-    private Bag bag;
-    private ArrayList<Team> teams;
-    private SchoolBoard[] professors;
+    private final CoinCollection freeCoins;
+    private final ArrayList<SchoolBoard> turnOrder;
+    private final IslandTileList islandList;
+    private final StudentDiskCollection[] clouds;
+    private final Bag bag;
+    private final ArrayList<Team> teams;
+    private final SchoolBoard[] professors;
     private PhaseStrategy currentStrategy;
-    private ArrayList<Mage> mages;
+    private final ArrayList<Mage> mages;
 
     private int disksMovedThisTurn;
     private boolean hasMovedMotherNature;
@@ -134,6 +134,27 @@ public class Game{
     }
 
     /**
+     * Method only used for testing
+     *
+     * @return bag
+     */
+    public Bag getBag(){
+        return bag;
+    }
+
+    /**
+     * Method only used for testing
+     *
+     * @param i selected cloud
+     * @return cloud
+     */
+    public StudentDiskCollection getCloud(int i){
+        if(i<clouds.length)
+            return clouds[i];
+        else return null;
+    }
+
+    /**
      * Method selectMage is used from a player to pick a mage
      *
      * @param mageId ID
@@ -165,9 +186,7 @@ public class Game{
      * @return movable students
      */
     public ArrayList<Selectable> getStudentsInEntranceOfCurrentTurn(){
-        ArrayList<Selectable> tmp = new ArrayList<>();
-        tmp.addAll(turnOrder.get(turn).getEntrance().getAllStudents());
-        return tmp;
+        return new ArrayList<>(turnOrder.get(turn).getEntrance().getAllStudents());
     }
 
     /**
@@ -218,9 +237,7 @@ public class Game{
      * @return pickable islands
      */
     public ArrayList<Selectable> getIslandsInRange(){
-        ArrayList<Selectable> tmp = new ArrayList<>();
-        tmp.addAll(islandList.getIslandsInRange(getCurrentSchoolBoard().getLastPlayedAssistantRange()));
-        return tmp;
+        return new ArrayList<>(islandList.getIslandsInRange(getCurrentSchoolBoard().getLastPlayedAssistantRange()));
     }
 
     /**
@@ -229,9 +246,7 @@ public class Game{
      * @return ArrayList of mages not picked
      */
     public ArrayList<Selectable> getAvailableMages() {
-        ArrayList<Selectable> results = new ArrayList<>();
-        results.addAll(mages);
-        return results;
+        return new ArrayList<>(mages);
     }
 
     /**
@@ -269,7 +284,7 @@ public class Game{
                 tie= true;
             }
         }
-        if (tie == false){
+        if (!tie){
             team = teams.get(winnerId);
             if(team!=islandToConquer.getOwningTeam()){
                 ArrayList<Tower> towersToMove = islandToConquer.getTowers();
@@ -421,7 +436,7 @@ public class Game{
     /**
      * Class SortByPower defines a comparator class for ordering the turnOrder ArrayList
      */
-    class SortByPower implements Comparator<SchoolBoard> {
+    static class SortByPower implements Comparator<SchoolBoard> {
         // Sorting in ascending order of turn power number
         public int compare(SchoolBoard a, SchoolBoard b) {
             return a.getLastPlayedAssistantPower() - b.getLastPlayedAssistantPower();
