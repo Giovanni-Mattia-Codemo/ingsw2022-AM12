@@ -1,9 +1,6 @@
 package it.polimi.ingsw2022am12.server;
 
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertTrue;
 
