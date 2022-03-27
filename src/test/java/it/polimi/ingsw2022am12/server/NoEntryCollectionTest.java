@@ -1,5 +1,7 @@
 package it.polimi.ingsw2022am12.server;
 
+import it.polimi.ingsw2022am12.server.model.NoEntry;
+import it.polimi.ingsw2022am12.server.model.NoEntryCollection;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 

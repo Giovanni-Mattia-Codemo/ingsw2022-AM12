@@ -1,5 +1,6 @@
 package it.polimi.ingsw2022am12.server;
 
+import it.polimi.ingsw2022am12.server.model.Game;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

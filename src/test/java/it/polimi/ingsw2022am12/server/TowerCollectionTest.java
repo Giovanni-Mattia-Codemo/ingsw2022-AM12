@@ -1,5 +1,8 @@
 package it.polimi.ingsw2022am12.server;
 
+import it.polimi.ingsw2022am12.server.model.Team;
+import it.polimi.ingsw2022am12.server.model.Tower;
+import it.polimi.ingsw2022am12.server.model.TowerCollection;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

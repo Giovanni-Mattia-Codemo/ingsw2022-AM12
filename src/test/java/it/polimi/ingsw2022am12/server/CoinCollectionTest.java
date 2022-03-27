@@ -1,5 +1,7 @@
 package it.polimi.ingsw2022am12.server;
 
+import it.polimi.ingsw2022am12.server.model.Coin;
+import it.polimi.ingsw2022am12.server.model.CoinCollection;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
