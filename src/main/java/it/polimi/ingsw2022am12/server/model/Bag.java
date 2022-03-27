@@ -13,7 +13,7 @@ public class Bag extends StudentDiskCollection {
     public Student draw() {
             if(this.amount()>0) {
                 double index = Math.random() * (this.amount()-1);
-                Student tmp = this.getByIndex((int)Math.round(index));
+                Student tmp = this.getByIndex(Math.toIntExact(Math.round(index)));
                 this.removeElement(tmp);
                 return tmp;
             }
