@@ -15,6 +15,9 @@ public class SchoolBoard{
     private final StudentDiskCollection diningRoom;
     private final ArrayList<Assistant> assistants;
     private Assistant lastPlayedAssistant;
+    private final static int maxNumOfAssistantsInDeck = 10;
+    private final static int maxNumOfTowersForTwoOrFourPlayers = 8;
+    private final static int maxNumOfTowersForThreePlayers = 6;
 
     /**
      * Constructor method of SchoolBoard class
@@ -120,12 +123,12 @@ public class SchoolBoard{
     public void fillTowers(int numOfPlayers, Team team){
         if(numOfPlayers ==2 || numOfPlayers == 4){
             if(team.getSchoolBoardWithTowers()==this){
-                for(int i=0; i<8; i++){
+                for(int i=0; i<maxNumOfTowersForTwoOrFourPlayers; i++){
                     towers.insertElement(new Tower(team));
                 }
             }
         }else if (numOfPlayers == 3){
-            for(int i=0; i<6; i++){
+            for(int i=0; i<maxNumOfTowersForThreePlayers; i++){
                 towers.insertElement(new Tower(team));
             }
         }

@@ -10,7 +10,7 @@ import java.util.*;
  */
 public class Game{
 
-    private final int coinsTOTAL = 20;
+    private final static int coinsTOTAL = 20;
     private final ArrayList<String> playerNicks;
     private final int numOfPlayers;
     private int round;
@@ -24,6 +24,8 @@ public class Game{
     private final SchoolBoard[] professors;
     private PhaseStrategy currentStrategy;
     private final ArrayList<Mage> mages;
+    private final static int maxNumOfIslands = 12;
+    private final static int hagStudentsToRemove = 3;
 
     private int disksMovedThisTurn;
     private boolean hasMovedMotherNature;
@@ -175,7 +177,7 @@ public class Game{
      */
     public void fillIslands(){
         Student student = null;
-        for (int i=0; i<12; i++){
+        for (int i=0; i<maxNumOfIslands; i++){
             if (i!= (islandList.getMotherNatureIndex()+6)%12){
                 student = bag.draw();
                 if(student != null){
