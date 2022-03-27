@@ -5,31 +5,24 @@ import java.util.HashSet;
 
 public class IslandTileList {
 
-    private ArrayList<IslandTileSet> islands;
+    private final ArrayList<IslandTileSet> islands;
     private IslandTileSet motherNature;
-    private static final int islandMAX = 12;
+    private static final int numOfIslandsMAX = 12;
 
     /**
      * Constructor method of IslandTileList
      */
     public IslandTileList(){
         this.islands = new ArrayList<>();
-        for (int i = 0; i<islandMAX; i++){
+        for (int i = 0; i< numOfIslandsMAX; i++){
             islands.add(new IslandTileSet());
         }
 
-        double index = Math.random()*(islandMAX-1);
+        double index = Math.random()*(numOfIslandsMAX -1);
         motherNature = islands.get((int) index);
     }
 
-    /**
-     * Method getMotherNature returns the IslandTileSet containing Mother Nature
-     *
-     * @return islandTileSet
-     */
-    public IslandTileSet getMotherNature(){
-        return motherNature;
-    }
+
 
     /**
      * Method moveMotherNature changes the position of motherNature
@@ -81,9 +74,8 @@ public class IslandTileList {
         if(temp<=0) tmp.addAll(islands.subList(getMotherNatureIndex(), getMotherNatureIndex()+range));
         else {tmp.addAll(islands.subList(getMotherNatureIndex()+1, islands.size()-1));
               tmp.addAll(islands.subList(0, temp-1));
-              ArrayList<IslandTileSet> temp1 = new ArrayList<>(
-                    new HashSet<>(tmp));
-              return temp1;
+            return new ArrayList<>(
+                  new HashSet<>(tmp));
         }
         return tmp;
     }
