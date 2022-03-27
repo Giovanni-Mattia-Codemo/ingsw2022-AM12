@@ -1,9 +1,7 @@
 package it.polimi.ingsw2022am12.server;
 
 import org.junit.jupiter.api.Test;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.Assertions;
 
 
 public class IslandTileListTest {
@@ -16,7 +14,7 @@ public class IslandTileListTest {
         int steps = 5;
         int size = islandTileList.numOfIslandSets();
         islandTileList.moveMotherNature(steps);
-        assertTrue(islandTileList.getMotherNatureIndex()==(index0+steps)%size);
+        Assertions.assertEquals(islandTileList.getMotherNatureIndex(), (index0 + steps) % size);
 
 
     }
@@ -30,8 +28,8 @@ public class IslandTileListTest {
         IslandTileSet is3= islandTileList.getByIndex(3);
         is2.insertStudent(s0);
         islandTileList.mergeIslands(is2, is3);
-        assertTrue(is3.getStudents().contains(s0));
-        assertTrue(islandTileList.numOfIslandSets()==startingSize-1);
+        Assertions.assertTrue(is3.getStudents().contains(s0));
+        Assertions.assertEquals(islandTileList.numOfIslandSets(), startingSize - 1);
 
     }
 
@@ -50,6 +48,6 @@ public class IslandTileListTest {
         is1.insertTower(t0);
         is2.insertTower(t1);
         islandTileList.checkAndMerge(1);
-        assertTrue(startNumOfIslands-1==islandTileList.numOfIslandSets());
+        Assertions.assertEquals(startNumOfIslands - 1, islandTileList.numOfIslandSets());
     }
 }

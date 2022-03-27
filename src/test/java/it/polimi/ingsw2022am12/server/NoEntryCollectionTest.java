@@ -1,7 +1,7 @@
 package it.polimi.ingsw2022am12.server;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.Assertions;
 
 public class NoEntryCollectionTest {
 
@@ -14,7 +14,7 @@ public class NoEntryCollectionTest {
         noEntryCollection0.removeElement(noEntry);
         noEntryCollection1.insertElement(noEntry);
 
-        assertTrue(noEntryCollection0.getAllNoEntries().isEmpty());
-        assertTrue(noEntryCollection1.getAllNoEntries().contains(noEntry));
+        Assertions.assertTrue(noEntryCollection0.getAllNoEntries().isEmpty());
+        Assertions.assertTrue(noEntryCollection1.getAllNoEntries().contains(noEntry));
     }
 }

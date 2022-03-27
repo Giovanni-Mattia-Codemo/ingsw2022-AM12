@@ -1,7 +1,7 @@
 package it.polimi.ingsw2022am12.server;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import static org.junit.Assert.*;
 
 
 public class CoinCollectionTest {
@@ -13,7 +13,7 @@ public class CoinCollectionTest {
 
         coinCollection.insertElement(c0);
 
-        assertTrue(coinCollection.getAllCoins().contains(c0));
+        Assertions.assertTrue(coinCollection.getAllCoins().contains(c0));
     }
 
     @Test
@@ -27,8 +27,8 @@ public class CoinCollectionTest {
 
         coinCollection.removeElement(c0);
 
-        assertTrue(coinCollection.getAllCoins().contains(c1));
-        assertFalse(coinCollection.getAllCoins().contains(c0));
+        Assertions.assertTrue(coinCollection.getAllCoins().contains(c1));
+        Assertions.assertFalse(coinCollection.getAllCoins().contains(c0));
 
     }
 

@@ -12,7 +12,8 @@ public class Bag extends StudentDiskCollection{
      */
     public Student draw() {
             if(this.amount()>0) {
-                Student tmp = this.getByIndex(Math.round(((int) (Math.random() * (this.amount()-1)))));
+                double index = Math.random() * (this.amount()-1);
+                Student tmp = this.getByIndex((int) Math.round(index));
                 this.removeElement(tmp);
                 return tmp;
             }

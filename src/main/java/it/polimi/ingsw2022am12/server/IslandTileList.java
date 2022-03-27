@@ -7,13 +7,13 @@ public class IslandTileList {
 
     private ArrayList<IslandTileSet> islands;
     private IslandTileSet motherNature;
-    private static int islandMAX = 12;
+    private static final int islandMAX = 12;
 
     /**
      * Constructor method of IslandTileList
      */
     public IslandTileList(){
-        this.islands = new ArrayList<IslandTileSet>();
+        this.islands = new ArrayList<>();
         for (int i = 0; i<islandMAX; i++){
             islands.add(new IslandTileSet());
         }
@@ -139,7 +139,6 @@ public class IslandTileList {
 
             }else{
                 mergeIslands(islandToCheck, right);
-
             }
         }
     }

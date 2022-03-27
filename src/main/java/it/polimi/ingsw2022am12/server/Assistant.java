@@ -51,4 +51,9 @@ public class Assistant implements Selectable{
     public void printAssistantPower(){
         System.out.println(getTurnPower());
     }
+
+    @Override
+    public String getSelectableType() {
+        return "Assistant";
+    }
 }

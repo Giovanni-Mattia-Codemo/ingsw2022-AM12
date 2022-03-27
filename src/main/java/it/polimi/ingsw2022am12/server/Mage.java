@@ -15,4 +15,9 @@ public class Mage implements Selectable{
     public Mage(int id) {
         ID = id;
     }
+
+    @Override
+    public String getSelectableType() {
+        return "Mage";
+    }
 }

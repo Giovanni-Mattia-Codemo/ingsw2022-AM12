@@ -157,7 +157,7 @@ public class IslandTileSet implements Selectable{
      * Method giveBackNoEntry takes the first noEntry in noEntries and moves it back into the character
      * that holds the noEntries
      *
-     * @throws Exception thrown when no towers are left on this schoolBoard
+     * @throws NotPresent thrown when no towers are left on this schoolBoard
      */
     public void giveBackNoEntry() throws NotPresent{
         NoEntry tmp = noEntries.getFirstNoEntry();
@@ -188,4 +188,8 @@ public class IslandTileSet implements Selectable{
         else return null;
     }
 
+    @Override
+    public String getSelectableType() {
+        return "IslandTileSet";
+    }
 }

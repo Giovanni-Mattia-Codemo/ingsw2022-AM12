@@ -3,7 +3,7 @@ package it.polimi.ingsw2022am12.server;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Assertions;
 
 public class GameTest {
 
@@ -15,16 +15,16 @@ public class GameTest {
         Game testGame = new Game(nicks);
         testGame.setUp();
 
-        assertTrue("1",testGame.getBag().amount()==100);
-        assertTrue("2",testGame.getCurrentSchoolBoard().getTowersNumber()==8);
-        assertTrue("3",testGame.getCloud(0).amount()==3);
+        Assertions.assertEquals(100, testGame.getBag().amount());
+        Assertions.assertEquals(8, testGame.getCurrentSchoolBoard().getTowersNumber());
+        Assertions.assertEquals(3, testGame.getCloud(0).amount());
 
         nicks.add("Paperino");
         Game testGame1 = new Game(nicks);
         testGame1.setUp();
-        assertTrue("1",testGame1.getBag().amount()==81);
-        assertTrue("2",testGame1.getCurrentSchoolBoard().getTowersNumber()==6);
-        assertTrue("3",testGame1.getCloud(0).amount()==4);
+        Assertions.assertEquals(81, testGame1.getBag().amount());
+        Assertions.assertEquals(6, testGame1.getCurrentSchoolBoard().getTowersNumber());
+        Assertions.assertEquals(4, testGame1.getCloud(0).amount());
     }
 
     @Test

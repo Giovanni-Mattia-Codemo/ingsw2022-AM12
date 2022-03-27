@@ -8,17 +8,17 @@ import it.polimi.ingsw2022am12.exceptions.NotValidAssistant;
  * It is used to create a deck of Assistant cards.
  */
 
-public class AssistantCreator {
+public abstract class AssistantCreator {
+
     /**
      * Method returns the new Assistant card chosen. Each Assistant can have ONE value of turnPower
      *                                                       (Integer from 1 to 10)
      *
      *
-     * @param turnPower
+     * @param turnPower turnPower
      * @throws Exception Invalid assistant number
      *                        (If I use as an input turnPower < 1 || turnPower > 10)
      */
-
     public static Assistant createAssistant(int turnPower) throws Exception {
         return switch (turnPower) {
             case 1 -> new Assistant(1, 1);

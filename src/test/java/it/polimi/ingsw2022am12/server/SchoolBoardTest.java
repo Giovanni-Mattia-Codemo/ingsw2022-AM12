@@ -97,9 +97,9 @@ public class SchoolBoardTest {
         } catch (NotPresent e) {
             e.printStackTrace();
         }
-        assertFalse(testSchool.getPlayableAssistants().contains(a0));
-        assertTrue(testSchool.getLastPlayedAssistantPower()== a0.getTurnPower());
-        assertTrue(testSchool.getLastPlayedAssistantRange()== a0.getMotherNatureRange());
+        Assertions.assertFalse(testSchool.getPlayableAssistants().contains(a0));
+        Assertions.assertEquals(testSchool.getLastPlayedAssistantPower(), a0.getTurnPower());
+        Assertions.assertEquals(testSchool.getLastPlayedAssistantRange(), a0.getMotherNatureRange());
     }
 
 }

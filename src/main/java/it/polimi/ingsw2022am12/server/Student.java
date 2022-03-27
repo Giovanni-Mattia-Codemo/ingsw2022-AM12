@@ -24,4 +24,8 @@ public class Student extends PlaceableObject implements Selectable{
         return this.color;
     }
 
+    @Override
+    public String getSelectableType() {
+        return "Student";
+    }
 }

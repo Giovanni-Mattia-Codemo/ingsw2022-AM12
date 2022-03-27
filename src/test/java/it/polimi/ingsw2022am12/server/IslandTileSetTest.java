@@ -1,12 +1,11 @@
 package it.polimi.ingsw2022am12.server;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.Assertions;
 
 public class IslandTileSetTest {
 
     @Test
-
     public void checkRemoveAllTowers(){
         IslandTileSet is0= new IslandTileSet();
         Team team = new Team();
@@ -15,7 +14,7 @@ public class IslandTileSetTest {
         is0.insertTower(new Tower(team));
 
         is0.removeAllTowers();
-        assertTrue(is0.getTowers().isEmpty());
+        Assertions.assertTrue(is0.getTowers().isEmpty());
 
     }
 
@@ -30,9 +29,7 @@ public class IslandTileSetTest {
         }catch(Exception e){
             e.printStackTrace();
         }
-        assertTrue(is0.getNoEntries().size()==1);
-
-
+        Assertions.assertEquals(1, is0.getNoEntries().size());
     }
 
 }

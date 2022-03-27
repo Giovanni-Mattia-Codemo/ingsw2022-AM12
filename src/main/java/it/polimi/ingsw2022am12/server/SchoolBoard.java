@@ -1,18 +1,19 @@
 package it.polimi.ingsw2022am12.server;
 
 import it.polimi.ingsw2022am12.exceptions.NotPresent;
+import it.polimi.ingsw2022am12.exceptions.NotValidAssistant;
 import it.polimi.ingsw2022am12.exceptions.NotValidSwap;
 import java.util.ArrayList;
 
 public class SchoolBoard{
 
-    private CoinCollection coins;
-    private TowerCollection towers;
-    private String nick;
+    private final CoinCollection coins;
+    private final TowerCollection towers;
+    private final String nick;
     private Mage mage;
-    private StudentDiskCollection entrance;
-    private StudentDiskCollection diningRoom;
-    private ArrayList<Assistant> assistants;
+    private final StudentDiskCollection entrance;
+    private final StudentDiskCollection diningRoom;
+    private final ArrayList<Assistant> assistants;
     private Assistant lastPlayedAssistant;
 
     /**
@@ -25,18 +26,22 @@ public class SchoolBoard{
         entrance = new StudentDiskCollection();
         diningRoom = new StudentDiskCollection();
         this.nick = name;
+        this.assistants = new  ArrayList<>();
 
-        //Creates assistants and fills it with Assistant cards from 1 up to 10
-        this.assistants = new  ArrayList<Assistant>();
-        AssistantCreator temp = new AssistantCreator();
-        for (int i = 1; i<= 10; i++){
+    }
 
+    /**
+     *Method setAssistants fills the schoolBoard's deck of assistants
+     */
+    public void setAssistants() throws Exception {
+        for (int i = 1; i<= maxNumOfAssistantsInDeck; i++){
+            Assistant tmp;
             try{
-                assistants.add(temp.createAssistant(i));
-            }catch (Exception e){
-                System.out.println("failed to add assistant");
+                tmp = AssistantCreator.createAssistant(i);
+            } catch (NotValidAssistant e) {
+                throw e;
             }
-
+            assistants.add(tmp);
         }
     }
 
@@ -285,7 +290,7 @@ public class SchoolBoard{
      *         (NOTE! removing it from the available assistants)
      *
      * @param assistant the assistant you wish to play
-     * @throws Exception thrown if the assistant is not in the list of playable assistants
+     * @throws NotPresent thrown if the assistant is not in the list of playable assistants
      */
     public void playAssistant(Assistant assistant) throws NotPresent{
         if(assistants.contains(assistant)){

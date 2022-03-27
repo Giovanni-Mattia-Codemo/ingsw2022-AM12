@@ -5,4 +5,6 @@ package it.polimi.ingsw2022am12.server;
  */
 public interface Selectable{
 
+    public String getSelectableType();
+
 }

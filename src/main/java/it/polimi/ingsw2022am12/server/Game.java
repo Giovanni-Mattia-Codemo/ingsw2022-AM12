@@ -127,6 +127,12 @@ public class Game{
                 student = bag.draw();
                 s.insertToEntrance(student);
             }
+
+            try {
+                s.setAssistants();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         fillClouds();
@@ -521,6 +527,7 @@ public class Game{
             getCurrentSchoolBoard().insertCoin(toBeMoved);
         }else throw new NotPresent(); //No more coins available (notify player)
     }
+
     /**
      * Method getValidSelection returns all the possible selection a player can make during his turun
      *
