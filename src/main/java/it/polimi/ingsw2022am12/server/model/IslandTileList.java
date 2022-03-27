@@ -2,6 +2,7 @@ package it.polimi.ingsw2022am12.server.model;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Random;
 
 public class IslandTileList {
 
@@ -17,9 +18,9 @@ public class IslandTileList {
         for (int i = 0; i< numOfIslandsMAX; i++){
             islands.add(new IslandTileSet());
         }
-
-        double index = Math.random()*(numOfIslandsMAX -1);
-        motherNature = islands.get((int) index);
+        Random rnd = new Random();
+        int index = rnd.nextInt(numOfIslandsMAX);
+        motherNature = islands.get( index);
     }
 
 

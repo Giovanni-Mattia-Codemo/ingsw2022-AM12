@@ -1,5 +1,7 @@
 package it.polimi.ingsw2022am12.server.model;
 
+import java.util.Random;
+
 /**
  * Class Bag defines the bag from where the students ar drawn
  */
@@ -12,11 +14,12 @@ public class Bag extends StudentDiskCollection {
      */
     public Student draw() {
             if(this.amount()>0) {
-                double index = Math.random() * (this.amount()-1);
-                Student tmp = this.getByIndex(Math.toIntExact(Math.round(index)));
+                Random rnd = new Random();
+                Student tmp = this.getByIndex(rnd.nextInt(this.amount()));
                 this.removeElement(tmp);
                 return tmp;
             }
+
             return null;
     }
 }
