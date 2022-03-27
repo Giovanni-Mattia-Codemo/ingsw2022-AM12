@@ -1,9 +1,8 @@
 package it.polimi.ingsw2022am12.server;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertTrue;
 
 public class TowerCollectionTest {
 
@@ -17,8 +16,8 @@ public class TowerCollectionTest {
         towerCollection0.insertElement(s0);
         towerCollection0.insertElement(s1);
 
-        assertTrue(towerCollection0.getTowers().contains(s0));
-        assertTrue(towerCollection0.getTowers().contains(s1));
+        Assertions.assertTrue(towerCollection0.getTowers().contains(s0));
+        Assertions.assertTrue(towerCollection0.getTowers().contains(s1));
     }
 
     @Test
@@ -30,7 +29,7 @@ public class TowerCollectionTest {
         towerCollection0.insertElement(s0);
         towerCollection0.removeElement(s0);
 
-        assertFalse(towerCollection0.getTowers().contains(s0));
+        Assertions.assertFalse(towerCollection0.getTowers().contains(s0));
     }
 
 }

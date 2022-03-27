@@ -302,6 +302,10 @@ public class SchoolBoard{
         }else throw new NotPresent();
     }
 
+    public Student getFirstStudentOfColor(DiskColor color){
+        return diningRoom.getFirstStudentOfColor(color).get();
+    }
+
     /**
      * Method  getPlayableAssistants returns a list of the assistants present in the SchoolBoard
      * @return ArrayList<Assistant> containing the same assistants as the SchoolBoard's assistants

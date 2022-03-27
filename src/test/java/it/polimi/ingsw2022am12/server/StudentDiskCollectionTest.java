@@ -1,6 +1,8 @@
 package it.polimi.ingsw2022am12.server;
 
-import static org.junit.Assert.*;
+
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class StudentDiskCollectionTest {
@@ -15,9 +17,9 @@ public class StudentDiskCollectionTest {
         studentDiskCollection.insertElement(s0);
         studentDiskCollection.insertElement(s2);
         studentDiskCollection.insertElement(s1);
-        assertEquals(s0, studentDiskCollection.getByIndex(0));
-        assertEquals(s2, studentDiskCollection.getByIndex(1));
-        assertEquals(s1, studentDiskCollection.getByIndex(2));
+        Assertions.assertEquals(s0, studentDiskCollection.getByIndex(0));
+        Assertions.assertEquals(s2, studentDiskCollection.getByIndex(1));
+        Assertions.assertEquals(s1, studentDiskCollection.getByIndex(2));
     }
 
 
@@ -34,8 +36,8 @@ public class StudentDiskCollectionTest {
             studentDiskCollection0.removeElement(s0);
         }catch(Exception e){ System.out.println("Not valid move");}
 
-        assertFalse(studentDiskCollection0.getAllStudents().contains(s0));
-        assertTrue(studentDiskCollection0.getAllStudents().contains(s1));
+        Assertions.assertFalse(studentDiskCollection0.getAllStudents().contains(s0));
+        Assertions.assertTrue(studentDiskCollection0.getAllStudents().contains(s1));
     }
 
 
@@ -46,7 +48,7 @@ public class StudentDiskCollectionTest {
 
         sc0.insertElement(s0);
 
-        assertTrue(sc0.getAllStudents().contains(s0));
+        Assertions.assertTrue(sc0.getAllStudents().contains(s0));
     }
 
 }

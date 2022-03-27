@@ -105,4 +105,14 @@ public class StudentDiskCollection implements Position, Selectable{
     public boolean contains(PlaceableObject o){
         return students.contains(o);
     }
+
+    /**
+     * Method getSelectableType returns a string with the type of the Selectable object
+     *
+     * @return String with type name
+     */
+    @Override
+    public String getSelectableType() {
+        return "StudentDiskCollection";
+    }
 }

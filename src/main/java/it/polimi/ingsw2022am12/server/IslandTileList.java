@@ -17,7 +17,9 @@ public class IslandTileList {
         for (int i = 0; i<islandMAX; i++){
             islands.add(new IslandTileSet());
         }
-        motherNature = islands.get((int) (Math.random()*11));
+
+        double index = Math.random()*(islandMAX-1);
+        motherNature = islands.get((int) index);
     }
 
     /**
@@ -142,4 +144,10 @@ public class IslandTileList {
             }
         }
     }
+
+    public int distanceFromMotherNature(IslandTileSet islandTileSet){
+        if (islands.indexOf(islandTileSet)>getMotherNatureIndex()) return islands.indexOf(islandTileSet)-getMotherNatureIndex();
+        return (numOfIslandSets()-getMotherNatureIndex())+islands.indexOf(islandTileSet);
+    }
+
 }

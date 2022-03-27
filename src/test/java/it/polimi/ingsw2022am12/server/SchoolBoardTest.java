@@ -2,10 +2,9 @@ package it.polimi.ingsw2022am12.server;
 
 import it.polimi.ingsw2022am12.exceptions.NotPresent;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 import java.util.ArrayList;
-
-import static org.junit.Assert.*;
 
 public class SchoolBoardTest {
 
@@ -17,7 +16,7 @@ public class SchoolBoardTest {
         team1.addSchoolBoard(testingBoard);
         testingBoard.fillTowers(numOfPlayers, team1);
 
-        assertTrue(testingBoard.getTowersNumber()==6);
+        Assertions.assertEquals(6, testingBoard.getTowersNumber());
 
     }
 
@@ -50,8 +49,8 @@ public class SchoolBoardTest {
             e.printStackTrace();
         }
 
-        assertTrue(testingBoard.getStudentsInRoomByColor(DiskColor.RED)==10);
-        assertTrue(testingBoard.isDiningRoomFull(DiskColor.RED));
+        Assertions.assertEquals(10, testingBoard.getStudentsInRoomByColor(DiskColor.RED));
+        Assertions.assertTrue(testingBoard.isDiningRoomFull(DiskColor.RED));
 
     }
 
@@ -62,8 +61,8 @@ public class SchoolBoardTest {
         testingBoard.insertToEntrance(student0);
         testingBoard.moveStudentFromEntranceToRoom(student0);
 
-        assertFalse(testingBoard.getEntrance().contains(student0));
-        assertTrue(testingBoard.getStudentsInRoomByColor(DiskColor.RED)==1);
+        Assertions.assertFalse(testingBoard.getEntrance().contains(student0));
+        Assertions.assertEquals(1, testingBoard.getStudentsInRoomByColor(DiskColor.RED));
     }
 
     @Test
@@ -82,14 +81,20 @@ public class SchoolBoardTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    assertTrue("1", testSchool.getStudentsInRoomByColor(DiskColor.RED)==2);
-    assertTrue("2",testSchool.getEntrance().contains(s2));
-    assertTrue("3",testSchool.getEntrance().contains(s1));
+        Assertions.assertEquals(2, testSchool.getStudentsInRoomByColor(DiskColor.RED));
+        Assertions.assertTrue(testSchool.getEntrance().contains(s2));
+        Assertions.assertTrue(testSchool.getEntrance().contains(s1));
     }
 
     @Test
     public void checkPlayAssistant(){
         SchoolBoard testSchool = new SchoolBoard("Foo");
+        try{
+            testSchool.setAssistants();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
         ArrayList<Assistant> playableAssistants = testSchool.getPlayableAssistants();
         Assistant a0 = playableAssistants.get(1);
         try {

@@ -42,9 +42,20 @@ public class ActionStrategy implements PhaseStrategy{
         ArrayList<Selectable> result = new ArrayList<>();
         if(!game.movedAllDisksThisTurn()){
             result.addAll(game.getStudentsInEntranceOfCurrentTurn());
+
+
         }else if(!game.hasMovedMotherNature()){
+
             result.addAll(game.getIslandsInRange());
         }else result.addAll(game.getSelectableClouds());
+
+/*
+        if(game.getActiveCharacter!= null){
+            result.add(characters)
+        }else if (game.getCharNeedsInput){
+            result.add(required inputs)
+        }
+*/
         return result;
     }
 }

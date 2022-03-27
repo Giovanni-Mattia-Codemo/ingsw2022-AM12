@@ -30,7 +30,8 @@ public class Game{
     private int disksMovedThisTurn;
     private boolean hasMovedMotherNature;
 
-    // private ArrayList<Character> characters;
+    private ArrayList<Character> characters;
+    private Character activeCharacter;
 
     /**
      * Constructor method of the class
@@ -97,6 +98,8 @@ public class Game{
      */
     public void setUp(){
 
+
+
         for (DiskColor c: DiskColor.values()){
             for (int i = 0; i < 2; i++) {
                 Student tmp =new Student(c);
@@ -161,6 +164,22 @@ public class Game{
             return clouds[i];
         else return null;
     }
+
+    /**
+     * Method checkIfIslandInRange checks if an island is reachable by a player
+     *
+     * @param island to check
+     * @return true if the selected island is reachable, false otherwise
+     */
+    public boolean checkIfIslandInRange(IslandTileSet island){
+        int range=getCurrentSchoolBoard().getLastPlayedAssistantRange();
+        if(getActiveCharacterName()=="Beggar"){
+            range+=2;
+        }
+        if(islandList.distanceFromMotherNature(island)<=range)return true;
+        return false;
+    }
+
 
     /**
      * Method selectMage is used from a player to pick a mage
@@ -248,6 +267,12 @@ public class Game{
         return new ArrayList<>(islandList.getIslandsInRange(getCurrentSchoolBoard().getLastPlayedAssistantRange()));
     }
 
+    public String getActiveCharacterName(){
+        if (activeCharacter==null){
+            return null;
+        }else return activeCharacter.getName();
+    }
+
     /**
      * Method getAvailableMages returns the list of mages that weren't already picked
      *
@@ -279,7 +304,7 @@ public class Game{
             }
         }
         Team owner = islandToConquer.getOwningTeam();
-        if(owner!= null){
+        if(owner!= null&&!(getActiveCharacterName()=="Centaur")){
             scores[teams.indexOf(owner)]+=islandToConquer.getNumOfIslands();
         }
         int winnerId = 0;
@@ -548,5 +573,41 @@ public class Game{
     public boolean checkIfIsCurrentPlayer(String nick){
         return getSchoolBoardByNick(nick)==getCurrentSchoolBoard();
     }
+
+
+    public void payAndActivateCharacter(Character character){
+        if (characters.contains(character)){
+            int cost =character.getCost();
+            try {
+                payCoins(cost);
+            } catch (NotPresent e) {
+                e.printStackTrace();
+            }
+            if(!character.wasPayedBefore()){
+                Coin coinTmp = freeCoins.getFirstCoin();
+                freeCoins.removeElement(coinTmp);
+                character.insertCoin(coinTmp);
+            }
+            activeCharacter = character;
+
+        }
+    }
+
+    public void removeStudentsFromRoomsByColor(DiskColor color){
+        int availableOfColor=0;
+        for (SchoolBoard s: turnOrder){
+            availableOfColor = s.getStudentsInRoomByColor(color);
+            for (int i=0; i< Math.min(availableOfColor, hagStudentsToRemove); i++){
+                Student tmp = s.getFirstStudentOfColor(color);
+                try {
+                    s.removeFromDiningRoom(tmp);
+                    bag.insertElement(tmp);
+                } catch (NotPresent e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
 
 }
