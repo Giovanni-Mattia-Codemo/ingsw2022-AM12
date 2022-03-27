@@ -1,6 +1,7 @@
 package it.polimi.ingsw2022am12.server;
 
 import it.polimi.ingsw2022am12.exceptions.NotPresent;
+
 import it.polimi.ingsw2022am12.exceptions.NotValidSwap;
 
 import java.util.*;
@@ -40,7 +41,7 @@ public class Game{
      */
     public Game(ArrayList<String> playerNicks){
 
-        this.mages = new ArrayList<Mage>();
+        this.mages = new ArrayList<>();
         for(int i=0; i<4; i++){
             this.mages.add(new Mage(i));
         }
@@ -53,7 +54,7 @@ public class Game{
             Coin tmp= new Coin();
             freeCoins.insertElement(tmp);
         }
-        this.turnOrder= new ArrayList<SchoolBoard>();
+        this.turnOrder= new ArrayList<>();
         this.islandList = new IslandTileList();
         this.bag = new Bag();
         this.clouds = new StudentDiskCollection[numOfPlayers];
@@ -61,6 +62,11 @@ public class Game{
             clouds[i]= new StudentDiskCollection();
         }
         this.teams = new ArrayList<>();
+
+        this.professors = new SchoolBoard[5];
+    }
+
+    public void assignTeams(){
         if(numOfPlayers==2){
             for(int i = 0; i<numOfPlayers; i++){
                 String s = playerNicks.get(i);
@@ -69,7 +75,7 @@ public class Game{
                 turnOrder.add(new SchoolBoard(s));
                 teams.get(i).addSchoolBoard(turnOrder.get(i));
 
-           }
+            }
         }else if(numOfPlayers==3){
             for(String s: playerNicks){
                 Team tmp = new Team();
@@ -90,15 +96,14 @@ public class Game{
                 num++;
             }
         }
-        this.professors = new SchoolBoard[5];
     }
 
     /**
      *Method setup is used to set all the initial values of the attributes of the game
      */
-    public void setUp(){
+    public void setUp() throws Exception {
 
-
+        assignTeams();
 
         for (DiskColor c: DiskColor.values()){
             for (int i = 0; i < 2; i++) {
@@ -121,8 +126,8 @@ public class Game{
         }
 
         for(SchoolBoard s: turnOrder){
-            Student student = null;
-            int studentsInEntrance = 0;
+            Student student;
+            int studentsInEntrance;
             if(numOfPlayers == 3){
                 studentsInEntrance =9;
             }else {
@@ -133,11 +138,7 @@ public class Game{
                 s.insertToEntrance(student);
             }
 
-            try {
-                s.setAssistants();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            s.setAssistants();
         }
 
         fillClouds();
@@ -173,11 +174,10 @@ public class Game{
      */
     public boolean checkIfIslandInRange(IslandTileSet island){
         int range=getCurrentSchoolBoard().getLastPlayedAssistantRange();
-        if(getActiveCharacterName()=="Beggar"){
+        if(getActiveCharacterName().equals("Beggar") ){
             range+=2;
         }
-        if(islandList.distanceFromMotherNature(island)<=range)return true;
-        return false;
+        return islandList.distanceFromMotherNature(island) <= range;
     }
 
 
@@ -185,9 +185,9 @@ public class Game{
      * Method selectMage is used from a player to pick a mage
      *
      * @param mageId ID
-     * @throws Exception Mage already picked
+     *
      */
-    public void selectMage(Mage mageId) throws Exception{
+    public void selectMage(Mage mageId){
         getCurrentSchoolBoard().setMage(mageId);
     }
 
@@ -195,7 +195,7 @@ public class Game{
      * Method fillIslands is used in the setup method to fill the islands following the setup rules of the game
      */
     public void fillIslands(){
-        Student student = null;
+        Student student;
         for (int i=0; i<maxNumOfIslands; i++){
             if (i!= (islandList.getMotherNatureIndex()+6)%12){
                 student = bag.draw();
@@ -225,7 +225,7 @@ public class Game{
      */
     public SchoolBoard getSchoolBoardByNick(String nick){
         for (SchoolBoard s: turnOrder){
-            if (s.getNick() == nick){
+            if (s.getNick().equals(nick)){
                 return s;
             }
         }
@@ -291,8 +291,8 @@ public class Game{
     public void conquerIsland(int index){
         IslandTileSet islandToConquer = islandList.getByIndex(index);
         int[] scores= new int[teams.size()];
-        Team team = null;
-        SchoolBoard tmp = null;
+        Team team;
+        SchoolBoard tmp;
         for (DiskColor c: DiskColor.values()) {
             tmp = professors[c.getValue()];
             if(tmp!= null){
@@ -304,7 +304,7 @@ public class Game{
             }
         }
         Team owner = islandToConquer.getOwningTeam();
-        if(owner!= null&&!(getActiveCharacterName()=="Centaur")){
+        if(owner!= null&&!(getActiveCharacterName().equals("Centaur"))){
             scores[teams.indexOf(owner)]+=islandToConquer.getNumOfIslands();
         }
         int winnerId = 0;
@@ -347,11 +347,7 @@ public class Game{
      * @throws Exception not pickable
      */
     public void playAssistant(Selectable assistant)throws Exception{
-        try {
-            getCurrentSchoolBoard().playAssistant((Assistant) assistant);
-        }catch (Exception e){
-            throw e;
-        }
+        getCurrentSchoolBoard().playAssistant((Assistant) assistant);
     }
 
     /**
@@ -395,7 +391,7 @@ public class Game{
                     owner = s;
                 }
             }else owner = s;
-
+            professors[student.getColor().getValue()]=owner;
         }else throw new NotValidSwap(); //Notify the player
     }
 
@@ -415,17 +411,17 @@ public class Game{
      *Method fillClouds is used to fill the clouds before the planning phase
      */
     public void fillClouds(){
-        Student student = null;
-        int studentsPerCloud = 0;
+        Student student;
+        int studentsPerCloud;
         if (numOfPlayers == 3){
             studentsPerCloud = 4;
 
         }else studentsPerCloud = 3;
 
-        for (int i=0; i<clouds.length; i++){
+        for (StudentDiskCollection cloud : clouds) {
             for (int j = 0; j < studentsPerCloud; j++) {
                 student = bag.draw();
-                clouds[i].insertElement(student);
+                cloud.insertElement(student);
             }
         }
     }
@@ -534,7 +530,7 @@ public class Game{
      */
     public void payCoins(int coinsUsed) throws NotPresent{
         int playerCoins = getCurrentSchoolBoard().getNumOfCoins();
-        Coin toBeMoved = null;
+        Coin toBeMoved;
         if(coinsUsed <= playerCoins){
             for(int i=0; i<coinsUsed; i++){
                 toBeMoved = getCurrentSchoolBoard().getFirstCoin();
@@ -594,7 +590,7 @@ public class Game{
     }
 
     public void removeStudentsFromRoomsByColor(DiskColor color){
-        int availableOfColor=0;
+        int availableOfColor;
         for (SchoolBoard s: turnOrder){
             availableOfColor = s.getStudentsInRoomByColor(color);
             for (int i=0; i< Math.min(availableOfColor, hagStudentsToRemove); i++){

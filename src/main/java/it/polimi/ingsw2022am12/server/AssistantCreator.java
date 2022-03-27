@@ -16,10 +16,10 @@ public abstract class AssistantCreator {
      *
      *
      * @param turnPower turnPower
-     * @throws Exception Invalid assistant number
+     * @throws NotValidAssistant Invalid assistant number
      *                        (If I use as an input turnPower < 1 || turnPower > 10)
      */
-    public static Assistant createAssistant(int turnPower) throws Exception {
+    public static Assistant createAssistant(int turnPower) throws NotValidAssistant {
         return switch (turnPower) {
             case 1 -> new Assistant(1, 1);
             case 2 -> new Assistant(2, 1);

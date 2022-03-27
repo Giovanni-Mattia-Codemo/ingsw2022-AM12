@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Assertions;
 public class GameTest {
 
     @Test
-    public void checkSetUp(){
+    public void checkSetUp() throws Exception {
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Pippo");
         nicks.add("Pluto");
@@ -19,9 +19,15 @@ public class GameTest {
         Assertions.assertEquals(8, testGame.getCurrentSchoolBoard().getTowersNumber());
         Assertions.assertEquals(3, testGame.getCloud(0).amount());
 
+
+
         nicks.add("Paperino");
         Game testGame1 = new Game(nicks);
+
+
         testGame1.setUp();
+
+
         Assertions.assertEquals(81, testGame1.getBag().amount());
         Assertions.assertEquals(6, testGame1.getCurrentSchoolBoard().getTowersNumber());
         Assertions.assertEquals(4, testGame1.getCloud(0).amount());

@@ -36,14 +36,10 @@ public class SchoolBoard{
     /**
      *Method setAssistants fills the schoolBoard's deck of assistants
      */
-    public void setAssistants() throws Exception {
+    public void setAssistants() throws  NotValidAssistant {
         for (int i = 1; i<= maxNumOfAssistantsInDeck; i++){
             Assistant tmp;
-            try{
-                tmp = AssistantCreator.createAssistant(i);
-            } catch (NotValidAssistant e) {
-                throw e;
-            }
+            tmp = AssistantCreator.createAssistant(i);
             assistants.add(tmp);
         }
     }
@@ -303,7 +299,8 @@ public class SchoolBoard{
     }
 
     public Student getFirstStudentOfColor(DiskColor color){
-        return diningRoom.getFirstStudentOfColor(color).get();
+
+        return diningRoom.getFirstStudentOfColor(color).isPresent()?diningRoom.getFirstStudentOfColor(color).get():null;
     }
 
     /**
