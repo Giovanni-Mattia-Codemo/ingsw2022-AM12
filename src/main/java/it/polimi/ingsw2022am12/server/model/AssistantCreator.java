@@ -14,9 +14,7 @@ public abstract class AssistantCreator {
     /**
      * Method returns the new Assistant card chosen. Each Assistant can have ONE value of turnPower
      *                                                       (Integer from 1 to 10)
-     *
-     *
-     * @param turnPower turnPower
+     *@param turnPower turnPower
      * @throws NotValidAssistant Invalid assistant number
      *                        (If I use as an input turnPower < 1 || turnPower > 10)
      */

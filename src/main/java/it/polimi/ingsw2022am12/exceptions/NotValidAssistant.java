@@ -1,7 +1,7 @@
 package it.polimi.ingsw2022am12.exceptions;
 
 /**
- * Class NotValidAssistant is thrown if AssistantCreator was given a wrong assistant number
+ * Class NotValidAssistant is thrown if AssistantCreator was given a wrong assistant number in input
  *
  * @see Exception
  */

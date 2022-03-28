@@ -1,7 +1,7 @@
 package it.polimi.ingsw2022am12.exceptions;
 
 /**
- * Class NotValidCharacter is thrown if CharacterCreator was given a wrong character number
+ * Class NotValidCharacter is thrown if CharacterCreator was given a wrong character number in input
  *
  * @see Exception
  */

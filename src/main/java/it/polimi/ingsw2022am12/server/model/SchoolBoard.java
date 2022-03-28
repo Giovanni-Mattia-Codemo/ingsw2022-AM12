@@ -16,9 +16,7 @@ public class SchoolBoard{
     private final StudentDiskCollection diningRoom;
     private final ArrayList<Assistant> assistants;
     private Assistant lastPlayedAssistant;
-    private final static int maxNumOfAssistantsInDeck = 10;
-    private final static int maxNumOfTowersForTwoOrFourPlayers = 8;
-    private final static int maxNumOfTowersForThreePlayers = 6;
+
 
     /**
      * Constructor method of SchoolBoard class
@@ -38,6 +36,8 @@ public class SchoolBoard{
      *Method setAssistants fills the schoolBoard's deck of assistants
      */
     public void setAssistants() throws  NotValidAssistant {
+
+        final int maxNumOfAssistantsInDeck = 10;
         for (int i = 1; i<= maxNumOfAssistantsInDeck; i++){
             Assistant tmp;
             tmp = AssistantCreator.createAssistant(i);
@@ -118,6 +118,10 @@ public class SchoolBoard{
      * @param team of the player
      */
     public void fillTowers(int numOfPlayers, Team team){
+
+        final int maxNumOfTowersForTwoOrFourPlayers = 8;
+        final int maxNumOfTowersForThreePlayers = 6;
+
         if(numOfPlayers ==2 || numOfPlayers == 4){
             if(team.getSchoolBoardWithTowers()==this){
                 for(int i=0; i<maxNumOfTowersForTwoOrFourPlayers; i++){

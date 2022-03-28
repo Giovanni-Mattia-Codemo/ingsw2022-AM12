@@ -7,12 +7,12 @@ public abstract class Character implements Selectable {
 
     private final String name;
     private int cost;
-    private final CoinCollection coin;
+    private final CoinCollection additionalCoins;
 
     public Character(String name, int cost){
         this.name = name;
         this.cost= cost;
-        coin= new CoinCollection();
+        additionalCoins = new CoinCollection();
     }
 
     /**
@@ -40,12 +40,12 @@ public abstract class Character implements Selectable {
      * @param coin to be inserted
      */
     public void insertCoin(Coin coin){
-        this.coin.insertElement(coin);
+        this.additionalCoins.insertElement(coin);
         cost++;
     }
 
     public boolean wasPayedBefore(){
-        return coin.size()==0;
+        return additionalCoins.size()==0;
     }
 
 

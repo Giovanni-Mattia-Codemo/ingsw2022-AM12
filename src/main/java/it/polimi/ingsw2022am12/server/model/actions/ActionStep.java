@@ -2,6 +2,7 @@ package it.polimi.ingsw2022am12.server.model.actions;
 
 /**
  * Class ActionStep contains the enumeration of the possible ActionStep
+ * (The actions/effect activations for each character require different inputs, symbolized by the "steps")
  */
 public enum ActionStep {
     NOTOK(0),

@@ -138,6 +138,12 @@ public class IslandTileList {
         }
     }
 
+    /**
+     * Method distanceFromMotherNature calculates Mother's Nature distance from a certain island
+     *
+     * @param islandTileSet the island of interest
+     * @return int "circular" distance from MotherNature to the selected Island (MotherNature must always be moved CLOCKWISE)
+     */
     public int distanceFromMotherNature(IslandTileSet islandTileSet){
         if (islands.indexOf(islandTileSet)>getMotherNatureIndex()) return islands.indexOf(islandTileSet)-getMotherNatureIndex();
         return (numOfIslandSets()-getMotherNatureIndex())+islands.indexOf(islandTileSet);

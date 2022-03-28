@@ -28,6 +28,7 @@ public class Game{
     private final ArrayList<Mage> mages;
     private final static int maxNumOfIslands = 12;
     private final static int hagStudentsToRemove = 3;
+    private final static int maxNumOfMages = 4;
 
     private int disksMovedThisTurn;
     private boolean hasMovedMotherNature;
@@ -43,7 +44,7 @@ public class Game{
     public Game(ArrayList<String> playerNicks){
 
         this.mages = new ArrayList<>();
-        for(int i=0; i<4; i++){
+        for(int i=0; i<maxNumOfMages; i++){
             this.mages.add(new Mage(i));
         }
 
@@ -106,19 +107,24 @@ public class Game{
 
         assignTeams();
 
+        final int numOfStudentsOfEachColorToPutInBagForSetup = 2;
+        final int remainingNumOfStudentsOfEachColorToCompleteSetUp = 24;
+        final int studentsInEntranceForThreePlayers = 9;
+        final int studentsInEntranceForTwoOrFourPlayers = 7;
+
         for (DiskColor c: DiskColor.values()){
-            for (int i = 0; i < 2; i++) {
-                Student tmp =new Student(c);
-                bag.insertElement(tmp);
+            for (int i = 0; i < numOfStudentsOfEachColorToPutInBagForSetup; i++) {
+                Student temporaryStudent =new Student(c);
+                bag.insertElement(temporaryStudent);
             }
         }
 
         fillIslands();
 
         for (DiskColor c: DiskColor.values()){
-            for (int i = 0; i < 24; i++) {
-                Student tmp =new Student(c);
-                bag.insertElement(tmp);
+            for (int i = 0; i < remainingNumOfStudentsOfEachColorToCompleteSetUp; i++) {
+                Student temporaryStudent = new Student(c);
+                bag.insertElement(temporaryStudent);
             }
         }
 
@@ -130,9 +136,9 @@ public class Game{
             Student student;
             int studentsInEntrance;
             if(numOfPlayers == 3){
-                studentsInEntrance =9;
+                studentsInEntrance = studentsInEntranceForThreePlayers;
             }else {
-                studentsInEntrance = 7;
+                studentsInEntrance = studentsInEntranceForTwoOrFourPlayers;
             }
             for(int i=0; i<studentsInEntrance; i++){
                 student = bag.draw();
@@ -158,7 +164,7 @@ public class Game{
     /**
      * Method only used for testing
      *
-     * @param i selected cloud
+     * @param i index of the selected cloud
      * @return cloud
      */
     public StudentDiskCollection getCloud(int i){
@@ -221,7 +227,7 @@ public class Game{
      * Method getSchoolBoardByNick is used to return the reference of the schoolBoard of a specific player given
      * them nickName
      *
-     * @param nick of the player
+     * @param nick of the player, which is a string
      * @return schoolBoard
      */
     public SchoolBoard getSchoolBoardByNick(String nick){
@@ -235,18 +241,19 @@ public class Game{
 
     /**
      * Method getSelectableClouds returns the list of type Selectable from which a player can choose what cloud
-     * they prefer taking
+     * they prefer taking; it checks all the clouds in the "clouds array", if the island is not empty already,
+     * meaning that somebody already chose it, it can be selected
      *
      * @return pickable clouds
      */
     public ArrayList<Selectable> getSelectableClouds(){
-        ArrayList<Selectable> tmp = new ArrayList<>();
+        ArrayList<Selectable> arrayOfPickableClouds = new ArrayList<>();
         for(int i=0; i<numOfPlayers; i++){
             if(!clouds[i].getAllStudents().isEmpty()){
-                tmp.add(clouds[i]);
+                arrayOfPickableClouds.add(clouds[i]);
             }
         }
-        return tmp;
+        return arrayOfPickableClouds;
     }
 
     /**
@@ -259,23 +266,30 @@ public class Game{
     }
 
     /**
-     * Method getIslandsInRange returns an ArrayList of type Selectable with the selectable islands given the
-     * assistant's card used
+     * Method getIslandsInRange returns an ArrayList of type Selectable with the selectable islands, contained in the range
+     * given by the assistant's card used
      *
      * @return pickable islands
      */
     public ArrayList<Selectable> getIslandsInRange(){
-        return new ArrayList<>(islandList.getIslandsInRange(getCurrentSchoolBoard().getLastPlayedAssistantRange()));
-    }
-
-    public String getActiveCharacterName(){
-        if (activeCharacter==null){
-            return null;
-        }else return activeCharacter.getName();
+        int possibleRange = getCurrentSchoolBoard().getLastPlayedAssistantRange();
+        return new ArrayList<>(islandList.getIslandsInRange(possibleRange));
     }
 
     /**
-     * Method getAvailableMages returns the list of mages that weren't already picked
+     * Method getActiveCharacterName returns a String with the name of the character that has been activated
+     * (it can also return null, if no character has been activated yet)
+     *
+     * @return name of the active character in the form of a string
+     */
+    public String getActiveCharacterName(){
+        if (activeCharacter==null){
+            return null;
+        } else return activeCharacter.getName();
+    }
+
+    /**
+     * Method getAvailableMages returns the list of mages that haven't been picked already
      *
      * @return ArrayList of mages not picked
      */
@@ -293,12 +307,12 @@ public class Game{
         IslandTileSet islandToConquer = islandList.getByIndex(index);
         int[] scores= new int[teams.size()];
         Team team;
-        SchoolBoard tmp;
+        SchoolBoard temporarySchoolBoard;
         for (DiskColor c: DiskColor.values()) {
-            tmp = professors[c.getValue()];
-            if(tmp!= null){
+            temporarySchoolBoard = professors[c.getValue()];
+            if(temporarySchoolBoard != null){
                 for (Team t :teams ) {
-                    if(t.getSchoolBoards().contains(tmp)){
+                    if(t.getSchoolBoards().contains(temporarySchoolBoard)){
                         scores[teams.indexOf(t)]+= islandToConquer.getIslandsStudentsOfColor(c);
                     }
                 }
@@ -348,7 +362,8 @@ public class Game{
      * @throws Exception not pickable
      */
     public void playAssistant(Selectable assistant)throws Exception{
-        getCurrentSchoolBoard().playAssistant((Assistant) assistant);
+        Assistant assistantToPlay = (Assistant) assistant;
+        getCurrentSchoolBoard().playAssistant(assistantToPlay);
     }
 
     /**
@@ -358,9 +373,10 @@ public class Game{
      * @param islandTileSet chosen
      */
     public void moveStudentFromEntranceToIsland(Selectable student, Selectable islandTileSet){
-        if(getCurrentSchoolBoard().getEntrance().contains((Student)student)){
-            getCurrentSchoolBoard().getEntrance().removeElement((Student) student);
-            ((IslandTileSet) islandTileSet).insertStudent((Student) student);
+        Student selectedStudent = (Student)student;
+        if(getCurrentSchoolBoard().getEntrance().contains(selectedStudent)){
+            getCurrentSchoolBoard().getEntrance().removeElement(selectedStudent);
+            ((IslandTileSet) islandTileSet).insertStudent(selectedStudent);
         }
     }
 
@@ -380,7 +396,7 @@ public class Game{
      *
      * @param selectableStudent to be moved
      */
-    public void moveStudentFromEntranceToRoom(Selectable selectableStudent)throws NotValidSwap{
+    public void moveStudentFromEntranceToRoom(Selectable selectableStudent) throws NotValidSwap{
         Student student = (Student) selectableStudent;
         SchoolBoard s = getCurrentSchoolBoard();
         if(s.checkMoveStudentFromEntranceToRoom(student)){
@@ -442,9 +458,12 @@ public class Game{
      * @return true if all the students were moved, false otherwise
      */
     public boolean movedAllDisksThisTurn(){
+        final int disksToMoveForThreePlayers = 4;
+        final int disksToMoveForTwoOrFourPlayers = 3;
+
         if(numOfPlayers==3){
-            return disksMovedThisTurn==4;
-        }return disksMovedThisTurn==3;
+            return disksMovedThisTurn==disksToMoveForThreePlayers;
+        }return disksMovedThisTurn==disksToMoveForTwoOrFourPlayers;
     }
 
     /**
@@ -505,7 +524,7 @@ public class Game{
      */
     public void nextTurn(){
         if(isLastTurn()){
-            turn=0;
+            turn=0;   //resets the turn count
         }else turn++;
     }
 
@@ -571,7 +590,12 @@ public class Game{
         return getSchoolBoardByNick(nick)==getCurrentSchoolBoard();
     }
 
-
+    /**
+     * Method payAndActivateCharacter is used to pay and activate the chosen character,
+     * it also increases the cost of the selected character by one
+     *
+     * @param character selected
+     */
     public void payAndActivateCharacter(Character character){
         if (characters.contains(character)){
             int cost =character.getCost();
@@ -590,6 +614,12 @@ public class Game{
         }
     }
 
+    /**
+     * Method needed after the activation of the "Hag" card; the method must remove up to three students of the chosen
+     * color from the DiningRoom of each player; the method also checks if there are less than three students available
+     *
+     * @param color chosen
+     */
     public void removeStudentsFromRoomsByColor(DiskColor color){
         int availableOfColor;
         for (SchoolBoard s: turnOrder){

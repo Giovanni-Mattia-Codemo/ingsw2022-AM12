@@ -9,7 +9,7 @@ public abstract class PlaceableObject {
     /**
      * "Getter" method
      *
-     * @return Position position
+     * @return Position the position of my PlaceableObject
      */
     public Position getPosition() {
         return position;
