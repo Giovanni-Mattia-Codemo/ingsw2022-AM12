@@ -23,7 +23,7 @@ public class IslandTileList {
         }
         Random rnd = new Random();
         int index = rnd.nextInt(numOfIslandsMAX);
-        motherNature = islands.get( index);
+        motherNature = islands.get(index);
     }
 
     /**

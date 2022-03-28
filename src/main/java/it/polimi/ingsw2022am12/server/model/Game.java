@@ -53,7 +53,7 @@ public class Game{
         this.numOfPlayers = playerNicks.size();
         this.freeCoins = new CoinCollection();
         for (int i=0; i<coinsTOTAL; i++){
-            Coin tmp= new Coin();
+            Coin tmp = new Coin();
             freeCoins.insertElement(tmp);
         }
         this.turnOrder= new ArrayList<>();
@@ -160,6 +160,24 @@ public class Game{
      */
     public Bag getBag(){
         return bag;
+    }
+
+    /**
+     * Method only used for testing
+     *
+     * @return IslandTileList
+     */
+    public IslandTileList getIslandList(){
+        return islandList;
+    }
+
+    /**
+     * Method only used for testing
+     *
+     * @return ArrayList turnOrder
+     */
+    public ArrayList<SchoolBoard> getTurnOrder(){
+        return turnOrder;
     }
 
     /**
@@ -390,8 +408,11 @@ public class Game{
      */
     public void drawFromCloud(Selectable cloud){
         int size = ((StudentDiskCollection)cloud).amount();
+        Student tmp;
         for(int i = 0; i<size; i++){
-            getCurrentSchoolBoard().insertToEntrance(((StudentDiskCollection)cloud).getByIndex(i));
+            tmp = ((StudentDiskCollection) cloud).getByIndex(0);
+            ((StudentDiskCollection) cloud).removeElement(tmp);
+            getCurrentSchoolBoard().insertToEntrance(tmp);
         }
     }
 
@@ -401,7 +422,7 @@ public class Game{
     public void fillIslands(){
         Student student;
         for (int i=0; i<maxNumOfIslands; i++){
-            if (i!= (islandList.getMotherNatureIndex()+6)%12){
+            if (i!=(islandList.getMotherNatureIndex()+6)%12&&i!=islandList.getMotherNatureIndex()){
                 student = bag.draw();
                 if(student != null){
                     islandList.getByIndex(i).insertStudent(student);
