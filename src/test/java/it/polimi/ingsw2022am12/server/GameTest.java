@@ -169,46 +169,38 @@ public class GameTest {
             e.printStackTrace();
         }
 
-        //Uncertain implementation//
-        /*SchoolBoard schoolBoard1 = testGame.getCurrentSchoolBoard();
-        Assistant testAssistant1 = schoolBoard1.getPlayableAssistants().get(1);
-        schoolBoard1.playAssistant(testAssistant1);
-         int turnPower1 = testGame.getCurrentSchoolBoard().getLastPlayedAssistantPower();
+        //Leaving SetupStrategy
+        testGame.endTurn();
+        testGame.endTurn();
+        //Entering PlanningStrategy
 
-
-         testGame.endTurn();
-         testGame.nextTurn();
-
-        SchoolBoard schoolBoard2 = testGame.getCurrentSchoolBoard();
-        Assistant testAssistant2 = schoolBoard2.getPlayableAssistants().get(4);
-        schoolBoard2.playAssistant(testAssistant2);
-        int turnPower2 = testGame.getCurrentSchoolBoard().getLastPlayedAssistantPower();
+        SchoolBoard schoolBoard1 = testGame.getCurrentSchoolBoard();
+        Assistant testAssistant1 = schoolBoard1.getPlayableAssistants().get(7);
+        try {
+            schoolBoard1.playAssistant(testAssistant1); //Known assistant value (==7)
+        } catch (NotPresent e) {
+            e.printStackTrace();
+        }
 
         testGame.endTurn();
-        testGame.nextTurn();
-        testGame.endRound();
 
-
-        testGame.correctOrder();
-
-        if(turnPower1>turnPower2) {
-            Assertions.assertEquals(testGame.getCurrentSchoolBoard(),schoolBoard2);
-            testGame.endTurn();
-            testGame.nextTurn();
-            Assertions.assertEquals(testGame.getCurrentSchoolBoard(),schoolBoard1);
+        SchoolBoard schoolBoard2 = testGame.getCurrentSchoolBoard();
+        Assistant testAssistant2 = schoolBoard2.getPlayableAssistants().get(1);
+        try {
+            schoolBoard2.playAssistant(testAssistant2); //Known assistant value (==1)
+        } catch (NotPresent e) {
+            e.printStackTrace();
         }
-        else {
-            Assertions.assertEquals(testGame.getCurrentSchoolBoard(),schoolBoard1);
-            testGame.endTurn();
-            testGame.nextTurn();
-            Assertions.assertEquals(testGame.getCurrentSchoolBoard(),schoolBoard2);
 
-        }*/
-        
+        testGame.endTurn();
+
+        Assertions.assertEquals(schoolBoard1, testGame.getTurnOrder().get(1));
+        Assertions.assertEquals(schoolBoard2, testGame.getTurnOrder().get(0));
+
     }
 
     @Test
-    public void checkPayCoins() {
+    public void checkPayAndCollectCoin() {
 
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Nick1");
@@ -220,45 +212,26 @@ public class GameTest {
             e.printStackTrace();
         }
 
-        Coin newCoin1 = new Coin();
-        Coin newCoin2 = new Coin();
-        testGame.getCurrentSchoolBoard().getCoins().insertElement(newCoin1);
-        testGame.getCurrentSchoolBoard().getCoins().insertElement(newCoin2);
+        Assertions.assertEquals(20, testGame.getFreeCoins().size());
+
+        try {
+            testGame.collectCoin();
+            testGame.collectCoin();
+        } catch (NotPresent e) {
+            e.printStackTrace();
+        }
+
+        Assertions.assertEquals(18, testGame.getFreeCoins().size());
 
         try {
             testGame.payCoins(1);
         } catch (NotPresent e) {
             e.printStackTrace();
-
-            Assertions.assertEquals(1, testGame.getCurrentSchoolBoard().getNumOfCoins());
-
-
-        }
-    }
-
-    @Test
-    public void checkCollectCoin() {
-
-            ArrayList<String> nicks = new ArrayList<>();
-            nicks.add("Nick1");
-            nicks.add("Nick2");
-            Game testGame = new Game(nicks);
-            try {
-                testGame.setUp();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            try {
-                testGame.collectCoin();
-            } catch (NotPresent e) {
-                e.printStackTrace();
-            }
-
-            Assertions.assertEquals(19, testGame.getFreeCoins().size());
         }
 
-
-
+        Assertions.assertEquals(1, testGame.getCurrentSchoolBoard().getNumOfCoins());
+        Assertions.assertEquals(19, testGame.getFreeCoins().size());
     }
+
+}
 

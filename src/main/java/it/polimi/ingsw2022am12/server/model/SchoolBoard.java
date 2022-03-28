@@ -76,15 +76,6 @@ public class SchoolBoard{
     }
 
     /**
-     * Method getCoins returns the coins of the player
-     *
-     * @return CoinCollection
-     */
-    public CoinCollection getCoins(){
-        return coins;
-    }
-
-    /**
      * Method getTowersNumber returns the number of towers present on the selected SchoolBoard
      *
      * @return int number of towers
