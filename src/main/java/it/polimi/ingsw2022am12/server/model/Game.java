@@ -165,6 +165,16 @@ public class Game{
     /**
      * Method only used for testing
      *
+     * @return CoinCollection
+     */
+    public CoinCollection getFreeCoins(){
+        return freeCoins;
+    }
+
+
+    /**
+     * Method only used for testing
+     *
      * @return IslandTileList
      */
     public IslandTileList getIslandList(){

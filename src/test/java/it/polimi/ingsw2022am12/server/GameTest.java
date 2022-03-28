@@ -1,5 +1,6 @@
 package it.polimi.ingsw2022am12.server;
 
+import it.polimi.ingsw2022am12.exceptions.NotPresent;
 import it.polimi.ingsw2022am12.exceptions.NotValidSwap;
 import it.polimi.ingsw2022am12.server.model.*;
 import org.junit.jupiter.api.Test;
@@ -157,16 +158,107 @@ public class GameTest {
 
     @Test
     public void checkCorrectOrder(){
+
+        ArrayList<String> nicks = new ArrayList<>();
+        nicks.add("Nick1");
+        nicks.add("Nick2");
+        Game testGame = new Game(nicks);
+        try {
+            testGame.setUp();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //Uncertain implementation//
+        /*SchoolBoard schoolBoard1 = testGame.getCurrentSchoolBoard();
+        Assistant testAssistant1 = schoolBoard1.getPlayableAssistants().get(1);
+        schoolBoard1.playAssistant(testAssistant1);
+         int turnPower1 = testGame.getCurrentSchoolBoard().getLastPlayedAssistantPower();
+
+
+         testGame.endTurn();
+         testGame.nextTurn();
+
+        SchoolBoard schoolBoard2 = testGame.getCurrentSchoolBoard();
+        Assistant testAssistant2 = schoolBoard2.getPlayableAssistants().get(4);
+        schoolBoard2.playAssistant(testAssistant2);
+        int turnPower2 = testGame.getCurrentSchoolBoard().getLastPlayedAssistantPower();
+
+        testGame.endTurn();
+        testGame.nextTurn();
+        testGame.endRound();
+
+
+        testGame.correctOrder();
+
+        if(turnPower1>turnPower2) {
+            Assertions.assertEquals(testGame.getCurrentSchoolBoard(),schoolBoard2);
+            testGame.endTurn();
+            testGame.nextTurn();
+            Assertions.assertEquals(testGame.getCurrentSchoolBoard(),schoolBoard1);
+        }
+        else {
+            Assertions.assertEquals(testGame.getCurrentSchoolBoard(),schoolBoard1);
+            testGame.endTurn();
+            testGame.nextTurn();
+            Assertions.assertEquals(testGame.getCurrentSchoolBoard(),schoolBoard2);
+
+        }*/
         
     }
 
     @Test
-    public void checkPayCoins(){
+    public void checkPayCoins() {
 
+        ArrayList<String> nicks = new ArrayList<>();
+        nicks.add("Nick1");
+        nicks.add("Nick2");
+        Game testGame = new Game(nicks);
+        try {
+            testGame.setUp();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Coin newCoin1 = new Coin();
+        Coin newCoin2 = new Coin();
+        testGame.getCurrentSchoolBoard().getCoins().insertElement(newCoin1);
+        testGame.getCurrentSchoolBoard().getCoins().insertElement(newCoin2);
+
+        try {
+            testGame.payCoins(1);
+        } catch (NotPresent e) {
+            e.printStackTrace();
+
+            Assertions.assertEquals(1, testGame.getCurrentSchoolBoard().getNumOfCoins());
+
+
+        }
     }
 
     @Test
-    public void checkCollectCoin(){
+    public void checkCollectCoin() {
+
+            ArrayList<String> nicks = new ArrayList<>();
+            nicks.add("Nick1");
+            nicks.add("Nick2");
+            Game testGame = new Game(nicks);
+            try {
+                testGame.setUp();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                testGame.collectCoin();
+            } catch (NotPresent e) {
+                e.printStackTrace();
+            }
+
+            Assertions.assertEquals(19, testGame.getFreeCoins().size());
+        }
+
+
 
     }
-}
+
