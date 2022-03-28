@@ -4,6 +4,9 @@ import it.polimi.ingsw2022am12.server.model.actions.ActionStep;
 
 import java.util.ArrayList;
 
+/**
+ * Abstract class PossibleAction defines the type of every possible action a player can do during the game
+ */
 public abstract class PossibleAction {
 
     private final int requiredInputs; //number of inputs required to fully use the power of a character

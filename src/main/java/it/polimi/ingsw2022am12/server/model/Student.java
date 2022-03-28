@@ -1,17 +1,16 @@
 package it.polimi.ingsw2022am12.server.model;
 
-import it.polimi.ingsw2022am12.server.model.DiskColor;
-import it.polimi.ingsw2022am12.server.model.PlaceableObject;
-import it.polimi.ingsw2022am12.server.model.Selectable;
-
+/**
+ * Class Student defines a student disk
+ */
 public class Student extends PlaceableObject implements Selectable {
 
     private final DiskColor  color;
 
     /**
      * Constructor of Student sets the color of the Student and its initial position
+     *
      * @param color of the student
-
      */
     public Student(DiskColor color){
 
@@ -28,7 +27,11 @@ public class Student extends PlaceableObject implements Selectable {
         return this.color;
     }
 
-    @Override
+    /**
+     * Method getSelectableType returns the name of the Selectable type
+     *
+     * @return String Student
+     */
     public String getSelectableType() {
         return "Student";
     }

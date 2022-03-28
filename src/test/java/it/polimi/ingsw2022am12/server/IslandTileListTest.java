@@ -38,7 +38,6 @@ public class IslandTileListTest {
     public void checkCheckAndMerge(){
         IslandTileList islandTileList = new IslandTileList();
         int startNumOfIslands = islandTileList.numOfIslandSets();
-        int startingSize = islandTileList.numOfIslandSets();
         Team team = new Team();
         SchoolBoard testSchool = new SchoolBoard("name");
         team.addSchoolBoard(testSchool);

@@ -4,11 +4,14 @@ import it.polimi.ingsw2022am12.exceptions.NotPresent;
 
 import java.util.ArrayList;
 
+/**
+ * Class IslandTileSet defines a single island or the aggregation of more islands
+ */
 public class IslandTileSet implements Selectable {
 
     private final StudentDiskCollection students;
     private final NoEntryCollection noEntries;
-    private int numOfIslands;       //number of islands present in this set
+    private int numOfIslandsInThisSet;
     private final TowerCollection towers;
 
     /**
@@ -18,7 +21,7 @@ public class IslandTileSet implements Selectable {
         this.students = new StudentDiskCollection();
         this.noEntries = new NoEntryCollection();
         this.towers = new TowerCollection();
-        this.numOfIslands = 1;
+        this.numOfIslandsInThisSet = 1;
     }
 
     /**
@@ -26,15 +29,15 @@ public class IslandTileSet implements Selectable {
      *
      * @return numOfIslands
      */
-    public int getNumOfIslands() {
-        return numOfIslands;
+    public int getNumOfIslandsInThisSet() {
+        return numOfIslandsInThisSet;
     }
 
     /**
      * Method addIsland increments the attribute numOfIslands by the number of new connected islands
      */
     public void addIsland(int numOfIslands){
-        this.numOfIslands+=numOfIslands;
+        this.numOfIslandsInThisSet +=numOfIslands;
     }
 
     /**
@@ -188,7 +191,11 @@ public class IslandTileSet implements Selectable {
         else return null;
     }
 
-    @Override
+    /**
+     * Method getSelectableType returns the name of the Selectable type
+     *
+     * @return String IslandTileSet
+     */
     public String getSelectableType() {
         return "IslandTileSet";
     }

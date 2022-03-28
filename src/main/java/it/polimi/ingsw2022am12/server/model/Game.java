@@ -68,15 +68,16 @@ public class Game{
         this.professors = new SchoolBoard[5];
     }
 
+    /**
+     * Method assignTeams assigns to each schoolBoard in turnOrder a team
+     */
     public void assignTeams(){
         if(numOfPlayers==2){
             for(int i = 0; i<numOfPlayers; i++){
                 String s = playerNicks.get(i);
                 teams.add(new Team());
-
                 turnOrder.add(new SchoolBoard(s));
                 teams.get(i).addSchoolBoard(turnOrder.get(i));
-
             }
         }else if(numOfPlayers==3){
             for(String s: playerNicks){
@@ -174,46 +175,6 @@ public class Game{
     }
 
     /**
-     * Method checkIfIslandInRange checks if an island is reachable by a player
-     *
-     * @param island to check
-     * @return true if the selected island is reachable, false otherwise
-     */
-    public boolean checkIfIslandInRange(IslandTileSet island){
-        int range=getCurrentSchoolBoard().getLastPlayedAssistantRange();
-        if(getActiveCharacterName().equals("Beggar") ){
-            range+=2;
-        }
-        return islandList.distanceFromMotherNature(island) <= range;
-    }
-
-
-    /**
-     * Method selectMage is used from a player to pick a mage
-     *
-     * @param mageId ID
-     *
-     */
-    public void selectMage(Mage mageId){
-        getCurrentSchoolBoard().setMage(mageId);
-    }
-
-    /**
-     * Method fillIslands is used in the setup method to fill the islands following the setup rules of the game
-     */
-    public void fillIslands(){
-        Student student;
-        for (int i=0; i<maxNumOfIslands; i++){
-            if (i!= (islandList.getMotherNatureIndex()+6)%12){
-                student = bag.draw();
-                if(student != null){
-                    islandList.getByIndex(i).insertStudent(student);
-                }
-            }
-        }
-    }
-
-    /**
      * Method getStudentsInEntranceOfCurrentTurn returns a list of type Selectable with the students the current player
      * can move from them entrance in his turn
      *
@@ -298,6 +259,16 @@ public class Game{
     }
 
     /**
+     * Method selectMage is used from a player to pick a mage
+     *
+     * @param mageId ID
+     *
+     */
+    public void selectMage(Mage mageId){
+        getCurrentSchoolBoard().setMage(mageId);
+    }
+
+    /**
      * Method conquerIsland is called when motherNature stops on an island to check if it can be conquered.
      * It is also used when a character card is called upon a specific island.
      *
@@ -320,7 +291,7 @@ public class Game{
         }
         Team owner = islandToConquer.getOwningTeam();
         if(owner!= null&&!(getActiveCharacterName().equals("Centaur"))){
-            scores[teams.indexOf(owner)]+=islandToConquer.getNumOfIslands();
+            scores[teams.indexOf(owner)]+=islandToConquer.getNumOfIslandsInThisSet();
         }
         int winnerId = 0;
         boolean tie = false;
@@ -341,7 +312,7 @@ public class Game{
                     t.getTeam().getSchoolBoardWithTowers().insertTower(t);
                 }
 
-                for(int i=0; i<islandToConquer.getNumOfIslands(); i++){
+                for(int i = 0; i<islandToConquer.getNumOfIslandsInThisSet(); i++){
                     Tower towerToMove = team.getSchoolBoardWithTowers().getFirstTower();
                     islandToConquer.insertTower(towerToMove);
                     try{
@@ -425,6 +396,21 @@ public class Game{
     }
 
     /**
+     * Method fillIslands is used in the setup method to fill the islands following the setup rules of the game
+     */
+    public void fillIslands(){
+        Student student;
+        for (int i=0; i<maxNumOfIslands; i++){
+            if (i!= (islandList.getMotherNatureIndex()+6)%12){
+                student = bag.draw();
+                if(student != null){
+                    islandList.getByIndex(i).insertStudent(student);
+                }
+            }
+        }
+    }
+
+    /**
      *Method fillClouds is used to fill the clouds before the planning phase
      */
     public void fillClouds(){
@@ -441,6 +427,20 @@ public class Game{
                 cloud.insertElement(student);
             }
         }
+    }
+
+    /**
+     * Method checkIfIslandInRange checks if an island is reachable by a player
+     *
+     * @param island to check
+     * @return true if the selected island is reachable, false otherwise
+     */
+    public boolean checkIfIslandInRange(IslandTileSet island){
+        int range=getCurrentSchoolBoard().getLastPlayedAssistantRange();
+        if(getActiveCharacterName().equals("Beggar") ){
+            range+=2;
+        }
+        return islandList.distanceFromMotherNature(island) <= range;
     }
 
     /**
@@ -569,6 +569,7 @@ public class Game{
             freeCoins.removeElement(toBeMoved);
             getCurrentSchoolBoard().insertCoin(toBeMoved);
         }else throw new NotPresent(); //No more coins available (notify player)
+
     }
 
     /**

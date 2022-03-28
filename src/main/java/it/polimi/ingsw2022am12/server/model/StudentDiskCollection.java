@@ -103,7 +103,6 @@ public class StudentDiskCollection implements Position, Selectable {
      * @param o Student to be checked
      * @return true if present, false otherwise
      */
-    @Override
     public boolean contains(PlaceableObject o){
         return students.contains(o);
     }
@@ -113,7 +112,6 @@ public class StudentDiskCollection implements Position, Selectable {
      *
      * @return String with type name
      */
-    @Override
     public String getSelectableType() {
         return "StudentDiskCollection";
     }

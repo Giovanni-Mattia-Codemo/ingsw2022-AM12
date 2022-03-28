@@ -6,6 +6,9 @@ import it.polimi.ingsw2022am12.exceptions.NotValidSwap;
 
 import java.util.ArrayList;
 
+/**
+ * Class SchoolBoard defines the schoolBoard of a player
+ */
 public class SchoolBoard{
 
     private final CoinCollection coins;
@@ -46,21 +49,21 @@ public class SchoolBoard{
     }
 
     /**
-     * Method getNick is the getter method for String nick
-     *
-     * @return String nickname
-     */
-    public String getNick(){
-        return nick;
-    }
-
-    /**
      * Method setMage is used to set the selected mage
      *
      * @param mage to be set
      */
     public void setMage(Mage mage){
         this.mage = mage;
+    }
+
+    /**
+     * Method getNick is the getter method for String nick
+     *
+     * @return String nickname
+     */
+    public String getNick(){
+        return nick;
     }
 
     /**
@@ -144,6 +147,15 @@ public class SchoolBoard{
     }
 
     /**
+     * Method getFirstCoin returns the reference to the first coin in the CoinCollection coins
+     *
+     * @return coin
+     */
+    public Coin getFirstCoin(){
+        return coins.getFirstCoin();
+    }
+
+    /**
      * Method insertCoin adds a Coin to the collection of coins
      *
      * @param coin to be added
@@ -162,15 +174,6 @@ public class SchoolBoard{
         if(coins.contains(coin))
             coins.removeElement(coin);
         else throw new NotPresent();
-    }
-
-    /**
-     * Method getFirstCoin returns the reference to the first coin in the CoinCollection coins
-     *
-     * @return coin
-     */
-    public Coin getFirstCoin(){
-        return coins.getFirstCoin();
     }
 
     /**
@@ -303,8 +306,13 @@ public class SchoolBoard{
         }else throw new NotPresent();
     }
 
+    /**
+     * Method getFirstStudentOfColor returns the first Student of a specific color contained in the list of students
+     *
+     * @param color wanted
+     * @return Student of a specific color
+     */
     public Student getFirstStudentOfColor(DiskColor color){
-
         return diningRoom.getFirstStudentOfColor(color).isPresent()?diningRoom.getFirstStudentOfColor(color).get():null;
     }
 

@@ -10,7 +10,7 @@ public class Bag extends StudentDiskCollection {
     /**
      * Method draw returns a student from the bag if there's at least one left (Hence amount()>0), else returns null
      * The draw implements the Random library to generate a pseudorandom index, which corresponds to the "random" student
-     *  I've drawn from the bag; the student drawn from the bag is then removed from it
+     * I've drawn from the bag; the student drawn from the bag is then removed from it
      *
      * @return Student
      */
@@ -21,7 +21,6 @@ public class Bag extends StudentDiskCollection {
                 this.removeElement(temporaryStudent);
                 return temporaryStudent;
             }
-
             return null;
     }
 }

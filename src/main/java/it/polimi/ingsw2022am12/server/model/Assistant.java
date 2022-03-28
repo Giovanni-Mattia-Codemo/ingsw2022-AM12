@@ -1,7 +1,8 @@
 package it.polimi.ingsw2022am12.server.model;
 
 /**
- * Class that defines the properties of an Assistant card, which is characterized by TWO unique numbers (different for every Assistant)
+ * Class that defines the properties of an Assistant card, which is characterized by TWO unique numbers
+ * (different for every Assistant)
  */
 
 public class Assistant implements Selectable {
@@ -46,14 +47,18 @@ public class Assistant implements Selectable {
     }
 
     /**
+     * Method getSelectableType returns the name of the Selectable type
+     *
+     * @return String Assistant
+     */
+    public String getSelectableType() {
+        return "Assistant";
+    }
+
+    /**
      * Method printAssistantPower prints on the screen the value of assistant's turnPower
      */
     public void printAssistantPower(){
         System.out.println(getTurnPower());
-    }
-
-    @Override
-    public String getSelectableType() {
-        return "Assistant";
     }
 }

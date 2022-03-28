@@ -10,7 +10,4 @@ public class InputHandler {
     private ArrayList<Selectable> selected;
 
 
-
-
-
 }

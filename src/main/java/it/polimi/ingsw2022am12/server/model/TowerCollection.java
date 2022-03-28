@@ -51,7 +51,6 @@ public class TowerCollection implements Position {
      *
      * @param o PlaceableObject to be removed
      */
-    @Override
     public void removeElement(PlaceableObject o) {
         try{towers.remove((Tower) o);
         }catch (ClassCastException e) {
@@ -65,7 +64,6 @@ public class TowerCollection implements Position {
      *
      * @param o PlaceableObject to be inserted
      */
-    @Override
     public void insertElement(PlaceableObject o) {
         try{towers.add((Tower) o);
             o.setPosition(this);
@@ -80,7 +78,6 @@ public class TowerCollection implements Position {
      * @param o object to be checked
      * @return true if present, false otherwise
      */
-    @Override
     public boolean contains(PlaceableObject o){
         return towers.contains(o);
     }

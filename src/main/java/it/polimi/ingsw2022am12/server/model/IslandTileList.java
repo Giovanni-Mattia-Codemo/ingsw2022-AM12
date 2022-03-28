@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 
+/**
+ * Class IslandTileList defines the collection of IslandTileSet remaining in the game
+ */
 public class IslandTileList {
 
     private final ArrayList<IslandTileSet> islands;
@@ -22,8 +25,6 @@ public class IslandTileList {
         int index = rnd.nextInt(numOfIslandsMAX);
         motherNature = islands.get( index);
     }
-
-
 
     /**
      * Method moveMotherNature changes the position of motherNature

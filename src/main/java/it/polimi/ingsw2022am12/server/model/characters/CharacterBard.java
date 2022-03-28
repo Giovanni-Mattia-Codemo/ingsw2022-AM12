@@ -9,14 +9,12 @@ import java.util.ArrayList;
 
 public class CharacterBard extends Character {
     //swap students in entrance and room upto 2 times
+    private int swapsDone;
+    private ArrayList<Selectable> selected;
 
     public CharacterBard(){
         super("Bard", 1);
     }
-
-    private int swapsDone;
-    private ArrayList<Selectable> selected;
-
 
     @Override
     public PossibleAction activate() {

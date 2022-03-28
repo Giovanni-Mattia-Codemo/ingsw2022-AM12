@@ -49,7 +49,6 @@ public class NoEntryCollection implements Position {
      *
      * @param o PlaceableObject to be removed
      */
-    @Override
     public void removeElement(PlaceableObject o) {
         try{noEntries.remove((NoEntry) o);
         }catch (ClassCastException e) {
@@ -64,7 +63,6 @@ public class NoEntryCollection implements Position {
      *
      * @param o PlaceableObject to be inserted
      */
-    @Override
     public void insertElement(PlaceableObject o) {
         try{noEntries.add((NoEntry) o);
             o.setPosition(this);
@@ -79,7 +77,6 @@ public class NoEntryCollection implements Position {
      * @param o object passed to the method
      * @return true if present, false otherwise
      */
-    @Override
     public boolean contains(PlaceableObject o){
         return noEntries.contains(o);
     }

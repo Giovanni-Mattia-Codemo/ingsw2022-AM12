@@ -16,7 +16,11 @@ public class Mage implements Selectable {
         ID = id;
     }
 
-    @Override
+    /**
+     * Method getSelectableType returns the name of the Selectable type
+     *
+     * @return String Mage
+     */
     public String getSelectableType() {
         return "Mage";
     }

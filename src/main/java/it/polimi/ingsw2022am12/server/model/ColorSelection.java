@@ -1,17 +1,35 @@
 package it.polimi.ingsw2022am12.server.model;
 
+/**
+ * Class ColorSelection is used to identify the specific color of a Selectable type object
+ */
 public class ColorSelection implements Selectable {
 
     private final DiskColor color;
 
+    /**
+     * Constructor method of the class. Sets the color of the Selectable type
+     *
+     * @param color of the Selectable
+     */
     public ColorSelection(DiskColor color){
         this.color = color;
     }
 
+    /**
+     * Method getColor returns the DiskColor attribute of the class
+     *
+     * @return DiskColor color
+     */
     public DiskColor getColor(){
        return this.color;
     }
 
+    /**
+     * Method getSelectableType returns the String name of the Selectable type
+     *
+     * @return String Color
+     */
     @Override
     public String getSelectableType() {
         return "Color";

@@ -9,6 +9,13 @@ public abstract class Character implements Selectable {
     private int cost;
     private final CoinCollection additionalCoins;
 
+    /**
+     * Constructor method of the Character's class. Assigns the name to the Selectable type, assigns the first
+     * cost of the character and creates a new CoinCollection
+     *
+     * @param name of the Selectable type
+     * @param cost of the character (initial value)
+     */
     public Character(String name, int cost){
         this.name = name;
         this.cost= cost;
@@ -34,6 +41,15 @@ public abstract class Character implements Selectable {
     }
 
     /**
+     * Method getSelectableType returns the name of the Selectable type
+     *
+     * @return String Character
+     */
+    public String getSelectableType() {
+        return "Character";
+    }
+
+    /**
      * Method insertCoin takes a coin from the freeCoins and places it on the Character card and increases the
      * cost of the card by one
      *
@@ -44,20 +60,18 @@ public abstract class Character implements Selectable {
         cost++;
     }
 
+    /**
+     * Method wasPlayedBefore tells if it's the first use of the character
+     *
+     * @return true if it's the first use of the character, false otherwise
+     */
     public boolean wasPayedBefore(){
         return additionalCoins.size()==0;
     }
 
-
+    //To be implemented
     public PossibleAction activate(){
         return null;
     }
-
-
-    public String getSelectableType() {
-        return "Character";
-    }
-
-
 
 }

@@ -49,7 +49,6 @@ public class CoinCollection implements Position {
      *
      * @param o PlaceableObject to be removed
      */
-    @Override
     public void removeElement(PlaceableObject o) {
         try{coins.remove((Coin) o);
         }catch (ClassCastException e) {
@@ -64,7 +63,6 @@ public class CoinCollection implements Position {
      *
      * @param o PlaceableObject to be inserted
      */
-    @Override
     public void insertElement(PlaceableObject o) {
         try{coins.add((Coin) o);
             o.setPosition(this);
@@ -79,7 +77,6 @@ public class CoinCollection implements Position {
      * @param o object to be checked
      * @return true if present, false otherwise
      */
-    @Override
     public boolean contains(PlaceableObject o){
         return coins.contains(o);
     }
