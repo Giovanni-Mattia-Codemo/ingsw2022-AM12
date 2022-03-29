@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 public class HagAction extends PossibleAction {
     private DiskColor selection;
-    public HagAction(int cost){
-        super(cost);
+    public HagAction(){
+        super(1);
     }
 
     @Override

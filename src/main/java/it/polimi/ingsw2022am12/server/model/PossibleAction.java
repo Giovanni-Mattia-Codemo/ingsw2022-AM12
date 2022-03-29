@@ -15,9 +15,8 @@ public abstract class PossibleAction {
     /**
      * "Constructor" Method of PossibleAction class
      */
-    public PossibleAction(int numOfNeededInputs){
-        this.requiredInputs= numOfNeededInputs;
-
+    public PossibleAction(int numOfActions){
+        this.requiredInputs = numOfActions;
     }
 
     /**

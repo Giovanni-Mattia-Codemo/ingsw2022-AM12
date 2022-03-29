@@ -3,11 +3,12 @@ package it.polimi.ingsw2022am12.server.model;
 /**
  * Class Character defines the main properties of a Character card
  */
-public abstract class Character implements Selectable {
+public abstract class CharacterCard implements Selectable {
 
     private final String name;
     private int cost;
     private final CoinCollection additionalCoins;
+    private boolean wasUsed;
 
     /**
      * Constructor method of the Character's class. Assigns the name to the Selectable type, assigns the first
@@ -16,7 +17,7 @@ public abstract class Character implements Selectable {
      * @param name of the Selectable type
      * @param cost of the character (initial value)
      */
-    public Character(String name, int cost){
+    public CharacterCard(String name, int cost){
         this.name = name;
         this.cost= cost;
         additionalCoins = new CoinCollection();
@@ -69,8 +70,11 @@ public abstract class Character implements Selectable {
         return additionalCoins.size()==0;
     }
 
-    //To be implemented
-    public PossibleAction activate(){
+    public void setWasUsed(boolean isUsed){
+        wasUsed = isUsed;
+    }
+
+    public PossibleAction getPossibleAction(){
         return null;
     }
 

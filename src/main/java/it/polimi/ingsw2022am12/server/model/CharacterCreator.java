@@ -17,7 +17,7 @@ public abstract class CharacterCreator {
      *@throws NotValidCharacter Invalid character number
      *
      */
-    public static Character createCharacter(int numOfCharacter) throws Exception {
+    public static CharacterCard createCharacter(int numOfCharacter) throws Exception {
         return switch (numOfCharacter) {
             case 0 -> new CharacterMonk();
             case 1 -> new CharacterBeggar();

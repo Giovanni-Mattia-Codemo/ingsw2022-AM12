@@ -15,7 +15,7 @@ public class Game{
     private final static int coinsTOTAL = 20;
     private final ArrayList<String> playerNicks;
     private final int numOfPlayers;
-    private int round;
+    private int round = 1;
     private int turn;
     private final CoinCollection freeCoins;
     private final ArrayList<SchoolBoard> turnOrder;
@@ -33,8 +33,8 @@ public class Game{
     private int disksMovedThisTurn;
     private boolean hasMovedMotherNature;
 
-    private ArrayList<Character> characters;
-    private Character activeCharacter;
+    private ArrayList<CharacterCard> characterCards;
+    private CharacterCard activeCharacterCard;
 
     /**
      * Constructor method of the class
@@ -203,6 +203,15 @@ public class Game{
     }
 
     /**
+     * Getter method for isLastRoundFlag
+     *
+     * @return isLastRoundFlag
+     */
+    public boolean getIsLastRoundFlag(){
+        return isLastRoundFlag;
+    }
+
+    /**
      * Method getStudentsInEntranceOfCurrentTurn returns a list of type Selectable with the students the current player
      * can move from them entrance in his turn
      *
@@ -211,6 +220,33 @@ public class Game{
     public ArrayList<Selectable> getStudentsInEntranceOfCurrentTurn(){
         return new ArrayList<>(turnOrder.get(turn).getEntrance().getAllStudents());
     }
+
+    /**
+     * Method getActivatableCharacters returns an ArrayList of type Character with the playable characters
+     * by the current player
+     *
+     * @return ArrayList<Character>
+     */
+    public ArrayList<CharacterCard> getActivatableCharacters(){
+        ArrayList<CharacterCard> result = new ArrayList<>();
+        for (CharacterCard c: characterCards) {
+            if(c.getCost()<=getCurrentSchoolBoard().getNumOfCoins()){
+                result.add(c);
+            }
+        }
+        return result;
+
+    }
+
+    /**
+     * Getter method for activeCharacterCard
+     *
+     * @return activeCharacterCard
+     */
+    public CharacterCard getActiveCharacterCard(){
+        return activeCharacterCard;
+    }
+
 
     /**
      * Method getSchoolBoardByNick is used to return the reference of the schoolBoard of a specific player given
@@ -272,9 +308,9 @@ public class Game{
      * @return name of the active character in the form of a string
      */
     public String getActiveCharacterName(){
-        if (activeCharacter==null){
+        if (activeCharacterCard ==null){
             return null;
-        } else return activeCharacter.getName();
+        } else return activeCharacterCard.getName();
     }
 
     /**
@@ -402,13 +438,52 @@ public class Game{
             s.moveStudentFromEntranceToRoom(student);
 
             SchoolBoard owner = professors[student.getColor().getValue()];
-            if(owner!= null) {
-                if (owner.getStudentsInRoomByColor(student.getColor()) < s.getStudentsInRoomByColor(student.getColor())) {
+            if(owner!= null&&getActiveCharacterName()=="Host") {
+                if (owner.getStudentsInRoomByColor(student.getColor()) <= s.getStudentsInRoomByColor(student.getColor())) {
                     owner = s;
+                }
+            }else if(owner!= null) {
+                if (owner.getStudentsInRoomByColor(student.getColor()) < s.getStudentsInRoomByColor(student.getColor())) {
+                        owner = s;
                 }
             }else owner = s;
             professors[student.getColor().getValue()]=owner;
         }else throw new NotValidSwap(); //Notify the player
+    }
+
+    public void insertNoEntry(IslandTileSet destination, NoEntry noEntry){
+        noEntry.getCharacterNoEntryCollection().removeElement(noEntry);
+        destination.insertNoEntries(noEntry);
+    }
+
+    public void jesterSwap(Student s0, Student s1){
+        CharacterJester jester =((CharacterJester)getActiveCharacterCard());
+
+        if(jester.containsStudent(s0)&&getCurrentSchoolBoard().getEntrance().contains(s1)){
+            jester.getStudents().removeElement(s0);
+            getCurrentSchoolBoard().getEntrance().removeElement(s1);
+            jester.getStudents().insertElement(s1);
+            getCurrentSchoolBoard().getEntrance().insertElement(s0);
+        }else if(jester.containsStudent(s1)&&getCurrentSchoolBoard().getEntrance().contains(s0)){
+            jester.getStudents().removeElement(s1);
+            getCurrentSchoolBoard().getEntrance().removeElement(s0);
+            jester.getStudents().insertElement(s0);
+            getCurrentSchoolBoard().getEntrance().insertElement(s1);
+        }
+    }
+
+    /**
+     * Method swapStudents calls the method swapStudents in the current player schoolBoard
+     *
+     * @param s0 First Student to swap
+     * @param s1 Second student to swap
+     */
+    public void swapStudents(Student s0, Student s1){
+        try {
+            getCurrentSchoolBoard().swapStudents(s0, s1);
+        } catch (NotValidSwap e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -533,7 +608,7 @@ public class Game{
     }
 
     /**
-     * Method notifyPlayer sends a feedbackk to the player
+     * Method notifyPlayer sends a feedback to the player
      *
      * @param nick of the player
      */
@@ -548,6 +623,25 @@ public class Game{
      */
     public void changePhase(PhaseStrategy nextStrategy){
         currentStrategy = nextStrategy;
+    }
+
+    /**
+     * Method endGame finds who
+     */
+    public void endGame(){
+        Team winningTeam;
+        int score = 10;
+        for (Team t: teams){
+            if(t.getSchoolBoardWithTowers().getTowersNumber()<score){
+                winningTeam = t;
+                score = winningTeam.getSchoolBoardWithTowers().getTowersNumber();
+            }
+        }
+    }
+
+    public void nextRound(){
+        this.round++;
+        if(round==10) isLastRoundFlag=true;
     }
 
     /**
@@ -604,10 +698,10 @@ public class Game{
     }
 
     /**
-     * Method getValidSelection returns all the possible selection a player can make during his turun
+     * Method getValidSelection returns all the possible selection a player can make during his turn
      *
      * @return ArrayList of type Selectable
-     */
+
     public ArrayList<Selectable> getValidSelections(){
         return currentStrategy.getValidSelections(this);
     }
@@ -626,22 +720,22 @@ public class Game{
      * Method payAndActivateCharacter is used to pay and activate the chosen character,
      * it also increases the cost of the selected character by one
      *
-     * @param character selected
+     * @param characterCard selected
      */
-    public void payAndActivateCharacter(Character character){
-        if (characters.contains(character)){
-            int cost =character.getCost();
+    public void payAndSetActiveCharacter(CharacterCard characterCard){
+        if (characterCards.contains(characterCard)){
+            int cost = characterCard.getCost();
             try {
                 payCoins(cost);
             } catch (NotPresent e) {
                 e.printStackTrace();
             }
-            if(!character.wasPayedBefore()){
+            if(!characterCard.wasPayedBefore()){
                 Coin coinTmp = freeCoins.getFirstCoin();
                 freeCoins.removeElement(coinTmp);
-                character.insertCoin(coinTmp);
+                characterCard.insertCoin(coinTmp);
             }
-            activeCharacter = character;
+            activeCharacterCard = characterCard;
 
         }
     }

@@ -16,7 +16,6 @@ public class ActionStrategy implements PhaseStrategy {
      *
      * @param game instance of the game
      */
-    @Override
     public void endTurn(Game game) {
         if(game.isLastTurn()){
             endRound(game);
@@ -29,7 +28,6 @@ public class ActionStrategy implements PhaseStrategy {
      *
      * @param game instance of the game
      */
-    @Override
     public void endRound(Game game) {
         game.changePhase(new PlanningStrategy());
         game.fillClouds();
@@ -40,8 +38,7 @@ public class ActionStrategy implements PhaseStrategy {
      *
      * @param game instance of the game
      * @return ArrayList of possible actions
-     */
-    @Override
+
     public ArrayList<Selectable> getValidSelections(Game game) {
         ArrayList<Selectable> result = new ArrayList<>();
         if(!game.movedAllDisksThisTurn()){

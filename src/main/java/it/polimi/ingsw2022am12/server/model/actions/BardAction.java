@@ -4,6 +4,9 @@ import it.polimi.ingsw2022am12.server.model.PossibleAction;
 
 public class BardAction extends PossibleAction {
 
+    public BardAction() {
+        super(2);
+    }
 
     public BardAction(int cost) {
         super(cost);

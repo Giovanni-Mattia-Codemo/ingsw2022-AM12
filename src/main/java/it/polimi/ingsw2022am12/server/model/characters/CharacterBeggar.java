@@ -1,8 +1,8 @@
 package it.polimi.ingsw2022am12.server.model.characters;
 
-import it.polimi.ingsw2022am12.server.model.Character;
+import it.polimi.ingsw2022am12.server.model.CharacterCard;
 
-public class CharacterBeggar extends Character {
+public class CharacterBeggar extends CharacterCard {
     //+2 range madrenatura
 
     public CharacterBeggar(){

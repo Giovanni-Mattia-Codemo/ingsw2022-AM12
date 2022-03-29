@@ -207,6 +207,15 @@ public class SchoolBoard{
     }
 
     /**
+     * Method getDiningRoom returns StudentDiskCollection diningRoom
+     *
+     * @return diningRoom
+     */
+    public StudentDiskCollection getDiningRoom(){
+        return diningRoom;
+    }
+
+    /**
      * Method insertToEntrance adds a student to the entrance
      *
      * @param student to be added
