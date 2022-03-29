@@ -22,5 +22,18 @@ public class CharacterBard extends CharacterCard {
         return null;
     }
 
+    @Override
+    public void setWasUsed(boolean isUsed){
+        if(isUsed) {
+            if (swapsDone < 2) {
+                swapsDone++;
+            } else super.setWasUsed(true);
+        }else{
+            swapsDone = 0;
+            super.setWasUsed(false);
+        }
+    }
+
+
 
 }

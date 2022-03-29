@@ -24,6 +24,8 @@ public class HagAction extends PossibleAction {
 
     @Override
     public void useAction(Game game) {
+
         game.removeStudentsFromRoomsByColor(selection);
+        game.getActiveCharacterCard().setWasUsed(true);
     }
 }

@@ -1,8 +1,7 @@
 package it.polimi.ingsw2022am12.server.model.phases;
 
-import it.polimi.ingsw2022am12.server.model.PhaseStrategy;
-import it.polimi.ingsw2022am12.server.model.Selectable;
-import it.polimi.ingsw2022am12.server.model.Game;
+import it.polimi.ingsw2022am12.server.model.*;
+import it.polimi.ingsw2022am12.server.model.actions.*;
 
 import java.util.ArrayList;
 
@@ -29,9 +28,16 @@ public class ActionStrategy implements PhaseStrategy {
      * @param game instance of the game
      */
     public void endRound(Game game) {
-        game.changePhase(new PlanningStrategy());
-        game.fillClouds();
+        if(game.getIsLastRoundFlag()){
+            game.endGame();
+        }else{
+            game.changePhase(new PlanningStrategy());
+            game.fillClouds();
+            game.nextRound();
+        }
+
     }
+/*
 
     /**
      * Method getValidSelection returns the possible selections a player can do during the Action Phase
@@ -50,13 +56,38 @@ public class ActionStrategy implements PhaseStrategy {
             result.addAll(game.getIslandsInRange());
         }else result.addAll(game.getSelectableClouds());
 
-/*
+
         if(game.getActiveCharacter!= null){
             result.add(characters)
         }else if (game.getCharNeedsInput){
             result.add(required inputs)
         }
-*/
+
+        return result;
+    }*/
+
+    public ArrayList<PossibleAction> getValidActions(Game game) {
+
+        ArrayList<PossibleAction> result= new ArrayList<>();
+
+
+        if(!game.movedAllDisksThisTurn()){
+            result.add(new MoveFromEntranceToDiningRoom());
+            result.add(new MoveFromEntranceToIsland());
+        }else if(!game.hasMovedMotherNature()){
+            result.add(new MoveMotherNature());
+        }else result.add(new DrawFromCloud());
+        if(game.getActiveCharacterName()==null){
+
+                result.add(new ActivateCharacter());
+
+
+        }else{
+            PossibleAction action = game.getActiveCharacterCard().getPossibleAction();
+            if(action!=null)result.add(action);
+        }
+
+
         return result;
     }
 }

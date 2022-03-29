@@ -9,5 +9,6 @@ public interface PhaseStrategy {
 
      void endTurn(Game game);
      void endRound(Game game);
-     ArrayList<Selectable> getValidSelections(Game game);
+  //   ArrayList<Selectable> getValidSelections(Game game);
+     ArrayList<PossibleAction> getValidActions(Game game);
 }

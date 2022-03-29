@@ -8,4 +8,6 @@ public class CharacterBeggar extends CharacterCard {
     public CharacterBeggar(){
         super("Beggar", 1 );
     }
+
+
 }

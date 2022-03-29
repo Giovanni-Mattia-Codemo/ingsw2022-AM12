@@ -3,6 +3,7 @@ package it.polimi.ingsw2022am12.server.model;
 import it.polimi.ingsw2022am12.exceptions.NotPresent;
 
 import it.polimi.ingsw2022am12.exceptions.NotValidSwap;
+import it.polimi.ingsw2022am12.server.model.characters.CharacterJester;
 import it.polimi.ingsw2022am12.server.model.phases.SetupStrategy;
 
 import java.util.*;
@@ -29,6 +30,8 @@ public class Game{
     private final static int maxNumOfIslands = 12;
     private final static int hagStudentsToRemove = 3;
     private final static int maxNumOfMages = 4;
+    private boolean isLastRoundFlag;
+    private boolean isExpertMode;
 
     private int disksMovedThisTurn;
     private boolean hasMovedMotherNature;
@@ -378,17 +381,31 @@ public class Game{
 
                 for(int i = 0; i<islandToConquer.getNumOfIslandsInThisSet(); i++){
                     Tower towerToMove = team.getSchoolBoardWithTowers().getFirstTower();
-                    islandToConquer.insertTower(towerToMove);
-                    try{
-                        team.getSchoolBoardWithTowers().removeTower(towerToMove);
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
+                    if(towerToMove!=null){
+                        islandToConquer.insertTower(towerToMove);
+                        try{
+                            team.getSchoolBoardWithTowers().removeTower(towerToMove);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }else endGame();
+
+
                 }
                 islandList.checkAndMerge(index);
             }
         }
     }
+
+    /**
+     * Method drawStudentFromBag is used to fill a StudentDiskCollection
+     *
+     * @return random student
+     */
+    public Student drawStudentFromBag(){
+        return bag.draw();
+    }
+
 
     /**
      * Method playAssistant is used in the planning phase when the player has to select an assistant from them deck
@@ -508,7 +525,7 @@ public class Game{
         Student student;
         for (int i=0; i<maxNumOfIslands; i++){
             if (i!=(islandList.getMotherNatureIndex()+6)%12&&i!=islandList.getMotherNatureIndex()){
-                student = bag.draw();
+                student = drawStudentFromBag();
                 if(student != null){
                     islandList.getByIndex(i).insertStudent(student);
                 }
@@ -529,7 +546,7 @@ public class Game{
 
         for (StudentDiskCollection cloud : clouds) {
             for (int j = 0; j < studentsPerCloud; j++) {
-                student = bag.draw();
+                student = drawStudentFromBag();
                 cloud.insertElement(student);
             }
         }
@@ -696,7 +713,7 @@ public class Game{
         }else throw new NotPresent(); //No more coins available (notify player)
 
     }
-
+/*
     /**
      * Method getValidSelection returns all the possible selection a player can make during his turn
      *
@@ -705,7 +722,7 @@ public class Game{
     public ArrayList<Selectable> getValidSelections(){
         return currentStrategy.getValidSelections(this);
     }
-
+*/
     /**
      * Method checkIfIsCurrentPlayer is used to check if it's the turn of a selected player
      *
@@ -717,8 +734,8 @@ public class Game{
     }
 
     /**
-     * Method payAndActivateCharacter is used to pay and activate the chosen character,
-     * it also increases the cost of the selected character by one
+     * Method payAndActivateCharacter is used to pay and set active the chosen character,
+     * it also increases the cost of the selected character by one the first time
      *
      * @param characterCard selected
      */

@@ -78,4 +78,8 @@ public abstract class CharacterCard implements Selectable {
         return null;
     }
 
+    public void InitCharacter(Game game){}
+
+
+
 }
