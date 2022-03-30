@@ -19,7 +19,7 @@ public class Student extends PlaceableObject implements Selectable {
     }
 
     /**
-     * Method getColor returnes the color of the Student
+     * Method getColor returns the color of the Student
      *
      * @return color
      */

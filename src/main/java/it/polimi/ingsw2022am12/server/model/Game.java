@@ -281,7 +281,7 @@ public class Game{
                 arrayOfPickableClouds.add(clouds[i]);
             }
         }
-        return arrayOfPickableClouds;
+        return false;
     }
 
     /**
@@ -492,8 +492,8 @@ public class Game{
     /**
      * Method swapStudents calls the method swapStudents in the current player schoolBoard
      *
-     * @param s0 First Student to swap
-     * @param s1 Second student to swap
+     * @param colorOfEntranceStudent to swap
+     * @param colorOfRoomStudent to swap
      */
     public void swapStudents(Student s0, Student s1){
         try {
@@ -506,14 +506,20 @@ public class Game{
     /**
      * Method drawFromClouds is called to move the students from the selected cloud to the player's entrance
      *
-     * @param cloud picked
+     * @param id picked
      */
-    public void drawFromCloud(Selectable cloud){
-        int size = ((StudentDiskCollection)cloud).amount();
+    public void drawFromCloud(int id){
+        StudentDiskCollection cloud = null;
+        for(int i=0; i<numOfPlayers; i++){
+            if(clouds[i].getID()==id){
+                cloud = clouds[i];
+            }
+        }
+        int size = cloud.amount();
         Student tmp;
         for(int i = 0; i<size; i++){
-            tmp = ((StudentDiskCollection) cloud).getByIndex(0);
-            ((StudentDiskCollection) cloud).removeElement(tmp);
+            tmp = cloud.getByIndex(0);
+            cloud.removeElement(tmp);
             getCurrentSchoolBoard().insertToEntrance(tmp);
         }
     }
@@ -768,7 +774,7 @@ public class Game{
         for (SchoolBoard s: turnOrder){
             availableOfColor = s.getStudentsInRoomByColor(color);
             for (int i=0; i< Math.min(availableOfColor, hagStudentsToRemove); i++){
-                Student tmp = s.getFirstStudentOfColor(color);
+                Student tmp = s.getFirstStudentInRoomOfColor(color);
                 try {
                     s.removeFromDiningRoom(tmp);
                     bag.insertElement(tmp);

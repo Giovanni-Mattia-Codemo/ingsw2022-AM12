@@ -15,13 +15,4 @@ public class Mage implements Selectable {
     public Mage(int id) {
         ID = id;
     }
-
-    /**
-     * Method getSelectableType returns the name of the Selectable type
-     *
-     * @return String Mage
-     */
-    public String getSelectableType() {
-        return "Mage";
-    }
 }

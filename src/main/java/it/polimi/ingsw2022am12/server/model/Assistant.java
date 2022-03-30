@@ -47,15 +47,6 @@ public class Assistant implements Selectable {
     }
 
     /**
-     * Method getSelectableType returns the name of the Selectable type
-     *
-     * @return String Assistant
-     */
-    public String getSelectableType() {
-        return "Assistant";
-    }
-
-    /**
      * Method printAssistantPower prints on the screen the value of assistant's turnPower
      */
     public void printAssistantPower(){

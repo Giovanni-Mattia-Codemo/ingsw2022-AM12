@@ -6,5 +6,6 @@ module it.polimi.ingsw2022am12 {
 
     opens it.polimi.ingsw2022am12.JavaFX to javafx.fxml;
     exports it.polimi.ingsw2022am12.JavaFX;
+    exports it.polimi.ingsw2022am12.server.adapter;
 
 }

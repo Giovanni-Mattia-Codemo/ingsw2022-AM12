@@ -42,15 +42,6 @@ public abstract class CharacterCard implements Selectable {
     }
 
     /**
-     * Method getSelectableType returns the name of the Selectable type
-     *
-     * @return String Character
-     */
-    public String getSelectableType() {
-        return "Character";
-    }
-
-    /**
      * Method insertCoin takes a coin from the freeCoins and places it on the Character card and increases the
      * cost of the card by one
      *

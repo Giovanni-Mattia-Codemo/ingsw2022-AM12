@@ -39,7 +39,6 @@ public class BardAction extends PossibleAction {
         }
         return ActionStep.NOTOK;
 
-
     }
 
     @Override

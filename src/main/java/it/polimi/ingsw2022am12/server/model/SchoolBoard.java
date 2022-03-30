@@ -321,7 +321,7 @@ public class SchoolBoard{
      * @param color wanted
      * @return Student of a specific color
      */
-    public Student getFirstStudentOfColor(DiskColor color){
+    public Student getFirstStudentInRoomOfColor(DiskColor color){
         return diningRoom.getFirstStudentOfColor(color).isPresent()?diningRoom.getFirstStudentOfColor(color).get():null;
     }
 

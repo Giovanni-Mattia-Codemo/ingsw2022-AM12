@@ -19,6 +19,10 @@ public class StudentDiskCollection implements Position, Selectable {
         this.students = new ArrayList<>();
     }
 
+    public int getID(){
+        return this.id;
+    }
+
     /**
      * Method getAllStudents returns the copy of the students present in the StudentDiskCollection
      *
@@ -107,12 +111,4 @@ public class StudentDiskCollection implements Position, Selectable {
         return students.contains(o);
     }
 
-    /**
-     * Method getSelectableType returns a string with the type of the Selectable object
-     *
-     * @return String with type name
-     */
-    public String getSelectableType() {
-        return "StudentDiskCollection";
-    }
 }

@@ -25,13 +25,4 @@ public class ColorSelection implements Selectable {
        return this.color;
     }
 
-    /**
-     * Method getSelectableType returns the String name of the Selectable type
-     *
-     * @return String Color
-     */
-    @Override
-    public String getSelectableType() {
-        return "Color";
-    }
 }

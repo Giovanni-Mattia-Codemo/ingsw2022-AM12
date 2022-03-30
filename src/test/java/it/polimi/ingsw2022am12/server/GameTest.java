@@ -22,11 +22,8 @@ public class GameTest {
         Assertions.assertEquals(8, testGame.getCurrentSchoolBoard().getTowersNumber());
         Assertions.assertEquals(3, testGame.getCloud(0).amount());
 
-
-
         nicks.add("Paperino");
         Game testGame1 = new Game(nicks);
-
 
         testGame1.setUp();
 

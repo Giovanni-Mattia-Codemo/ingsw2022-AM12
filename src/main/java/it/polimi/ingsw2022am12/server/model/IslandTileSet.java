@@ -190,13 +190,4 @@ public class IslandTileSet implements Selectable {
         return towers.getFirstTower().getTeam();
         else return null;
     }
-
-    /**
-     * Method getSelectableType returns the name of the Selectable type
-     *
-     * @return String IslandTileSet
-     */
-    public String getSelectableType() {
-        return "IslandTileSet";
-    }
 }

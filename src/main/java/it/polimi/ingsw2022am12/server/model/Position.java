@@ -1,7 +1,5 @@
 package it.polimi.ingsw2022am12.server.model;
 
-import it.polimi.ingsw2022am12.server.model.PlaceableObject;
-
 /**
  * Interface Position
  */
