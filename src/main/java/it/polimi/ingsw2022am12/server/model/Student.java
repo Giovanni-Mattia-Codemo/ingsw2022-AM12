@@ -5,7 +5,13 @@ package it.polimi.ingsw2022am12.server.model;
  */
 public class Student extends PlaceableObject implements Selectable {
 
-    private final DiskColor  color;
+    private  DiskColor  color;
+
+    private int positionID;
+
+    public Student(){
+
+    }
 
     /**
      * Constructor of Student sets the color of the Student and its initial position
@@ -18,6 +24,20 @@ public class Student extends PlaceableObject implements Selectable {
 
     }
 
+    public void setPositionID(int positionID) {
+        this.positionID = positionID;
+    }
+
+    public int getPositionID() {
+        return positionID;
+    }
+
+    @Override
+    public void setPosition(Position position) {
+        super.setPosition(position);
+       setPositionID(((StudentDiskCollection) position).getID());
+    }
+
     /**
      * Method getColor returns the color of the Student
      *
@@ -27,12 +47,8 @@ public class Student extends PlaceableObject implements Selectable {
         return this.color;
     }
 
-    /**
-     * Method getSelectableType returns the name of the Selectable type
-     *
-     * @return String Student
-     */
-    public String getSelectableType() {
-        return "Student";
+    public void setColor(DiskColor color) {
+        this.color = color;
     }
+
 }

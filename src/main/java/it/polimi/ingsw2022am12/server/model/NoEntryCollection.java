@@ -4,9 +4,8 @@ import java.util.ArrayList;
 
 public class NoEntryCollection implements Position {
 
-    /**
-     * Constructor of NoEntry. Creates new ArrayList of type NoEntry.
-     */
+    private static int numOfNoEntryCollections;
+    private final int myId;
     private final ArrayList<NoEntry> noEntries;
 
     /**
@@ -14,6 +13,8 @@ public class NoEntryCollection implements Position {
      */
     public NoEntryCollection() {
         noEntries = new ArrayList<>();
+        myId = numOfNoEntryCollections;
+        numOfNoEntryCollections++;
     }
 
     /**

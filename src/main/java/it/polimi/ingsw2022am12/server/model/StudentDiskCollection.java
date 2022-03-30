@@ -10,6 +10,9 @@ import java.util.Optional;
  */
 public class StudentDiskCollection implements Position, Selectable {
 
+
+    private static int numOfStudentCollections;
+    private final int id;
     private final ArrayList<Student> students;
 
     /**
@@ -17,6 +20,9 @@ public class StudentDiskCollection implements Position, Selectable {
      */
     public StudentDiskCollection() {
         this.students = new ArrayList<>();
+        id=numOfStudentCollections;
+        numOfStudentCollections++;
+
     }
 
     public int getID(){

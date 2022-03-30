@@ -146,7 +146,7 @@ public class GameTest {
 
         StudentDiskCollection cloud = testGame.getCloud(0);
 
-        testGame.drawFromCloud(cloud);
+        testGame.drawFromCloud(cloud.getID());
 
         Assertions.assertEquals(10, testGame.getCurrentSchoolBoard().getEntrance().amount());
         Assertions.assertEquals(0, cloud.amount());

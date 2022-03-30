@@ -23,7 +23,7 @@ public class JesterAction extends PossibleAction {
         boolean onChar = false;
         boolean inEntrance= false;
         for (Selectable s: input) {
-            if(s.getSelectableType().equals("Student")){
+            if(s instanceof Student){
                 if(((CharacterJester) game.getActiveCharacterCard()).containsStudent((Student) s)){
                     if(!onChar){
                         onChar=true;

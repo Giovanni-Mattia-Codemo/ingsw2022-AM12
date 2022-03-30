@@ -20,13 +20,13 @@ public class HerbalistAction extends PossibleAction {
         IslandTileSet island = null;
 
         for(Selectable s: input){
-            if(s.getSelectableType().equals("IslandTileSet")){
+            if(s instanceof IslandTileSet){
                 if(island==null){
                     island=(IslandTileSet) s;
                 }else{
                     return ActionStep.NOTOK;
                 }
-            }else if(s.getSelectableType().equals("NoEntry")){
+            }else if(s instanceof NoEntry){
                 if(noEntry==null){
                     noEntry= (NoEntry) s;
                 }else{

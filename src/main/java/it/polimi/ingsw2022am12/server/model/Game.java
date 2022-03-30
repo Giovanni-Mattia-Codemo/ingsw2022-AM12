@@ -274,11 +274,13 @@ public class Game{
      *
      * @return pickable clouds
      */
-    public ArrayList<Selectable> getSelectableClouds(){
-        ArrayList<Selectable> arrayOfPickableClouds = new ArrayList<>();
+    public boolean checkIfCloudDrawableByID(int id){
+
         for(int i=0; i<numOfPlayers; i++){
             if(!clouds[i].getAllStudents().isEmpty()){
-                arrayOfPickableClouds.add(clouds[i]);
+                if(clouds[i].getID()==id){
+                    return true;
+                }
             }
         }
         return false;
@@ -489,13 +491,20 @@ public class Game{
         }
     }
 
+
+
+
     /**
      * Method swapStudents calls the method swapStudents in the current player schoolBoard
      *
      * @param colorOfEntranceStudent to swap
      * @param colorOfRoomStudent to swap
      */
-    public void swapStudents(Student s0, Student s1){
+    public void swapStudents(DiskColor colorOfEntranceStudent, DiskColor colorOfRoomStudent){
+
+        Student s0 = getCurrentSchoolBoard().getFirstStudentInRoomOfColor(colorOfRoomStudent);
+        Student s1 = getCurrentSchoolBoard().getEntrance().getFirstStudentOfColor(colorOfEntranceStudent).get();
+
         try {
             getCurrentSchoolBoard().swapStudents(s0, s1);
         } catch (NotValidSwap e) {
