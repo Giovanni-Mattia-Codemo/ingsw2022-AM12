@@ -52,6 +52,10 @@ public abstract class CharacterCard implements Selectable {
         cost++;
     }
 
+    public boolean getWasUsed(){
+        return wasUsed;
+    }
+
     /**
      * Method wasPlayedBefore tells if it's the first use of the character
      *

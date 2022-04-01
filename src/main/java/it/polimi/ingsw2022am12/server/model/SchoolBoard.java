@@ -35,10 +35,12 @@ public class SchoolBoard{
 
     }
 
+
+
     /**
      *Method setAssistants fills the schoolBoard's deck of assistants
      */
-    public void setAssistants() throws  NotValidAssistant {
+    public void setAssistants() {
 
         final int maxNumOfAssistantsInDeck = 10;
         for (int i = 1; i<= maxNumOfAssistantsInDeck; i++){
@@ -65,6 +67,7 @@ public class SchoolBoard{
     public String getNick(){
         return nick;
     }
+
 
     /**
      * Method getMage returns the mage of the player
@@ -240,13 +243,13 @@ public class SchoolBoard{
      * Method moveStudentFromEntranceToRoom places a Student standing in the entrance in the corresponding dining room
      *   (Each student MUST go to the table bearing its same color)
      *
-     * @param student disk to be moved
+     * @param color color to check
      */
-    public boolean checkMoveStudentFromEntranceToRoom (Student student){
-        if(student.getPosition()==entrance){
-            return !isDiningRoomFull(student.getColor());
-        }
-        return false;
+    public boolean checkMoveStudentFromEntranceToRoom (DiskColor color){
+
+            return !isDiningRoomFull(color);
+
+
     }
 
     /**

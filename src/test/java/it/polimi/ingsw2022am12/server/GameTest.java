@@ -1,7 +1,7 @@
 package it.polimi.ingsw2022am12.server;
 
 import it.polimi.ingsw2022am12.exceptions.NotPresent;
-import it.polimi.ingsw2022am12.exceptions.NotValidSwap;
+
 import it.polimi.ingsw2022am12.server.model.*;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Assertions;
 public class GameTest {
 
     @Test
-    public void checkSetUp() throws Exception {
+    public void checkSetUp()  {
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Pippo");
         nicks.add("Pluto");
@@ -66,11 +66,8 @@ public class GameTest {
         nicks.add("Nick1");
         nicks.add("Nick2");
         Game testGame = new Game(nicks);
-        try {
-            testGame.setUp();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+        testGame.setUp();
 
         Student red0 = new Student(DiskColor.RED);
         Student red1 = new Student(DiskColor.RED);
@@ -79,11 +76,9 @@ public class GameTest {
 
         testGame.getCurrentSchoolBoard().insertToEntrance(red1); //illegal but checked elsewhere
 
-        try {
-            testGame.moveStudentFromEntranceToRoom(red1);
-        } catch (NotValidSwap e) {
-            e.printStackTrace();
-        }
+
+            testGame.moveStudentFromEntranceToRoom(red1.getColor());
+
 
         testGame.conquerIsland(motherNaturePose);
 
@@ -108,10 +103,10 @@ public class GameTest {
 
         testGame.getCurrentSchoolBoard().insertToEntrance(red0); //illegal but checked elsewhere
 
-        testGame.moveStudentFromEntranceToIsland(red0, testMotherNature);
+        testGame.moveStudentFromEntranceToIsland(red0.getColor(), testMotherNature.getiD());
 
         Assertions.assertEquals(7, testGame.getCurrentSchoolBoard().getEntrance().amount());
-        Assertions.assertTrue(testMotherNature.getStudents().contains(red0));
+        Assertions.assertTrue(testMotherNature.getStudentCollection().getFirstStudentOfColor(red0.getColor()).isPresent());
         Assertions.assertEquals(1, testMotherNature.getStudents().size());
     }
 
@@ -128,8 +123,11 @@ public class GameTest {
         }
 
         int motherNaturePose = testGame.getIslandList().getMotherNatureIndex();
-        testGame.moveMotherNature(5);
-        Assertions.assertEquals((motherNaturePose+5)%12,testGame.getIslandList().getMotherNatureIndex());
+
+        IslandTileSet island = testGame.getIslandList().getByIndex(3);
+        testGame.moveMotherNature(island.getiD());
+
+        Assertions.assertTrue(testGame.getIslandList().getMotherNatureIndex()==island.getiD());
     }
 
     @Test

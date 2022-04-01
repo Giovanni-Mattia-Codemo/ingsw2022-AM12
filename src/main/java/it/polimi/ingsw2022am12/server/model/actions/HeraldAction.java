@@ -7,36 +7,30 @@ import it.polimi.ingsw2022am12.server.model.Selectable;
 
 import java.util.ArrayList;
 
-public class MoveMotherNature extends PossibleAction {
-
+public class HeraldAction extends PossibleAction {
     private int islandID;
 
-    /**
-     * "Constructor" Method of MoveMotherNature
-     *
-     */
-    public MoveMotherNature() {
+
+    public HeraldAction(){
         super(1);
     }
 
     @Override
     public ActionStep checkInputValidity(ArrayList<Selectable> input, Game game) {
-        for(Selectable s: input){
-            if (s instanceof IslandTileSet){
-                IslandTileSet tmp = game.getIslandList().getByIndex(((IslandTileSet) s).getiD());
-                if(game.checkIfIslandInRange(tmp)){
-                    islandID = ((IslandTileSet) s).getiD();
+        if(input.size()==1){
+            if(input.get(0) instanceof IslandTileSet){
+                if((game.getIslandList().getByIndex(((IslandTileSet) input.get(0)).getiD()))!=null){
+                    islandID=((IslandTileSet)input.get(0)).getiD();
                     return ActionStep.OK;
                 }
             }
-        }
-        return ActionStep.NOTOK;
-
+        }return ActionStep.NOTOK;
     }
 
 
     @Override
     public void useAction(Game game) {
-        game.moveMotherNature(islandID);
+        game.conquerIsland(islandID);
+        game.getActiveCharacterCard().setWasUsed(true);
     }
 }

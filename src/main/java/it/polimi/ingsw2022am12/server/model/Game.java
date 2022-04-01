@@ -4,6 +4,9 @@ import it.polimi.ingsw2022am12.exceptions.NotPresent;
 
 import it.polimi.ingsw2022am12.exceptions.NotValidSwap;
 import it.polimi.ingsw2022am12.server.model.characters.CharacterJester;
+import it.polimi.ingsw2022am12.server.model.characters.CharacterMerchant;
+import it.polimi.ingsw2022am12.server.model.characters.CharacterMonk;
+import it.polimi.ingsw2022am12.server.model.characters.CharacterPrincess;
 import it.polimi.ingsw2022am12.server.model.phases.SetupStrategy;
 
 import java.util.*;
@@ -107,9 +110,11 @@ public class Game{
     /**
      *Method setup is used to set all the initial values of the attributes of the game
      */
-    public void setUp() throws Exception {
+    public void setUp() {
 
         assignTeams();
+
+
 
         final int numOfStudentsOfEachColorToPutInBagForSetup = 2;
         final int remainingNumOfStudentsOfEachColorToCompleteSetUp = 24;
@@ -337,6 +342,22 @@ public class Game{
         getCurrentSchoolBoard().setMage(mageId);
     }
 
+
+    public void moveStudentFromCardToIsland(DiskColor color, int islandID){
+        StudentDiskCollection monkStudents = ((CharacterMonk)getActiveCharacterCard()).getStudents();
+        Student tmp = monkStudents.getFirstStudentOfColor(color).get();
+        monkStudents.removeElement(tmp);
+        islandList.getByIndex(islandID).insertStudent(tmp);
+    }
+
+    public void moveStudentFromCardToRoom(DiskColor color){
+
+        StudentDiskCollection tmp = ((CharacterPrincess)getActiveCharacterCard()).getStudents();
+        Student temp = tmp.getFirstStudentOfColor(color).get();
+
+
+    }
+
     /**
      * Method conquerIsland is called when motherNature stops on an island to check if it can be conquered.
      * It is also used when a character card is called upon a specific island.
@@ -350,6 +371,9 @@ public class Game{
         SchoolBoard temporarySchoolBoard;
         for (DiskColor c: DiskColor.values()) {
             temporarySchoolBoard = professors[c.getValue()];
+            if(getActiveCharacterCard()!=null&&getActiveCharacterName().equals("Merchant")&&c==((CharacterMerchant)getActiveCharacterCard()).getColor()){
+                continue;
+            }
             if(temporarySchoolBoard != null){
                 for (Team t :teams ) {
                     if(t.getSchoolBoards().contains(temporarySchoolBoard)){
@@ -359,8 +383,16 @@ public class Game{
             }
         }
         Team owner = islandToConquer.getOwningTeam();
-        if(owner!= null&&!(getActiveCharacterName().equals("Centaur"))){
+        if(owner!= null&&!(getActiveCharacterCard()!=null&&getActiveCharacterName().equals("Centaur"))){
             scores[teams.indexOf(owner)]+=islandToConquer.getNumOfIslandsInThisSet();
+        }
+        if(getActiveCharacterCard()!=null&&getActiveCharacterName().equals("Knight")){
+            for(Team t: teams){
+                if (t.getSchoolBoards().contains(getCurrentSchoolBoard())){
+                    scores[teams.indexOf(t)]+=2;
+                }
+            }
+
         }
         int winnerId = 0;
         boolean tie = false;
@@ -423,24 +455,26 @@ public class Game{
     /**
      *Method moveFromEntranceToIsland is used to move a student from the entrance to one specific island
      *
-     * @param student to be moved
-     * @param islandTileSet chosen
+     * @param studentColor of student to be moved
+     * @param islandID of islandTileSet chosen
      */
-    public void moveStudentFromEntranceToIsland(Selectable student, Selectable islandTileSet){
-        Student selectedStudent = (Student)student;
-        if(getCurrentSchoolBoard().getEntrance().contains(selectedStudent)){
+    public void moveStudentFromEntranceToIsland(DiskColor studentColor, int islandID){
+        Student selectedStudent = getCurrentSchoolBoard().getEntrance().getFirstStudentOfColor(studentColor).get();
+        IslandTileSet islandTileSet = islandList.getByIndex(islandID);
+
             getCurrentSchoolBoard().getEntrance().removeElement(selectedStudent);
-            ((IslandTileSet) islandTileSet).insertStudent(selectedStudent);
-        }
+           islandTileSet.insertStudent(selectedStudent);
+           disksMovedThisTurn++;
     }
 
     /**
      * Method moveMotherNature is used to move mother nature
      *
-     * @param steps mother nature has to do
+     * @param index of island to move mother nature to
      */
-    public void moveMotherNature(int steps){
-        islandList.moveMotherNature(steps);
+    public void moveMotherNature(int index){
+         IslandTileSet tmp = islandList.getByIndex(index);
+        islandList.moveMotherNature(tmp);
         conquerIsland(islandList.getMotherNatureIndex());
     }
 
@@ -448,12 +482,12 @@ public class Game{
      * Method moveFromEntranceToRoom moves a students from entrance to room and checks if the player wins the
      * professor of the specific color of the student they moved
      *
-     * @param selectableStudent to be moved
+     * @param colorInEntrance color of student to move
      */
-    public void moveStudentFromEntranceToRoom(Selectable selectableStudent) throws NotValidSwap{
-        Student student = (Student) selectableStudent;
+    public void moveStudentFromEntranceToRoom(DiskColor colorInEntrance){
+        Student student = getCurrentSchoolBoard().getEntrance().getFirstStudentOfColor(colorInEntrance).get();
         SchoolBoard s = getCurrentSchoolBoard();
-        if(s.checkMoveStudentFromEntranceToRoom(student)){
+
             s.moveStudentFromEntranceToRoom(student);
 
             SchoolBoard owner = professors[student.getColor().getValue()];
@@ -467,7 +501,7 @@ public class Game{
                 }
             }else owner = s;
             professors[student.getColor().getValue()]=owner;
-        }else throw new NotValidSwap(); //Notify the player
+            disksMovedThisTurn++;
     }
 
     public void insertNoEntry(IslandTileSet destination, NoEntry noEntry){
@@ -475,20 +509,19 @@ public class Game{
         destination.insertNoEntries(noEntry);
     }
 
-    public void jesterSwap(Student s0, Student s1){
+    public void jesterSwap(DiskColor colorOfCharStudent, DiskColor colorOfEntranceStudent){
         CharacterJester jester =((CharacterJester)getActiveCharacterCard());
 
-        if(jester.containsStudent(s0)&&getCurrentSchoolBoard().getEntrance().contains(s1)){
-            jester.getStudents().removeElement(s0);
-            getCurrentSchoolBoard().getEntrance().removeElement(s1);
-            jester.getStudents().insertElement(s1);
-            getCurrentSchoolBoard().getEntrance().insertElement(s0);
-        }else if(jester.containsStudent(s1)&&getCurrentSchoolBoard().getEntrance().contains(s0)){
-            jester.getStudents().removeElement(s1);
-            getCurrentSchoolBoard().getEntrance().removeElement(s0);
-            jester.getStudents().insertElement(s0);
-            getCurrentSchoolBoard().getEntrance().insertElement(s1);
-        }
+        Student st0 = jester.getStudents().getFirstStudentOfColor(colorOfCharStudent).get();
+        Student st1 = getCurrentSchoolBoard().getEntrance().getFirstStudentOfColor(colorOfEntranceStudent).get();
+
+
+
+            jester.getStudents().removeElement(st0);
+            getCurrentSchoolBoard().getEntrance().removeElement(st1);
+            jester.getStudents().insertElement(st1);
+            getCurrentSchoolBoard().getEntrance().insertElement(st0);
+
     }
 
 

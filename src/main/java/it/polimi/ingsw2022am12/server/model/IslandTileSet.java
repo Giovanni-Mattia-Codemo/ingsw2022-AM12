@@ -9,6 +9,7 @@ import java.util.ArrayList;
  */
 public class IslandTileSet implements Selectable {
 
+    private int iD;
     private final StudentDiskCollection students;
     private final NoEntryCollection noEntries;
     private int numOfIslandsInThisSet;
@@ -22,6 +23,14 @@ public class IslandTileSet implements Selectable {
         this.noEntries = new NoEntryCollection();
         this.towers = new TowerCollection();
         this.numOfIslandsInThisSet = 1;
+    }
+
+    public int getiD() {
+        return iD;
+    }
+
+    public void setiD(int iD) {
+        this.iD = iD;
     }
 
     /**
@@ -48,6 +57,11 @@ public class IslandTileSet implements Selectable {
      */
     public ArrayList<Student> getStudents(){
         return students.getAllStudents();
+    }
+
+    //used for testing
+    public StudentDiskCollection getStudentCollection(){
+        return students;
     }
 
     /**

@@ -21,6 +21,7 @@ public class IslandTileList {
         for (int i = 0; i< numOfIslandsMAX; i++){
             islands.add(new IslandTileSet());
         }
+        updateIslandIDs();
         Random rnd = new Random();
         int index = rnd.nextInt(numOfIslandsMAX);
         motherNature = islands.get(index);
@@ -29,10 +30,10 @@ public class IslandTileList {
     /**
      * Method moveMotherNature changes the position of motherNature
      *
-     * @param steps moves of mother nature
+     * @param island to move mother nature to
      */
-    public void moveMotherNature(int steps){
-        motherNature=islands.get((islands.indexOf(motherNature)+steps)%islands.size());
+    public void moveMotherNature(IslandTileSet island){
+        motherNature=island;
     }
 
     /**
@@ -61,7 +62,9 @@ public class IslandTileList {
      * @return IslandTileSet
      */
     public IslandTileSet getByIndex(int idx){
+        if(idx<islands.size()){
         return this.islands.get(idx);
+        }else return null;
     }
 
     /**
@@ -106,6 +109,7 @@ public class IslandTileList {
             }
 
             islands.remove(left);
+        updateIslandIDs();
     }
 
     /**
@@ -135,7 +139,15 @@ public class IslandTileList {
 
             }else{
                 mergeIslands(islandToCheck, right);
+
             }
+        }
+    }
+
+
+    public void updateIslandIDs(){
+        for(IslandTileSet i: islands){
+            i.setiD(islands.indexOf(i));
         }
     }
 

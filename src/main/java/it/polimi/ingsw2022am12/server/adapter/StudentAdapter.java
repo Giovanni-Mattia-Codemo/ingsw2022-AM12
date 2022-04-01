@@ -34,17 +34,20 @@ public class StudentAdapter extends TypeAdapter<Student> {
                 fieldname = reader.nextName();
             }
 
-            if ("color".equals(fieldname)) {
-                //move to next token
-                token = reader.peek();
-                student.setColor(DiskColor.valueOf(reader.nextString()));
-            }
+
 
             if("positionID".equals(fieldname)) {
                 //move to next token
                 token = reader.peek();
                 student.setPositionID(reader.nextInt());
             }
+            if ("color".equals(fieldname)) {
+                //move to next token
+                token = reader.peek();
+                student.setColor(DiskColor.valueOf(reader.nextString()));
+            }
+
+
         }
         reader.endObject();
         return student;
