@@ -171,12 +171,58 @@ public class Game{
 
         }
 
+        for (CharacterCard c:characterCards) {
+
+            c.initCharacter(this);
+
+        }
+
         for(int i=0; i<maxNumOfMages; i++){
             this.mages.add(new Mage(i));
         }
 
         fillClouds();
 
+    }
+
+
+    public void printBoards(){
+        System.out.println("Boards: ");
+        for(SchoolBoard s: turnOrder){
+            System.out.println(" ");
+            System.out.println(s.getNick()+"'s board: ");
+            System.out.print("Entrance: ");
+            s.getEntrance().printStudents();
+
+            System.out.println("\n Towers: "+ s.getTowersNumber());
+            System.out.print("DiningRoom: ");
+            s.getDiningRoom().printStudents();
+            System.out.println(" ");
+        }
+        System.out.println("\n ...");
+    }
+
+    public void printIslands(){
+        islandList.printIslands();
+        System.out.println("\n ...");
+    }
+
+    public void printClouds(){
+        System.out.println("\nClouds: ");
+        for (int i = 0; i < numOfPlayers; i++) {
+            System.out.println("\ncloud of index "+ i);
+            System.out.print("    Students:");
+            clouds[i].printStudents();
+        }
+        System.out.println("\n ...");
+    }
+
+    public void printTurnOrder(){
+        System.out.print("TurnOrder: ");
+        for(SchoolBoard s: turnOrder){
+            System.out.print(s.getNick()+" ");
+        }
+        System.out.println("\n ...");
     }
 
     /**
@@ -266,6 +312,7 @@ public class Game{
     }
 
 
+
     /**
      * Method getSchoolBoardByNick is used to return the reference of the schoolBoard of a specific player given
      * them nickName
@@ -338,11 +385,14 @@ public class Game{
      *
      */
     public void selectMage(int mageId){
+        Mage tmp = null;
         for(Mage m: mages) {
             if (m.getID()==mageId){
                 getCurrentSchoolBoard().setMage(m);
+                tmp=m;
             }
         }
+        mages.remove(tmp);
     }
 
 
@@ -383,69 +433,72 @@ public class Game{
             }
         }else {
 
-        int[] scores= new int[teams.size()];
-        Team team;
-        SchoolBoard temporarySchoolBoard;
-        for (DiskColor c: DiskColor.values()) {
-            temporarySchoolBoard = professors[c.getValue()];
-            if(getActiveCharacterCard()!=null&&getActiveCharacterName()==CharacterName.CHARACTER_MERCHANT&&c==((CharacterMerchant)getActiveCharacterCard()).getColor()){
-                continue;
-            }
-            if(temporarySchoolBoard != null){
-                for (Team t :teams ) {
-                    if(t.getSchoolBoards().contains(temporarySchoolBoard)){
-                        scores[teams.indexOf(t)]+= islandToConquer.getIslandsStudentsOfColor(c);
+            int[] scores= new int[teams.size()];
+            Team team;
+            SchoolBoard temporarySchoolBoard;
+            for (DiskColor c: DiskColor.values()) {
+                temporarySchoolBoard = professors[c.getValue()];
+                if(getActiveCharacterCard()!=null&&getActiveCharacterName()==CharacterName.CHARACTER_MERCHANT&&c==((CharacterMerchant)getActiveCharacterCard()).getColor()){
+                    continue;
+                }
+                if(temporarySchoolBoard != null){
+                    for (Team t :teams ) {
+                        if(t.getSchoolBoards().contains(temporarySchoolBoard)){
+                            scores[teams.indexOf(t)]+= islandToConquer.getIslandsStudentsOfColor(c);
+                        }
                     }
                 }
             }
-        }
-        Team owner = islandToConquer.getOwningTeam();
-        if(owner!= null&&!(getActiveCharacterCard()!=null&&getActiveCharacterName()==CharacterName.CHARACTER_CENTAUR)){
-            scores[teams.indexOf(owner)]+=islandToConquer.getNumOfIslandsInThisSet();
-        }
-        if(getActiveCharacterCard()!=null&&getActiveCharacterName()==CharacterName.CHARACTER_KNIGHT){
-            for(Team t: teams){
-                if (t.getSchoolBoards().contains(getCurrentSchoolBoard())){
-                    scores[teams.indexOf(t)]+=2;
-                }
+            Team owner = islandToConquer.getOwningTeam();
+            if(owner!= null&&!(getActiveCharacterCard()!=null&&getActiveCharacterName()==CharacterName.CHARACTER_CENTAUR)){
+                scores[teams.indexOf(owner)]+=islandToConquer.getNumOfIslandsInThisSet();
             }
-
-        }
-        int winnerId = 0;
-        boolean tie = false;
-        for(int i=1; i<scores.length; i++){
-            if (scores[i]>scores[winnerId]){
-                winnerId = i;
-                tie= false;
-            }else if(scores[i]==scores[winnerId]){
-                tie= true;
-            }
-        }
-        if (!tie) {
-            team = teams.get(winnerId);
-            if (team != islandToConquer.getOwningTeam()) {
-                ArrayList<Tower> towersToMove = islandToConquer.getTowers();
-                islandToConquer.removeAllTowers();
-                for (Tower t : towersToMove) {
-                    t.getTeam().getSchoolBoardWithTowers().insertTower(t);
+            if(getActiveCharacterCard()!=null&&getActiveCharacterName()==CharacterName.CHARACTER_KNIGHT){
+                for(Team t: teams){
+                    if (t.getSchoolBoards().contains(getCurrentSchoolBoard())){
+                        scores[teams.indexOf(t)]+=2;
+                    }
                 }
 
-                for (int i = 0; i < islandToConquer.getNumOfIslandsInThisSet(); i++) {
-                    Tower towerToMove = team.getSchoolBoardWithTowers().getFirstTower();
-                    if (towerToMove != null) {
-                        islandToConquer.insertTower(towerToMove);
-                        try {
-                            team.getSchoolBoardWithTowers().removeTower(towerToMove);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    } else endGame();
-
-
-                }
-                islandList.checkAndMerge(index);
             }
-        }
+            int winnerId = 0;
+            boolean tie = false;
+            for(int i=1; i<scores.length; i++){
+                if (scores[i]>scores[winnerId]){
+                    winnerId = i;
+                    tie= false;
+                }else if(scores[i]==scores[winnerId]){
+                    tie= true;
+                }
+            }
+            if (!tie) {
+                team = teams.get(winnerId);
+                if (team != islandToConquer.getOwningTeam()) {
+                    ArrayList<Tower> towersToMove = islandToConquer.getTowers();
+                    islandToConquer.removeAllTowers();
+                    for (Tower t : towersToMove) {
+                        t.getTeam().getSchoolBoardWithTowers().insertTower(t);
+                    }
+
+                    for (int i = 0; i < islandToConquer.getNumOfIslandsInThisSet(); i++) {
+                        Tower towerToMove = team.getSchoolBoardWithTowers().getFirstTower();
+                        if (towerToMove != null) {
+                            islandToConquer.insertTower(towerToMove);
+                            try {
+                                team.getSchoolBoardWithTowers().removeTower(towerToMove);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        } else endGame();
+
+
+                    }
+                    islandList.checkAndMerge(index);
+                    if(islandList.numOfIslandSets()<=3){
+                        endGame();
+                    }
+                }
+            }
 
         }
     }
@@ -752,7 +805,7 @@ public class Game{
     }
 
     /**
-     * Method collectCoin moves a coin from freeCoins to a player's schoolBoard
+     * Method collectCoin moves a coin from freeCoins to a player's schoolBoard, if a coin is available
      */
     public void collectCoin(){
         Coin toBeMoved = freeCoins.getFirstCoin();

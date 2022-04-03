@@ -16,7 +16,7 @@ public class CharacterJester extends CharacterCard {
     }
 
     @Override
-    public void InitCharacter(Game game) {
+    public void initCharacter(Game game) {
         for (int i = 0; i < jesterStudents; i++) {
             students.insertElement(game.drawStudentFromBag());
         }

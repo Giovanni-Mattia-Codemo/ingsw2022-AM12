@@ -27,7 +27,7 @@ public class CharacterPrincess extends CharacterCard {
     }
 
     @Override
-    public void InitCharacter(Game game) {
+    public void initCharacter(Game game) {
         for (int i = 0; i < princessStudents; i++) {
             students.insertElement(game.drawStudentFromBag());
         }

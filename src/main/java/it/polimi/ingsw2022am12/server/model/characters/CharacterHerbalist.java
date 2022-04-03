@@ -17,7 +17,7 @@ public class CharacterHerbalist extends CharacterCard {
     }
 
     @Override
-    public void InitCharacter(Game game) {
+    public void initCharacter(Game game) {
         for (int i = 0; i < numOfNoEntriesCard; i++) {
             NoEntry tmp = new NoEntry(noEntryCollection);
             noEntryCollection.insertElement(tmp);

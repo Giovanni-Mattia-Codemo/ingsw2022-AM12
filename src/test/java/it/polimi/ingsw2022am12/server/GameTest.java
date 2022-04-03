@@ -2,6 +2,8 @@ package it.polimi.ingsw2022am12.server;
 
 import it.polimi.ingsw2022am12.exceptions.NotPresent;
 
+import java.util.HashMap;
+import java.util.Map;
 import it.polimi.ingsw2022am12.server.model.*;
 import org.junit.jupiter.api.Test;
 
@@ -17,6 +19,8 @@ public class GameTest {
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Pippo");
         nicks.add("Pluto");
+        nicks.add("Pinco");
+        nicks.add("Pluta");
         Game testGame = new Game(nicks);
         testGame.setUp();
 

@@ -7,7 +7,11 @@ import it.polimi.ingsw2022am12.server.model.PossibleAction;
 import it.polimi.ingsw2022am12.server.model.Selectable;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
+/**
+ * Class that defines the process of activation of a generic Character Card
+ */
 public class ActivateCharacter extends PossibleAction {
 
     /**
