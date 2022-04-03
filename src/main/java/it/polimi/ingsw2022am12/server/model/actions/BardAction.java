@@ -3,14 +3,28 @@ package it.polimi.ingsw2022am12.server.model.actions;
 import it.polimi.ingsw2022am12.server.model.*;
 import java.util.ArrayList;
 
+/**
+ * Class that defines the process of activation of a Bard Card
+ */
 public class BardAction extends PossibleAction {
     private DiskColor student1;
     private DiskColor student2;
 
+    /**
+     * Constructor method of BardAction class
+     *
+     */
     public BardAction() {
         super(2);
     }
 
+    /**
+     * Method checkInputValidity checks if I'm using the correct type and number of inputs required by my action
+     *
+     * @param input my chosen inputs
+     * @param game the instance of my game
+     * @return ActionStep number of inputs needed by my PossibleAction
+     */
     @Override
     public ActionStep checkInputValidity(ArrayList<Selectable> input, Game game) {
     int inDiningRoom=0;
@@ -45,6 +59,11 @@ public class BardAction extends PossibleAction {
 
     }
 
+    /**
+     * Method useAction uses the power of the Bard, and sets the Bard to Used
+     *
+     * @param game the game that is being played currently
+     */
     @Override
     public void useAction(Game game){
         game.swapStudents(student1, student2);

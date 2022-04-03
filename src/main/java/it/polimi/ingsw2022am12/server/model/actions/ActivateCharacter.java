@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class ActivateCharacter extends PossibleAction {
 
     /**
-     * "Constructor" Method of PossibleAction class
+     * "Constructor" Method of ActivateCharacter class
      *
      */
     public ActivateCharacter() {
@@ -24,6 +24,13 @@ public class ActivateCharacter extends PossibleAction {
 
     private CharacterName characterName;
 
+    /**
+     * Method checkInputValidity checks if I'm using the correct type and number of inputs required by my action
+     *
+     * @param input my chosen inputs
+     * @param game the instance of my game
+     * @return ActionStep number of inputs needed by my PossibleAction
+     */
     @Override
     public ActionStep checkInputValidity(ArrayList<Selectable> input, Game game) {
         if(input.size()==1){
@@ -43,6 +50,11 @@ public class ActivateCharacter extends PossibleAction {
         }return ActionStep.NOTOK;
     }
 
+    /**
+     * Method useAction uses the power of the Character, and sets the Character to Used
+     *
+     * @param game the game that is being played currently
+     */
     @Override
     public void useAction(Game game) {
         game.payAndSetActiveCharacter(characterName);

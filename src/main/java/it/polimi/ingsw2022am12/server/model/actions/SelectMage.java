@@ -7,10 +7,13 @@ import it.polimi.ingsw2022am12.server.model.Selectable;
 
 import java.util.ArrayList;
 
+/**
+ * Class that defines the process of selecting a mage
+ */
 public class SelectMage extends PossibleAction {
 
     /**
-     * "Constructor" Method of PossibleAction class
+     * "Constructor" Method of SelectMage class
      */
     public SelectMage() {
         super(1);
@@ -18,6 +21,13 @@ public class SelectMage extends PossibleAction {
 
     private int mageID;
 
+    /**
+     * Method checkInputValidity checks if I'm using the correct type and number of inputs required by my action
+     *
+     * @param input my chosen inputs
+     * @param game the instance of my game
+     * @return ActionStep number of inputs needed by my PossibleAction
+     */
     @Override
     public ActionStep checkInputValidity(ArrayList<Selectable> input, Game game) {
         if(input.size()==1){
@@ -33,6 +43,11 @@ public class SelectMage extends PossibleAction {
         }return ActionStep.NOTOK;
     }
 
+    /**
+     * Method useAction selects the mage, and then ends the turn
+     *
+     * @param game the game that is being played currently
+     */
     @Override
     public void useAction(Game game) {
         game.selectMage(mageID);

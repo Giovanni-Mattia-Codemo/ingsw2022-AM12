@@ -37,6 +37,11 @@ public abstract class PossibleAction {
         return ActionStep.NOTOK;
     }
 
+    /**
+     * Method useAction activates my desired move
+     *
+     * @param game the game that is being played currently
+     */
     public void useAction(Game game){
 
     }

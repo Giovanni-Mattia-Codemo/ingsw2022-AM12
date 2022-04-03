@@ -5,15 +5,27 @@ import it.polimi.ingsw2022am12.server.model.characters.CharacterPrincess;
 
 import java.util.ArrayList;
 
+/**
+ * Class that defines the process of activation of the Princess card
+ */
 public class PrincessAction extends PossibleAction {
 
     private DiskColor color;
 
+    /**
+     * Constructor method of PrincessAction
+     */
     public PrincessAction(){
         super(2);
     }
 
-
+    /**
+     * Method checkInputValidity checks if I'm using the correct type and number of inputs required by my action
+     *
+     * @param input my chosen inputs
+     * @param game the instance of my game
+     * @return ActionStep number of inputs needed by my PossibleAction
+     */
     @Override
     public ActionStep checkInputValidity(ArrayList<Selectable> input, Game game) {
         if(input.size()==1){
@@ -32,6 +44,11 @@ public class PrincessAction extends PossibleAction {
         return ActionStep.NOTOK;
     }
 
+    /**
+     * Method useAction uses the power of the Princess, and then sets the Princess to Used
+     *
+     * @param game the game that is being played currently
+     */
     @Override
     public void useAction(Game game) {
         game.moveStudentFromCardToRoom(color);

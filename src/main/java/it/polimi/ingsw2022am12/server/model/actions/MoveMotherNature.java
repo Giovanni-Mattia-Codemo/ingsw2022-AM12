@@ -7,6 +7,9 @@ import it.polimi.ingsw2022am12.server.model.Selectable;
 
 import java.util.ArrayList;
 
+/**
+ * Class that defines the process of moving MotherNature
+ */
 public class MoveMotherNature extends PossibleAction {
 
     private int islandID;
@@ -19,6 +22,13 @@ public class MoveMotherNature extends PossibleAction {
         super(1);
     }
 
+    /**
+     * Method checkInputValidity checks if I'm using the correct type and number of inputs required by my action
+     *
+     * @param input my chosen inputs
+     * @param game the instance of my game
+     * @return ActionStep number of inputs needed by my PossibleAction
+     */
     @Override
     public ActionStep checkInputValidity(ArrayList<Selectable> input, Game game) {
         for(Selectable s: input){
@@ -36,6 +46,11 @@ public class MoveMotherNature extends PossibleAction {
 
     }
 
+    /**
+     * Method useAction moves Mother Nature
+     *
+     * @param game the game that is being played currently
+     */
     @Override
     public void useAction(Game game) {
         game.moveMotherNature(islandID);

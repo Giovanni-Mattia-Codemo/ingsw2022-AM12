@@ -52,6 +52,11 @@ public abstract class CharacterCard implements Selectable {
         cost++;
     }
 
+    /**
+     * Method getWasUsed returns if character was already used
+     *
+     * @return boolean wasUsed
+     */
     public boolean getWasUsed(){
         return wasUsed;
     }
@@ -65,10 +70,20 @@ public abstract class CharacterCard implements Selectable {
         return additionalCoins.size()==0;
     }
 
+    /**
+     * Method setWasUsed tells if the character was already used through a boolean flag
+     *
+     * @param isUsed is true if the character has been used, else false
+     */
     public void setWasUsed(boolean isUsed){
         wasUsed = isUsed;
     }
 
+    /**
+     * Method PossibleAction allows me to know the possible actions for a Character
+     *
+     * @return PossibleAction the move I can make thanks to the character
+     */
     public PossibleAction getPossibleAction(){
         return null;
     }

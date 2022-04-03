@@ -7,6 +7,9 @@ import it.polimi.ingsw2022am12.server.model.Selectable;
 
 import java.util.ArrayList;
 
+/**
+ * Class that defines the process of playing an Assistant
+ */
 public class PlayAssistant extends PossibleAction {
     /**
      * "Constructor" Method of PossibleAction class
@@ -18,6 +21,13 @@ public class PlayAssistant extends PossibleAction {
     private int assistantTurnPower;
 
 
+    /**
+     * Method checkInputValidity checks if I'm using the correct type and number of inputs required by my action
+     *
+     * @param input my chosen inputs
+     * @param game the instance of my game
+     * @return ActionStep number of inputs needed by my PossibleAction
+     */
     @Override
     public ActionStep checkInputValidity(ArrayList<Selectable> input, Game game) {
         if(input.size()==1){
@@ -33,6 +43,11 @@ public class PlayAssistant extends PossibleAction {
         }return ActionStep.NOTOK;
     }
 
+    /**
+     * Method useAction plays the Assistant, and then ends the turn
+     *
+     * @param game the game that is being played currently
+     */
     @Override
     public void useAction(Game game){
         game.playAssistant(assistantTurnPower);

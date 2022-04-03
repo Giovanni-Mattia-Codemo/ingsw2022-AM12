@@ -7,10 +7,13 @@ import it.polimi.ingsw2022am12.server.model.StudentDiskCollection;
 
 import java.util.ArrayList;
 
+/**
+ * Class that defines the process of activation of drawing from a generic cloud
+ */
 public class DrawFromCloud extends PossibleAction {
 
     /**
-     * "Constructor" Method of PossibleAction class
+     * "Constructor" Method of DrawFromCloud class
      *
      */
     public DrawFromCloud() {
@@ -19,6 +22,13 @@ public class DrawFromCloud extends PossibleAction {
 
     int usableID=0;
 
+    /**
+     * Method checkInputValidity checks if I'm using the correct type and number of inputs required by my action
+     *
+     * @param input my chosen inputs
+     * @param game the instance of my game
+     * @return ActionStep number of inputs needed by my PossibleAction
+     */
     @Override
     public ActionStep checkInputValidity(ArrayList<Selectable> input, Game game) {
         int id;
@@ -33,6 +43,11 @@ public class DrawFromCloud extends PossibleAction {
         }return ActionStep.NOTOK;
     }
 
+    /**
+     * Method useAction draws from a usable cloud, and then ends the turn
+     *
+     * @param game the game that is being played currently
+     */
     @Override
     public void useAction(Game game) {
         game.drawFromCloud(usableID);

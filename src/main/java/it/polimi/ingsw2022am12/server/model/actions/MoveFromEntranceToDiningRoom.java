@@ -4,19 +4,28 @@ import it.polimi.ingsw2022am12.server.model.*;
 
 import java.util.ArrayList;
 
-
+/**
+ * Class that defines the process of moving a student from the entrance of a SchoolBoard to the Dining Room
+ */
 public class MoveFromEntranceToDiningRoom extends PossibleAction {
 
     private DiskColor colorInEntrance;
 
     /**
-     * "Constructor" Method of MoveFromEntranceToDiningRoom
+     * "Constructor" Method of MoveFromEntranceToDiningRoom class
      *
      */
     public MoveFromEntranceToDiningRoom() {
         super(2);
     }
 
+    /**
+     * Method checkInputValidity checks if I'm using the correct type and number of inputs required by my action
+     *
+     * @param input my chosen inputs
+     * @param game the instance of my game
+     * @return ActionStep number of inputs needed by my PossibleAction
+     */
     @Override
     public ActionStep checkInputValidity(ArrayList<Selectable> input, Game game) {
 
@@ -57,7 +66,11 @@ public class MoveFromEntranceToDiningRoom extends PossibleAction {
 
     }
 
-
+    /**
+     * Method useAction moves a Student from the entrance of a SchoolBoard to the DiningRoom
+     *
+     * @param game the game that is being played currently
+     */
     @Override
     public void useAction(Game game){
 
