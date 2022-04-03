@@ -277,8 +277,8 @@ public class SchoolBoard{
      * Method playAssistant takes an assistant as input and sets it as the lastPlayedAssistant of the SchoolBoard,
      *         (NOTE! removing it from the available assistants)
      *
-     * @param assistant the assistant you wish to play
-     * @throws NotPresent thrown if the assistant is not in the list of playable assistants
+     * @param assistant the assistant you wish to play, must be an available assistant
+     *
      */
     public void playAssistant(int assistant) {
         Assistant tmp = null;
@@ -290,6 +290,8 @@ public class SchoolBoard{
         }
         assistants.remove(tmp);
     }
+
+
 
     /**
      * Method getFirstStudentOfColor returns the first Student of a specific color contained in the list of students

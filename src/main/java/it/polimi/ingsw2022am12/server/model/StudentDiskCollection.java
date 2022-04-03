@@ -100,8 +100,11 @@ public class StudentDiskCollection implements Position, Selectable {
      */
     @Override
     public void insertElement(PlaceableObject o) {
-        try{students.add((Student) o);
-            o.setPosition(this);
+        try{
+            if(o!=null){
+                students.add((Student) o);
+                o.setPosition(this);
+            }
         }catch (ClassCastException e) {
             System.out.println("ClassCastException in StudentDiskCollection.insertElement()");
         }

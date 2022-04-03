@@ -4,6 +4,8 @@ import it.polimi.ingsw2022am12.server.model.PhaseStrategy;
 import it.polimi.ingsw2022am12.server.model.PossibleAction;
 import it.polimi.ingsw2022am12.server.model.Selectable;
 import it.polimi.ingsw2022am12.server.model.Game;
+import it.polimi.ingsw2022am12.server.model.actions.SelectMage;
+import it.polimi.ingsw2022am12.server.model.characters.CharacterPrincess;
 
 import java.util.ArrayList;
 
@@ -48,6 +50,8 @@ public class SetupStrategy implements PhaseStrategy {
  */
     @Override
     public ArrayList<PossibleAction> getValidActions(Game game){
-        return null;
+        ArrayList<PossibleAction> result= new ArrayList<>();
+        result.add(new SelectMage());
+        return result;
     }
 }

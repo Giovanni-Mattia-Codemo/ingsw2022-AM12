@@ -35,5 +35,6 @@ public class DrawFromCloud extends PossibleAction {
     @Override
     public void useAction(Game game) {
         game.drawFromCloud(usableID);
+        game.endTurn();
     }
 }

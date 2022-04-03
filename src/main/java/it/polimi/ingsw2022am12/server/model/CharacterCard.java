@@ -5,7 +5,7 @@ package it.polimi.ingsw2022am12.server.model;
  */
 public abstract class CharacterCard implements Selectable {
 
-    private final String name;
+    private final CharacterName name;
     private int cost;
     private final CoinCollection additionalCoins;
     private boolean wasUsed;
@@ -17,7 +17,7 @@ public abstract class CharacterCard implements Selectable {
      * @param name of the Selectable type
      * @param cost of the character (initial value)
      */
-    public CharacterCard(String name, int cost){
+    public CharacterCard(CharacterName name, int cost){
         this.name = name;
         this.cost= cost;
         additionalCoins = new CoinCollection();
@@ -37,7 +37,7 @@ public abstract class CharacterCard implements Selectable {
      *
      * @return String name
      */
-    public String getName(){
+    public CharacterName getName(){
         return this.name;
     }
 

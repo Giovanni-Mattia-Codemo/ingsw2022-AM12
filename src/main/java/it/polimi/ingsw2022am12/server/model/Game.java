@@ -335,7 +335,7 @@ public class Game{
      *
      * @return name of the active character in the form of a string
      */
-    public String getActiveCharacterName(){
+    public CharacterName getActiveCharacterName(){
         if (activeCharacterCard ==null){
             return null;
         } else return activeCharacterCard.getName();
@@ -376,7 +376,8 @@ public class Game{
 
         StudentDiskCollection tmp = ((CharacterPrincess)getActiveCharacterCard()).getStudents();
         Student temp = tmp.getFirstStudentOfColor(color).get();
-
+        tmp.removeElement(temp);
+        getCurrentSchoolBoard().insertToDiningRoom(temp);
 
     }
 
@@ -435,30 +436,32 @@ public class Game{
                 tie= true;
             }
         }
-        if (!tie){
+        if (!tie) {
             team = teams.get(winnerId);
-            if(team!=islandToConquer.getOwningTeam()){
+            if (team != islandToConquer.getOwningTeam()) {
                 ArrayList<Tower> towersToMove = islandToConquer.getTowers();
                 islandToConquer.removeAllTowers();
-                for(Tower t : towersToMove){
+                for (Tower t : towersToMove) {
                     t.getTeam().getSchoolBoardWithTowers().insertTower(t);
                 }
 
-                for(int i = 0; i<islandToConquer.getNumOfIslandsInThisSet(); i++){
+                for (int i = 0; i < islandToConquer.getNumOfIslandsInThisSet(); i++) {
                     Tower towerToMove = team.getSchoolBoardWithTowers().getFirstTower();
-                    if(towerToMove!=null){
+                    if (towerToMove != null) {
                         islandToConquer.insertTower(towerToMove);
-                        try{
+                        try {
                             team.getSchoolBoardWithTowers().removeTower(towerToMove);
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
-                    }else endGame();
+                    } else endGame();
 
 
                 }
                 islandList.checkAndMerge(index);
             }
+        }
+
         }
     }
 
@@ -468,7 +471,11 @@ public class Game{
      * @return random student
      */
     public Student drawStudentFromBag(){
-        return bag.draw();
+        Student tmp =bag.draw();
+        if (tmp==null){
+            isLastRoundFlag=true;
+        }
+        return tmp;
     }
 
 
@@ -802,22 +809,28 @@ public class Game{
      *
      * @param characterName selected
      */
-    public void payAndSetActiveCharacter(CharacterCard characterCard){
-        if (characterCards.contains(characterCard)){
-            int cost = characterCard.getCost();
-            try {
-                payCoins(cost);
-            } catch (NotPresent e) {
-                e.printStackTrace();
-            }
-            if(!characterCard.wasPayedBefore()){
-                Coin coinTmp = freeCoins.getFirstCoin();
-                freeCoins.removeElement(coinTmp);
-                characterCard.insertCoin(coinTmp);
-            }
-            activeCharacterCard = characterCard;
+    public void payAndSetActiveCharacter(CharacterName characterName){
 
+        for (CharacterCard characterCard:characterCards) {
+            if (characterCard.getName().equals(characterName)){
+                if (characterCards.contains(characterCard)){
+                            int cost = characterCard.getCost();
+                            try {
+                                payCoins(cost);
+                            } catch (NotPresent e) {
+                                e.printStackTrace();
+                            }
+                            if(!characterCard.wasPayedBefore()){
+                                Coin coinTmp = freeCoins.getFirstCoin();
+                                freeCoins.removeElement(coinTmp);
+                                characterCard.insertCoin(coinTmp);
+                            }
+                            activeCharacterCard = characterCard;
+                }
+            }
         }
+
+
     }
 
     /**

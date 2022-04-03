@@ -4,6 +4,7 @@ import it.polimi.ingsw2022am12.server.model.PhaseStrategy;
 import it.polimi.ingsw2022am12.server.model.PossibleAction;
 import it.polimi.ingsw2022am12.server.model.Selectable;
 import it.polimi.ingsw2022am12.server.model.Game;
+import it.polimi.ingsw2022am12.server.model.actions.PlayAssistant;
 
 import java.util.ArrayList;
 
@@ -38,7 +39,9 @@ public class PlanningStrategy implements PhaseStrategy {
 
     @Override
     public ArrayList<PossibleAction> getValidActions(Game game) {
-        return null;
+        ArrayList<PossibleAction> result= new ArrayList<>();
+        result.add(new PlayAssistant());
+        return result;
     }
 /*
     /**

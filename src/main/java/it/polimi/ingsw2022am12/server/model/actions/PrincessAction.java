@@ -21,8 +21,11 @@ public class PrincessAction extends PossibleAction {
                 Student tmp = (Student) input.get(0);
                 if(tmp.getPositionID()==((CharacterPrincess)game.getActiveCharacterCard()).getStudents().getID()){
                     if(((CharacterPrincess)game.getActiveCharacterCard()).getStudents().getFirstStudentOfColor(tmp.getColor()).isPresent()){
-                        color = tmp.getColor();
-                        return ActionStep.OK;
+                        if(!game.getCurrentSchoolBoard().isDiningRoomFull(tmp.getColor())){
+                           color = tmp.getColor();
+                           return ActionStep.OK;
+                        }
+
                     }
 
                 }

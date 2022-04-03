@@ -49,7 +49,7 @@ public class MoveFromEntranceToDiningRoom extends PossibleAction {
             if(inEntrance&&isRoom){
 
                 colorInEntrance = ((Student)input.get(inEntranceIndex)).getColor();
-                if (game.getCurrentSchoolBoard().checkMoveStudentFromEntranceToRoom(colorInEntrance)){
+                if (!game.getCurrentSchoolBoard().isDiningRoomFull(colorInEntrance)){
                     return ActionStep.OK;
                 }else return ActionStep.NOTOK;
 
