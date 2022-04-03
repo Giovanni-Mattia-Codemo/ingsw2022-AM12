@@ -691,9 +691,7 @@ public class Game{
             range+=2;
         }
         System.out.println(islandList.distanceFromMotherNature(island));
-        if(islandList.distanceFromMotherNature(island) <= range && islandList.distanceFromMotherNature(island)>0){
-            return true;
-        }else return false;
+        return islandList.distanceFromMotherNature(island) <= range && islandList.distanceFromMotherNature(island) > 0;
     }
 
     /**
