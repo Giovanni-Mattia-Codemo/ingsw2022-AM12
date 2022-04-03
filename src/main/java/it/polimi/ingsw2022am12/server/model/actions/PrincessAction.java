@@ -25,9 +25,7 @@ public class PrincessAction extends PossibleAction {
                            color = tmp.getColor();
                            return ActionStep.OK;
                         }
-
                     }
-
                 }
             }
         }

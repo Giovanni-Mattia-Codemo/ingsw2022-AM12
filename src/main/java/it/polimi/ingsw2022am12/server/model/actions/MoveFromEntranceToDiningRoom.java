@@ -1,6 +1,5 @@
 package it.polimi.ingsw2022am12.server.model.actions;
 
-import it.polimi.ingsw2022am12.exceptions.NotValidSwap;
 import it.polimi.ingsw2022am12.server.model.*;
 
 import java.util.ArrayList;

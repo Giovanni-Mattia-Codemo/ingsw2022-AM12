@@ -27,6 +27,21 @@ public class IslandTileList {
         motherNature = islands.get(index);
     }
 
+    public void printIslands(){
+        System.out.println("Islands: ");
+        for(IslandTileSet is : islands){
+            System.out.println("\n island of index "+is.getID()+": ");
+            Team owner = is.getOwningTeam();
+            if(owner!= null){
+                System.out.println("    Owner: "+ is.getOwningTeam().getTeamName());
+            }
+
+            System.out.println("    Towers: "+ is.getTowers().size());
+            System.out.print("    Students: ");
+            is.getStudentCollection().printStudents();
+        }
+    }
+
     /**
      * Method moveMotherNature changes the position of motherNature
      *
@@ -65,24 +80,6 @@ public class IslandTileList {
         if(idx<islands.size()){
         return this.islands.get(idx);
         }else return null;
-    }
-
-    /**
-     * Method getIslandsInRange returns the reachable islands given a numerical range in input
-     *
-     * @param range max possible move of mother nature
-     * @return ArrayList of reachable islands
-     */
-    public ArrayList<IslandTileSet> getIslandsInRange(int range){
-        ArrayList<IslandTileSet> tmp = new ArrayList<>();
-        int temp = range - (islands.size()-getMotherNatureIndex()+1);
-        if(temp<=0) tmp.addAll(islands.subList(getMotherNatureIndex(), getMotherNatureIndex()+range));
-        else {tmp.addAll(islands.subList(getMotherNatureIndex()+1, islands.size()-1));
-              tmp.addAll(islands.subList(0, temp-1));
-            return new ArrayList<>(
-                  new HashSet<>(tmp));
-        }
-        return tmp;
     }
 
     /**

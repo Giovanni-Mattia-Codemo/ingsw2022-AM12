@@ -1,6 +1,5 @@
 package it.polimi.ingsw2022am12.server.model.actions;
 
-import it.polimi.ingsw2022am12.exceptions.NotValidAssistant;
 import it.polimi.ingsw2022am12.server.model.Assistant;
 import it.polimi.ingsw2022am12.server.model.Game;
 import it.polimi.ingsw2022am12.server.model.PossibleAction;

@@ -8,6 +8,7 @@ import it.polimi.ingsw2022am12.server.model.StudentDiskCollection;
 import java.util.ArrayList;
 
 public class DrawFromCloud extends PossibleAction {
+
     /**
      * "Constructor" Method of PossibleAction class
      *

@@ -37,6 +37,12 @@ public class PlanningStrategy implements PhaseStrategy {
         game.correctOrder(); //notify
     }
 
+    /**
+     * Method getValidActions returns a list of possible actions for the current player
+     *
+     * @param game instance of the game
+     * @return ArrayList of possible actions
+     */
     @Override
     public ArrayList<PossibleAction> getValidActions(Game game) {
         ArrayList<PossibleAction> result= new ArrayList<>();

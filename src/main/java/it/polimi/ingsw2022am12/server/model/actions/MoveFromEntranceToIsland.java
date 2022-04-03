@@ -62,10 +62,7 @@ public class MoveFromEntranceToIsland extends PossibleAction {
 
     @Override
     public void useAction(Game game){
-
         game.moveStudentFromEntranceToIsland(colorInEntrance, islandID);
-
-
     }
 
 }

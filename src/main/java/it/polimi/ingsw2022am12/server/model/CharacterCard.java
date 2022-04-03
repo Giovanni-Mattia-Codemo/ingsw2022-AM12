@@ -73,7 +73,11 @@ public abstract class CharacterCard implements Selectable {
         return null;
     }
 
-    public void InitCharacter(Game game){}
+    /**
+     * Method init Character initializes Characters who possess a private attribute
+     *
+     */
+    public void initCharacter(Game game){}
 
 
 

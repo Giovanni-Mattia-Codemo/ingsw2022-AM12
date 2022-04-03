@@ -197,6 +197,23 @@ public class Game{
         return freeCoins;
     }
 
+    /**
+     * Method used only for testing
+     *
+     * @return teams
+     */
+    public ArrayList<Team> getTeams() {
+        return teams;
+    }
+
+    /**
+     * Method only used for testing
+     *
+     * @param characterName to be set active
+     */
+    public void forceSetActiveCharacter(CharacterCard characterName){
+        activeCharacterCard = characterName;
+    }
 
     /**
      * Method only used for testing
@@ -228,6 +245,8 @@ public class Game{
         else return null;
     }
 
+
+
     /**
      * Getter method for isLastRoundFlag
      *
@@ -235,33 +254,6 @@ public class Game{
      */
     public boolean getIsLastRoundFlag(){
         return isLastRoundFlag;
-    }
-
-    /**
-     * Method getStudentsInEntranceOfCurrentTurn returns a list of type Selectable with the students the current player
-     * can move from them entrance in his turn
-     *
-     * @return movable students
-     */
-    public ArrayList<Selectable> getStudentsInEntranceOfCurrentTurn(){
-        return new ArrayList<>(turnOrder.get(turn).getEntrance().getAllStudents());
-    }
-
-    /**
-     * Method getActivatableCharacters returns an ArrayList of type Character with the playable characters
-     * by the current player
-     *
-     * @return ArrayList<Character>
-     */
-    public ArrayList<CharacterCard> getActivatableCharacters(){
-        ArrayList<CharacterCard> result = new ArrayList<>();
-        for (CharacterCard c: characterCards) {
-            if(c.getCost()<=getCurrentSchoolBoard().getNumOfCoins()){
-                result.add(c);
-            }
-        }
-        return result;
-
     }
 
     /**
@@ -319,17 +311,6 @@ public class Game{
     }
 
     /**
-     * Method getIslandsInRange returns an ArrayList of type Selectable with the selectable islands, contained in the range
-     * given by the assistant's card used
-     *
-     * @return pickable islands
-     */
-    public ArrayList<Selectable> getIslandsInRange(){
-        int possibleRange = getCurrentSchoolBoard().getLastPlayedAssistantRange();
-        return new ArrayList<>(islandList.getIslandsInRange(possibleRange));
-    }
-
-    /**
      * Method getActiveCharacterName returns a String with the name of the character that has been activated
      * (it can also return null, if no character has been activated yet)
      *
@@ -378,6 +359,10 @@ public class Game{
         Student temp = tmp.getFirstStudentOfColor(color).get();
         tmp.removeElement(temp);
         getCurrentSchoolBoard().insertToDiningRoom(temp);
+
+        if((getCurrentSchoolBoard().getStudentsInRoomByColor(temp.getColor())%3)==0){
+                collectCoin();
+        }
 
     }
 
@@ -529,11 +514,7 @@ public class Game{
         s.moveStudentFromEntranceToRoom(student);
 
         if((s.getStudentsInRoomByColor(colorInEntrance)%3)==0){
-            try{
                 collectCoin();
-            }catch (Exception e){
-                e.printStackTrace();
-            }
         }
 
         SchoolBoard owner = professors[student.getColor().getValue()];
@@ -583,6 +564,10 @@ public class Game{
             getCurrentSchoolBoard().swapStudents(s0, s1);
         } catch (NotValidSwap e) {
             e.printStackTrace();
+        }
+
+        if((getCurrentSchoolBoard().getStudentsInRoomByColor(s1.getColor())%3)==0){
+            collectCoin();
         }
     }
 
@@ -652,7 +637,10 @@ public class Game{
         if(getActiveCharacterName()==CharacterName.CHARACTER_BEGGAR){
             range+=2;
         }
-        return islandList.distanceFromMotherNature(island) <= range;
+        System.out.println(islandList.distanceFromMotherNature(island));
+        if(islandList.distanceFromMotherNature(island) <= range && islandList.distanceFromMotherNature(island)>0){
+            return true;
+        }else return false;
     }
 
     /**
@@ -701,15 +689,6 @@ public class Game{
         // Sorting in ascending order of turn power number
         public int compare(SchoolBoard a, SchoolBoard b) {
             return a.getLastPlayedAssistantPower() - b.getLastPlayedAssistantPower();
-        }
-    }
-
-    /**
-     * Method printTurnOrder prints to the terminal the turn order
-     */
-    public void printTurnOrder(){
-        for (SchoolBoard s: turnOrder) {
-            System.out.println(s.getNick()+ " at index" + turnOrder.indexOf(s));
         }
     }
 
@@ -775,24 +754,14 @@ public class Game{
     /**
      * Method collectCoin moves a coin from freeCoins to a player's schoolBoard
      */
-    public void collectCoin()throws NotPresent{
+    public void collectCoin(){
         Coin toBeMoved = freeCoins.getFirstCoin();
         if(toBeMoved!=null){
             freeCoins.removeElement(toBeMoved);
             getCurrentSchoolBoard().insertCoin(toBeMoved);
-        }else throw new NotPresent(); //No more coins available (notify player)
-
+        }
     }
-/*
-    /**
-     * Method getValidSelection returns all the possible selection a player can make during his turn
-     *
-     * @return ArrayList of type Selectable
 
-    public ArrayList<Selectable> getValidSelections(){
-        return currentStrategy.getValidSelections(this);
-    }
-*/
     /**
      * Method checkIfIsCurrentPlayer is used to check if it's the turn of a selected player
      *
@@ -853,6 +822,10 @@ public class Game{
                 }
             }
         }
+    }
+
+    public ArrayList<CharacterCard> getAvailableCharacters(){
+        return characterCards;
     }
 
 

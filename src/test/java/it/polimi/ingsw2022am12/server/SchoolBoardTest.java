@@ -1,11 +1,9 @@
 package it.polimi.ingsw2022am12.server;
 
-import it.polimi.ingsw2022am12.exceptions.NotPresent;
 import it.polimi.ingsw2022am12.server.model.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
-import java.util.ArrayList;
 
 public class SchoolBoardTest {
 
