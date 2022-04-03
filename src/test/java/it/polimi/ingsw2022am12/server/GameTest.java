@@ -77,7 +77,7 @@ public class GameTest {
         testGame.getCurrentSchoolBoard().insertToEntrance(red1); //illegal but checked elsewhere
 
 
-            testGame.moveStudentFromEntranceToRoom(red1.getColor());
+        testGame.moveStudentFromEntranceToRoom(red1.getColor());
 
 
         testGame.conquerIsland(motherNaturePose);
@@ -103,7 +103,7 @@ public class GameTest {
 
         testGame.getCurrentSchoolBoard().insertToEntrance(red0); //illegal but checked elsewhere
 
-        testGame.moveStudentFromEntranceToIsland(red0.getColor(), testMotherNature.getiD());
+        testGame.moveStudentFromEntranceToIsland(red0.getColor(), testMotherNature.getID());
 
         Assertions.assertEquals(7, testGame.getCurrentSchoolBoard().getEntrance().amount());
         Assertions.assertTrue(testMotherNature.getStudentCollection().getFirstStudentOfColor(red0.getColor()).isPresent());
@@ -125,9 +125,9 @@ public class GameTest {
         int motherNaturePose = testGame.getIslandList().getMotherNatureIndex();
 
         IslandTileSet island = testGame.getIslandList().getByIndex(3);
-        testGame.moveMotherNature(island.getiD());
+        testGame.moveMotherNature(island.getID());
 
-        Assertions.assertTrue(testGame.getIslandList().getMotherNatureIndex()==island.getiD());
+        Assertions.assertTrue(testGame.getIslandList().getMotherNatureIndex()==island.getID());
     }
 
     @Test
@@ -170,22 +170,12 @@ public class GameTest {
         //Entering PlanningStrategy
 
         SchoolBoard schoolBoard1 = testGame.getCurrentSchoolBoard();
-        Assistant testAssistant1 = schoolBoard1.getPlayableAssistants().get(7);
-        try {
-            schoolBoard1.playAssistant(testAssistant1); //Known assistant value (==7)
-        } catch (NotPresent e) {
-            e.printStackTrace();
-        }
+        testGame.playAssistant(7);
 
         testGame.endTurn();
 
         SchoolBoard schoolBoard2 = testGame.getCurrentSchoolBoard();
-        Assistant testAssistant2 = schoolBoard2.getPlayableAssistants().get(1);
-        try {
-            schoolBoard2.playAssistant(testAssistant2); //Known assistant value (==1)
-        } catch (NotPresent e) {
-            e.printStackTrace();
-        }
+        testGame.playAssistant(1);
 
         testGame.endTurn();
 

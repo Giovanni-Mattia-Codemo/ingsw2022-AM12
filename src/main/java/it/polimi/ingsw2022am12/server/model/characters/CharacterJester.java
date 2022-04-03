@@ -11,7 +11,7 @@ public class CharacterJester extends CharacterCard {
     private final StudentDiskCollection students;
 
     public CharacterJester(){
-        super("Jester", 1);
+        super(CharacterName.CHARACTER_JESTER, 1);
         students = new StudentDiskCollection();
     }
 
@@ -31,10 +31,10 @@ public class CharacterJester extends CharacterCard {
         return null;
     }
 
-
     public boolean containsStudent(Student student){
         return students.contains(student);
     }
+
     public StudentDiskCollection getStudents(){
         return students;
     }

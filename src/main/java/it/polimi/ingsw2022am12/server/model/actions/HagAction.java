@@ -12,7 +12,6 @@ public class HagAction extends PossibleAction {
 
     @Override
     public ActionStep checkInputValidity(ArrayList<Selectable> input , Game game){
-
         for (int i = 0; i < Math.min(getRequiredInputs(),input.size()) ; i++) {
             if(input.get(i) instanceof ColorSelection){
                 selection = ((ColorSelection) input.get(i)).getColor();

@@ -4,7 +4,6 @@ package it.polimi.ingsw2022am12.server.model;
  * Class that defines the properties of an Assistant card, which is characterized by TWO unique numbers
  * (different for every Assistant)
  */
-
 public class Assistant implements Selectable {
 
     private final int turnPower;   //FINAL INT; these values are not meant to change during the game!

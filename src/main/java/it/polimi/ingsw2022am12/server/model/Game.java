@@ -33,13 +33,14 @@ public class Game{
     private final static int maxNumOfIslands = 12;
     private final static int hagStudentsToRemove = 3;
     private final static int maxNumOfMages = 4;
+    private final static int numOfCharacters = 3;
     private boolean isLastRoundFlag;
     private boolean isExpertMode;
 
     private int disksMovedThisTurn;
     private boolean hasMovedMotherNature;
 
-    private ArrayList<CharacterCard> characterCards;
+    private final ArrayList<CharacterCard> characterCards;
     private CharacterCard activeCharacterCard;
 
     /**
@@ -50,10 +51,6 @@ public class Game{
     public Game(ArrayList<String> playerNicks){
 
         this.mages = new ArrayList<>();
-        for(int i=0; i<maxNumOfMages; i++){
-            this.mages.add(new Mage(i));
-        }
-
         this.currentStrategy = new SetupStrategy();
         this.playerNicks = playerNicks;
         this.numOfPlayers = playerNicks.size();
@@ -72,6 +69,8 @@ public class Game{
         this.teams = new ArrayList<>();
 
         this.professors = new SchoolBoard[5];
+        this.characterCards = new ArrayList<>();
+
     }
 
     /**
@@ -114,8 +113,6 @@ public class Game{
 
         assignTeams();
 
-
-
         final int numOfStudentsOfEachColorToPutInBagForSetup = 2;
         final int remainingNumOfStudentsOfEachColorToCompleteSetUp = 24;
         final int studentsInEntranceForThreePlayers = 9;
@@ -155,6 +152,27 @@ public class Game{
             }
 
             s.setAssistants();
+        }
+
+        for(int i=0; i<numOfCharacters; i++){
+            Random rnd= new Random();
+            boolean taken;
+            int x;
+            do {
+                taken=false;
+                x = rnd.nextInt(12);
+                for(CharacterCard c: characterCards){
+                    if (x == c.getName().getValue()) {
+                        taken = true;
+                    }
+                }
+            }while(taken);
+            characterCards.add(CharacterCreator.createCharacter(x));
+
+        }
+
+        for(int i=0; i<maxNumOfMages; i++){
+            this.mages.add(new Mage(i));
         }
 
         fillClouds();
@@ -328,7 +346,7 @@ public class Game{
      *
      * @return ArrayList of mages not picked
      */
-    public ArrayList<Selectable> getAvailableMages() {
+    public ArrayList<Mage> getAvailableMages() {
         return new ArrayList<>(mages);
     }
 
@@ -338,8 +356,12 @@ public class Game{
      * @param mageId ID
      *
      */
-    public void selectMage(Mage mageId){
-        getCurrentSchoolBoard().setMage(mageId);
+    public void selectMage(int mageId){
+        for(Mage m: mages) {
+            if (m.getID()==mageId){
+                getCurrentSchoolBoard().setMage(m);
+            }
+        }
     }
 
 
@@ -366,12 +388,21 @@ public class Game{
      */
     public void conquerIsland(int index){
         IslandTileSet islandToConquer = islandList.getByIndex(index);
+
+        if(islandToConquer.getNoEntries().size()!=0){
+            try {
+                islandToConquer.giveBackNoEntry();
+            } catch (NotPresent e) {
+                e.printStackTrace();
+            }
+        }else {
+
         int[] scores= new int[teams.size()];
         Team team;
         SchoolBoard temporarySchoolBoard;
         for (DiskColor c: DiskColor.values()) {
             temporarySchoolBoard = professors[c.getValue()];
-            if(getActiveCharacterCard()!=null&&getActiveCharacterName().equals("Merchant")&&c==((CharacterMerchant)getActiveCharacterCard()).getColor()){
+            if(getActiveCharacterCard()!=null&&getActiveCharacterName()==CharacterName.CHARACTER_MERCHANT&&c==((CharacterMerchant)getActiveCharacterCard()).getColor()){
                 continue;
             }
             if(temporarySchoolBoard != null){
@@ -383,10 +414,10 @@ public class Game{
             }
         }
         Team owner = islandToConquer.getOwningTeam();
-        if(owner!= null&&!(getActiveCharacterCard()!=null&&getActiveCharacterName().equals("Centaur"))){
+        if(owner!= null&&!(getActiveCharacterCard()!=null&&getActiveCharacterName()==CharacterName.CHARACTER_CENTAUR)){
             scores[teams.indexOf(owner)]+=islandToConquer.getNumOfIslandsInThisSet();
         }
-        if(getActiveCharacterCard()!=null&&getActiveCharacterName().equals("Knight")){
+        if(getActiveCharacterCard()!=null&&getActiveCharacterName()==CharacterName.CHARACTER_KNIGHT){
             for(Team t: teams){
                 if (t.getSchoolBoards().contains(getCurrentSchoolBoard())){
                     scores[teams.indexOf(t)]+=2;
@@ -444,12 +475,10 @@ public class Game{
     /**
      * Method playAssistant is used in the planning phase when the player has to select an assistant from them deck
      *
-     * @param assistant selected
-     * @throws Exception not pickable
+     * @param assistantPower selected
      */
-    public void playAssistant(Selectable assistant)throws Exception{
-        Assistant assistantToPlay = (Assistant) assistant;
-        getCurrentSchoolBoard().playAssistant(assistantToPlay);
+    public void playAssistant(int assistantPower){
+        getCurrentSchoolBoard().playAssistant(assistantPower);
     }
 
     /**
@@ -473,7 +502,8 @@ public class Game{
      * @param index of island to move mother nature to
      */
     public void moveMotherNature(int index){
-         IslandTileSet tmp = islandList.getByIndex(index);
+        hasMovedMotherNature = true;
+        IslandTileSet tmp = islandList.getByIndex(index);
         islandList.moveMotherNature(tmp);
         conquerIsland(islandList.getMotherNatureIndex());
     }
@@ -485,23 +515,32 @@ public class Game{
      * @param colorInEntrance color of student to move
      */
     public void moveStudentFromEntranceToRoom(DiskColor colorInEntrance){
-        Student student = getCurrentSchoolBoard().getEntrance().getFirstStudentOfColor(colorInEntrance).get();
+
         SchoolBoard s = getCurrentSchoolBoard();
+        Student student = s.getEntrance().getFirstStudentOfColor(colorInEntrance).get();
 
-            s.moveStudentFromEntranceToRoom(student);
+        s.moveStudentFromEntranceToRoom(student);
 
-            SchoolBoard owner = professors[student.getColor().getValue()];
-            if(owner!= null&&getActiveCharacterName()=="Host") {
-                if (owner.getStudentsInRoomByColor(student.getColor()) <= s.getStudentsInRoomByColor(student.getColor())) {
-                    owner = s;
-                }
-            }else if(owner!= null) {
-                if (owner.getStudentsInRoomByColor(student.getColor()) < s.getStudentsInRoomByColor(student.getColor())) {
-                        owner = s;
-                }
-            }else owner = s;
-            professors[student.getColor().getValue()]=owner;
-            disksMovedThisTurn++;
+        if((s.getStudentsInRoomByColor(colorInEntrance)%3)==0){
+            try{
+                collectCoin();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
+        SchoolBoard owner = professors[student.getColor().getValue()];
+        if(owner!= null&&getActiveCharacterName()==CharacterName.CHARACTER_HOST) {
+            if (owner.getStudentsInRoomByColor(student.getColor()) <= s.getStudentsInRoomByColor(student.getColor())) {
+                owner = s;
+            }
+        }else if(owner!= null) {
+            if (owner.getStudentsInRoomByColor(student.getColor()) < s.getStudentsInRoomByColor(student.getColor())) {
+                owner = s;
+            }
+        }else owner = s;
+        professors[student.getColor().getValue()]=owner;
+        disksMovedThisTurn++;
     }
 
     public void insertNoEntry(IslandTileSet destination, NoEntry noEntry){
@@ -515,17 +554,12 @@ public class Game{
         Student st0 = jester.getStudents().getFirstStudentOfColor(colorOfCharStudent).get();
         Student st1 = getCurrentSchoolBoard().getEntrance().getFirstStudentOfColor(colorOfEntranceStudent).get();
 
-
-
-            jester.getStudents().removeElement(st0);
-            getCurrentSchoolBoard().getEntrance().removeElement(st1);
-            jester.getStudents().insertElement(st1);
-            getCurrentSchoolBoard().getEntrance().insertElement(st0);
+        jester.getStudents().removeElement(st0);
+        getCurrentSchoolBoard().getEntrance().removeElement(st1);
+        jester.getStudents().insertElement(st1);
+        getCurrentSchoolBoard().getEntrance().insertElement(st0);
 
     }
-
-
-
 
     /**
      * Method swapStudents calls the method swapStudents in the current player schoolBoard
@@ -608,7 +642,7 @@ public class Game{
      */
     public boolean checkIfIslandInRange(IslandTileSet island){
         int range=getCurrentSchoolBoard().getLastPlayedAssistantRange();
-        if(getActiveCharacterName().equals("Beggar") ){
+        if(getActiveCharacterName()==CharacterName.CHARACTER_BEGGAR){
             range+=2;
         }
         return islandList.distanceFromMotherNature(island) <= range;
@@ -673,15 +707,6 @@ public class Game{
     }
 
     /**
-     * Method notifyPlayer sends a feedback to the player
-     *
-     * @param nick of the player
-     */
-    public void notifyPlayer(String nick){
-        //To be implemented
-    }
-
-    /**
      * Method changePhase id used to change the strategy of the game in order to switch phases
      *
      * @param nextStrategy to be applied
@@ -691,7 +716,7 @@ public class Game{
     }
 
     /**
-     * Method endGame finds who
+     * Method endGame sets the winner team
      */
     public void endGame(){
         Team winningTeam;
@@ -726,28 +751,18 @@ public class Game{
     }
 
     /**
-     * Method endRound is used to end a round
-     */
-    public void endRound(){
-        currentStrategy.endRound(this);
-    }
-
-    /**
      * Method payCoins is used when a call to a character is made
      *
      * @param coinsUsed cost of character usage
      * @throws NotPresent if the player hasn't enough coins to activate the character
      */
     public void payCoins(int coinsUsed) throws NotPresent{
-        int playerCoins = getCurrentSchoolBoard().getNumOfCoins();
         Coin toBeMoved;
-        if(coinsUsed <= playerCoins){
-            for(int i=0; i<coinsUsed; i++){
-                toBeMoved = getCurrentSchoolBoard().getFirstCoin();
-                getCurrentSchoolBoard().removeCoin(toBeMoved);
-                freeCoins.insertElement(toBeMoved);
-            }
-        }else throw new NotPresent(); //Notify player they have not enough coins
+        for(int i=0; i<coinsUsed; i++){
+            toBeMoved = getCurrentSchoolBoard().getFirstCoin();
+            getCurrentSchoolBoard().removeCoin(toBeMoved);
+            freeCoins.insertElement(toBeMoved);
+        }
     }
 
     /**
@@ -785,7 +800,7 @@ public class Game{
      * Method payAndActivateCharacter is used to pay and set active the chosen character,
      * it also increases the cost of the selected character by one the first time
      *
-     * @param characterCard selected
+     * @param characterName selected
      */
     public void payAndSetActiveCharacter(CharacterCard characterCard){
         if (characterCards.contains(characterCard)){

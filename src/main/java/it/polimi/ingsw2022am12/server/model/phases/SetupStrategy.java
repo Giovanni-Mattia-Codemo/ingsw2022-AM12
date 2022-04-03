@@ -17,6 +17,7 @@ public class SetupStrategy implements PhaseStrategy {
      *
      * @param game instance of the game
      */
+    @Override
     public void endTurn(Game game) {
         if(game.isLastTurn()){
             endRound(game);
@@ -29,6 +30,7 @@ public class SetupStrategy implements PhaseStrategy {
      *
      * @param game instance of the game
      */
+    @Override
     public void endRound(Game game) {
         game.changePhase(new PlanningStrategy());
     }
@@ -44,6 +46,7 @@ public class SetupStrategy implements PhaseStrategy {
     }
 
  */
+    @Override
     public ArrayList<PossibleAction> getValidActions(Game game){
         return null;
     }

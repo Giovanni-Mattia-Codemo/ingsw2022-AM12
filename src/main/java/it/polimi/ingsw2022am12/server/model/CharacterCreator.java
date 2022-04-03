@@ -14,10 +14,9 @@ public abstract class CharacterCreator {
      * Method returns the new CharacterCard card chosen.
      *
      *@param numOfCharacter random int given in the setup phase
-     *@throws NotValidCharacter Invalid character number
      *
      */
-    public static CharacterCard createCharacter(int numOfCharacter) throws Exception {
+    public static CharacterCard createCharacter(int numOfCharacter){
         return switch (numOfCharacter) {
             case 0 -> new CharacterMonk();
             case 1 -> new CharacterBeggar();
@@ -31,7 +30,7 @@ public abstract class CharacterCreator {
             case 9 -> new CharacterKnight();
             case 10 -> new CharacterJester();
             case 11 -> new CharacterMerchant();
-            default -> throw new NotValidCharacter();
+            default -> null;
         };
     }
 }

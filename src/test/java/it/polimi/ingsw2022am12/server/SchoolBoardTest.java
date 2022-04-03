@@ -68,7 +68,7 @@ public class SchoolBoardTest {
 
     @Test
     public void checkSwapStudents(){
-    SchoolBoard testSchool = new SchoolBoard("peperino");
+    SchoolBoard testSchool = new SchoolBoard("Peperoni");
     Student s0 = new Student(DiskColor.RED);
     Student s1 = new Student(DiskColor.GREEN);
     Student s2 = new Student(DiskColor.BLUE);
@@ -89,23 +89,7 @@ public class SchoolBoardTest {
 
     @Test
     public void checkPlayAssistant(){
-        SchoolBoard testSchool = new SchoolBoard("Foo");
-        try{
-            testSchool.setAssistants();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
 
-        ArrayList<Assistant> playableAssistants = testSchool.getPlayableAssistants();
-        Assistant a0 = playableAssistants.get(1);
-        try {
-            testSchool.playAssistant(a0);
-        } catch (NotPresent e) {
-            e.printStackTrace();
-        }
-        Assertions.assertFalse(testSchool.getPlayableAssistants().contains(a0));
-        Assertions.assertEquals(testSchool.getLastPlayedAssistantPower(), a0.getTurnPower());
-        Assertions.assertEquals(testSchool.getLastPlayedAssistantRange(), a0.getMotherNatureRange());
     }
 
 }

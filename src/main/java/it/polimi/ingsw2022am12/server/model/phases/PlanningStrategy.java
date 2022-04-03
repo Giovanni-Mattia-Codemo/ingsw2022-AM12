@@ -17,6 +17,7 @@ public class PlanningStrategy implements PhaseStrategy {
      *
      * @param game instance of the game
      */
+    @Override
     public void endTurn(Game game) {
         if(game.isLastTurn()){
             endRound(game);
@@ -29,6 +30,7 @@ public class PlanningStrategy implements PhaseStrategy {
      *
      * @param game instance of the game
      */
+    @Override
     public void endRound(Game game) {
         game.changePhase(new ActionStrategy());
         game.correctOrder(); //notify

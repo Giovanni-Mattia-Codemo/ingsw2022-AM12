@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class IslandTileSet implements Selectable {
 
-    private int iD;
+    private int ID;
     private final StudentDiskCollection students;
     private final NoEntryCollection noEntries;
     private int numOfIslandsInThisSet;
@@ -25,12 +25,12 @@ public class IslandTileSet implements Selectable {
         this.numOfIslandsInThisSet = 1;
     }
 
-    public int getiD() {
-        return iD;
+    public int getID() {
+        return ID;
     }
 
-    public void setiD(int iD) {
-        this.iD = iD;
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     /**
@@ -71,18 +71,6 @@ public class IslandTileSet implements Selectable {
      */
     public void insertStudent(Student student){
         students.insertElement(student);
-    }
-
-    /**
-     * Method removeStudent takes a student and, if it's contained in the list students, it removes it
-     *
-     * @param student to be removed
-     * @throws NotPresent if the student isn't contained in the collection
-     */
-    public void removeStudent(Student student) throws NotPresent{
-        if(students.contains(student))
-            students.removeElement(student);
-        else throw new NotPresent();
     }
 
     /**
@@ -156,18 +144,6 @@ public class IslandTileSet implements Selectable {
      */
     public void insertNoEntries(NoEntry noEntry){
         noEntries.insertElement(noEntry);
-    }
-
-    /**
-     * Method removeNoEntries removes a noEntry card from the NoEntryCollection noEntries
-     *
-     * @param noEntry to be removed
-     * @throws NotPresent if the collection is empty
-     */
-    public void removeNoEntry(NoEntry noEntry) throws NotPresent{
-        if(noEntries.contains(noEntry))
-            noEntries.removeElement(noEntry);
-        else throw new NotPresent();
     }
 
     /**

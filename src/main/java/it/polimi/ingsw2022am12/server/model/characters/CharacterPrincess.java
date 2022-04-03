@@ -1,6 +1,7 @@
 package it.polimi.ingsw2022am12.server.model.characters;
 
 import it.polimi.ingsw2022am12.server.model.CharacterCard;
+import it.polimi.ingsw2022am12.server.model.CharacterName;
 import it.polimi.ingsw2022am12.server.model.Game;
 import it.polimi.ingsw2022am12.server.model.PossibleAction;
 import it.polimi.ingsw2022am12.server.model.StudentDiskCollection;
@@ -13,7 +14,7 @@ public class CharacterPrincess extends CharacterCard {
     private static final int princessStudents= 4;
 
     public CharacterPrincess(){
-        super("Princess", 2);
+        super(CharacterName.CHARACTER_PRINCESS, 2);
         students=new StudentDiskCollection();
     }
 

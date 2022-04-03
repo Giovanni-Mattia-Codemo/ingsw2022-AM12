@@ -118,7 +118,15 @@ public class IslandTileList {
      * @param islandIndex island to be checked
      */
     public void checkAndMerge(int islandIndex){
-        IslandTileSet left = islands.get((islandIndex-1)%islands.size());
+
+        int leftIndex;
+        int rightIndex;
+
+        if(islandIndex==0){
+            leftIndex=islands.size()-1;
+        }else leftIndex=islandIndex-1;
+
+        IslandTileSet left = islands.get(leftIndex);
         IslandTileSet islandToCheck = islands.get(islandIndex);
 
         if(left.getOwningTeam()==islandToCheck.getOwningTeam()){
@@ -132,7 +140,11 @@ public class IslandTileList {
             }
         }
 
-        IslandTileSet right = islands.get((islands.indexOf(islandToCheck)+1)%islands.size());
+        if(islandToCheck.getID()==islands.size()-1){
+            rightIndex = 0;
+        }else rightIndex=islandToCheck.getID()+1;
+
+        IslandTileSet right = islands.get(rightIndex);
         if(right.getOwningTeam()==islandToCheck.getOwningTeam()){
             if(right!=motherNature){
                 mergeIslands(right, islandToCheck);
@@ -147,7 +159,7 @@ public class IslandTileList {
 
     public void updateIslandIDs(){
         for(IslandTileSet i: islands){
-            i.setiD(islands.indexOf(i));
+            i.setID(islands.indexOf(i));
         }
     }
 

@@ -19,8 +19,8 @@ public class HeraldAction extends PossibleAction {
     public ActionStep checkInputValidity(ArrayList<Selectable> input, Game game) {
         if(input.size()==1){
             if(input.get(0) instanceof IslandTileSet){
-                if((game.getIslandList().getByIndex(((IslandTileSet) input.get(0)).getiD()))!=null){
-                    islandID=((IslandTileSet)input.get(0)).getiD();
+                if((game.getIslandList().getByIndex(((IslandTileSet) input.get(0)).getID()))!=null){
+                    islandID=((IslandTileSet)input.get(0)).getID();
                     return ActionStep.OK;
                 }
             }

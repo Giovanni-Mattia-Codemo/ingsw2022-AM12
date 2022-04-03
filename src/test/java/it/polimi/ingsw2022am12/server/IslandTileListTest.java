@@ -9,7 +9,6 @@ public class IslandTileListTest {
 
     @Test
     public void checkMoveMotherNature(){
-
         
 
     }
@@ -20,7 +19,7 @@ public class IslandTileListTest {
         Student s0 = new Student(DiskColor.RED);
         int startingSize = islandTileList.numOfIslandSets();
         IslandTileSet is2= islandTileList.getByIndex(2);
-        Assertions.assertTrue(is2.getiD()==islandTileList.getByIndex(2).getiD());
+        Assertions.assertEquals(is2.getID(), islandTileList.getByIndex(2).getID());
         IslandTileSet is3= islandTileList.getByIndex(3);
         is2.insertStudent(s0);
         islandTileList.mergeIslands(is2, is3);

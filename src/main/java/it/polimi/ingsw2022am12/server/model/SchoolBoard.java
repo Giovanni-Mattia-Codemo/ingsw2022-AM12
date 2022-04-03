@@ -1,7 +1,6 @@
 package it.polimi.ingsw2022am12.server.model;
 
 import it.polimi.ingsw2022am12.exceptions.NotPresent;
-import it.polimi.ingsw2022am12.exceptions.NotValidAssistant;
 import it.polimi.ingsw2022am12.exceptions.NotValidSwap;
 
 import java.util.ArrayList;
@@ -34,8 +33,6 @@ public class SchoolBoard{
         this.assistants = new  ArrayList<>();
 
     }
-
-
 
     /**
      *Method setAssistants fills the schoolBoard's deck of assistants
@@ -182,12 +179,9 @@ public class SchoolBoard{
     /**
      * Method insertToDiningRoom adds a Student to the diningRoom collection
      * @param student student to be added
-     * @throws Exception Dining room is full
      */
-    public void insertToDiningRoom(Student student)throws Exception{
-        if(!isDiningRoomFull(student.getColor())){
-            diningRoom.insertElement(student);
-        }else throw new Exception("Dining room is full");
+    public void insertToDiningRoom(Student student){
+        diningRoom.insertElement(student);
     }
 
     /**
@@ -225,31 +219,6 @@ public class SchoolBoard{
      */
     public void insertToEntrance(Student student){
         entrance.insertElement(student);
-    }
-
-    /**
-     * Method removeFromEntrance removes a student from the entrance
-     *
-     * @param student to be removed
-     * @throws NotPresent if the collection is empty
-     */
-    public void removeFromEntrance(Student student)throws NotPresent{
-        if(entrance.contains(student))
-            entrance.removeElement(student);
-        else throw new NotPresent();
-    }
-
-    /**
-     * Method moveStudentFromEntranceToRoom places a Student standing in the entrance in the corresponding dining room
-     *   (Each student MUST go to the table bearing its same color)
-     *
-     * @param color color to check
-     */
-    public boolean checkMoveStudentFromEntranceToRoom (DiskColor color){
-
-            return !isDiningRoomFull(color);
-
-
     }
 
     /**
@@ -311,11 +280,15 @@ public class SchoolBoard{
      * @param assistant the assistant you wish to play
      * @throws NotPresent thrown if the assistant is not in the list of playable assistants
      */
-    public void playAssistant(Assistant assistant) throws NotPresent{
-        if(assistants.contains(assistant)){
-            lastPlayedAssistant = assistant;
-            assistants.remove(assistant);
-        }else throw new NotPresent();
+    public void playAssistant(int assistant) {
+        Assistant tmp = null;
+        for(Assistant a: assistants){
+            if(a.getTurnPower()==assistant){
+                lastPlayedAssistant = a;
+                tmp=a;
+            }
+        }
+        assistants.remove(tmp);
     }
 
     /**

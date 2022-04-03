@@ -38,7 +38,7 @@ public class MoveFromEntranceToIsland extends PossibleAction {
 
                 }else return ActionStep.NOTOK;
             }else if (s instanceof IslandTileSet){
-                if(game.getIslandList().getByIndex(((IslandTileSet) s).getiD())!=null){
+                if(game.getIslandList().getByIndex(((IslandTileSet) s).getID())!=null){
                     isIsland=true;
                     islandIndex = input.indexOf(s);
                 }else return ActionStep.NOTOK;

@@ -23,17 +23,18 @@ public class MoveMotherNature extends PossibleAction {
     public ActionStep checkInputValidity(ArrayList<Selectable> input, Game game) {
         for(Selectable s: input){
             if (s instanceof IslandTileSet){
-                IslandTileSet tmp = game.getIslandList().getByIndex(((IslandTileSet) s).getiD());
-                if(game.checkIfIslandInRange(tmp)){
-                    islandID = ((IslandTileSet) s).getiD();
-                    return ActionStep.OK;
+                IslandTileSet tmp = game.getIslandList().getByIndex(((IslandTileSet) s).getID());
+                if(tmp!=null) {
+                    if (game.checkIfIslandInRange(tmp)) {
+                        islandID = ((IslandTileSet) s).getID();
+                        return ActionStep.OK;
+                    }
                 }
             }
         }
         return ActionStep.NOTOK;
 
     }
-
 
     @Override
     public void useAction(Game game) {

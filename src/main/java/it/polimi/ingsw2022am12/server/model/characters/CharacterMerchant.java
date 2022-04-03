@@ -1,6 +1,7 @@
 package it.polimi.ingsw2022am12.server.model.characters;
 
 import it.polimi.ingsw2022am12.server.model.CharacterCard;
+import it.polimi.ingsw2022am12.server.model.CharacterName;
 import it.polimi.ingsw2022am12.server.model.DiskColor;
 import it.polimi.ingsw2022am12.server.model.PossibleAction;
 import it.polimi.ingsw2022am12.server.model.actions.MerchantAction;
@@ -11,7 +12,7 @@ public class CharacterMerchant extends CharacterCard {
     private DiskColor color;
 
     public CharacterMerchant(){
-        super("Merchant", 3);
+        super(CharacterName.CHARACTER_MERCHANT, 3);
         color = null;
     }
 

@@ -30,8 +30,6 @@ public class DrawFromCloud extends PossibleAction {
                 }
             }
         }return ActionStep.NOTOK;
-
-
     }
 
     @Override

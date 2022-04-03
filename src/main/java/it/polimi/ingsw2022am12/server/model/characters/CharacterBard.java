@@ -1,6 +1,7 @@
 package it.polimi.ingsw2022am12.server.model.characters;
 
 import it.polimi.ingsw2022am12.server.model.CharacterCard;
+import it.polimi.ingsw2022am12.server.model.CharacterName;
 import it.polimi.ingsw2022am12.server.model.actions.BardAction;
 import it.polimi.ingsw2022am12.server.model.PossibleAction;
 import it.polimi.ingsw2022am12.server.model.Selectable;
@@ -13,7 +14,7 @@ public class CharacterBard extends CharacterCard {
     private ArrayList<Selectable> selected;
 
     public CharacterBard(){
-        super("Bard", 1);
+        super(CharacterName.CHARACTER_BARD, 1);
     }
 
     @Override

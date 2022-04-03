@@ -32,7 +32,7 @@ public class MonkAction extends PossibleAction {
 
                 }else return ActionStep.NOTOK;
             }else if(s instanceof IslandTileSet){
-                if(game.getIslandList().getByIndex(((IslandTileSet) s).getiD())!=null){
+                if(game.getIslandList().getByIndex(((IslandTileSet) s).getID())!=null){
                     islandIndex = input.indexOf(s);
                     isIsland = true;
                 }else return ActionStep.NOTOK;
@@ -44,7 +44,7 @@ public class MonkAction extends PossibleAction {
         }else if(input.size()==2){
             if(isIsland&&isStudent) {
                 color = ((Student) input.get(studentIndex)).getColor();
-                islandID = ((IslandTileSet) input.get(islandIndex)).getiD();
+                islandID = ((IslandTileSet) input.get(islandIndex)).getID();
                 return ActionStep.OK;
             }
         }

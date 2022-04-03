@@ -12,7 +12,7 @@ public class CharacterHerbalist extends CharacterCard {
 
 
     public CharacterHerbalist(){
-        super("Herbalist", 2);
+        super(CharacterName.CHARACTER_HERBALIST, 2);
         this.noEntryCollection= new NoEntryCollection();
     }
 
