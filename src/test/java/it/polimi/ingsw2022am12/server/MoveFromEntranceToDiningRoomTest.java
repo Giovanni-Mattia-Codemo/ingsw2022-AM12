@@ -82,7 +82,7 @@ public class MoveFromEntranceToDiningRoomTest {
     }
 
     @Test
-    public void checkCheckInputValidityNOTOKAY1(){
+    public void checkCheckInputValidityNOTOK1(){
         MoveFromEntranceToDiningRoom testMove = new MoveFromEntranceToDiningRoom();
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Nick1");
@@ -98,7 +98,7 @@ public class MoveFromEntranceToDiningRoomTest {
     }
 
     @Test
-    public void checkCheckInputValidityNOTOKAY2(){ //Also tested with only the notCurrentPlayerRoom and no student in input
+    public void checkCheckInputValidityNOTOK2(){ //Also tested with only the notCurrentPlayerRoom and no student in input
         MoveFromEntranceToDiningRoom testMove = new MoveFromEntranceToDiningRoom();
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Nick1");
