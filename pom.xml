@@ -7,7 +7,7 @@
     <groupId>it.polimi</groupId>
     <artifactId>AM12</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>ingsw2022-AM12</name>
+    <name>AM12</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
