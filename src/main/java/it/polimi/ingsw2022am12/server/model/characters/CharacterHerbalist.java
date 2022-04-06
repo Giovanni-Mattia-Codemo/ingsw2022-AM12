@@ -23,6 +23,10 @@ public class CharacterHerbalist extends CharacterCard {
         this.noEntryCollection= new NoEntryCollection();
     }
 
+    public NoEntryCollection getNoEntryCollection(){
+        return noEntryCollection;
+    }
+
     /**
      * Method init Character initializes the four NoEntries on this card
      *

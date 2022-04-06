@@ -62,12 +62,12 @@ public abstract class CharacterCard implements Selectable {
     }
 
     /**
-     * Method wasPlayedBefore tells if it's the first use of the character
+     * Method wasPlayedBefore tells if the character was already used
      *
-     * @return true if it's the first use of the character, false otherwise
+     * @return true if the character was already used, false otherwise
      */
     public boolean wasPayedBefore(){
-        return additionalCoins.size()==0;
+        return additionalCoins.size()==1;
     }
 
     /**

@@ -44,8 +44,6 @@ public class MoveFromEntranceToIsland extends PossibleAction {
                 if(game.getCurrentSchoolBoard().getEntrance().getID()==((Student) s).getPositionID()){
                     inEntrance = true;
                     inEntranceIndex = input.indexOf(s);
-
-
                 }else return ActionStep.NOTOK;
             }else if (s instanceof IslandTileSet){
                 if(game.getIslandList().getByIndex(((IslandTileSet) s).getID())!=null){
@@ -59,11 +57,9 @@ public class MoveFromEntranceToIsland extends PossibleAction {
             return ActionStep.HALFOK;
         }else if (input.size()==2){
             if(inEntrance&&isIsland){
-
                 colorInEntrance = ((Student)input.get(inEntranceIndex)).getColor();
-                islandID= islandIndex;
+                islandID= ((IslandTileSet)input.get(islandIndex)).getID();
                 return ActionStep.OK;
-
             }return ActionStep.NOTOK;
         }else return ActionStep.NOTOK;
 

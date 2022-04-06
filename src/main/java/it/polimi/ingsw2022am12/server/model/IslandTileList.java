@@ -27,6 +27,7 @@ public class IslandTileList {
         motherNature = islands.get(index);
     }
 
+ /*
     public void printIslands(){
         System.out.println("Islands: ");
         for(IslandTileSet is : islands){
@@ -41,6 +42,8 @@ public class IslandTileList {
             is.getStudentCollection().printStudents();
         }
     }
+
+ */
 
     /**
      * Method moveMotherNature changes the position of motherNature

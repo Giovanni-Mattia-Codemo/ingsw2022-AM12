@@ -3,10 +3,7 @@ package it.polimi.ingsw2022am12.server.model;
 import it.polimi.ingsw2022am12.exceptions.NotPresent;
 
 import it.polimi.ingsw2022am12.exceptions.NotValidSwap;
-import it.polimi.ingsw2022am12.server.model.characters.CharacterJester;
-import it.polimi.ingsw2022am12.server.model.characters.CharacterMerchant;
-import it.polimi.ingsw2022am12.server.model.characters.CharacterMonk;
-import it.polimi.ingsw2022am12.server.model.characters.CharacterPrincess;
+import it.polimi.ingsw2022am12.server.model.characters.*;
 import it.polimi.ingsw2022am12.server.model.phases.SetupStrategy;
 
 import java.util.*;
@@ -185,7 +182,7 @@ public class Game{
 
     }
 
-
+/*
     public void printBoards(){
         System.out.println("Boards: ");
         for(SchoolBoard s: turnOrder){
@@ -225,14 +222,7 @@ public class Game{
         System.out.println("\n ...");
     }
 
-    /**
-     * Method only used for testing
-     *
-     * @return bag
-     */
-    public Bag getBag(){
-        return bag;
-    }
+ */
 
     /**
      * Method only used for testing
@@ -330,11 +320,11 @@ public class Game{
     }
 
     /**
-     * Method getSelectableClouds returns the list of type Selectable from which a player can choose what cloud
-     * they prefer taking; it checks all the clouds in the "clouds array", if the island is not empty already,
+     * Method getSelectableClouds returns a boolean that says if a selected cloud is empty or not;
+     * it checks all the clouds in the "clouds array", if the island is not empty already,
      * meaning that somebody already chose it, it can be selected
      *
-     * @return pickable clouds
+     * @return true if the cloud is not empty, false otherwise
      */
     public boolean checkIfCloudDrawableByID(int id){
 
@@ -584,9 +574,11 @@ public class Game{
         disksMovedThisTurn++;
     }
 
-    public void insertNoEntry(IslandTileSet destination, NoEntry noEntry){
+    public void insertNoEntry(int destination){
+        IslandTileSet destinationIsland = islandList.getByIndex(destination);
+        NoEntry noEntry = ((CharacterHerbalist)getActiveCharacterCard()).getNoEntryCollection().getFirstNoEntry();
         noEntry.getCharacterNoEntryCollection().removeElement(noEntry);
-        destination.insertNoEntries(noEntry);
+        destinationIsland.insertNoEntries(noEntry);
     }
 
     public void jesterSwap(DiskColor colorOfCharStudent, DiskColor colorOfEntranceStudent){
@@ -608,16 +600,13 @@ public class Game{
      * @param colorOfEntranceStudent to swap
      * @param colorOfRoomStudent to swap
      */
-    public void swapStudents(DiskColor colorOfEntranceStudent, DiskColor colorOfRoomStudent){
+    public void swapStudents(DiskColor colorOfEntranceStudent, DiskColor colorOfRoomStudent) throws NotValidSwap{
 
         Student s0 = getCurrentSchoolBoard().getFirstStudentInRoomOfColor(colorOfRoomStudent);
         Student s1 = getCurrentSchoolBoard().getEntrance().getFirstStudentOfColor(colorOfEntranceStudent).get();
 
-        try {
-            getCurrentSchoolBoard().swapStudents(s0, s1);
-        } catch (NotValidSwap e) {
-            e.printStackTrace();
-        }
+        getCurrentSchoolBoard().swapStudents(s0, s1);
+
 
         if((getCurrentSchoolBoard().getStudentsInRoomByColor(s1.getColor())%3)==0){
             collectCoin();
@@ -690,7 +679,6 @@ public class Game{
         if(getActiveCharacterName()==CharacterName.CHARACTER_BEGGAR){
             range+=2;
         }
-        System.out.println(islandList.distanceFromMotherNature(island));
         return islandList.distanceFromMotherNature(island) <= range && islandList.distanceFromMotherNature(island) > 0;
     }
 
@@ -725,6 +713,39 @@ public class Game{
     public boolean hasMovedMotherNature(){
         return hasMovedMotherNature;
     }
+
+    /*
+    public boolean isAssistantPlayable(int assistantPower){
+        boolean cardWasPlayed = false;
+        for(int j=0; j<turn; j++){
+            int toCheck = turnOrder.get(j).getLastPlayedAssistantPower();
+            if(toCheck==assistantPower){
+                cardWasPlayed=true;
+            }
+        }
+
+        if(cardWasPlayed){
+            boolean noOtherPlayableAssistants = true;
+
+            for(int i=0; i<getCurrentSchoolBoard().getPlayableAssistants().size()&&i!=assistantPower; i++){
+                boolean thisWasPlayed=false;
+                for(int j=0; j<turn; j++){
+                    int toCheck = turnOrder.get(j).getLastPlayedAssistantPower();
+                    if(toCheck==i){
+                        thisWasPlayed=true;
+                    }
+                }
+                if(!thisWasPlayed){
+                    noOtherPlayableAssistants=false;
+                }
+            }
+        }
+
+
+
+    }
+
+     */
 
     /**
      * Method correctOrder sorts the turnOrder with the correct order of players for the next action phase
@@ -791,13 +812,16 @@ public class Game{
      * Method payCoins is used when a call to a character is made
      *
      * @param coinsUsed cost of character usage
-     * @throws NotPresent if the player hasn't enough coins to activate the character
      */
-    public void payCoins(int coinsUsed) throws NotPresent{
+    public void payCoins(int coinsUsed){
         Coin toBeMoved;
         for(int i=0; i<coinsUsed; i++){
             toBeMoved = getCurrentSchoolBoard().getFirstCoin();
-            getCurrentSchoolBoard().removeCoin(toBeMoved);
+            try {
+                getCurrentSchoolBoard().removeCoin(toBeMoved);
+            } catch (NotPresent e) { //never enters (number checked before doing action)
+                e.printStackTrace();
+            }
             freeCoins.insertElement(toBeMoved);
         }
     }
@@ -835,11 +859,7 @@ public class Game{
             if (characterCard.getName().equals(characterName)){
                 if (characterCards.contains(characterCard)){
                             int cost = characterCard.getCost();
-                            try {
-                                payCoins(cost);
-                            } catch (NotPresent e) {
-                                e.printStackTrace();
-                            }
+                            payCoins(cost);
                             if(!characterCard.wasPayedBefore()){
                                 Coin coinTmp = freeCoins.getFirstCoin();
                                 freeCoins.removeElement(coinTmp);

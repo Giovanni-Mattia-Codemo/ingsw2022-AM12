@@ -28,7 +28,7 @@ public class StudentDiskCollection implements Position, Selectable {
     public int getID(){
         return this.id;
     }
-
+/*
     public void printStudents(){
         String students = " ";
         for (DiskColor c : DiskColor.values()) {
@@ -36,6 +36,8 @@ public class StudentDiskCollection implements Position, Selectable {
         }
         System.out.print(students);
     }
+
+ */
 
     /**
      * Method getAllStudents returns the copy of the students present in the StudentDiskCollection

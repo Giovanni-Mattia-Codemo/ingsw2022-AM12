@@ -17,7 +17,7 @@ public class Team {
     public Team(){
         this.schoolBoards = new ArrayList<>();
     }
-
+/*
     public String getTeamName(){
         String teamName = "Team of: ";
         for (SchoolBoard s: schoolBoards){
@@ -25,6 +25,8 @@ public class Team {
         }
         return teamName;
     }
+
+ */
 
     /**
      * Method getSchoolBoardWithTowers returns the reference to attribute schoolBoardWithTowers

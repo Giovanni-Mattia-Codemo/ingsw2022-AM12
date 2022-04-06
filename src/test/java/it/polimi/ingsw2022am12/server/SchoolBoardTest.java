@@ -1,5 +1,6 @@
 package it.polimi.ingsw2022am12.server;
 
+import it.polimi.ingsw2022am12.exceptions.NotPresent;
 import it.polimi.ingsw2022am12.server.model.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
@@ -17,6 +18,13 @@ public class SchoolBoardTest {
 
         Assertions.assertEquals(6, testingBoard.getTowersNumber());
 
+    }
+
+    @Test
+    public void checkMage(){
+        SchoolBoard testSchool = new SchoolBoard("Nani");
+        Mage mage = testSchool.getMage();
+        assert true;
     }
 
     @Test
@@ -87,7 +95,34 @@ public class SchoolBoardTest {
 
     @Test
     public void checkPlayAssistant(){
-
+        SchoolBoard testSchool = new SchoolBoard("Mario");
+        testSchool.playAssistant(7);
+        Assertions.assertTrue(true);
     }
+
+    @Test
+    public void checkRemoveFromRoom(){
+        SchoolBoard testSchool = new SchoolBoard("Tony");
+        String msg = null;
+        Student s0 = new Student(DiskColor.RED);
+        try {
+            testSchool.removeFromDiningRoom(s0);
+        } catch (NotPresent e) {
+            msg = e.getMessage();
+        }
+        assert msg != null;
+    }
+
+    @Test
+    public void checkGetMageID(){
+        Mage testMage = new Mage(10);
+        SchoolBoard testSchoolBoard = new SchoolBoard("Piero");
+        testSchoolBoard.setMage(testMage);
+
+        Assertions.assertEquals(testMage, testSchoolBoard.getMage());
+        Assertions.assertEquals(10, testMage.getID());
+    }
+
+
 
 }

@@ -1,6 +1,7 @@
 package it.polimi.ingsw2022am12.server.model.actions;
 
 import it.polimi.ingsw2022am12.server.model.*;
+import it.polimi.ingsw2022am12.server.model.characters.CharacterHerbalist;
 
 import java.util.ArrayList;
 
@@ -9,6 +10,8 @@ import java.util.ArrayList;
  */
 public class HerbalistAction extends PossibleAction {
 
+    private int effectiveIsland;
+
     /**
      * "Constructor" Method of HerbalistAction class
      *
@@ -16,9 +19,6 @@ public class HerbalistAction extends PossibleAction {
     public HerbalistAction(){
         super(2);
     }
-
-    NoEntry effectiveNoEntry;
-    IslandTileSet effectiveIslandTileSet;
 
     /**
      * Method checkInputValidity checks if I'm using the correct type and number of inputs required by my action
@@ -30,33 +30,34 @@ public class HerbalistAction extends PossibleAction {
     @Override
     public ActionStep checkInputValidity(ArrayList<Selectable> input, Game game) {
 
-        NoEntry noEntry= null;
-        IslandTileSet island = null;
+        boolean isNoEntry = false;
+        boolean isValidIsland = false;
+        int island = 0;
 
         for(Selectable s: input){
             if(s instanceof IslandTileSet){
-                if(island==null){
-                    island=(IslandTileSet) s;
+                if(game.getIslandList().getByIndex(((IslandTileSet) s).getID())!=null){
+                    isValidIsland = true;
+                    island = ((IslandTileSet) s).getID();
                 }else{
                     return ActionStep.NOTOK;
                 }
             }else if(s instanceof NoEntry){
-                if(noEntry==null){
-                    noEntry= (NoEntry) s;
-                }else{
-                    return ActionStep.NOTOK;
-                }
+                isNoEntry= true;
             }else return ActionStep.NOTOK;
         }
 
-        if(noEntry!=null&&island!=null){
-            effectiveIslandTileSet = island;
-            effectiveNoEntry = noEntry;
-            return ActionStep.OK;
-        }else if(noEntry!=null||island!=null){
+        if(input.size()==1){
             return ActionStep.HALFOK;
-        }
-        return ActionStep.NOTOK;
+        }else if(input.size()==2){
+            if(isNoEntry&&isValidIsland){
+                effectiveIsland = island;
+                if(((CharacterHerbalist)game.getActiveCharacterCard()).getNoEntryCollection().noEntriesSize()!=0){
+                    return ActionStep.OK;
+                }
+            }
+            return ActionStep.NOTOK;
+        }else return ActionStep.NOTOK;
 
     }
 
@@ -67,7 +68,7 @@ public class HerbalistAction extends PossibleAction {
      */
     @Override
     public void useAction(Game game) {
-        game.insertNoEntry(effectiveIslandTileSet, effectiveNoEntry);
+        game.insertNoEntry(effectiveIsland);
         game.getActiveCharacterCard().setWasUsed(true);
     }
 }

@@ -29,8 +29,6 @@ public class MoveFromEntranceToDiningRoom extends PossibleAction {
     @Override
     public ActionStep checkInputValidity(ArrayList<Selectable> input, Game game) {
 
-
-
         boolean inEntrance = false;
         int inEntranceIndex = 0;
         boolean isRoom = false;
@@ -41,8 +39,6 @@ public class MoveFromEntranceToDiningRoom extends PossibleAction {
                 if(game.getCurrentSchoolBoard().getEntrance().getID()==((Student) s).getPositionID()){
                     inEntrance = true;
                     inEntranceIndex = input.indexOf(s);
-
-
                 }else return ActionStep.NOTOK;
             }else if (s instanceof StudentDiskCollection){
                 if(((StudentDiskCollection) s).getID()==game.getCurrentSchoolBoard().getDiningRoom().getID()){

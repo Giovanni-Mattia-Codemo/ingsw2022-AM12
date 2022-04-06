@@ -32,7 +32,7 @@ public class NoEntryCollection implements Position {
      * @return noEntries copy
      */
     public ArrayList<NoEntry> getAllNoEntries(){
-        return new ArrayList<>(noEntries);
+        return noEntries;
     }
 
     /**

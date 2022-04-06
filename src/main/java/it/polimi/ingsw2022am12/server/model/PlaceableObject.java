@@ -8,15 +8,6 @@ public abstract class PlaceableObject {
     protected Position position;
 
     /**
-     * "Getter" method
-     *
-     * @return Position the position of my PlaceableObject
-     */
-    public Position getPosition() {
-        return position;
-    }
-
-    /**
      * Method setPosition changes the position attribute of the Object
      *
      * @param position new position

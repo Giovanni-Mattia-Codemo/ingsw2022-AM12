@@ -1,5 +1,6 @@
 package it.polimi.ingsw2022am12.server.model.actions;
 
+import it.polimi.ingsw2022am12.exceptions.NotValidSwap;
 import it.polimi.ingsw2022am12.server.model.*;
 import java.util.ArrayList;
 
@@ -66,7 +67,11 @@ public class BardAction extends PossibleAction {
      */
     @Override
     public void useAction(Game game){
-        game.swapStudents(student1, student2);
+        try {
+            game.swapStudents(student1, student2);
+        } catch (NotValidSwap e) {
+            e.printStackTrace();
+        }
         game.getActiveCharacterCard().setWasUsed(true);
     }
 

@@ -181,7 +181,9 @@ public class GameTest {
         //Entering PlanningStrategy
 
         SchoolBoard schoolBoard1 = testGame.getCurrentSchoolBoard();
-        testGame.playAssistant(7);
+        ArrayList<Assistant> playableAssistants = schoolBoard1.getPlayableAssistants();
+        int assistantPower = playableAssistants.get(7).getTurnPower();
+        testGame.playAssistant(assistantPower);
 
         testGame.endTurn();
 
@@ -192,6 +194,7 @@ public class GameTest {
 
         Assertions.assertEquals(schoolBoard1, testGame.getTurnOrder().get(1));
         Assertions.assertEquals(schoolBoard2, testGame.getTurnOrder().get(0));
+        Assertions.assertFalse(testGame.getIsLastRoundFlag());
 
     }
 
@@ -215,11 +218,7 @@ public class GameTest {
 
         Assertions.assertEquals(18, testGame.getFreeCoins().size());
 
-        try {
-            testGame.payCoins(1);
-        } catch (NotPresent e) {
-            e.printStackTrace();
-        }
+        testGame.payCoins(1);
 
         Assertions.assertEquals(1, testGame.getCurrentSchoolBoard().getNumOfCoins());
         Assertions.assertEquals(19, testGame.getFreeCoins().size());
@@ -318,13 +317,17 @@ public class GameTest {
         Game testGame = new Game(nicks);
         testGame.setUp();
 
+        int cloudID = testGame.getCloud(0).getID();
         Assertions.assertEquals(3, testGame.getCloud(0).amount());
+        Assertions.assertTrue(testGame.checkIfCloudDrawableByID(cloudID));
 
         nicks.add("NICK3");
 
         Game testGame1 = new Game(nicks);
         testGame1.setUp();
         Assertions.assertEquals(4, testGame1.getCloud(0).amount());
+
+
 
     }
 
@@ -366,7 +369,7 @@ public class GameTest {
         CharacterCard tmp = testGame.getAvailableCharacters().get(0);
         testGame.payAndSetActiveCharacter(tmp.getName());
 
-        Assertions.assertEquals(4-tmp.getCost(), testGame.getCurrentSchoolBoard().getNumOfCoins());
+        Assertions.assertEquals(5-tmp.getCost(), testGame.getCurrentSchoolBoard().getNumOfCoins());
         Assertions.assertEquals(tmp.getName(),testGame.getActiveCharacterName());
 
     }
@@ -404,6 +407,32 @@ public class GameTest {
         Assertions.assertEquals(oldAmounts.get(testGame.getTurnOrder().get(1).getNick())-Math.min(3, oldAmounts.get(testGame.getTurnOrder().get(1).getNick())), testGame.getTurnOrder().get(1).getStudentsInRoomByColor(DiskColor.RED));
         Assertions.assertEquals(oldAmounts.get(testGame.getTurnOrder().get(2).getNick())-Math.min(3, oldAmounts.get(testGame.getTurnOrder().get(2).getNick())), testGame.getTurnOrder().get(2).getStudentsInRoomByColor(DiskColor.RED));
 
+    }
+
+    @Test
+    public void checkSelectMage(){
+        ArrayList<String> nicks = new ArrayList<>();
+        nicks.add("Nick1");
+        nicks.add("Nick2");
+        nicks.add("Nick3");
+        Game testGame = new Game(nicks);
+        testGame.setUp();
+
+        Mage mage = testGame.getAvailableMages().get(0);
+        testGame.selectMage(mage.getID());
+
+        Assertions.assertEquals(mage, testGame.getCurrentSchoolBoard().getMage());
+        Assertions.assertEquals(3, testGame.getAvailableMages().size());
+    }
+
+    @Test
+    public void checkInsertNoEntry(){
+        ArrayList<String> nicks = new ArrayList<>();
+        nicks.add("Nick1");
+        nicks.add("Nick2");
+        nicks.add("Nick3");
+        Game testGame = new Game(nicks);
+        testGame.setUp();
     }
 
 }
