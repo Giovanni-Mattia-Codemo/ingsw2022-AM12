@@ -3,7 +3,6 @@ package it.polimi.ingsw2022am12.server;
 import it.polimi.ingsw2022am12.server.model.*;
 import it.polimi.ingsw2022am12.server.model.actions.ActionStep;
 import it.polimi.ingsw2022am12.server.model.actions.DrawFromCloud;
-import it.polimi.ingsw2022am12.server.model.actions.SelectMage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
