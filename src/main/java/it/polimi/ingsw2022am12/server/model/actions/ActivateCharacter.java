@@ -36,15 +36,13 @@ public class ActivateCharacter extends PossibleAction {
         if(input.size()==1){
             if(input.get(0) instanceof CharacterCard){
                 if(((CharacterCard) input.get(0)).getCost()<=game.getCurrentSchoolBoard().getNumOfCoins()){
-
                     if(game.getAvailableCharacters().stream()
                             .map(CharacterCard::getName)
                             .collect(Collectors.toList())
                             .contains(((CharacterCard) input.get(0)).getName())){
                         characterName = ((CharacterCard) input.get(0)).getName();
+                        return ActionStep.OK;
                     }
-
-                    return ActionStep.OK;
                 }
             }
         }return ActionStep.NOTOK;
