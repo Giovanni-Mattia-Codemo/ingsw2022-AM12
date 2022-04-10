@@ -3,7 +3,6 @@ package it.polimi.ingsw2022am12.server.model;
 import it.polimi.ingsw2022am12.exceptions.NotPresent;
 
 import it.polimi.ingsw2022am12.exceptions.NotValidSwap;
-import it.polimi.ingsw2022am12.server.model.actions.ActionStep;
 import it.polimi.ingsw2022am12.server.model.characters.*;
 import it.polimi.ingsw2022am12.server.model.phases.SetupStrategy;
 
@@ -179,6 +178,7 @@ public class Game{
                 for(CharacterCard c: characterCards){
                     if (x == c.getName().getValue()) {
                         taken = true;
+                        break;
                     }
                 }
             }while(taken);
@@ -214,7 +214,7 @@ public class Game{
     public void printClouds(){
         System.out.println("\nClouds: ");
         for (int i = 0; i < numOfPlayers; i++) {
-            System.out.println("\ncloud of index "+ i);
+            System.out.println("\n cloud of index "+ i);
             System.out.print("    Students:");
             clouds[i].printStudents();
         }
@@ -411,22 +411,25 @@ public class Game{
 
     public void moveStudentFromCardToIsland(DiskColor color, int islandID){
         StudentDiskCollection monkStudents = ((CharacterMonk)getActiveCharacterCard()).getStudents();
-        Student tmp = monkStudents.getFirstStudentOfColor(color).get();
-        monkStudents.removeElement(tmp);
-        islandList.getByIndex(islandID).insertStudent(tmp);
+        if(monkStudents.getFirstStudentOfColor(color).isPresent()){
+            Student tmp = monkStudents.getFirstStudentOfColor(color).get();
+            monkStudents.removeElement(tmp);
+            islandList.getByIndex(islandID).insertStudent(tmp);
+        }
     }
 
     public void moveStudentFromCardToRoom(DiskColor color){
 
         StudentDiskCollection tmp = ((CharacterPrincess)getActiveCharacterCard()).getStudents();
-        Student temp = tmp.getFirstStudentOfColor(color).get();
-        tmp.removeElement(temp);
-        getCurrentSchoolBoard().insertToDiningRoom(temp);
+        if(tmp.getFirstStudentOfColor(color).isPresent()){
+            Student temp = tmp.getFirstStudentOfColor(color).get();
+            tmp.removeElement(temp);
+            getCurrentSchoolBoard().insertToDiningRoom(temp);
 
-        if((getCurrentSchoolBoard().getStudentsInRoomByColor(temp.getColor())%3)==0){
+            if((getCurrentSchoolBoard().getStudentsInRoomByColor(temp.getColor())%3)==0){
                 collectCoin();
+            }
         }
-
     }
 
     /**
@@ -546,12 +549,14 @@ public class Game{
      * @param islandID of islandTileSet chosen
      */
     public void moveStudentFromEntranceToIsland(DiskColor studentColor, int islandID){
-        Student selectedStudent = getCurrentSchoolBoard().getEntrance().getFirstStudentOfColor(studentColor).get();
-        IslandTileSet islandTileSet = islandList.getByIndex(islandID);
+        if(getCurrentSchoolBoard().getEntrance().getFirstStudentOfColor(studentColor).isPresent()){
+            Student selectedStudent = getCurrentSchoolBoard().getEntrance().getFirstStudentOfColor(studentColor).get();
+            IslandTileSet islandTileSet = islandList.getByIndex(islandID);
 
             getCurrentSchoolBoard().getEntrance().removeElement(selectedStudent);
-           islandTileSet.insertStudent(selectedStudent);
-           disksMovedThisTurn++;
+            islandTileSet.insertStudent(selectedStudent);
+            disksMovedThisTurn++;
+        }
     }
 
     /**
@@ -575,26 +580,27 @@ public class Game{
     public void moveStudentFromEntranceToRoom(DiskColor colorInEntrance){
 
         SchoolBoard s = getCurrentSchoolBoard();
-        Student student = s.getEntrance().getFirstStudentOfColor(colorInEntrance).get();
+        if(s.getEntrance().getFirstStudentOfColor(colorInEntrance).isPresent()){
+            Student student = s.getEntrance().getFirstStudentOfColor(colorInEntrance).get();
+            s.moveStudentFromEntranceToRoom(student);
 
-        s.moveStudentFromEntranceToRoom(student);
-
-        if((s.getStudentsInRoomByColor(colorInEntrance)%3)==0){
+            if((s.getStudentsInRoomByColor(colorInEntrance)%3)==0){
                 collectCoin();
-        }
+            }
 
-        SchoolBoard owner = professors[student.getColor().getValue()];
-        if(owner!= null&&getActiveCharacterName()==CharacterName.CHARACTER_HOST) {
-            if (owner.getStudentsInRoomByColor(student.getColor()) <= s.getStudentsInRoomByColor(student.getColor())) {
-                owner = s;
-            }
-        }else if(owner!= null) {
-            if (owner.getStudentsInRoomByColor(student.getColor()) < s.getStudentsInRoomByColor(student.getColor())) {
-                owner = s;
-            }
-        }else owner = s;
-        professors[student.getColor().getValue()]=owner;
-        disksMovedThisTurn++;
+            SchoolBoard owner = professors[student.getColor().getValue()];
+            if(owner!= null&&getActiveCharacterName()==CharacterName.CHARACTER_HOST) {
+                if (owner.getStudentsInRoomByColor(student.getColor()) <= s.getStudentsInRoomByColor(student.getColor())) {
+                    owner = s;
+                }
+            }else if(owner!= null) {
+                if (owner.getStudentsInRoomByColor(student.getColor()) < s.getStudentsInRoomByColor(student.getColor())) {
+                    owner = s;
+                }
+            }else owner = s;
+            professors[student.getColor().getValue()]=owner;
+            disksMovedThisTurn++;
+        }
     }
 
     public void insertNoEntry(int destination){
@@ -607,14 +613,16 @@ public class Game{
     public void jesterSwap(DiskColor colorOfCharStudent, DiskColor colorOfEntranceStudent){
         CharacterJester jester =((CharacterJester)getActiveCharacterCard());
 
-        Student st0 = jester.getStudents().getFirstStudentOfColor(colorOfCharStudent).get();
-        Student st1 = getCurrentSchoolBoard().getEntrance().getFirstStudentOfColor(colorOfEntranceStudent).get();
-
-        jester.getStudents().removeElement(st0);
-        getCurrentSchoolBoard().getEntrance().removeElement(st1);
-        jester.getStudents().insertElement(st1);
-        getCurrentSchoolBoard().getEntrance().insertElement(st0);
-
+        if(jester.getStudents().getFirstStudentOfColor(colorOfCharStudent).isPresent()){
+            Student st0 = jester.getStudents().getFirstStudentOfColor(colorOfCharStudent).get();
+            if(getCurrentSchoolBoard().getEntrance().getFirstStudentOfColor(colorOfEntranceStudent).isPresent()){
+                Student st1 = getCurrentSchoolBoard().getEntrance().getFirstStudentOfColor(colorOfEntranceStudent).get();
+                jester.getStudents().removeElement(st0);
+                getCurrentSchoolBoard().getEntrance().removeElement(st1);
+                jester.getStudents().insertElement(st1);
+                getCurrentSchoolBoard().getEntrance().insertElement(st0);
+            }
+        }
     }
 
     /**
@@ -626,12 +634,15 @@ public class Game{
     public void swapStudents(DiskColor colorOfEntranceStudent, DiskColor colorOfRoomStudent) throws NotValidSwap{
 
         Student s0 = getCurrentSchoolBoard().getFirstStudentInRoomOfColor(colorOfRoomStudent);
-        Student s1 = getCurrentSchoolBoard().getEntrance().getFirstStudentOfColor(colorOfEntranceStudent).get();
 
-        getCurrentSchoolBoard().swapStudents(s0, s1);
+        if(getCurrentSchoolBoard().getEntrance().getFirstStudentOfColor(colorOfEntranceStudent).isPresent()){
+            Student s1 = getCurrentSchoolBoard().getEntrance().getFirstStudentOfColor(colorOfEntranceStudent).get();
 
-        if((getCurrentSchoolBoard().getStudentsInRoomByColor(s1.getColor())%3)==0){
-            collectCoin();
+            getCurrentSchoolBoard().swapStudents(s0, s1);
+
+            if((getCurrentSchoolBoard().getStudentsInRoomByColor(s1.getColor())%3)==0){
+                collectCoin();
+            }
         }
     }
 
@@ -736,9 +747,21 @@ public class Game{
         return hasMovedMotherNature;
     }
 
-    /*
-    public boolean isAssistantPlayable(int assistantPower){
+    public ArrayList<Assistant> getPlayableAssistants(){
+        ArrayList<Assistant> playable = new ArrayList<>(getCurrentSchoolBoard().getPlayableAssistants());
+        for(int i=0; i<getCurrentSchoolBoard().getPlayableAssistants().size(); i++){
+            int turnPower = getCurrentSchoolBoard().getPlayableAssistants().get(i).getTurnPower();
+            if(!isAssistantPlayable(turnPower)){
+                playable.remove(i);
+            }
+        }
+        return playable;
+    }
+
+    private boolean isAssistantPlayable(int assistantPower){
         boolean cardWasPlayed = false;
+        boolean noOtherPlayableAssistants = true;
+
         for(int j=0; j<turn; j++){
             int toCheck = turnOrder.get(j).getLastPlayedAssistantPower();
             if(toCheck==assistantPower){
@@ -747,33 +770,30 @@ public class Game{
         }
 
         if(cardWasPlayed){
-            boolean noOtherPlayableAssistants = true;
-
-            for(int i=0; i<getCurrentSchoolBoard().getPlayableAssistants().size()&&i!=assistantPower; i++){
+            for(int i=0; i<getCurrentSchoolBoard().getPlayableAssistants().size(); i++){
                 boolean thisWasPlayed=false;
+                int currentCardPower = getCurrentSchoolBoard().getPlayableAssistants().get(i).getTurnPower();
                 for(int j=0; j<turn; j++){
                     int toCheck = turnOrder.get(j).getLastPlayedAssistantPower();
-                    if(toCheck==i){
+                    if(toCheck==currentCardPower){
                         thisWasPlayed=true;
                     }
                 }
                 if(!thisWasPlayed){
                     noOtherPlayableAssistants=false;
+                    break;
                 }
             }
-        }
+        }else return true;
 
-
-
+        return noOtherPlayableAssistants;
     }
-
-     */
 
     /**
      * Method correctOrder sorts the turnOrder with the correct order of players for the next action phase
      */
     public void correctOrder(){
-        Collections.sort(turnOrder, new SortByPower());
+        turnOrder.sort(new SortByPower());
     }
 
     /**

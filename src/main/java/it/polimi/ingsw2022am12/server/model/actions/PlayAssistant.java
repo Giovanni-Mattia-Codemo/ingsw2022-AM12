@@ -25,7 +25,7 @@ public class PlayAssistant extends PossibleAction {
     public ActionStep checkInputValidity(ArrayList<Selectable> input, Game game) {
         if(input.size()==1){
             if(input.get(0) instanceof Assistant){
-                ArrayList<Assistant> tmp = game.getCurrentSchoolBoard().getPlayableAssistants();
+                ArrayList<Assistant> tmp = game.getPlayableAssistants();
                 for(Assistant a: tmp){
                     if(a.getTurnPower()==((Assistant) input.get(0)).getTurnPower()){
                         assistantTurnPower=a.getTurnPower();
