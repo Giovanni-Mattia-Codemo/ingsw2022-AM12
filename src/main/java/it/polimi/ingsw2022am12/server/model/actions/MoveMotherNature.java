@@ -15,14 +15,6 @@ public class MoveMotherNature extends PossibleAction {
     private int islandID;
 
     /**
-     * "Constructor" Method of MoveMotherNature
-     *
-     */
-    public MoveMotherNature() {
-        super(1);
-    }
-
-    /**
      * Method checkInputValidity checks if I'm using the correct type and number of inputs required by my action
      *
      * @param input my chosen inputs

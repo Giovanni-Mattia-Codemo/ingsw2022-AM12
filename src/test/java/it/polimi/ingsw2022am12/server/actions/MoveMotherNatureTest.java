@@ -1,10 +1,9 @@
-package it.polimi.ingsw2022am12.server;
+package it.polimi.ingsw2022am12.server.actions;
 
 import it.polimi.ingsw2022am12.server.model.Game;
 import it.polimi.ingsw2022am12.server.model.IslandTileSet;
 import it.polimi.ingsw2022am12.server.model.Selectable;
 import it.polimi.ingsw2022am12.server.model.actions.ActionStep;
-import it.polimi.ingsw2022am12.server.model.actions.MoveFromEntranceToIsland;
 import it.polimi.ingsw2022am12.server.model.actions.MoveMotherNature;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -19,7 +18,7 @@ public class MoveMotherNatureTest {
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Nick1");
         nicks.add("Nick2");
-        Game testGame = new Game(nicks);
+        Game testGame = new Game(nicks, false);
         testGame.setUp();
 
         testGame.getCurrentSchoolBoard().playAssistant(9);
@@ -37,7 +36,6 @@ public class MoveMotherNatureTest {
         testMove.useAction(testGame);
         int newIndexMN = testGame.getIslandList().getMotherNatureIndex();
         Assertions.assertEquals(destination.getID(), testGame.getIslandList().getByIndex(newIndexMN).getID());
-
     }
 
     @Test
@@ -46,7 +44,7 @@ public class MoveMotherNatureTest {
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Nick1");
         nicks.add("Nick2");
-        Game testGame = new Game(nicks);
+        Game testGame = new Game(nicks, false);
         testGame.setUp();
 
         testGame.getCurrentSchoolBoard().playAssistant(1);

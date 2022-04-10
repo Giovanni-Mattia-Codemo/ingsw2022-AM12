@@ -13,14 +13,6 @@ public class HerbalistAction extends PossibleAction {
     private int effectiveIsland;
 
     /**
-     * "Constructor" Method of HerbalistAction class
-     *
-     */
-    public HerbalistAction(){
-        super(2);
-    }
-
-    /**
      * Method checkInputValidity checks if I'm using the correct type and number of inputs required by my action
      *
      * @param input my chosen inputs

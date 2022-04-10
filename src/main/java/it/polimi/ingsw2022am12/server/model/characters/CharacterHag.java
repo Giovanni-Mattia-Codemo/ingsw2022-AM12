@@ -27,7 +27,6 @@ public class CharacterHag extends CharacterCard {
      */
     @Override
     public PossibleAction getPossibleAction() {
-
         return new HagAction();
     }
 }

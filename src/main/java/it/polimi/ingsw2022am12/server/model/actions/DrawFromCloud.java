@@ -12,14 +12,6 @@ import java.util.ArrayList;
  */
 public class DrawFromCloud extends PossibleAction {
 
-    /**
-     * "Constructor" Method of DrawFromCloud class
-     *
-     */
-    public DrawFromCloud() {
-        super(1);
-    }
-
     int usableID=0;
 
     /**

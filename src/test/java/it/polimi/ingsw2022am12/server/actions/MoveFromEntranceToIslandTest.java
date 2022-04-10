@@ -1,4 +1,4 @@
-package it.polimi.ingsw2022am12.server;
+package it.polimi.ingsw2022am12.server.actions;
 
 import it.polimi.ingsw2022am12.server.model.*;
 import it.polimi.ingsw2022am12.server.model.actions.ActionStep;
@@ -16,7 +16,7 @@ public class MoveFromEntranceToIslandTest {
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Nick1");
         nicks.add("Nick2");
-        Game testGame = new Game(nicks);
+        Game testGame = new Game(nicks, true);
         testGame.setUp();
 
         ArrayList<Selectable> input = new ArrayList<>();
@@ -49,7 +49,7 @@ public class MoveFromEntranceToIslandTest {
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Nick1");
         nicks.add("Nick2");
-        Game testGame = new Game(nicks);
+        Game testGame = new Game(nicks, true);
         testGame.setUp();
 
         ArrayList<Selectable> input = new ArrayList<>();
@@ -73,7 +73,7 @@ public class MoveFromEntranceToIslandTest {
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Nick1");
         nicks.add("Nick2");
-        Game testGame = new Game(nicks);
+        Game testGame = new Game(nicks, true);
         testGame.setUp();
 
         ArrayList<Selectable> input = new ArrayList<>();
@@ -90,7 +90,7 @@ public class MoveFromEntranceToIslandTest {
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Nick1");
         nicks.add("Nick2");
-        Game testGame = new Game(nicks);
+        Game testGame = new Game(nicks, true);
         testGame.setUp();
 
         ArrayList<Selectable> input = new ArrayList<>();
@@ -109,7 +109,7 @@ public class MoveFromEntranceToIslandTest {
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Nick1");
         nicks.add("Nick2");
-        Game testGame = new Game(nicks);
+        Game testGame = new Game(nicks, true);
         testGame.setUp();
 
         ArrayList<Selectable> input = new ArrayList<>();

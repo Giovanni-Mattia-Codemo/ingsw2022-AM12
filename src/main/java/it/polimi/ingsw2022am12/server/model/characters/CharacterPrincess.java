@@ -5,7 +5,6 @@ import it.polimi.ingsw2022am12.server.model.CharacterName;
 import it.polimi.ingsw2022am12.server.model.Game;
 import it.polimi.ingsw2022am12.server.model.PossibleAction;
 import it.polimi.ingsw2022am12.server.model.StudentDiskCollection;
-import it.polimi.ingsw2022am12.server.model.actions.MonkAction;
 import it.polimi.ingsw2022am12.server.model.actions.PrincessAction;
 
 /**
@@ -15,7 +14,7 @@ public class CharacterPrincess extends CharacterCard {
 
     //place four students here, pick student and place it in diningRoom
 
-    private StudentDiskCollection students;
+    private final StudentDiskCollection students;
     private static final int princessStudents= 4;
 
     /**
@@ -24,7 +23,7 @@ public class CharacterPrincess extends CharacterCard {
      */
     public CharacterPrincess(){
         super(CharacterName.CHARACTER_PRINCESS, 2);
-        students=new StudentDiskCollection();
+        students = new StudentDiskCollection();
     }
 
     /**
@@ -55,10 +54,8 @@ public class CharacterPrincess extends CharacterCard {
      */
     @Override
     public PossibleAction getPossibleAction() {
-
         return new PrincessAction();
     }
-
 
       /**
      * Method setWasUsed tells if the character was already used through a boolean flag
@@ -74,8 +71,6 @@ public class CharacterPrincess extends CharacterCard {
                 students.insertElement(game.drawStudentFromBag());
                 super.setWasUsed(false);
             }
-
         }
-
     }
 }

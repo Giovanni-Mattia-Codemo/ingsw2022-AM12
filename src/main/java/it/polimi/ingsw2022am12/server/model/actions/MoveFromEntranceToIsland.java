@@ -14,14 +14,6 @@ public class MoveFromEntranceToIsland extends PossibleAction {
     private int islandID;
 
     /**
-     * "Constructor" Method of MoveEntranceToIsland class
-     *
-     */
-    public MoveFromEntranceToIsland() {
-        super(2);
-    }
-
-    /**
      * Method checkInputValidity checks if I'm using the correct type and number of inputs required by my action
      *
      * @param input my chosen inputs

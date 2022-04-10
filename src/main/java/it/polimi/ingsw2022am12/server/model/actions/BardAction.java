@@ -8,16 +8,9 @@ import java.util.ArrayList;
  * Class that defines the process of activation of a Bard Card
  */
 public class BardAction extends PossibleAction {
+
     private DiskColor student1;
     private DiskColor student2;
-
-    /**
-     * Constructor method of BardAction class
-     *
-     */
-    public BardAction() {
-        super(2);
-    }
 
     /**
      * Method checkInputValidity checks if I'm using the correct type and number of inputs required by my action

@@ -11,16 +11,8 @@ import java.util.ArrayList;
  * Class that defines the process of activation of the Herald Card
  */
 public class HeraldAction extends PossibleAction {
+
     private int islandID;
-
-
-    /**
-     * "Constructor" Method of HeraldAction class
-     *
-     */
-    public HeraldAction(){
-        super(1);
-    }
 
     /**
      * Method checkInputValidity checks if I'm using the correct type and number of inputs required by my action

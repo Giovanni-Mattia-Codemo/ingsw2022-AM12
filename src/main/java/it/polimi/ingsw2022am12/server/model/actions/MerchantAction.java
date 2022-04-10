@@ -10,14 +10,6 @@ import java.util.ArrayList;
  */
 public class MerchantAction extends PossibleAction {
 
-    /**
-     * Constructor method of MerchantAction class
-     *
-     */
-    public MerchantAction(){
-         super(1);
-    }
-
     private DiskColor color;
 
     /**

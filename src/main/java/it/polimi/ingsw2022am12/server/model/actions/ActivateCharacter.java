@@ -14,14 +14,6 @@ import java.util.stream.Collectors;
  */
 public class ActivateCharacter extends PossibleAction {
 
-    /**
-     * "Constructor" Method of ActivateCharacter class
-     *
-     */
-    public ActivateCharacter() {
-        super(1);
-    }
-
     private CharacterName characterName;
 
     /**

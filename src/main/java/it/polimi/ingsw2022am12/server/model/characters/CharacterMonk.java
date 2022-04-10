@@ -14,7 +14,7 @@ public class CharacterMonk extends CharacterCard {
 
     // four students on card, during my turn I can place one of the students on island, filled at the end of turn
 
-    private StudentDiskCollection students;
+    private final StudentDiskCollection students;
     private static final int monkStudents= 4;
 
     /**
@@ -71,7 +71,7 @@ public class CharacterMonk extends CharacterCard {
             for(int i = students.amount(); i<monkStudents; i++){
                 students.insertElement(game.drawStudentFromBag());
             }
-            super.setWasUsed(isUsed);
+            super.setWasUsed(false);
         }
 
     }

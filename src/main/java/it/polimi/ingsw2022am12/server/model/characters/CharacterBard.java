@@ -4,9 +4,6 @@ import it.polimi.ingsw2022am12.server.model.CharacterCard;
 import it.polimi.ingsw2022am12.server.model.CharacterName;
 import it.polimi.ingsw2022am12.server.model.actions.BardAction;
 import it.polimi.ingsw2022am12.server.model.PossibleAction;
-import it.polimi.ingsw2022am12.server.model.Selectable;
-
-import java.util.ArrayList;
 
 /**
  * Class Character defines the main properties of a Bard card
@@ -16,7 +13,6 @@ public class CharacterBard extends CharacterCard {
     //swaps students from entrance to room, up to two times
 
     private int swapsDone;
-    private ArrayList<Selectable> selected;
 
     /**
      * Constructor method of the CharacterBard class
@@ -53,7 +49,5 @@ public class CharacterBard extends CharacterCard {
             super.setWasUsed(false);
         }
     }
-
-
 
 }

@@ -11,15 +11,8 @@ import java.util.ArrayList;
  * Class that defines the process of playing an Assistant
  */
 public class PlayAssistant extends PossibleAction {
-    /**
-     * "Constructor" Method of PossibleAction class
-     */
-    public PlayAssistant() {
-        super(1);
-    }
 
     private int assistantTurnPower;
-
 
     /**
      * Method checkInputValidity checks if I'm using the correct type and number of inputs required by my action

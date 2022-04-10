@@ -1,7 +1,5 @@
 package it.polimi.ingsw2022am12.server;
 
-import it.polimi.ingsw2022am12.exceptions.NotPresent;
-
 import java.util.HashMap;
 import java.util.Map;
 import it.polimi.ingsw2022am12.server.model.*;
@@ -23,9 +21,9 @@ public class GameTest {
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Pippo");
         nicks.add("Pluto");
-        nicks.add("Pinco");
-        nicks.add("Pluta");
-        Game testGame = new Game(nicks);
+        nicks.add("Bob");
+        nicks.add("Pier");
+        Game testGame = new Game(nicks, true);
         testGame.setUp();
 
         //check that there are no characters with the same name
@@ -41,8 +39,8 @@ public class GameTest {
 
          Assertions.assertEquals(testGame.getTeams().get(0).getSchoolBoards().get(0),testGame.getSchoolBoardByNick("Pippo"));
          Assertions.assertEquals(testGame.getTeams().get(1).getSchoolBoards().get(0),testGame.getSchoolBoardByNick("Pluto"));
-         Assertions.assertEquals(testGame.getTeams().get(0).getSchoolBoards().get(1),testGame.getSchoolBoardByNick("Pinco"));
-         Assertions.assertEquals(testGame.getTeams().get(1).getSchoolBoards().get(1),testGame.getSchoolBoardByNick("Pluta"));
+         Assertions.assertEquals(testGame.getTeams().get(0).getSchoolBoards().get(1),testGame.getSchoolBoardByNick("Bob"));
+         Assertions.assertEquals(testGame.getTeams().get(1).getSchoolBoards().get(1),testGame.getSchoolBoardByNick("Pier"));
 
 
     }
@@ -52,7 +50,7 @@ public class GameTest {
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Nick1");
         nicks.add("Nick2");
-        Game testGame = new Game(nicks);
+        Game testGame = new Game(nicks, false);
         try {
             testGame.setUp();
         } catch (Exception e) {
@@ -79,7 +77,7 @@ public class GameTest {
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Nick1");
         nicks.add("Nick2");
-        Game testGame = new Game(nicks);
+        Game testGame = new Game(nicks, false);
 
         testGame.setUp();
 
@@ -104,7 +102,7 @@ public class GameTest {
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Nick1");
         nicks.add("Nick2");
-        Game testGame = new Game(nicks);
+        Game testGame = new Game(nicks, false);
         try {
             testGame.setUp();
         } catch (Exception e) {
@@ -128,7 +126,7 @@ public class GameTest {
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Nick1");
         nicks.add("Nick2");
-        Game testGame = new Game(nicks);
+        Game testGame = new Game(nicks, false);
         try {
             testGame.setUp();
         } catch (Exception e) {
@@ -146,7 +144,7 @@ public class GameTest {
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Nick1");
         nicks.add("Nick2");
-        Game testGame = new Game(nicks);
+        Game testGame = new Game(nicks, false);
         try {
             testGame.setUp();
         } catch (Exception e) {
@@ -168,7 +166,7 @@ public class GameTest {
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Nick1");
         nicks.add("Nick2");
-        Game testGame = new Game(nicks);
+        Game testGame = new Game(nicks, false);
         try {
             testGame.setUp();
         } catch (Exception e) {
@@ -204,24 +202,23 @@ public class GameTest {
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Nick1");
         nicks.add("Nick2");
-        Game testGame = new Game(nicks);
+        Game testGame = new Game(nicks, true);
         try {
             testGame.setUp();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        Assertions.assertEquals(20, testGame.getFreeCoins().size());
-
-        testGame.collectCoin();
-        testGame.collectCoin();
-
         Assertions.assertEquals(18, testGame.getFreeCoins().size());
+
+        testGame.collectCoin();
+
+        Assertions.assertEquals(17, testGame.getFreeCoins().size());
 
         testGame.payCoins(1);
 
         Assertions.assertEquals(1, testGame.getCurrentSchoolBoard().getNumOfCoins());
-        Assertions.assertEquals(19, testGame.getFreeCoins().size());
+        Assertions.assertEquals(18, testGame.getFreeCoins().size());
     }
 
     @Test
@@ -230,7 +227,7 @@ public class GameTest {
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Nick1");
         nicks.add("Nick2");
-        Game testGame = new Game(nicks);
+        Game testGame = new Game(nicks, false);
         testGame.setUp();
 
         Student s0 = new Student(DiskColor.RED);
@@ -251,7 +248,7 @@ public class GameTest {
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Nick1");
         nicks.add("Nick2");
-        Game testGame = new Game(nicks);
+        Game testGame = new Game(nicks, true);
         testGame.setUp();
 
 
@@ -272,7 +269,7 @@ public class GameTest {
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Nick1");
         nicks.add("Nick2");
-        Game testGame = new Game(nicks);
+        Game testGame = new Game(nicks, false);
         testGame.setUp();
 
         Student red0 = new Student(DiskColor.RED);
@@ -290,7 +287,7 @@ public class GameTest {
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Nick1");
         nicks.add("Nick2");
-        Game testGame = new Game(nicks);
+        Game testGame = new Game(nicks, true);
         testGame.assignTeams();
 
         Student s0 = new Student(DiskColor.RED);
@@ -314,7 +311,7 @@ public class GameTest {
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("NICK1");
         nicks.add("NICK2");
-        Game testGame = new Game(nicks);
+        Game testGame = new Game(nicks, false);
         testGame.setUp();
 
         int cloudID = testGame.getCloud(0).getID();
@@ -323,7 +320,7 @@ public class GameTest {
 
         nicks.add("NICK3");
 
-        Game testGame1 = new Game(nicks);
+        Game testGame1 = new Game(nicks, false);
         testGame1.setUp();
         Assertions.assertEquals(4, testGame1.getCloud(0).amount());
 
@@ -336,7 +333,7 @@ public class GameTest {
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Nick1");
         nicks.add("Nick2");
-        Game testGame = new Game(nicks);
+        Game testGame = new Game(nicks, true);
         testGame.setUp();
 
         testGame.playAssistant(6);//has range 3
@@ -357,11 +354,10 @@ public class GameTest {
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Nick1");
         nicks.add("Nick2");
-        Game testGame = new Game(nicks);
+        Game testGame = new Game(nicks, true);
         testGame.setUp();
 
 
-        testGame.collectCoin();
         testGame.collectCoin();
         testGame.collectCoin();
         testGame.collectCoin();
@@ -380,7 +376,7 @@ public class GameTest {
         nicks.add("Nick1");
         nicks.add("Nick2");
         nicks.add("Nick3");
-        Game testGame = new Game(nicks);
+        Game testGame = new Game(nicks, false);
         testGame.setUp();
 
          ArrayList<SchoolBoard>tmp =   testGame.getTurnOrder();
@@ -391,9 +387,6 @@ public class GameTest {
         }
         for(int i=0; i<2; i++){
             testGame.getTurnOrder().get(1).insertToDiningRoom(new Student(DiskColor.RED));
-        }
-        for(int i=0; i<0; i++){
-            testGame.getTurnOrder().get(2).insertToDiningRoom(new Student(DiskColor.RED));
         }
 
         Map<String, Integer> oldAmounts = new HashMap<>();
@@ -415,7 +408,7 @@ public class GameTest {
         nicks.add("Nick1");
         nicks.add("Nick2");
         nicks.add("Nick3");
-        Game testGame = new Game(nicks);
+        Game testGame = new Game(nicks, false);
         testGame.setUp();
 
         Mage mage = testGame.getAvailableMages().get(0);
@@ -431,7 +424,7 @@ public class GameTest {
         nicks.add("Nick1");
         nicks.add("Nick2");
         nicks.add("Nick3");
-        Game testGame = new Game(nicks);
+        Game testGame = new Game(nicks, true);
         testGame.setUp();
     }
 

@@ -14,14 +14,6 @@ public class MonkAction extends PossibleAction {
     private DiskColor color;
 
     /**
-     * Constructor method of MonkAction class
-     *
-     */
-    public MonkAction(){
-        super(2);
-    }
-
-    /**
      * Method checkInputValidity checks if I'm using the correct type and number of inputs required by my action
      *
      * @param input my chosen inputs
@@ -43,7 +35,6 @@ public class MonkAction extends PossibleAction {
                         studentIndex=input.indexOf(s);
                         isStudent= true;
                     }else return ActionStep.NOTOK;
-
                 }else return ActionStep.NOTOK;
             }else if(s instanceof IslandTileSet){
                 if(game.getIslandList().getByIndex(((IslandTileSet) s).getID())!=null){

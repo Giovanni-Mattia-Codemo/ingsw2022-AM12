@@ -9,5 +9,4 @@ public class InputHandler {
     private Game myGame;
     private ArrayList<Selectable> selected;
 
-
 }

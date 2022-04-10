@@ -1,6 +1,5 @@
 package it.polimi.ingsw2022am12.server.model;
 
-import it.polimi.ingsw2022am12.exceptions.NotValidCharacter;
 import it.polimi.ingsw2022am12.server.model.characters.*;
 
 /**

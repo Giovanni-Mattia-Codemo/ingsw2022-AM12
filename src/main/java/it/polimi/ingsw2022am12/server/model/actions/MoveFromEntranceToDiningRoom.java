@@ -12,14 +12,6 @@ public class MoveFromEntranceToDiningRoom extends PossibleAction {
     private DiskColor colorInEntrance;
 
     /**
-     * "Constructor" Method of MoveFromEntranceToDiningRoom class
-     *
-     */
-    public MoveFromEntranceToDiningRoom() {
-        super(2);
-    }
-
-    /**
      * Method checkInputValidity checks if I'm using the correct type and number of inputs required by my action
      *
      * @param input my chosen inputs

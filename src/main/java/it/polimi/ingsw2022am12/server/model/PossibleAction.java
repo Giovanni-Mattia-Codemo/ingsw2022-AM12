@@ -9,22 +9,11 @@ import java.util.ArrayList;
  */
 public abstract class PossibleAction {
 
-    private final int requiredInputs; //number of inputs required to fully use the power of a character
-
-
     /**
      * "Constructor" Method of PossibleAction class
      */
-    public PossibleAction(int numOfActions){
-        this.requiredInputs = numOfActions;
+    public PossibleAction(){
     }
-
-    /**
-     * "Getter" Method
-     *
-     * @return int number of inputs needed by my PossibleAction
-     */
-    public int getRequiredInputs(){return requiredInputs;}
 
     /**
      * Method checkInputValidity checks if I'm using the correct type and number of inputs required by my action

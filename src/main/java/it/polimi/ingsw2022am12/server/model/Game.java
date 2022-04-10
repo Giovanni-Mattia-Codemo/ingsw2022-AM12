@@ -3,10 +3,12 @@ package it.polimi.ingsw2022am12.server.model;
 import it.polimi.ingsw2022am12.exceptions.NotPresent;
 
 import it.polimi.ingsw2022am12.exceptions.NotValidSwap;
+import it.polimi.ingsw2022am12.server.model.actions.ActionStep;
 import it.polimi.ingsw2022am12.server.model.characters.*;
 import it.polimi.ingsw2022am12.server.model.phases.SetupStrategy;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Class Game is the instance of the game
@@ -32,7 +34,7 @@ public class Game{
     private final static int maxNumOfMages = 4;
     private final static int numOfCharacters = 3;
     private boolean isLastRoundFlag;
-    private boolean isExpertMode;
+    private final boolean isExpertMode;
 
     private int disksMovedThisTurn;
     private boolean hasMovedMotherNature;
@@ -45,17 +47,14 @@ public class Game{
      *
      * @param playerNicks of the specific game
      */
-    public Game(ArrayList<String> playerNicks){
+    public Game(ArrayList<String> playerNicks, boolean characterMode){
 
+        this.isExpertMode = characterMode;
         this.mages = new ArrayList<>();
         this.currentStrategy = new SetupStrategy();
         this.playerNicks = playerNicks;
         this.numOfPlayers = playerNicks.size();
         this.freeCoins = new CoinCollection();
-        for (int i=0; i<coinsTOTAL; i++){
-            Coin tmp = new Coin();
-            freeCoins.insertElement(tmp);
-        }
         this.turnOrder= new ArrayList<>();
         this.islandList = new IslandTileList();
         this.bag = new Bag();
@@ -64,10 +63,8 @@ public class Game{
             clouds[i]= new StudentDiskCollection();
         }
         this.teams = new ArrayList<>();
-
         this.professors = new SchoolBoard[5];
         this.characterCards = new ArrayList<>();
-
     }
 
     /**
@@ -147,10 +144,31 @@ public class Game{
                 student = bag.draw();
                 s.insertToEntrance(student);
             }
-
             s.setAssistants();
         }
 
+        for(int i=0; i<maxNumOfMages; i++){
+            this.mages.add(new Mage(i));
+        }
+
+        fillClouds();
+
+        if(isExpertMode){
+            setUpForExpertMode();
+        }
+
+    }
+
+    private void setUpForExpertMode(){
+        for (int i=0; i<coinsTOTAL; i++){
+            Coin tmp = new Coin();
+            freeCoins.insertElement(tmp);
+        }
+        for(SchoolBoard s : turnOrder){
+            Coin tmp = freeCoins.getFirstCoin();
+            freeCoins.removeElement(tmp);
+            s.insertCoin(tmp);
+        }
         for(int i=0; i<numOfCharacters; i++){
             Random rnd= new Random();
             boolean taken;
@@ -165,21 +183,10 @@ public class Game{
                 }
             }while(taken);
             characterCards.add(CharacterCreator.createCharacter(x));
-
         }
-
         for (CharacterCard c:characterCards) {
-
             c.initCharacter(this);
-
         }
-
-        for(int i=0; i<maxNumOfMages; i++){
-            this.mages.add(new Mage(i));
-        }
-
-        fillClouds();
-
     }
 
 /*
@@ -231,6 +238,22 @@ public class Game{
      */
     public CoinCollection getFreeCoins(){
         return freeCoins;
+    }
+
+    /**
+     * Method only used for testing
+     *
+     * @param characterNum of the character
+     */
+    public void addCharacter(int characterNum){
+        CharacterCard character = CharacterCreator.createCharacter(characterNum);
+        character.initCharacter(this);
+        if(!this.getAvailableCharacters().stream()
+                .map(CharacterCard::getName)
+                .collect(Collectors.toList())
+                .contains(character.getName())){
+            characterCards.add(character);
+        }
     }
 
     /**
@@ -606,7 +629,6 @@ public class Game{
         Student s1 = getCurrentSchoolBoard().getEntrance().getFirstStudentOfColor(colorOfEntranceStudent).get();
 
         getCurrentSchoolBoard().swapStudents(s0, s1);
-
 
         if((getCurrentSchoolBoard().getStudentsInRoomByColor(s1.getColor())%3)==0){
             collectCoin();

@@ -12,13 +12,6 @@ import java.util.ArrayList;
  */
 public class SelectMage extends PossibleAction {
 
-    /**
-     * "Constructor" Method of SelectMage class
-     */
-    public SelectMage() {
-        super(1);
-    }
-
     private int mageID;
 
     /**

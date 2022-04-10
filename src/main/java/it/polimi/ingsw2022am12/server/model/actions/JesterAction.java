@@ -13,16 +13,6 @@ public class JesterAction extends PossibleAction {
     private DiskColor s0;
     private DiskColor s1;
 
-
-    /**
-     * "Constructor" Method of JesterAction class
-     *
-     */
-    public JesterAction(){
-        super(2);
-    }
-
-
     /**
      * Method checkInputValidity checks if I'm using the correct type and number of inputs required by my action
      *

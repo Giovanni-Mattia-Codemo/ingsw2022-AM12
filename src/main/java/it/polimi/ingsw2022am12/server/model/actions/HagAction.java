@@ -8,15 +8,8 @@ import java.util.ArrayList;
  * Class that defines the process of activation of the Hag Card
  */
 public class HagAction extends PossibleAction {
-    private DiskColor selection;
 
-    /**
-     * "Constructor" Method of HagAction class
-     *
-     */
-    public HagAction(){
-        super(1);
-    }
+    private DiskColor selection;
 
     /**
      * Method checkInputValidity checks if I'm using the correct type and number of inputs required by my action
@@ -27,9 +20,9 @@ public class HagAction extends PossibleAction {
      */
     @Override
     public ActionStep checkInputValidity(ArrayList<Selectable> input , Game game){
-        for (int i = 0; i < Math.min(getRequiredInputs(),input.size()) ; i++) {
-            if(input.get(i) instanceof ColorSelection){
-                selection = ((ColorSelection) input.get(i)).getColor();
+        if(input.size()==1) {
+            if(input.get(0) instanceof ColorSelection){
+                selection = ((ColorSelection) input.get(0)).getColor();
                return ActionStep.OK;
             }
         } return ActionStep.NOTOK;

@@ -1,5 +1,6 @@
-package it.polimi.ingsw2022am12.server;
+package it.polimi.ingsw2022am12.server.actions;
 
+import it.polimi.ingsw2022am12.exceptions.NotPresent;
 import it.polimi.ingsw2022am12.server.model.CharacterCard;
 import it.polimi.ingsw2022am12.server.model.Game;
 import it.polimi.ingsw2022am12.server.model.Selectable;
@@ -19,7 +20,7 @@ public class ActivateCharacterTest {
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Nick1");
         nicks.add("Nick2");
-        Game testGame = new Game(nicks);
+        Game testGame = new Game(nicks, true);
         testGame.setUp();
 
         ArrayList<Selectable> input = new ArrayList<>();
@@ -45,11 +46,16 @@ public class ActivateCharacterTest {
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Nick1");
         nicks.add("Nick2");
-        Game testGame = new Game(nicks);
+        Game testGame = new Game(nicks, true);
         testGame.setUp();
 
         ArrayList<Selectable> input = new ArrayList<>();
 
+        try {
+            testGame.getCurrentSchoolBoard().removeCoin(testGame.getCurrentSchoolBoard().getFirstCoin());
+        } catch (NotPresent e) {
+            e.printStackTrace();
+        }
         //Not enough coins
         Selectable rightCharacter = testGame.getAvailableCharacters().get(0);
         input.add(rightCharacter);

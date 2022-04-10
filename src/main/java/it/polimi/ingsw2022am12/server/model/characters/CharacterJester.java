@@ -49,17 +49,6 @@ public class CharacterJester extends CharacterCard {
     }
 
     /**
-     * Method containsStudent tells me if the Jester contains a certain student
-     *
-     *
-     * @param student the student I want from the card
-     * @return boolean true if the card contains student, else false
-     */
-    public boolean containsStudent(Student student){
-        return students.contains(student);
-    }
-
-    /**
      * Getter method of the CharacterJesterClass
      *
      * @return StudentDiskCollection the students placed on the card
