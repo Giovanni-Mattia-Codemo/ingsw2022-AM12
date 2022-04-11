@@ -19,16 +19,16 @@ public class CoinCollection implements Position {
     /**
      * Method getFirstCoin returns the reference to the first Coin in the collection
      *
-     * @return firstCoin
+     * @return Coin the first coin of the collection
      */
     public Coin getFirstCoin(){
         return coins.get(0);
     }
 
     /**
-     * Method getAllCoins returns the copy of the ArrayList of type Coin contained in the class
+     * Method getAllCoins returns the copy of the ArrayList of type Coin contained in the collection
      *
-     * @return ArrayList<Coin>
+     * @return ArrayList of all Coins
      */
     public ArrayList<Coin> getAllCoins(){
         return new ArrayList<>(coins);

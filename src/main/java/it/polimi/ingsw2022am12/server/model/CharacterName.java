@@ -1,5 +1,8 @@
 package it.polimi.ingsw2022am12.server.model;
 
+/**
+ * Class CharacterName contains the enumeration of the possible names for the characters
+ */
 public enum CharacterName {
     CHARACTER_MONK(0),
     CHARACTER_BEGGAR(1),
@@ -16,10 +19,20 @@ public enum CharacterName {
 
     private final int value;
 
+    /**
+     * Constructor method of CharacterName. Initiates the values of the enum
+     *
+     * @param newValue value of the specific name
+     */
     CharacterName(final int newValue){
         this.value = newValue;
     }
 
+    /**
+     * Method getValue returns the correspondent value of a CharacterName
+     *
+     * @return value of name
+     */
     public int getValue(){
         return value;
     }

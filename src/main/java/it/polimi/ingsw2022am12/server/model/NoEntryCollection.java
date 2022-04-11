@@ -2,6 +2,9 @@ package it.polimi.ingsw2022am12.server.model;
 
 import java.util.ArrayList;
 
+/**
+ * Class NoEntry defines a collection of NoEntries
+ */
 public class NoEntryCollection implements Position {
 
     private static int numOfNoEntryCollections;

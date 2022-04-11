@@ -21,7 +21,7 @@ public class ActivateCharacter extends PossibleAction {
      *
      * @param input my chosen inputs
      * @param game the instance of my game
-     * @return ActionStep number of inputs needed by my PossibleAction
+     * @return ActionStep number of inputs needed by my ActivateCharacter
      */
     @Override
     public ActionStep checkInputValidity(ArrayList<Selectable> input, Game game) {
@@ -41,7 +41,7 @@ public class ActivateCharacter extends PossibleAction {
     }
 
     /**
-     * Method useAction uses the power of the Character, and sets the Character to Used
+     * Method useAction uses the power of the Character that does not require particular inputs, and sets the Character to Used
      *
      * @param game the game that is being played currently
      */

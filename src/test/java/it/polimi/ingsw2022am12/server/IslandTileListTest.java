@@ -4,9 +4,16 @@ import it.polimi.ingsw2022am12.server.model.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
-
+/**
+ * Class created to test the methods in the IslandTileList class
+ */
 public class IslandTileListTest {
 
+    /**
+     * checkMergeIslands creates two islands, and initializes them with a Tower, a NoEntry and a Student each. It then
+     * merges them in the latter island. In the end it checks if the "new" island resulting from the merge contains
+     * the students, noEntries and towers from both the previous ones
+     */
     @Test
     public void checkMergeIslands(){
 
@@ -41,6 +48,11 @@ public class IslandTileListTest {
 
     }
 
+    /**
+     * checkCheckAndMerge places three towers on three new IslandTileSets and merges the leftmost island with the one
+     * on its right, it then checks I have two less islands in my list, while MotherNature is still on the same island.
+     * It repeats the process two times
+     */
     @Test
     public void checkCheckAndMerge() {
         //check that motherIsland still points to the right island after a merge that involves it
@@ -85,6 +97,10 @@ public class IslandTileListTest {
 
     }
 
+    /**
+     * checkCheckAndMerge2 places three towers on three new IslandTileSets and merges the leftmost island with the one
+     * on its right, it then checks I have one less island in my list, while MotherNature is still on the same island.
+     */
     @Test
     public void checkCheckAndMerge2(){
 
@@ -111,6 +127,10 @@ public class IslandTileListTest {
     }
 
 
+    /**
+     * checkDistanceFromMotherNature creates a new IslandTileList and gets MotherNature's position, then it chooses an island
+     * which is 7 positions behind it, and checks if the distance is actually seven
+     */
     @Test
     public void checkDistanceFromMotherNature(){
         IslandTileList islandTileList = new IslandTileList();

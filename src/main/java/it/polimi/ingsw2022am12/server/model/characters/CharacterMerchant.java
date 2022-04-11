@@ -11,7 +11,7 @@ import it.polimi.ingsw2022am12.server.model.actions.MerchantAction;
  */
 public class CharacterMerchant extends CharacterCard {
 
-    //choose a color, no influence can come from that color in my turn
+    //choose a color, no influence can come from that color in your turn
 
     private DiskColor color;
 

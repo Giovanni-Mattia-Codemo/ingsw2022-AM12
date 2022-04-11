@@ -49,7 +49,7 @@ public class Team {
     /**
      * Method getSchoolBoards returns the ArrayList of schoolBoards
      *
-     * @return schoolBoards
+     * @return schoolBoards of the team
      */
     public ArrayList<SchoolBoard> getSchoolBoards(){
         return schoolBoards;

@@ -6,10 +6,15 @@ import com.google.gson.*;
 
 import java.util.Map;
 
+/**
+ * SerializationTest is a class made to try out the methods in the serialization libraries
+ */
 public class SerializationTest {
 
-    //Class used to try out the serialization libraries
-
+    /**
+     * test() creates a new Student, initializes it, and then serializes it using the JSON format, passing through the
+     * GSON format
+     */
     @Test
     public void test(){
 

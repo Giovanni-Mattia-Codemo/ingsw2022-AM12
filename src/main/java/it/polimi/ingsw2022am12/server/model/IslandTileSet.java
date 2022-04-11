@@ -25,10 +25,20 @@ public class IslandTileSet implements Selectable {
         this.numOfIslandsInThisSet = 1;
     }
 
+    /**
+     * Getter method of IslandTileSet
+     *
+     * @return ID of the island
+     */
     public int getID() {
         return ID;
     }
 
+    /**
+     * Setter method of IslandTileSet
+     *
+     * @param ID the ID of this IslandTileSet
+     */
     public void setID(int ID) {
         this.ID = ID;
     }
@@ -59,7 +69,11 @@ public class IslandTileSet implements Selectable {
         return students.getAllStudents();
     }
 
-    //used for testing
+    /**
+     * Method only used for testing
+     *
+     * @return student collection
+     */
     public StudentDiskCollection getStudentCollection(){
         return students;
     }

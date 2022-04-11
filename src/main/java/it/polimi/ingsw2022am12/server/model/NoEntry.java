@@ -1,7 +1,7 @@
 package it.polimi.ingsw2022am12.server.model;
 
 /**
- * Class NoEntry defines the NoEntry card introduced in the hard game mode
+ * Class NoEntry defines the NoEntry tile introduced in the hard game mode
  */
 public class NoEntry extends PlaceableObject implements Selectable {
 

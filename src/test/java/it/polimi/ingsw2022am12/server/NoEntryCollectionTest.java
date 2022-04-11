@@ -5,8 +5,16 @@ import it.polimi.ingsw2022am12.server.model.NoEntryCollection;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
+/**
+ * NoEntryCollectionTest is a class made for the testing of the methods in the NoEntryCollection class
+ */
 public class NoEntryCollectionTest {
 
+    /**
+     * checkInsertAndRemoveAndContainsElement creates a new NoEntry and inserts it in two different NoEntryCollections;
+     * it removes the new NoEntry from one of the collections, then checks if the first collection is empty, while the
+     * second still contains the NoEntry
+     */
     @Test
     public void checkInsertAndRemoveAndContainsElement(){
         NoEntryCollection noEntryCollection0 = new NoEntryCollection();

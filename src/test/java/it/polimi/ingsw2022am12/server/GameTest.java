@@ -14,7 +14,11 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Assertions;
 
+/**
+ * GameTest is a class made for the testing of the methods in the Game class
+ */
 public class GameTest {
+
 
     @Test
     public void checkSetUp()  {

@@ -18,7 +18,7 @@ public class MonkAction extends PossibleAction {
      *
      * @param input my chosen inputs
      * @param game the instance of my game
-     * @return ActionStep number of inputs needed by my PossibleAction
+     * @return ActionStep number of inputs needed by my MonkAction
      */
     @Override
     public ActionStep checkInputValidity(ArrayList<Selectable> input, Game game) {

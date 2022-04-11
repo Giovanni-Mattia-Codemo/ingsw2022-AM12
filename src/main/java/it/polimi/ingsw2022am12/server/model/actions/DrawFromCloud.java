@@ -8,7 +8,7 @@ import it.polimi.ingsw2022am12.server.model.StudentDiskCollection;
 import java.util.ArrayList;
 
 /**
- * Class that defines the process of activation of drawing from a generic cloud
+ * Class that defines the process of drawing from a generic cloud
  */
 public class DrawFromCloud extends PossibleAction {
 
@@ -19,7 +19,7 @@ public class DrawFromCloud extends PossibleAction {
      *
      * @param input my chosen inputs
      * @param game the instance of my game
-     * @return ActionStep number of inputs needed by my PossibleAction
+     * @return ActionStep number of inputs needed by my DrawFromCloud
      */
     @Override
     public ActionStep checkInputValidity(ArrayList<Selectable> input, Game game) {

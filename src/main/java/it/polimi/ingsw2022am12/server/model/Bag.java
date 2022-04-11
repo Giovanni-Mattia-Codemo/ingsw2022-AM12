@@ -12,7 +12,7 @@ public class Bag extends StudentDiskCollection {
      * The draw implements the Random library to generate a pseudorandom index, which corresponds to the "random" student
      * I've drawn from the bag; the student drawn from the bag is then removed from it
      *
-     * @return Student
+     * @return Student drawn from the bag
      */
     public Student draw() {
             if(this.amount()>0) {

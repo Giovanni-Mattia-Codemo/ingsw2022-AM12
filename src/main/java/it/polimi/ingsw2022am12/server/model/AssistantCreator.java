@@ -15,6 +15,7 @@ public abstract class AssistantCreator {
      * Method returns the new Assistant card chosen. Each Assistant can have ONE value of turnPower
      *                                                       (Integer from 1 to 10)
      *@param turnPower turnPower
+     *@return Assistant created with the values of the switch case
      */
     public static Assistant createAssistant(int turnPower){
         return switch (turnPower) {

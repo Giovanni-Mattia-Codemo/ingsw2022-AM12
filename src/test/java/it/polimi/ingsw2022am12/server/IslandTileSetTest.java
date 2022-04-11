@@ -4,8 +4,15 @@ import it.polimi.ingsw2022am12.server.model.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
+/**
+ * IslandTileTest is a class made for the testing of the methods in the IslandTile class
+ */
 public class IslandTileSetTest {
 
+    /**
+     * checkRemoveAllTowers creates three new towers of the same team and inserts them in a new IslandTileSet, then removes
+     * them all, and checks if the IslandTileSet is devoid of towers
+     */
     @Test
     public void checkRemoveAllTowers(){
         IslandTileSet is0= new IslandTileSet();
@@ -19,6 +26,10 @@ public class IslandTileSetTest {
 
     }
 
+    /**
+     * checkGiveBackNoEntry creates two new NoEntries and places them on the same island; then the island gives back one
+     * NoEntry, and we check if only one NoEntry remains on it
+     */
     @Test
     public void checkGiveBackNoEntry(){
         IslandTileSet is0= new IslandTileSet();

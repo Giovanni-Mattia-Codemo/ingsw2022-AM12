@@ -16,7 +16,11 @@ public class Mage implements Selectable {
         ID = id;
     }
 
-
+    /**
+     * Getter method of the Mage class
+     *
+     * @return ID of the mage
+     */
     public int getID() {
         return ID;
     }

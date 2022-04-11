@@ -5,9 +5,15 @@ import it.polimi.ingsw2022am12.server.model.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
-
+/**
+ * Class used to test the methods of the SchoolBoard class
+ */
 public class SchoolBoardTest {
 
+    /**
+     * checkFillTowers considers a hypothetical game for three players, and checks if one of the SchoolBoards has been
+     * correctly filled with six towers
+     */
     @Test
     public void checkFillTowers(){
         SchoolBoard testingBoard = new SchoolBoard("Paolo");
@@ -20,6 +26,9 @@ public class SchoolBoardTest {
 
     }
 
+    /**
+     * checkMage initializes a new SchoolBoard, then gets its mage
+     */
     @Test
     public void checkMage(){
         SchoolBoard testSchool = new SchoolBoard("Nani");
@@ -27,6 +36,10 @@ public class SchoolBoardTest {
         assert true;
     }
 
+    /**
+     * checkIsDiningRoomFull creates ten new students of the same color and inserts them in the Dining Room of testingBoard;
+     * it then checks if the Dining Room contains them all, and returns true since the Dining Room is actually full
+     */
     @Test
     public void checkIsDiningRoomFull(){
         SchoolBoard testingBoard = new SchoolBoard("Pietro");
@@ -61,6 +74,12 @@ public class SchoolBoardTest {
 
     }
 
+    /**
+     * checkRemoveFromRoom creates a new testingBoard; it then creates a new student, places it in the Entrance, and
+     * then moves it from the Entrance to the Dining Room. In the end it checks if the Entrance is Empty, while the Dining
+     * Room must contain one Student
+     *
+     */
     @Test
     public void checkMoveFromEntranceToRoom(){
         SchoolBoard testingBoard = new SchoolBoard("Pierino");
@@ -72,6 +91,12 @@ public class SchoolBoardTest {
         Assertions.assertEquals(1, testingBoard.getStudentsInRoomByColor(DiskColor.RED));
     }
 
+    /**
+     * checkSwapStudents creates a new testingBoard; it then creates four new students, places two of them in the Entrance, and
+     * two in the Dining Room. It swaps only a couple of differently colored students. In the end it checks if the Dining Room
+     * contains two students of the same color, while the Entrance contains the other two Students
+     *
+     */
     @Test
     public void checkSwapStudents(){
     SchoolBoard testSchool = new SchoolBoard("Peperoni");
@@ -93,6 +118,9 @@ public class SchoolBoardTest {
         Assertions.assertTrue(testSchool.getEntrance().contains(s1));
     }
 
+    /**
+     * checkMage initializes a new SchoolBoard, then plays one of its assistants
+     */
     @Test
     public void checkPlayAssistant(){
         SchoolBoard testSchool = new SchoolBoard("Mario");
@@ -100,6 +128,11 @@ public class SchoolBoardTest {
         Assertions.assertTrue(true);
     }
 
+    /**
+     * checkRemoveFromRoom creates a new testingBoard; it then checks if the NotPresent exception is thrown, since
+     * the Dining Room is empty
+     *
+     */
     @Test
     public void checkRemoveFromRoom(){
         SchoolBoard testSchool = new SchoolBoard("Tony");
@@ -113,6 +146,10 @@ public class SchoolBoardTest {
         assert msg != null;
     }
 
+    /**
+     * checkGetMageID creates a new mage with a certain ID, then inserts it in a new testingBoard; it then checks if the
+     * Mage has been assigned correctly, and if the mageID actually is the initial, chosen value
+     */
     @Test
     public void checkGetMageID(){
         Mage testMage = new Mage(10);

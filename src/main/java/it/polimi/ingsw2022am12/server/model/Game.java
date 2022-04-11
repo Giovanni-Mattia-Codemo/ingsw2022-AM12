@@ -45,6 +45,7 @@ public class Game{
      * Constructor method of the class
      *
      * @param playerNicks of the specific game
+     * @param characterMode boolean if the Expert Mode is active
      */
     public Game(ArrayList<String> playerNicks, boolean characterMode){
 
@@ -158,6 +159,9 @@ public class Game{
 
     }
 
+    /**
+     *Method setup is used to set all the initial values of the attributes of the game, when the expertMode is selected
+     */
     private void setUpForExpertMode(){
         for (int i=0; i<coinsTOTAL; i++){
             Coin tmp = new Coin();
@@ -392,6 +396,15 @@ public class Game{
     }
 
     /**
+     *
+     * @return a list of available CharacterCards
+     */
+    public ArrayList<CharacterCard> getAvailableCharacters(){
+        return characterCards;
+    }
+
+
+    /**
      * Method selectMage is used from a player to pick a mage
      *
      * @param mageId ID
@@ -408,7 +421,12 @@ public class Game{
         mages.remove(tmp);
     }
 
-
+    /**
+     * Method moveStudentFromCardToRoom defines how I can move a student from a card to an island
+     *
+     * @param color of the student
+     * @param islandID of the island where I want to put the student
+     */
     public void moveStudentFromCardToIsland(DiskColor color, int islandID){
         StudentDiskCollection monkStudents = ((CharacterMonk)getActiveCharacterCard()).getStudents();
         if(monkStudents.getFirstStudentOfColor(color).isPresent()){
@@ -418,6 +436,11 @@ public class Game{
         }
     }
 
+    /**
+     * Method moveStudentFromCardToRoom defines how I can move a student from a card to the Dining Room
+     *
+     * @param color of the student
+     */
     public void moveStudentFromCardToRoom(DiskColor color){
 
         StudentDiskCollection tmp = ((CharacterPrincess)getActiveCharacterCard()).getStudents();
@@ -603,6 +626,11 @@ public class Game{
         }
     }
 
+    /**
+     * Method insertNoEntry places a noEntry on a selected island
+     *
+     * @param destination index of my selected island
+     */
     public void insertNoEntry(int destination){
         IslandTileSet destinationIsland = islandList.getByIndex(destination);
         NoEntry noEntry = ((CharacterHerbalist)getActiveCharacterCard()).getNoEntryCollection().getFirstNoEntry();
@@ -610,6 +638,12 @@ public class Game{
         destinationIsland.insertNoEntries(noEntry);
     }
 
+    /**
+     * Method jesterSwap defines the functioning of a swap done by the JesterCar5d
+     *
+     * @param colorOfCharStudent color of the Student taken from the JesterCard
+     * @param colorOfEntranceStudent color of the Student from the Entrance
+     */
     public void jesterSwap(DiskColor colorOfCharStudent, DiskColor colorOfEntranceStudent){
         CharacterJester jester =((CharacterJester)getActiveCharacterCard());
 
@@ -758,6 +792,12 @@ public class Game{
         return playable;
     }
 
+    /**
+     * Method isAssistantPlayable allows me to know if I can play the Assistant of my choice
+     *
+     * @param assistantPower the power of my chosen assistantCard
+     * @return true if the assistant is playable, false otherwise
+     */
     private boolean isAssistantPlayable(int assistantPower){
         boolean cardWasPlayed = false;
         boolean noOtherPlayableAssistants = true;
@@ -829,6 +869,9 @@ public class Game{
         }
     }
 
+    /**
+     * Method nextTurn is used to change round; if the round is the 10th, it is also the last
+     */
     public void nextRound(){
         this.round++;
         if(round==10) isLastRoundFlag=true;
@@ -935,10 +978,6 @@ public class Game{
                 }
             }
         }
-    }
-
-    public ArrayList<CharacterCard> getAvailableCharacters(){
-        return characterCards;
     }
 
 

@@ -24,14 +24,29 @@ public class Student extends PlaceableObject implements Selectable {
 
     }
 
+    /**
+     * Method setColor sets the positionID of the Student
+     *
+     * @param positionID the int ID of the chosen position
+     */
     public void setPositionID(int positionID) {
         this.positionID = positionID;
     }
 
+    /**
+     * Method getColor returns the position of the Student as an index
+     *
+     * @return the position's index
+     */
     public int getPositionID() {
         return positionID;
     }
 
+    /**
+     * Method setColor sets the position of the Student
+     *
+     * @param position the position to set
+     */
     @Override
     public void setPosition(Position position) {
         super.setPosition(position);
@@ -47,6 +62,11 @@ public class Student extends PlaceableObject implements Selectable {
         return this.color;
     }
 
+    /**
+     * Method setColor sets the color of the Student
+     *
+     * @param color the color to set
+     */
     public void setColor(DiskColor color) {
         this.color = color;
     }

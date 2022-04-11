@@ -6,8 +6,16 @@ import it.polimi.ingsw2022am12.server.model.Student;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
+/**
+ * BagTest is a class made for the testing of the methods in the Bag class
+ */
 public class BagTest {
 
+    /**
+     * CheckDraw checks the draw() method. It puts some students inside the bag. After checking if the Students have been
+     * inserted correctly via the contains() method, it draws two students. In the end it checks if only one Student remains
+     * in the Bag.
+     */
     @Test
     public void checkDraw(){
         Bag testBag = new Bag();

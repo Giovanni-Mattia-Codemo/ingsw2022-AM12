@@ -10,7 +10,7 @@ import it.polimi.ingsw2022am12.server.model.PossibleAction;
  */
 public class CharacterHag extends CharacterCard {
 
-    //choose a color, remove three (or less, if less are present) students of that color in dining rooms
+    //choose a color, remove three (or less, if less are present) students of that color in all dining rooms
 
     /**
      * Constructor method of the CharacterHag class

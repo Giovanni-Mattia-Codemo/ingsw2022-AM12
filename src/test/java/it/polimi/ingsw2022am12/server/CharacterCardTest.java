@@ -7,8 +7,20 @@ import it.polimi.ingsw2022am12.server.model.characters.CharacterBeggar;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+/**
+ * CharacterCardTest is a class made for the testing of the methods in the CharacterCard class
+ */
 public class CharacterCardTest {
 
+    /**
+     * CheckCharacterCardMethods() checks every method. It creates a character (in this case a Beggar), and then checks
+     * if its cost and name have been assigned correctly. It checks if the character was payed before (returns false because
+     * the character has just been created). Then it inserts a new coin in the CoinCollection held by the card and checks if
+     * there are only two of them in it. It sets wasUsed to true and then checks if the character was already payed (in this
+     * case it returns true, since we added a +1 coin on the character). Since the Beggar has no possible action, it checks if
+     * getPossibleAction is null.
+     *
+     */
     @Test
     public void checkCharacterCardMethods(){
         CharacterCard testCard = new CharacterBeggar(); //cost set to 1

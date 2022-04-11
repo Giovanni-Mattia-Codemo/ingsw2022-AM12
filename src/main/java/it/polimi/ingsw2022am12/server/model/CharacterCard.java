@@ -11,10 +11,10 @@ public abstract class CharacterCard implements Selectable {
     private boolean wasUsed;
 
     /**
-     * Constructor method of the Character's class. Assigns the name to the Selectable type, assigns the first
+     * Constructor method of the Character's class. Assigns the name to the CharacterCard type, assigns the first
      * cost of the character and creates a new CoinCollection
      *
-     * @param name of the Selectable type
+     * @param name of the CharacterCard
      * @param cost of the character (initial value)
      */
     public CharacterCard(CharacterName name, int cost){
@@ -91,6 +91,7 @@ public abstract class CharacterCard implements Selectable {
     /**
      * Method init Character initializes Characters who possess a private attribute
      *
+     * @param game the instance of my game
      */
     public void initCharacter(Game game){}
 
