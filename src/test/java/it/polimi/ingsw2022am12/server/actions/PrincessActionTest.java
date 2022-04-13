@@ -9,8 +9,17 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
+/**
+ * Class used to test the methods in PrincessAction class
+ */
 public class PrincessActionTest {
 
+    /**
+     * checkCheckInputValidityOK creates an instance of the game with two players and sets it up, and then creates a new
+     * PrincessAction; it pays and activates the PrincessCard, and gets a StudentDisk from it. The Student is put in the
+     * input ArrayList; in the end we check if the checkInputValidity returns OK, and if the student has been moved
+     * correctly to the dining room
+     */
     @Test
     public void checkCheckInputValidityOK() {
         PrincessAction testCharacter = new PrincessAction();
@@ -36,6 +45,11 @@ public class PrincessActionTest {
         Assertions.assertEquals(1, testGame.getCurrentSchoolBoard().getDiningRoom().getAllStudents().size());
     }
 
+    /**
+     * checkCheckInputValidityNOTOK creates an instance of the game with two players and sets it up, and then creates a new
+     * PrincessAction; it pays and activates the PrincessCard, but creates a new student and puts it in the input array.
+     * In the end we check if checkInputValidity returns NOTOK
+     */
     @Test
     public void checkCheckInputValidityNOTOK(){
         PrincessAction testCharacter = new PrincessAction();

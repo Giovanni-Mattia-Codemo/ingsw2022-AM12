@@ -9,8 +9,16 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
+/**
+ * Class used to test the methods in HeraldAction class
+ */
 public class HeraldActionTest {
 
+    /**
+     * checkCheckInputValidityOK creates an instance of the game with two players and sets it up; it then gets an HeraldCard
+     * and activates it, an island is selected and inserted in the input ArrayList; in the end we check if checkInputValidity
+     * returns OK and use the BardAction
+     */
     @Test
     public void checkCheckInputValidityOK(){
         HeraldAction testCharacter = new HeraldAction();
@@ -31,6 +39,11 @@ public class HeraldActionTest {
         Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input, testGame));
     }
 
+    /**
+     * checkCheckInputValidityNOTOK creates an instance of the game with two players and sets it up; it then gets an HeraldCard
+     * and activates it, an island with a wrong index is selected and inserted in the input ArrayList; in the end we check
+     * if checkInputValidity returns NOTOK
+     */
     @Test
     public void checkCheckInputValidityNOTOK(){
         MonkAction testCharacter = new MonkAction();

@@ -9,8 +9,17 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
+/**
+ * Class used to test the methods in JesterAction class
+ */
 public class JesterActionTest {
 
+    /**
+     * checkCheckInputValidityOK creates an instance of the game with two players and sets it up; it then gets an JesterCard
+     * and activates it; a student from the JesterCard, and one from the Entrance are selected and placed in the input ArrayList,
+     * then we check if checkInputValidity returns OK, and we use the action; in the end we check if swap has been done correctly
+     *
+     */
     @Test
     public void checkCheckInputValidityOK(){
         JesterAction testCharacter = new JesterAction();
@@ -35,6 +44,12 @@ public class JesterActionTest {
         Assertions.assertTrue(((CharacterJester)testGame.getActiveCharacterCard()).getStudents().contains(stdEntrance));
     }
 
+    /**
+     * checkCheckInputValidityOK creates an instance of the game with two players and sets it up; it then gets an JesterCard
+     * and activates it; a student from the JesterCard is  selected and placed in the input ArrayList,
+     * then we check if checkInputValidity returns HALFOK
+     *
+     */
     @Test
     public void checkCheckInputValidityHALOK1(){
         JesterAction testCharacter = new JesterAction();
@@ -53,6 +68,12 @@ public class JesterActionTest {
         Assertions.assertEquals(ActionStep.HALFOK, testCharacter.checkInputValidity(input, testGame));
     }
 
+    /**
+     * checkCheckInputValidityOK creates an instance of the game with two players and sets it up; it then gets an JesterCard
+     * and activates it; a student from the Entrance is  selected and placed in the input ArrayList,
+     * then we check if checkInputValidity returns HALFOK
+     *
+     */
     @Test
     public void checkCheckInputValidityHALOK2(){
         JesterAction testCharacter = new JesterAction();
@@ -71,6 +92,12 @@ public class JesterActionTest {
         Assertions.assertEquals(ActionStep.HALFOK, testCharacter.checkInputValidity(input, testGame));
     }
 
+    /**
+     * checkCheckInputValidityOK creates an instance of the game with two players and sets it up; it then gets an JesterCard
+     * and activates it; a new student created and a student from the Entrance are selected and placed in the input ArrayList,
+     * then we check if checkInputValidity returns NOTOK
+     *
+     */
     @Test
     public void checkInputValidityNOTOK1(){
         JesterAction testCharacter = new JesterAction();
@@ -91,6 +118,11 @@ public class JesterActionTest {
         Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
     }
 
+    /**
+     * checkCheckInputValidityOK creates an instance of the game with two players and sets it up; it then gets an JesterCard
+     * and activates it; a student from the second player's Entrance is selected and placed in the input ArrayList,
+     * then we check if checkInputValidity returns NOTOK
+     */
     @Test
     public void checkInputValidityNOTOK2(){
         JesterAction testCharacter = new JesterAction();

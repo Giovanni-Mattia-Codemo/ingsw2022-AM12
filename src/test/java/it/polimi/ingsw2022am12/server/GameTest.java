@@ -15,11 +15,15 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Assertions;
 
 /**
- * GameTest is a class made for the testing of the methods in the Game class
+ * Class used to test the methods in the Game class
  */
 public class GameTest {
 
 
+    /**
+     * checkSetUp creates an instance of the game for four players and sets it up, checking if the Characters are created
+     * correctly, then it checks if the team and schoolBoards assignment has been done correctly
+     */
     @Test
     public void checkSetUp()  {
         ArrayList<String> nicks = new ArrayList<>();
@@ -49,6 +53,10 @@ public class GameTest {
 
     }
 
+    /**
+     * checkFillIslands creates an instance of the game for two players and sets it up, checking the island where MotherNature is,
+     * and the one opposed to it are empty, while the other ten islands (we chose three islands randomly) contain one student
+     */
     @Test
     public void checkFillIslands(){
         ArrayList<String> nicks = new ArrayList<>();
@@ -76,6 +84,12 @@ public class GameTest {
 
     }
 
+    /**
+     * checkConquerIsland creates an instance of the game for two players and sets it up, then places a red student on the
+     * island where MotherNature is found, and another red student in the Dining Room of the first player. In the end it
+     * checks if the island with MotherNature on it is not devoid of towers, since the first player has conquered it
+     */
+
     @Test
     public void checkConquerIsland(){
         ArrayList<String> nicks = new ArrayList<>();
@@ -101,6 +115,12 @@ public class GameTest {
         Assertions.assertFalse(testGame.getIslandList().getByIndex(motherNaturePose).getTowers().isEmpty());
     }
 
+    /**
+     * checkMoveStudentFromEntranceToIsland creates an instance of the game for two players and sets it up, then places a
+     * red student in the Entrance, even if it's already full (Illegal action but checked elsewhere), then it moves it on the
+     * island where MotherNature is found; in the end it checks if the island with MotherNature on it contains the red student,
+     * and the Entrance now has only seven students
+     */
     @Test
     public void checkMoveStudentFromEntranceToIsland(){
         ArrayList<String> nicks = new ArrayList<>();
@@ -125,6 +145,10 @@ public class GameTest {
         Assertions.assertEquals(1, testMotherNature.getStudents().size());
     }
 
+    /**
+     * checkMoveMotherNature creates an instance of the game for two players and sets it up, then the index of an island,
+     * and places MotherNature there. In the end it checks if the selected index and the index of Mother Nature are the same
+     */
     @Test
     public void checkMoveMotherNature(){
         ArrayList<String> nicks = new ArrayList<>();
@@ -143,6 +167,10 @@ public class GameTest {
         Assertions.assertEquals(testGame.getIslandList().getMotherNatureIndex(), island.getID());
     }
 
+    /**
+     * checkDrawFromCloud creates an instance of the game for two players and sets it up, then gets the first cloud and
+     * draws its three students. In the end it checks if that cloud is empty, while the Entrance contains three more students
+     */
     @Test
     public void checkDrawFromCloud(){
         ArrayList<String> nicks = new ArrayList<>();
@@ -164,6 +192,11 @@ public class GameTest {
 
     }
 
+    /**
+     * checkDrawFromCloud creates an instance of the game for two players and sets it up, then has the two players play
+     * their assistants (the second player must wait an endTurn() from the first); then it checks if the player who played
+     * the assistant with the lowest value is the first in the next turn order
+     */
     @Test
     public void checkCorrectOrder(){
 
@@ -200,6 +233,11 @@ public class GameTest {
 
     }
 
+    /**
+     * checkPayAndCollectCoin creates an instance of the game for two players and sets it up, then checks if the free
+     * coins are 20 - numberOfPlayers, alas 18. Then it collects another coin, checking if only 17 free remain; in the end
+     * the first player pays one of his two coins and puts it back in the free coins
+     */
     @Test
     public void checkPayAndCollectCoin() {
 
@@ -225,6 +263,11 @@ public class GameTest {
         Assertions.assertEquals(18, testGame.getFreeCoins().size());
     }
 
+    /**
+     * checkMoveStudentFromCardToIsland creates an instance of the game for two players and sets it up, then places a
+     * red student on the MonkCard, then it moves it on the first island; in the end it checks if the island
+     * contains that student while the MonkCard is empty
+     */
     @Test
     public void checkMoveFromCardToIsland(){
 
@@ -246,6 +289,11 @@ public class GameTest {
 
     }
 
+    /**
+     * checkMoveStudentFromCardToRoom creates an instance of the game for two players and sets it up, then places a
+     * red student on the PrincessCard, then it moves it in the Dining Room; in the end it checks if the Dining Room
+     * has one student of that color while the PrincessCard is empty
+     */
     @Test
     public void checkMoveStudentFromCardToRoom(){
 
@@ -267,6 +315,12 @@ public class GameTest {
 
     }
 
+    /**
+     * checkMoveStudentFromEntranceToRoom creates an instance of the game for two players and sets it up, then places a
+     * red student in the Entrance, even if it's already full (Illegal action but checked elsewhere), then it moves it in
+     * the Dining Room; in the end it checks if the Dining Room has one student of that color
+     * and the Entrance now has only seven students
+     */
     @Test
     public void checkMoveStudentFromEntranceToRoom(){
 
@@ -286,6 +340,11 @@ public class GameTest {
 
     }
 
+    /**
+     * checkJesterSwap creates an instance of the game for two players and sets it up, then activates forcibly the JesterCard,
+     * placing a student on it, and one in the Entrance; after completing the swap, it checks if it has been done correctly
+     * by checking the content of the Entrance and the Jester Card
+     */
     @Test
     public void checkJesterSwap(){
         ArrayList<String> nicks = new ArrayList<>();
@@ -310,6 +369,11 @@ public class GameTest {
 
     }
 
+    /**
+     * checkFillClouds creates an instance of the game for two players and sets it up, then checks if the first cloud
+     * contains the right amount of students (three); then it creates an instance of the game for three players and sets
+     * it up, and checks if the first cloud contains the right amount of students (four)
+     */
     @Test
     public void checkFillClouds(){
         ArrayList<String> nicks = new ArrayList<>();
@@ -332,6 +396,12 @@ public class GameTest {
 
     }
 
+    /**
+     * checkCheckIfIslandInRange creates an instance of the game for two players and sets it up, then plays an Assistant
+     * with range 3, and selects an island that is 4 tiles distant from Mother Nature, so hat CheckIfIslandInRange returns
+     * false; then it activates the BeggarCard, whose powers consists in expanding the range of an Assistant, and now
+     * checkIfIslandInRange returns true
+     */
     @Test
     public void checkCheckIfIslandInRange(){
         ArrayList<String> nicks = new ArrayList<>();
@@ -353,6 +423,11 @@ public class GameTest {
         Assertions.assertTrue(testGame.checkIfIslandInRange(is0));
     }
 
+    /**
+     * checkPayAndSetActiveCharacter creates an instance of the game for two players and sets it up, and collects a few
+     * coins; then it activates and pays the first character in the deck, checking if the paid coins have been removed
+     * correctly and the selected character is the chosen one
+     */
     @Test
     public void checkPayAndSetActiveCharacter(){
         ArrayList<String> nicks = new ArrayList<>();
@@ -374,6 +449,10 @@ public class GameTest {
 
     }
 
+    /**
+     * checkSelectMage creates an instance of the game for three players and sets it up, then selects a mage from the
+     * ArrayList of four mages; then it checks if the mage has been selected correctly and availableMages are only three
+     */
     @Test
     public void checkRemoveStudentsFromRoomByColor(){
         ArrayList<String> nicks = new ArrayList<>();
@@ -406,6 +485,10 @@ public class GameTest {
 
     }
 
+    /**
+     * checkSelectMage creates an instance of the game for three players and sets it up, then selects a mage from the
+     * ArrayList of four mages; then it checks if the mage has been selected correctly and availableMages are only three
+     */
     @Test
     public void checkSelectMage(){
         ArrayList<String> nicks = new ArrayList<>();

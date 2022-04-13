@@ -12,8 +12,17 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
+/**
+ * Class used to test the methods in ActivateCharacter class
+ */
 public class ActivateCharacterTest {
 
+    /**
+     * checkCheckInputValidityOK creates an instance of the game with two players and sets it up; it then gets a Character
+     * from the array of AvailableCharacters, using a correct index, and inserts it in an ArrayList of inputs. It checks
+     * if checkInputValidity on the new ActivateCharacter move created returns OK, then it uses the action. In the end it
+     * checks if the character we used is the active one
+     */
     @Test
     public void checkCheckInputValidityOK(){
         ActivateCharacter testCharacter = new ActivateCharacter();
@@ -40,6 +49,10 @@ public class ActivateCharacterTest {
         Assertions.assertEquals(character, testGame.getActiveCharacterCard());
     }
 
+    /**
+     * checkCheckInputValidityNOTOK creates an instance of the game with two players and sets it up; checkInputValidity
+     * will return NOTOK if there are not enough coins to pay for a Character, or if a Character is not available
+     */
     @Test
     public void checkCheckInputValidityNOTOK(){
         ActivateCharacter testCharacter = new ActivateCharacter();

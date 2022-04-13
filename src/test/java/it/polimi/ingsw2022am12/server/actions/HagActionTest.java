@@ -8,8 +8,17 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
+/**
+ * Class used to test the methods in HagAction class
+ */
 public class HagActionTest {
 
+    /**
+     * checkCheckInputValidityOK creates an instance of the game with two players and sets it up; it then gets an HagCard
+     * and activates it, and inserts a blue student in the Dining Room; the color blue is selected and inserted in the
+     * input ArrayList; in the end we check if checkInputValidity returns OK, and check if the Dining Room is empty after
+     * using the HagAction
+     */
     @Test
     public void checkCheckInputValidityOK(){
         HagAction testCharacter = new HagAction();
@@ -37,6 +46,11 @@ public class HagActionTest {
         Assertions.assertEquals(0, testGame.getCurrentSchoolBoard().getDiningRoom().amount());
     }
 
+    /**
+     * checkCheckInputValidityNOTOK creates an instance of the game with two players and sets it up; it then gets an HagCard
+     * and activates it, and inserts a blue student in the Dining Room; a blue student is selected and wrongly inserted in the
+     * input ArrayList; in the end we check if checkInputValidity returns NOTOK
+     */
     @Test
     public void checkInputValidityNOTOK(){
         HagAction testCharacter = new HagAction();

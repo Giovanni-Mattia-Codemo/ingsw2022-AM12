@@ -11,8 +11,17 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
+/**
+ * Class used to test the methods in BardAction class
+ */
 public class BardActionTest {
 
+    /**
+     * checkCheckInputValidityOK creates an instance of the game with two players and sets it up; it then activates the
+     * BardCard; it places two students, one in the Dining Room and one in the Entrance. It puts them in the input ArrayList,
+     * checks if checkInputValidity returns OK and uses the Action
+     *
+     */
     @Test
     public void checkCheckInputValidityOK(){
         BardAction testCharacter = new BardAction();
@@ -44,6 +53,12 @@ public class BardActionTest {
         Assertions.assertNotNull(testGame.getCurrentSchoolBoard().getDiningRoom().getFirstStudentOfColor(DiskColor.RED));
     }
 
+    /**
+     * checkCheckInputValidityHALFOK1 creates an instance of the game with two players and sets it up; it then activates the
+     * BardCard; it places one student in the Entrance. It puts them in the input ArrayList, and checks if
+     * checkInputValidity returns HALFOK
+     *
+     */
     @Test
     public void checkCheckInputValidityHALFOK1(){
         BardAction testCharacter = new BardAction();
@@ -68,6 +83,12 @@ public class BardActionTest {
         Assertions.assertEquals(ActionStep.HALFOK, testCharacter.checkInputValidity(input, testGame));
     }
 
+    /**
+     * checkCheckInputValidityHALFOK2 creates an instance of the game with two players and sets it up; it then activates the
+     * BardCard; it places one student in the Dining Room. It puts them in the input ArrayList, and checks if
+     * checkInputValidity returns HALFOK
+     *
+     */
     @Test
     public void checkCheckInputValidityHALFOK2(){
         BardAction testCharacter = new BardAction();
@@ -92,6 +113,12 @@ public class BardActionTest {
         Assertions.assertEquals(ActionStep.HALFOK, testCharacter.checkInputValidity(input, testGame));
     }
 
+    /**
+     * checkCheckInputValidityNOTOK1 creates an instance of the game with two players and sets it up; it then activates the
+     * BardCard; it gets one student from the Entrance of the second player and puts it the input ArrayList, and checks if
+     * checkInputValidity returns NOTOK
+     *
+     */
 
     @Test
     public void checkCheckInputValidityNOTOK1(){
@@ -115,6 +142,12 @@ public class BardActionTest {
         Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
     }
 
+    /**
+     * checkCheckInputValidityNOTOK2 creates an instance of the game with two players and sets it up; it then activates the
+     * BardCard; it gets one student from the Dining Room of the second player and puts it the input ArrayList, and checks if
+     * checkInputValidity returns NOTOK
+     *
+     */
     @Test
     public void checkCheckInputValidityNOTOK2(){
         BardAction testCharacter = new BardAction();

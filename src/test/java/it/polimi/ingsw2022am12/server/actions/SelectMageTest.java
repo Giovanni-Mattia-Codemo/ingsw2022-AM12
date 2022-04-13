@@ -11,8 +11,17 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
+/**
+ * Class used to test the methods in SelectMage class
+ */
 public class SelectMageTest {
 
+    /**
+     * checkCheckInputValidityOK creates an instance of the game with two players and sets it up; it then gets a mage
+     * from the array of four Available Mages, using a correct index, and inserts it in an ArrayList of inputs. It checks
+     * if checkInputValidity on the new SelectMage move created returns OK, then it uses the action. In the end it checks
+     * if we selected the correct mage, and if the available mages are three
+     */
     @Test
     public void checkCheckInputValidityOK(){
         SelectMage testMove = new SelectMage();
@@ -34,6 +43,11 @@ public class SelectMageTest {
         Assertions.assertEquals(numOfAvailableMagesBefore-1, numOfAvailableMagesAfter);
     }
 
+    /**
+     * checkCheckInputValidityNOTOK creates an instance of the game with two players and sets it up; it then gets a mage
+     * from the array of Available Mages, using a wrong index, and inserts it in an ArrayList of inputs. It checks
+     * if the checkInputValidity returns NOTOK, and cleans the input
+     */
     @Test
     public void checkCheckInputValidityNOTOK(){
         SelectMage testMove = new SelectMage();

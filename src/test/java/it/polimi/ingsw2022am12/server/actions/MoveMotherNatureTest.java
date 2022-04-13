@@ -10,8 +10,16 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
+/**
+ * Class used to test the methods in MoveMotherNature class
+ */
 public class MoveMotherNatureTest {
 
+    /**
+     * checkCheckInputValidityOK creates an instance of the game with two players and sets it up; it then plays an Assistant
+     * from the array of PlayableAssistants, and gets the index of MotherNature; then it calculates correctly the next
+     * destination of MotherNature and puts it in the input ArrayList; in the end we check if checkInputValidity returns OK
+     */
     @Test
     public void checkCheckInputValidity(){
         MoveMotherNature testMove = new MoveMotherNature();
@@ -38,6 +46,11 @@ public class MoveMotherNatureTest {
         Assertions.assertEquals(destination.getID(), testGame.getIslandList().getByIndex(newIndexMN).getID());
     }
 
+    /**
+     * checkCheckInputValidityNOTOK creates an instance of the game with two players and sets it up; it then plays an Assistant
+     * from the array of PlayableAssistants, and gets the index of MotherNature; then it calculates wrongly the next destination
+     * of MotherNature and puts it in the input ArrayList; in the end we check if checkInputValidity returns NOTOK
+     */
     @Test
     public void checkCheckInputValidityNOTOK(){
         MoveMotherNature testMove = new MoveMotherNature();

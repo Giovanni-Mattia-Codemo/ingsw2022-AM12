@@ -8,8 +8,16 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
+/**
+ * Class used to test the methods in MoveFromEntranceToIsland class
+ */
 public class MoveFromEntranceToIslandTest {
 
+    /**
+     * checkCheckInputValidityOK creates an instance of the game with two players and sets it up; it then gets a student
+     * from the Entrance, if present, or else it inserts a new one in it. Then it adds the student, and destination island in
+     * the input array, checks if checkInputValidity returns OK and uses the action
+     */
     @Test
     public void checkCheckInputValidityOK(){
         MoveFromEntranceToIsland testMove = new MoveFromEntranceToIsland();
@@ -43,6 +51,11 @@ public class MoveFromEntranceToIslandTest {
         Assertions.assertEquals(initialStudentsOnIslandOfColorRed+1, testGame.getIslandList().getByIndex(4).getStudentCollection().getByColor(DiskColor.RED));
     }
 
+    /**
+     * checkCheckInputValidityHALFOK! creates an instance of the game with two players and sets it up; it then gets a student
+     * from the Entrance, if present, or else it inserts a new one in it. Then it adds the student in
+     * the input array, and checks if checkInputValidity returns HALFOK
+     */
     @Test
     public void checkCheckInputValidityHALFOK1(){
         MoveFromEntranceToIsland testMove = new MoveFromEntranceToIsland();
@@ -67,6 +80,10 @@ public class MoveFromEntranceToIslandTest {
 
     }
 
+    /**
+     * checkCheckInputValidityHALFOK2 creates an instance of the game with two players and sets it up; then it adds the
+     * destination island in the input array, and checks if checkInputValidity returns HALFOK
+     */
     @Test
     public void checkCheckInputValidityHALFOK2(){
         MoveFromEntranceToIsland testMove = new MoveFromEntranceToIsland();
@@ -84,6 +101,10 @@ public class MoveFromEntranceToIslandTest {
         Assertions.assertEquals(ActionStep.HALFOK, testMove.checkInputValidity(input, testGame));
     }
 
+    /**
+     * checkCheckInputValidityNOTOK1 creates an instance of the game with two players and sets it up; then it adds a destination
+     * island with a wrong index in the input array; in the end it checks if checkInputValidity returns NOTOK
+     */
     @Test
     public void checkCheckInputValidityNOTOK1(){
         MoveFromEntranceToIsland testMove = new MoveFromEntranceToIsland();
@@ -103,6 +124,11 @@ public class MoveFromEntranceToIslandTest {
 
     }
 
+    /**
+     * checkCheckInputValidityNOTOK creates an instance of the game with two players and sets it up; then it adds a
+     * newly created student, and a destination island with a wrong index in the input array; in the end it checks if
+     * checkInputValidity returns NOTOK
+     */
     @Test
     public void checkCheckInputValidityNOTOK2(){ //Checked both with testSet and without it
         MoveFromEntranceToIsland testMove = new MoveFromEntranceToIsland();
