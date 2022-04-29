@@ -11,8 +11,6 @@ import java.util.ArrayList;
  */
 public class PlayAssistant extends PossibleAction {
 
-    private int assistantTurnPower;
-
     /**
      * Constructor method of PlayAssistant class
      */

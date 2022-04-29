@@ -8,12 +8,16 @@ public class Student extends PlaceableObject implements Selectable {
     private  DiskColor  color;
     private int positionID;
 
+    /**
+     * Constructor of Student
+     *
+     */
     public Student(){
 
     }
 
     /**
-     * Constructor of Student sets the color of the Student and its initial position
+     * Constructor of Student sets the color of the Student
      *
      * @param color of the student
      */
@@ -24,7 +28,7 @@ public class Student extends PlaceableObject implements Selectable {
     }
 
     /**
-     * Method setColor sets the positionID of the Student
+     * Method setPositionID sets the positionID of the Student
      *
      * @param positionID the int ID of the chosen position
      */
@@ -33,7 +37,7 @@ public class Student extends PlaceableObject implements Selectable {
     }
 
     /**
-     * Method getColor returns the position of the Student as an index
+     * Method getPositionID returns the position of the Student as an index
      *
      * @return the position's index
      */
@@ -42,7 +46,7 @@ public class Student extends PlaceableObject implements Selectable {
     }
 
     /**
-     * Method setColor sets the position of the Student
+     * Method setPosition sets the position of the Student
      *
      * @param position the position to set
      */

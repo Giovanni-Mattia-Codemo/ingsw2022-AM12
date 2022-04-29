@@ -17,6 +17,8 @@ public abstract class PossibleAction {
 
     /**
      * "Constructor" Method of PossibleAction class
+     *
+     * @param requiredInputs number of inputs required
      */
     public PossibleAction(int requiredInputs){
         this.requiredInputs=requiredInputs;
