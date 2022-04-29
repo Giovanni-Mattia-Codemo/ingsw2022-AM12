@@ -38,7 +38,9 @@ public class MoveMotherNatureTest {
 
         ArrayList<Selectable> input = new ArrayList<>();
         input.add(destination);
+        input.add(testGame.getIslandList().getByIndex(indexMN));
 
+        testMove.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.OK, testMove.checkInputValidity(input, testGame));
 
         testMove.useAction(testGame);
@@ -71,6 +73,7 @@ public class MoveMotherNatureTest {
         input.add(destination);
         input.add(testGame.getIslandList().getByIndex(indexMN));
 
+        testMove.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.NOTOK, testMove.checkInputValidity(input, testGame));
     }
 }

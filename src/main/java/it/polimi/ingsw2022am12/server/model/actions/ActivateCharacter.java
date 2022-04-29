@@ -28,6 +28,6 @@ public class ActivateCharacter extends PossibleAction {
      */
     @Override
     public void useAction(Game game) {
-        game.payAndSetActiveCharacter(characterName);
+        game.payAndSetActiveCharacter(((CharacterCard)score.get(0)).getName());
     }
 }

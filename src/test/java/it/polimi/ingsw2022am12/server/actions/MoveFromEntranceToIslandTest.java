@@ -43,7 +43,7 @@ public class MoveFromEntranceToIslandTest {
 
         IslandTileSet destination = testGame.getIslandList().getByIndex(4);
         input.add(destination);
-
+        testMove.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.OK, testMove.checkInputValidity(input, testGame));
 
         testMove.useAction(testGame);
@@ -75,7 +75,7 @@ public class MoveFromEntranceToIslandTest {
             testGame.getCurrentSchoolBoard().insertToEntrance(sRed);
             input.add(sRed);
         }
-
+        testMove.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.HALFOK, testMove.checkInputValidity(input, testGame));
 
     }
@@ -97,7 +97,7 @@ public class MoveFromEntranceToIslandTest {
 
         IslandTileSet destination = testGame.getIslandList().getByIndex(4);
         input.add(destination);
-
+        testMove.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.HALFOK, testMove.checkInputValidity(input, testGame));
     }
 
@@ -119,7 +119,7 @@ public class MoveFromEntranceToIslandTest {
         IslandTileSet testSet = new IslandTileSet();
         input.add(testSet);
         testSet.setID(30);
-
+        testMove.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.NOTOK, testMove.checkInputValidity(input, testGame));
 
     }

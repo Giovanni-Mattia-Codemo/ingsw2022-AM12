@@ -118,6 +118,8 @@ public class MoveFromEntranceToDiningRoomTest {
 
         Student sRed = new Student(DiskColor.RED);
         input.add(sRed);
+
+        testMove.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.NOTOK, testMove.checkInputValidity(input, testGame));
     }
 
@@ -148,7 +150,7 @@ public class MoveFromEntranceToDiningRoomTest {
 
         StudentDiskCollection notCurrentPlayerRoom = testGame.getTurnOrder().get(1).getDiningRoom();
         input.add(notCurrentPlayerRoom);
-
+        testMove.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.NOTOK, testMove.checkInputValidity(input, testGame));
 
     }

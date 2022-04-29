@@ -40,7 +40,7 @@ public class JesterAction extends PossibleAction {
     @Override
     public void useAction(Game game) {
 
-        game.jesterSwap(s0, s1);
+        game.jesterSwap(((Student)score.get(0)).getColor(), ((Student)score.get(1)).getColor());
         game.getActiveCharacterCard().setWasUsed(true);
 
     }

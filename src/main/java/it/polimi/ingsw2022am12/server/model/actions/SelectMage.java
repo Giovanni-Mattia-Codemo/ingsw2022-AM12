@@ -31,7 +31,7 @@ public class SelectMage extends PossibleAction {
      */
     @Override
     public void useAction(Game game) {
-        game.selectMage(mageID);
+        game.selectMage(((Mage)score.get(0)).getID());
         game.endTurn();
     }
 }

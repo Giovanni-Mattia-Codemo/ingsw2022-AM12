@@ -33,7 +33,7 @@ public class SelectMageTest {
         ArrayList<Selectable> input = new ArrayList<>();
         Selectable mage = testGame.getAvailableMages().get(0);
         input.add(mage);
-
+        testMove.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.OK, testMove.checkInputValidity(input, testGame));
         int numOfAvailableMagesBefore = testGame.getAvailableMages().size();
         testMove.useAction(testGame);
@@ -65,6 +65,10 @@ public class SelectMageTest {
 
         input.remove(mage);
         Selectable rightMage = testGame.getAvailableMages().get(0);
+        input.add(rightMage);
+        SelectMage testSelectMage = new SelectMage();
+
+        testMove.checkInputValidity(input, testGame);
         testMove.useAction(testGame);
         Assertions.assertEquals(testGame.getTurnOrder().get(0).getMage(), rightMage);
 

@@ -36,6 +36,6 @@ public class MoveMotherNature extends PossibleAction {
      */
     @Override
     public void useAction(Game game) {
-        game.moveMotherNature(islandID);
+        game.moveMotherNature(((IslandTileSet)score.get(1)).getID());
     }
 }

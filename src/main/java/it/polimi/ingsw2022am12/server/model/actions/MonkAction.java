@@ -40,7 +40,7 @@ public class MonkAction extends PossibleAction {
      */
     @Override
     public void useAction(Game game) {
-        game.moveStudentFromCardToIsland(color, islandID);
+        game.moveStudentFromCardToIsland(((Student)score.get(0)).getColor(), ((IslandTileSet)score.get(1)).getID());
         ((CharacterMonk)game.getActiveCharacterCard()).setWasUsed(true, game);
     }
 }

@@ -34,11 +34,11 @@ public class BardAction extends PossibleAction {
      */
     @Override
     public void useAction(Game game){
-        try {
-            game.swapStudents(student1, student2);
-        } catch (NotValidSwap e) {
-            e.printStackTrace();
-        }
+        Student student1 = (Student)score.get(0);
+        Student student2 = (Student)score.get(1);
+
+        game.swapStudents(student1.getColor(), student2.getColor());
+
         game.getActiveCharacterCard().setWasUsed(true);
     }
 

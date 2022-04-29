@@ -41,8 +41,7 @@ public class MoveFromEntranceToDiningRoom extends PossibleAction {
     @Override
     public void useAction(Game game){
 
-            game.moveStudentFromEntranceToRoom(colorInEntrance);
-
+            game.moveStudentFromEntranceToRoom(((Student)score.get(0)).getColor());
 
     }
 }

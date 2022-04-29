@@ -38,7 +38,7 @@ public class MoveFromEntranceToIsland extends PossibleAction {
      */
     @Override
     public void useAction(Game game){
-        game.moveStudentFromEntranceToIsland(colorInEntrance, islandID);
+        game.moveStudentFromEntranceToIsland(((Student)score.get(0)).getColor(), ((IslandTileSet)score.get(1)).getID());
     }
 
 }

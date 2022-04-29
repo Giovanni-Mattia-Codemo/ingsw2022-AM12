@@ -1,7 +1,8 @@
 package it.polimi.ingsw2022am12.server.model;
 
 import it.polimi.ingsw2022am12.server.model.actions.ActionStep;
-
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ArrayList;
 
 /**
@@ -9,10 +10,18 @@ import java.util.ArrayList;
  */
 public abstract class PossibleAction {
 
+    private final int requiredInputs;
+    protected Map<Integer, ArrayList<Selectable>> selectables;
+    protected Map<Integer, Selectable> score;
+    
+
     /**
      * "Constructor" Method of PossibleAction class
      */
-    public PossibleAction(){
+    public PossibleAction(int requiredInputs){
+        this.requiredInputs=requiredInputs;
+        this.selectables = new HashMap<>();
+        this.score = new HashMap<>();
     }
 
     /**
@@ -23,7 +32,51 @@ public abstract class PossibleAction {
      * @return ActionStep number of inputs needed by my PossibleAction
      */
     public ActionStep checkInputValidity(ArrayList<Selectable> input, Game game){
+
+            if(input.size()==0||input.size()>requiredInputs){
+                return ActionStep.NOTOK;
+            }
+            for(int i= 0; i< selectables.size(); i++){
+                for (Selectable s: selectables.get(i)
+                     ) {
+                    for (Selectable in:input
+                         ) {
+                        if(s.isEqual(in)){
+                            score.put(i,in);
+                        }
+                    }
+
+                }
+            }
+            if(score.size()==0){
+                return ActionStep.NOTOK;
+            }else if (score.size()<requiredInputs&&input.size()==score.size()){
+                return ActionStep.HALFOK;
+            }else if (score.size()==input.size()&&score.size()==requiredInputs){
+                return ActionStep.OK;
+            }
+
         return ActionStep.NOTOK;
+    }
+
+    /**
+     * setSelectables method sets the selectable objects
+     *
+     * @param game instance of my game
+     */
+    public void setSelectables(Game game){}
+
+    /**
+     * getSelectables method returns an array of selectable objects
+     *
+     * @return ArrayList</Selectable>
+     */
+    public ArrayList<Selectable> getSelectables(){
+        ArrayList<Selectable> result = new ArrayList<>();
+        for (int i = 0; i < selectables.size(); i++) {
+            result.addAll(selectables.get(i));
+        }
+        return result;
     }
 
     /**

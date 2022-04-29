@@ -346,6 +346,16 @@ public class Game{
         return null;
     }
 
+    public boolean checkIfCloudDrawableByID(int ID){
+        for (int i= 0; i<numOfPlayers; i++){
+            if(clouds[i].getID()==ID){
+                return !clouds[i].getAllStudents().isEmpty();
+            }
+        }
+        return false;
+    }
+
+
     /**
      * Method getSelectableClouds returns a boolean that says if a selected cloud is empty or not;
      * it checks all the clouds in the "clouds array", if the island is not empty already,
@@ -358,9 +368,7 @@ public class Game{
         ArrayList<Selectable> result = new ArrayList<>();
         for(int i=0; i<numOfPlayers; i++){
             if(!clouds[i].getAllStudents().isEmpty()){
-                if(clouds[i].getID()==id){
-                    return true;
-                }
+                result.add(clouds[i]);
             }
         }
         return result;

@@ -32,7 +32,7 @@ public class PlayAssistantTest {
         ArrayList<Selectable> input = new ArrayList<>();
         Selectable assistantToPlay = testGame.getCurrentSchoolBoard().getPlayableAssistants().get(0);
         input.add(assistantToPlay);
-
+        testMove.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.OK, testMove.checkInputValidity(input, testGame));
         int playableAssistantsBefore = testGame.getCurrentSchoolBoard().getPlayableAssistants().size();
 
@@ -60,7 +60,7 @@ public class PlayAssistantTest {
         ArrayList<Selectable> input = new ArrayList<>();
         Selectable assistantToPlay = new Assistant(11,3);
         input.add(assistantToPlay);
-
+        testMove.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.NOTOK, testMove.checkInputValidity(input, testGame));
     }
 }

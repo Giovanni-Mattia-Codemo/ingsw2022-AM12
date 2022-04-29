@@ -38,7 +38,7 @@ public class HerbalistAction extends PossibleAction {
      */
     @Override
     public void useAction(Game game) {
-        game.insertNoEntry(effectiveIsland);
+        game.insertNoEntry(((IslandTileSet)score.get(1)).getID());
         game.getActiveCharacterCard().setWasUsed(true);
     }
 }

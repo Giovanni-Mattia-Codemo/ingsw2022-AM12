@@ -33,7 +33,7 @@ public class PlayAssistant extends PossibleAction {
      */
     @Override
     public void useAction(Game game){
-        game.playAssistant(assistantTurnPower);
+        game.playAssistant(((Assistant)score.get(0)).getTurnPower());
         game.endTurn();
     }
 }

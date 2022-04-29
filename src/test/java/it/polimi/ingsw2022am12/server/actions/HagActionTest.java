@@ -39,7 +39,7 @@ public class HagActionTest {
         Selectable color = new ColorSelection(DiskColor.BLUE);
         ArrayList<Selectable> input = new ArrayList<>();
         input.add(color);
-
+        testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input, testGame));
 
         testCharacter.useAction(testGame);
@@ -71,7 +71,7 @@ public class HagActionTest {
         Selectable std = new Student(DiskColor.BLUE);
         ArrayList<Selectable> input = new ArrayList<>();
         input.add(std);
-
+        testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
     }
 

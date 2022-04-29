@@ -38,7 +38,7 @@ public class PrincessActionTest {
         Selectable std = ((CharacterPrincess) testGame.getActiveCharacterCard()).getStudents().getByIndex(0);
         ArrayList<Selectable> input = new ArrayList<>();
         input.add(std);
-
+        testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input, testGame));
         testCharacter.useAction(testGame);
 
@@ -68,7 +68,7 @@ public class PrincessActionTest {
         Selectable std = new Student(DiskColor.RED);
         ArrayList<Selectable> input = new ArrayList<>();
         input.add(std);
-
+        testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
     }
 }
