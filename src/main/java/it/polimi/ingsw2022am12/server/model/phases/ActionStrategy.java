@@ -87,13 +87,8 @@ public class ActionStrategy implements PhaseStrategy {
             result.add(new MoveMotherNature());
         }else result.add(new DrawFromCloud());
 
-
-
         if(game.getActiveCharacterName()==null){
-
                 result.add(new ActivateCharacter());
-
-
         }else{
             if(!game.getActiveCharacterCard().getWasUsed()){
                 PossibleAction action = game.getActiveCharacterCard().getPossibleAction();
@@ -101,7 +96,6 @@ public class ActionStrategy implements PhaseStrategy {
             }
 
         }
-
 
         return result;
     }

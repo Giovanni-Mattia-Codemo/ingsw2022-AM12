@@ -34,7 +34,8 @@ public class MerchantActionTest {
         ArrayList<Selectable> input = new ArrayList<>();
         Selectable color = new ColorSelection(DiskColor.PINK);
         input.add(color);
-        testCharacter.useAction(testGame);
+
+        testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input, testGame));
     }
 
@@ -60,6 +61,7 @@ public class MerchantActionTest {
         Selectable color = new Student(DiskColor.YELLOW);
         input.add(color);
 
+        testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
     }
 }

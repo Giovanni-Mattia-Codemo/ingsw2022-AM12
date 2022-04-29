@@ -43,6 +43,7 @@ public class MoveFromEntranceToDiningRoomTest {
 
         input.add(testGame.getCurrentSchoolBoard().getDiningRoom());
 
+        testMove.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.OK, testMove.checkInputValidity(input, testGame));
 
         testMove.useAction(testGame);
@@ -76,6 +77,7 @@ public class MoveFromEntranceToDiningRoomTest {
             input.add(sRed);
         }
 
+        testMove.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.HALFOK, testMove.checkInputValidity(input, testGame));
 
     }
@@ -95,6 +97,7 @@ public class MoveFromEntranceToDiningRoomTest {
 
         ArrayList<Selectable> input = new ArrayList<>();
         input.add(testGame.getCurrentSchoolBoard().getDiningRoom());
+        testMove.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.HALFOK, testMove.checkInputValidity(input, testGame));
     }
 

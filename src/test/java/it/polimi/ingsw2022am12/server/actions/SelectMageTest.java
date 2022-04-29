@@ -4,7 +4,6 @@ import it.polimi.ingsw2022am12.server.model.Game;
 import it.polimi.ingsw2022am12.server.model.Mage;
 import it.polimi.ingsw2022am12.server.model.Selectable;
 import it.polimi.ingsw2022am12.server.model.actions.ActionStep;
-import it.polimi.ingsw2022am12.server.model.actions.PlayAssistant;
 import it.polimi.ingsw2022am12.server.model.actions.SelectMage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -61,13 +60,16 @@ public class SelectMageTest {
         Selectable mage = new Mage(7);
         input.add(mage);
 
+        testMove.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.NOTOK, testMove.checkInputValidity(input, testGame));
 
         input.remove(mage);
         Selectable rightMage = testGame.getAvailableMages().get(0);
         testMove.useAction(testGame);
         Assertions.assertEquals(testGame.getTurnOrder().get(0).getMage(), rightMage);
-        Assertions.assertEquals(ActionStep.NOTOK, testMove.checkInputValidity(input, testGame));
+
+        testSelectMage.setSelectables(testGame);
+        Assertions.assertEquals(ActionStep.NOTOK, testSelectMage.checkInputValidity(input, testGame));
 
     }
 }

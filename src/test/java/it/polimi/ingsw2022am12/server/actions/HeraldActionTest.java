@@ -35,7 +35,8 @@ public class HeraldActionTest {
         ArrayList<Selectable> input = new ArrayList<>();
         Selectable island = testGame.getIslandList().getByIndex(4);
         input.add(island);
-        testCharacter.useAction(testGame);
+
+        testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input, testGame));
     }
 
@@ -60,6 +61,7 @@ public class HeraldActionTest {
         IslandTileSet island = new IslandTileSet();
         island.setID(30);
         input.add(island);
+        testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
     }
 }

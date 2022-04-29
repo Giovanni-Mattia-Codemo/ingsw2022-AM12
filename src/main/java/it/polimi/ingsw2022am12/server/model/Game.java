@@ -353,8 +353,9 @@ public class Game{
      *
      * @return true if the cloud is not empty, false otherwise
      */
-    public boolean checkIfCloudDrawableByID(int id){
+    public ArrayList<Selectable> getDrawableClouds(){
 
+        ArrayList<Selectable> result = new ArrayList<>();
         for(int i=0; i<numOfPlayers; i++){
             if(!clouds[i].getAllStudents().isEmpty()){
                 if(clouds[i].getID()==id){
@@ -362,7 +363,7 @@ public class Game{
                 }
             }
         }
-        return false;
+        return result;
     }
 
     /**
@@ -665,7 +666,7 @@ public class Game{
      * @param colorOfEntranceStudent to swap
      * @param colorOfRoomStudent to swap
      */
-    public void swapStudents(DiskColor colorOfEntranceStudent, DiskColor colorOfRoomStudent) throws NotValidSwap{
+    public void swapStudents(DiskColor colorOfEntranceStudent, DiskColor colorOfRoomStudent){
 
         Student s0 = getCurrentSchoolBoard().getFirstStudentInRoomOfColor(colorOfRoomStudent);
 
@@ -955,6 +956,23 @@ public class Game{
             }
         }
 
+
+    }
+
+    /**
+     * getPlayableCharacters returns the Characters that have a cost compatible with the coins possessed by a player
+     *
+     * @return ArrayList</Selectable> the characters that can be played
+     */
+    public ArrayList<Selectable> getPlayableCharacters(){
+        ArrayList<Selectable> result = new ArrayList<>();
+        for (CharacterCard c: getAvailableCharacters()
+             ) {
+            if(getCurrentSchoolBoard().getNumOfCoins()>=c.getCost()){
+                result.add(c);
+            }
+        }
+        return result;
 
     }
 

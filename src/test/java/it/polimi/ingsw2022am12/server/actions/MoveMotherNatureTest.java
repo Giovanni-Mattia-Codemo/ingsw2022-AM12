@@ -69,6 +69,7 @@ public class MoveMotherNatureTest {
 
         ArrayList<Selectable> input = new ArrayList<>();
         input.add(destination);
+        input.add(testGame.getIslandList().getByIndex(indexMN));
 
         Assertions.assertEquals(ActionStep.NOTOK, testMove.checkInputValidity(input, testGame));
     }

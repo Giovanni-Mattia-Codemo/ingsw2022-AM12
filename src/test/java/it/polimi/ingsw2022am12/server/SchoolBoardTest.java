@@ -109,10 +109,11 @@ public class SchoolBoardTest {
         try {
             testSchool.insertToDiningRoom(s2);
             testSchool.insertToDiningRoom(s3);
-            testSchool.swapStudents(s0, s2);
+            testSchool.swapStudents(s2, s0);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         Assertions.assertEquals(2, testSchool.getStudentsInRoomByColor(DiskColor.RED));
         Assertions.assertTrue(testSchool.getEntrance().contains(s2));
         Assertions.assertTrue(testSchool.getEntrance().contains(s1));

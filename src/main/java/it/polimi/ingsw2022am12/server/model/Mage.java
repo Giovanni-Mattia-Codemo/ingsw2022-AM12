@@ -24,4 +24,12 @@ public class Mage implements Selectable {
     public int getID() {
         return ID;
     }
+
+    @Override
+    public boolean isEqual(Selectable toCompare) {
+        if(toCompare instanceof Mage){
+            return ((Mage) toCompare).ID == this.ID;
+        }
+        return false;
+    }
 }

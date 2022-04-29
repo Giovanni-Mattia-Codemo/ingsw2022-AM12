@@ -12,46 +12,25 @@ public class MoveFromEntranceToDiningRoom extends PossibleAction {
     private DiskColor colorInEntrance;
 
     /**
-     * Method checkInputValidity checks if I'm using the correct type and number of inputs required by my action
+     * Constructor method of MoveFromEntranceToDiningRoom class
+     */
+    public MoveFromEntranceToDiningRoom(){
+        super(2);
+    }
+
+    /**
+     * setSelectables method sets the selectable objects
      *
-     * @param input my chosen inputs
-     * @param game the instance of my game
-     * @return ActionStep number of inputs needed by my MoveFromEntranceToDiningRoom
+     * @param game instance of my game
      */
     @Override
-    public ActionStep checkInputValidity(ArrayList<Selectable> input, Game game) {
-
-        boolean inEntrance = false;
-        int inEntranceIndex = 0;
-        boolean isRoom = false;
-
-
-        for (Selectable s: input) {
-            if(s instanceof Student){
-                if(game.getCurrentSchoolBoard().getEntrance().getID()==((Student) s).getPositionID()){
-                    inEntrance = true;
-                    inEntranceIndex = input.indexOf(s);
-                }else return ActionStep.NOTOK;
-            }else if (s instanceof StudentDiskCollection){
-                if(((StudentDiskCollection) s).getID()==game.getCurrentSchoolBoard().getDiningRoom().getID()){
-                    isRoom=true;
-                }else return ActionStep.NOTOK;
-            }else return ActionStep.NOTOK;
-        }
-
-        if(input.size()==1){
-                return ActionStep.HALFOK;
-        }else if (input.size()==2){
-            if(inEntrance&&isRoom){
-
-                colorInEntrance = ((Student)input.get(inEntranceIndex)).getColor();
-                if (!game.getCurrentSchoolBoard().isDiningRoomFull(colorInEntrance)){
-                    return ActionStep.OK;
-                }else return ActionStep.NOTOK;
-
-            }return ActionStep.NOTOK;
-        }else return ActionStep.NOTOK;
-
+    public void setSelectables(Game game) {
+        ArrayList<Selectable> result = new ArrayList<>();
+        result.add(game.getCurrentSchoolBoard().getDiningRoom());
+        ArrayList<Selectable> tmp = new ArrayList<>(game.getCurrentSchoolBoard().getEntrance().getStudentsAsSelectables());
+        tmp.removeIf(a -> game.getCurrentSchoolBoard().isDiningRoomFull(((Student) a).getColor()));
+        selectables.put(0, tmp);
+        selectables.put(1, result);
     }
 
     /**

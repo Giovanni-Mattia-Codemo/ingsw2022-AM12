@@ -50,7 +50,7 @@ public class IslandTileListTest {
 
     /**
      * checkCheckAndMerge places three towers on three new IslandTileSets and merges the leftmost island with the one
-     * on its right, it then checks I have two less islands in my list, while MotherNature is still on the same island.
+     * on its right, it then checks I have two islands less in my list, while MotherNature is still on the same island.
      * It repeats the process two times
      */
     @Test

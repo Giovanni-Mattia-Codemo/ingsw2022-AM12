@@ -1,6 +1,5 @@
 package it.polimi.ingsw2022am12.server.model.actions;
 
-import it.polimi.ingsw2022am12.exceptions.NotValidSwap;
 import it.polimi.ingsw2022am12.server.model.*;
 import java.util.ArrayList;
 
@@ -9,48 +8,23 @@ import java.util.ArrayList;
  */
 public class BardAction extends PossibleAction {
 
-    private DiskColor student1;
-    private DiskColor student2;
+    public BardAction(){
+        super(2);
+    }
 
     /**
-     * Method checkInputValidity checks if I'm using the correct type and number of inputs required by my action
+     * setSelectables method sets the selectable objects
      *
-     * @param input my chosen inputs
-     * @param game the instance of my game
-     * @return ActionStep number of inputs needed by my BardAction
+     * @param game instance of my game
      */
     @Override
-    public ActionStep checkInputValidity(ArrayList<Selectable> input, Game game) {
-    int inDiningRoom=0;
-    int inEntrance=0;
-    int entranceIndex= 0;
-    int roomIndex= 0;
-        for (int i = 0; i < input.size(); i++){
-            Selectable tmp = input.get(i);
-            if(tmp instanceof Student ){
-                if(((Student)tmp).getPositionID()==game.getCurrentSchoolBoard().getEntrance().getID()){
-                    inEntrance ++;
-                    entranceIndex = i;
-                }else if(((Student)tmp).getPositionID()==game.getCurrentSchoolBoard().getDiningRoom().getID()) {
-                    inDiningRoom++;
-                    roomIndex = i;
-                }
-            }else return ActionStep.NOTOK;
-        }
+    public void setSelectables(Game game) {
 
-        if(input.size()==1){
-            if(inEntrance==1||inDiningRoom==1){
-                return ActionStep.HALFOK;
-            }
-        }else if (input.size()==2){
-            if(inDiningRoom==1&&inEntrance==1){
-                student1=((Student) input.get(entranceIndex)).getColor();
-                student2=((Student) input.get(roomIndex)).getColor();
-                return ActionStep.OK;
-            }
-        }
-        return ActionStep.NOTOK;
+        ArrayList<Selectable> tmp = new ArrayList<>(game.getCurrentSchoolBoard().getEntrance().getStudentsAsSelectables());
+        boolean b = tmp.removeIf(a -> game.getCurrentSchoolBoard().isDiningRoomFull(((Student) a).getColor()));
 
+        selectables.put(0, tmp);
+        selectables.put(1, game.getCurrentSchoolBoard().getDiningRoom().getStudentsAsSelectables());
     }
 
     /**

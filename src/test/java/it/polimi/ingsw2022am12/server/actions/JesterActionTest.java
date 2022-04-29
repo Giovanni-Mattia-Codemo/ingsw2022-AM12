@@ -37,6 +37,7 @@ public class JesterActionTest {
         Student stdEntrance = testGame.getCurrentSchoolBoard().getEntrance().getByIndex(0);
         input.add(stdEntrance);
 
+        testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input, testGame));
 
         testCharacter.useAction(testGame);
@@ -65,6 +66,7 @@ public class JesterActionTest {
         Student stdJester = ((CharacterJester)testGame.getActiveCharacterCard()).getStudents().getByIndex(0);
         input.add(stdJester);
 
+        testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.HALFOK, testCharacter.checkInputValidity(input, testGame));
     }
 
@@ -89,6 +91,7 @@ public class JesterActionTest {
         Student stdEntrance = testGame.getCurrentSchoolBoard().getEntrance().getByIndex(0);
         input.add(stdEntrance);
 
+        testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.HALFOK, testCharacter.checkInputValidity(input, testGame));
     }
 
@@ -115,6 +118,7 @@ public class JesterActionTest {
         Student stdEntrance = testGame.getCurrentSchoolBoard().getEntrance().getByIndex(0);
         input.add(stdEntrance);
 
+        testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
     }
 
@@ -138,6 +142,7 @@ public class JesterActionTest {
         Student stdEntrance = testGame.getTurnOrder().get(1).getEntrance().getByIndex(0);
         input.add(stdEntrance);
 
+        testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
     }
 }

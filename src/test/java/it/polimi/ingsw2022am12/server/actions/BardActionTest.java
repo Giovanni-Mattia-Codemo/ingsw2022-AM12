@@ -46,6 +46,7 @@ public class BardActionTest {
         input.add(s0);
         input.add(s1);
 
+        testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input, testGame));
 
         testCharacter.useAction(testGame);
@@ -80,6 +81,7 @@ public class BardActionTest {
         testGame.getCurrentSchoolBoard().getEntrance().insertElement(s0);
         input.add(s0);
 
+        testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.HALFOK, testCharacter.checkInputValidity(input, testGame));
     }
 
@@ -110,6 +112,7 @@ public class BardActionTest {
         testGame.getCurrentSchoolBoard().getDiningRoom().insertElement(s1);
         input.add(s1);
 
+        testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.HALFOK, testCharacter.checkInputValidity(input, testGame));
     }
 
@@ -139,6 +142,7 @@ public class BardActionTest {
         Selectable s0 = testGame.getTurnOrder().get(1).getEntrance().getByIndex(1);
         input.add(s0);
 
+        testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
     }
 
@@ -168,6 +172,7 @@ public class BardActionTest {
         testGame.getTurnOrder().get(1).insertToDiningRoom(stdInRoomOfSecondPlayer);
         input.add(stdInRoomOfSecondPlayer);
 
+        testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
     }
 

@@ -9,23 +9,25 @@ import java.util.ArrayList;
  */
 public class HagAction extends PossibleAction {
 
-    private DiskColor selection;
+    /**
+     * Constructor method of HagAction class
+     */
+    public HagAction(){
+        super(1);
+    }
 
     /**
-     * Method checkInputValidity checks if I'm using the correct type and number of inputs required by my action
+     * setSelectables method sets the selectable objects
      *
-     * @param input my chosen inputs
-     * @param game the instance of my game
-     * @return ActionStep number of inputs needed by my HagAction
+     * @param game instance of my game
      */
     @Override
-    public ActionStep checkInputValidity(ArrayList<Selectable> input , Game game){
-        if(input.size()==1) {
-            if(input.get(0) instanceof ColorSelection){
-                selection = ((ColorSelection) input.get(0)).getColor();
-               return ActionStep.OK;
-            }
-        } return ActionStep.NOTOK;
+    public void setSelectables(Game game) {
+        ArrayList<Selectable> result = new ArrayList<>();
+        for(DiskColor c: DiskColor.values()){
+            result.add(new ColorSelection(c));
+        }
+        selectables.put(0, result);
     }
 
     /**

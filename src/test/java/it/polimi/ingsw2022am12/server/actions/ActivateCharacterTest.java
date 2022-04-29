@@ -41,6 +41,7 @@ public class ActivateCharacterTest {
         testGame.collectCoin();
         testGame.collectCoin();
 
+        testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input, testGame));
 
         Assertions.assertNull(testGame.getActiveCharacterCard());
@@ -72,6 +73,7 @@ public class ActivateCharacterTest {
         //Not enough coins
         Selectable rightCharacter = testGame.getAvailableCharacters().get(0);
         input.add(rightCharacter);
+        testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
 
         //Character not available
@@ -93,6 +95,7 @@ public class ActivateCharacterTest {
         testGame.collectCoin();
         testGame.collectCoin();
 
+        testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
     }
 }

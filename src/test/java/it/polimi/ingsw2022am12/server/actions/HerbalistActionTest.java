@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
+
 /**
  * Class used to test the methods in HerbalistAction class
  */
@@ -39,6 +40,7 @@ public class HerbalistActionTest {
         Selectable motherNatureIsland = testGame.getIslandList().getByIndex(motherNatureIndex);
         input.add(motherNatureIsland);
 
+        testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input, testGame));
 
         testCharacter.useAction(testGame);
@@ -67,6 +69,7 @@ public class HerbalistActionTest {
         Selectable noEntry = ((CharacterHerbalist)testGame.getActiveCharacterCard()).getNoEntryCollection().getFirstNoEntry();
         input.add(noEntry);
 
+        testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.HALFOK, testCharacter.checkInputValidity(input, testGame));
     }
 
@@ -92,6 +95,7 @@ public class HerbalistActionTest {
         Selectable motherNatureIsland = testGame.getIslandList().getByIndex(motherNatureIndex);
         input.add(motherNatureIsland);
 
+        testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.HALFOK, testCharacter.checkInputValidity(input, testGame));
     }
 
@@ -119,6 +123,7 @@ public class HerbalistActionTest {
         Selectable motherNatureIsland = testGame.getIslandList().getByIndex(motherNatureIndex);
         input.add(motherNatureIsland);
 
+        testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
     }
 
@@ -146,6 +151,7 @@ public class HerbalistActionTest {
         island.setID(30);
         input.add(island);
 
+        testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
     }
 }

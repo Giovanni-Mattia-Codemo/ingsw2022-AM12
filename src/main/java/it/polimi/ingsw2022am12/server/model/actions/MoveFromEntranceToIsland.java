@@ -14,47 +14,21 @@ public class MoveFromEntranceToIsland extends PossibleAction {
     private int islandID;
 
     /**
-     * Method checkInputValidity checks if I'm using the correct type and number of inputs required by my action
+     * Constructor method of MoveFromEntranceToIsland class
+     */
+    public MoveFromEntranceToIsland(){
+        super(2);
+    }
+
+    /**
+     * setSelectables method sets the selectable objects
      *
-     * @param input my chosen inputs
-     * @param game the instance of my game
-     * @return ActionStep number of inputs needed by my MoveFromEntranceToIsland
+     * @param game instance of my game
      */
     @Override
-    public ActionStep checkInputValidity(ArrayList<Selectable> input, Game game) {
-
-
-
-        boolean inEntrance = false;
-        int inEntranceIndex = 0;
-        boolean isIsland = false;
-        int islandIndex = 0;
-
-
-        for (Selectable s: input) {
-            if(s instanceof Student){
-                if(game.getCurrentSchoolBoard().getEntrance().getID()==((Student) s).getPositionID()){
-                    inEntrance = true;
-                    inEntranceIndex = input.indexOf(s);
-                }else return ActionStep.NOTOK;
-            }else if (s instanceof IslandTileSet){
-                if(game.getIslandList().getByIndex(((IslandTileSet) s).getID())!=null){
-                    isIsland=true;
-                    islandIndex = input.indexOf(s);
-                }else return ActionStep.NOTOK;
-            }else return ActionStep.NOTOK;
-        }
-
-        if(input.size()==1){
-            return ActionStep.HALFOK;
-        }else if (input.size()==2){
-            if(inEntrance&&isIsland){
-                colorInEntrance = ((Student)input.get(inEntranceIndex)).getColor();
-                islandID= ((IslandTileSet)input.get(islandIndex)).getID();
-                return ActionStep.OK;
-            }return ActionStep.NOTOK;
-        }else return ActionStep.NOTOK;
-
+    public void setSelectables(Game game) {
+        selectables.put(0, game.getCurrentSchoolBoard().getEntrance().getStudentsAsSelectables());
+        selectables.put(1, game.getIslandList().getIslandsAsSelectable());
     }
 
     /**

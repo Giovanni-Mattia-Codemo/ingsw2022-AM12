@@ -194,4 +194,12 @@ public class IslandTileSet implements Selectable {
         return towers.getFirstTower().getTeam();
         else return null;
     }
+
+    @Override
+    public boolean isEqual(Selectable toCompare) {
+        if(toCompare instanceof IslandTileSet){
+            return ((IslandTileSet) toCompare).ID == this.ID;
+        }
+        return false;
+    }
 }

@@ -13,20 +13,24 @@ public class MerchantAction extends PossibleAction {
     private DiskColor color;
 
     /**
-     * Method checkInputValidity checks if I'm using the correct type and number of inputs required by my action
+     * Constructor method of MerchantAction class
+     */
+    public MerchantAction(){
+        super(1);
+    }
+
+    /**
+     * setSelectables method sets the selectable objects
      *
-     * @param input my chosen inputs
-     * @param game the instance of my game
-     * @return ActionStep number of inputs needed by my MerchantAction
+     * @param game instance of my game
      */
     @Override
-    public ActionStep checkInputValidity(ArrayList<Selectable> input, Game game) {
-        if (input.size()==1){
-            if(input.get(0) instanceof ColorSelection){
-                color= ((ColorSelection) input.get(0)).getColor();
-                return ActionStep.OK;
-            }
-        }return ActionStep.NOTOK;
+    public void setSelectables(Game game) {
+        ArrayList<Selectable> result = new ArrayList<>();
+        for(DiskColor c: DiskColor.values()){
+            result.add(new ColorSelection(c));
+        }
+        selectables.put(0, result);
     }
 
     /**

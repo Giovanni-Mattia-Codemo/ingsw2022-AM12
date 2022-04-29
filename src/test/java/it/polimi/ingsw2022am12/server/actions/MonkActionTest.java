@@ -38,6 +38,7 @@ public class MonkActionTest {
         input.add(student);
         input.add(motherNatureIsland);
 
+        testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input, testGame));
 
         testCharacter.useAction(testGame);
@@ -65,6 +66,7 @@ public class MonkActionTest {
         Selectable s0 = ((CharacterMonk)testGame.getActiveCharacterCard()).getStudents().getByIndex(0);
         ArrayList<Selectable> input = new ArrayList<>();
         input.add(s0);
+        testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.HALFOK, testCharacter.checkInputValidity(input, testGame));
     }
 
@@ -90,6 +92,7 @@ public class MonkActionTest {
         ArrayList<Selectable> input = new ArrayList<>();
         input.add(motherNatureIsland);
 
+        testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.HALFOK, testCharacter.checkInputValidity(input, testGame));
     }
 
@@ -117,6 +120,7 @@ public class MonkActionTest {
         input.add(s0);
         input.add(motherNatureIsland);
 
+        testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
     }
 
@@ -138,6 +142,7 @@ public class MonkActionTest {
         testGame.payAndSetActiveCharacter(CharacterName.CHARACTER_MONK);
         ArrayList<Selectable> input = new ArrayList<>();
 
+        testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
     }
 }

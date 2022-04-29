@@ -31,6 +31,7 @@ public class DrawFromCloudTest {
         ArrayList<Selectable> input = new ArrayList<>();
         Selectable cloud = testGame.getCloud(0);
         input.add(cloud);
+        testMove.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.OK, testMove.checkInputValidity(input, testGame));
 
         testMove.useAction(testGame);
@@ -54,6 +55,7 @@ public class DrawFromCloudTest {
         ArrayList<Selectable> input = new ArrayList<>();
         Selectable cloud = new StudentDiskCollection();
         input.add(cloud);
+        testMove.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.NOTOK, testMove.checkInputValidity(input, testGame));
     }
 }

@@ -10,7 +10,6 @@ import java.util.Optional;
  */
 public class StudentDiskCollection implements Position, Selectable {
 
-
     private static int numOfStudentCollections;
     private final int id;
     private final ArrayList<Student> students;
@@ -51,6 +50,10 @@ public class StudentDiskCollection implements Position, Selectable {
      * @return ArrayList students
      */
     public ArrayList<Student> getAllStudents(){
+        return new ArrayList<>(students);
+    }
+
+    public ArrayList<Selectable> getStudentsAsSelectables(){
         return new ArrayList<>(students);
     }
 
@@ -137,4 +140,12 @@ public class StudentDiskCollection implements Position, Selectable {
         return students.contains(o);
     }
 
+    @Override
+    public boolean isEqual(Selectable toCompare) {
+        if(toCompare instanceof StudentDiskCollection){
+            return (((StudentDiskCollection) toCompare).id)==this.id;
+
+        }
+        return false;
+    }
 }

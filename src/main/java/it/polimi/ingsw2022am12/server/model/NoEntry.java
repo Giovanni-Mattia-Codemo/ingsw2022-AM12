@@ -24,4 +24,9 @@ public class NoEntry extends PlaceableObject implements Selectable {
     public NoEntryCollection getCharacterNoEntryCollection(){
         return characterNoEntryCollection;
     }
+
+    @Override
+    public boolean isEqual(Selectable toCompare) {
+        return toCompare instanceof NoEntry;
+    }
 }

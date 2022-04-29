@@ -4,7 +4,6 @@ import it.polimi.ingsw2022am12.server.model.Game;
 import it.polimi.ingsw2022am12.server.model.Mage;
 import it.polimi.ingsw2022am12.server.model.PossibleAction;
 import it.polimi.ingsw2022am12.server.model.Selectable;
-
 import java.util.ArrayList;
 
 /**
@@ -12,28 +11,17 @@ import java.util.ArrayList;
  */
 public class SelectMage extends PossibleAction {
 
-    private int mageID;
-
     /**
-     * Method checkInputValidity checks if I'm using the correct type and number of inputs required by my action
-     *
-     * @param input my chosen inputs
-     * @param game the instance of my game
-     * @return ActionStep number of inputs needed by my SelectMage
+     * Constructor method of SelectMage class
      */
+    public SelectMage(){
+        super(1);
+    }
+
     @Override
-    public ActionStep checkInputValidity(ArrayList<Selectable> input, Game game) {
-        if(input.size()==1){
-            if(input.get(0) instanceof Mage) {
-                ArrayList<Mage> tmp = game.getAvailableMages();
-                for(Mage m: tmp){
-                    if(m.getID()==((Mage) input.get(0)).getID()){
-                        mageID=((Mage) input.get(0)).getID();
-                        return ActionStep.OK;
-                    }
-                }
-            }
-        }return ActionStep.NOTOK;
+    public void setSelectables(Game game) {
+        ArrayList<Selectable> tmp = new ArrayList<>(game.getAvailableMages());
+        selectables.put(0, tmp);
     }
 
     /**

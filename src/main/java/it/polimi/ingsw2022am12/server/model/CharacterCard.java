@@ -95,6 +95,16 @@ public abstract class CharacterCard implements Selectable {
      */
     public void initCharacter(Game game){}
 
-
-
+    /**
+     * Method isEqual checks if two objects have the same values in their fields
+     *
+     * @param toCompare the Selectable object to compare
+     */
+    @Override
+    public boolean isEqual(Selectable toCompare) {
+        if(toCompare instanceof CharacterCard){
+            return ((CharacterCard) toCompare).name.getValue() == this.name.getValue();
+        }
+        return false;
+    }
 }

@@ -13,27 +13,17 @@ public class PrincessAction extends PossibleAction {
     private DiskColor color;
 
     /**
-     * Method checkInputValidity checks if I'm using the correct type and number of inputs required by my action
-     *
-     * @param input my chosen inputs
-     * @param game the instance of my game
-     * @return ActionStep number of inputs needed by my PrincessAction
+     * Constructor method of PrincessAction class
      */
+    public PrincessAction(){
+        super(1);
+    }
+
     @Override
-    public ActionStep checkInputValidity(ArrayList<Selectable> input, Game game) {
-        if(input.size()==1){
-            if (input.get(0) instanceof Student tmp){
-                if(tmp.getPositionID()==((CharacterPrincess)game.getActiveCharacterCard()).getStudents().getID()){
-                    if(((CharacterPrincess)game.getActiveCharacterCard()).getStudents().getFirstStudentOfColor(tmp.getColor()).isPresent()){
-                        if(!game.getCurrentSchoolBoard().isDiningRoomFull(tmp.getColor())){
-                           color = tmp.getColor();
-                           return ActionStep.OK;
-                        }
-                    }
-                }
-            }
-        }
-        return ActionStep.NOTOK;
+    public void setSelectables(Game game) {
+        ArrayList<Selectable> tmp = new ArrayList<>(((CharacterPrincess) game.getActiveCharacterCard()).getStudents().getStudentsAsSelectables());
+        tmp.removeIf(a -> game.getCurrentSchoolBoard().isDiningRoomFull(((Student) a).getColor()));
+        selectables.put(0, tmp);
     }
 
     /**

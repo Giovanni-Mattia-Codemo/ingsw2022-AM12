@@ -51,4 +51,12 @@ public class Assistant implements Selectable {
     public void printAssistantPower(){
         System.out.println(getTurnPower());
     }
+
+    @Override
+    public boolean isEqual(Selectable toCompare) {
+        if(toCompare instanceof Assistant){
+            return (((Assistant) toCompare).motherNatureRange == this.motherNatureRange)&&((Assistant) toCompare).turnPower == this.turnPower;
+        }
+        return false;
+    }
 }

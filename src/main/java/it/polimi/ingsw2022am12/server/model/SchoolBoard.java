@@ -257,20 +257,12 @@ public class SchoolBoard{
      *
      * @param student0 First Student to swap
      * @param student1 Second student to swap
-     * @throws NotValidSwap Not a valid swap
      */
-    public void swapStudents(Student student0, Student student1) throws NotValidSwap{
-        if(entrance.contains(student0)&&diningRoom.contains(student1)){
-            diningRoom.removeElement(student1);
-            entrance.removeElement(student0);
-            diningRoom.insertElement(student0);
-            entrance.insertElement(student1);
-        }else if(entrance.contains(student1)&&diningRoom.contains(student0)){
-            diningRoom.removeElement(student0);
-            entrance.removeElement(student1);
-            diningRoom.insertElement(student1);
-            entrance.insertElement(student0);
-        }else throw new NotValidSwap();
+    public void swapStudents(Student student0, Student student1){
+        diningRoom.removeElement(student0);
+        entrance.removeElement(student1);
+        diningRoom.insertElement(student1);
+        entrance.insertElement(student0);
     }
 
     /**

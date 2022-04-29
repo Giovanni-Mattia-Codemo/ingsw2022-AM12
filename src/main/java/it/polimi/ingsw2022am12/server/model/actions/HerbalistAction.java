@@ -10,47 +10,25 @@ import java.util.ArrayList;
  */
 public class HerbalistAction extends PossibleAction {
 
-    private int effectiveIsland;
+
 
     /**
-     * Method checkInputValidity checks if I'm using the correct type and number of inputs required by my action
+     * Constructor method of HerbalistAction class
+     */
+    public HerbalistAction(){
+        super(2);
+    }
+
+    /**
+     * setSelectables method sets the selectable objects
      *
-     * @param input my chosen inputs
-     * @param game the instance of my game
-     * @return ActionStep number of inputs needed by my HerbalistAction
+     * @param game instance of my game
      */
     @Override
-    public ActionStep checkInputValidity(ArrayList<Selectable> input, Game game) {
-
-        boolean isNoEntry = false;
-        boolean isValidIsland = false;
-        int island = 0;
-
-        for(Selectable s: input){
-            if(s instanceof IslandTileSet){
-                if(game.getIslandList().getByIndex(((IslandTileSet) s).getID())!=null){
-                    isValidIsland = true;
-                    island = ((IslandTileSet) s).getID();
-                }else{
-                    return ActionStep.NOTOK;
-                }
-            }else if(s instanceof NoEntry){
-                isNoEntry= true;
-            }else return ActionStep.NOTOK;
-        }
-
-        if(input.size()==1){
-            return ActionStep.HALFOK;
-        }else if(input.size()==2){
-            if(isNoEntry&&isValidIsland){
-                effectiveIsland = island;
-                if(((CharacterHerbalist)game.getActiveCharacterCard()).getNoEntryCollection().noEntriesSize()!=0){
-                    return ActionStep.OK;
-                }
-            }
-            return ActionStep.NOTOK;
-        }else return ActionStep.NOTOK;
-
+    public void setSelectables(Game game) {
+        ArrayList<Selectable> result = new ArrayList<>(((CharacterHerbalist) game.getActiveCharacterCard()).getNoEntryCollection().getAllNoEntries());
+        selectables.put(0, result);
+        selectables.put(1, game.getIslandList().getIslandsAsSelectable());
     }
 
     /**

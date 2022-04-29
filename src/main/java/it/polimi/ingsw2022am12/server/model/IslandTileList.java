@@ -46,6 +46,15 @@ public class IslandTileList {
  */
 
     /**
+     * getIslandsAsSelectable returns an array of islands as Selectable objects
+     *
+     * @return ArrayList</Selectable> array of selectable islands
+     */
+    public ArrayList<Selectable> getIslandsAsSelectable(){
+        return new ArrayList<>(islands);
+    }
+
+    /**
      * Method moveMotherNature changes the position of motherNature
      *
      * @param island to move mother nature to

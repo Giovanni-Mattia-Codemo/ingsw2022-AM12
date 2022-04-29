@@ -25,4 +25,16 @@ public class ColorSelection implements Selectable {
        return this.color;
     }
 
+    /**
+     * Method isEqual checks if two objects have the same values in their fields
+     *
+     * @param toCompare the Selectable object to compare
+     */
+    @Override
+    public boolean isEqual(Selectable toCompare) {
+        if(toCompare instanceof ColorSelection){
+            return ((ColorSelection) toCompare).color == this.color;
+        }
+        return false;
+    }
 }

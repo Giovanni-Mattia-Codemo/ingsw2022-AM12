@@ -6,7 +6,6 @@ package it.polimi.ingsw2022am12.server.model;
 public class Student extends PlaceableObject implements Selectable {
 
     private  DiskColor  color;
-
     private int positionID;
 
     public Student(){
@@ -71,4 +70,18 @@ public class Student extends PlaceableObject implements Selectable {
         this.color = color;
     }
 
+    /**
+     * Method isEqual checks if two objects have the same values in their fields
+     *
+     * @param toCompare the Selectable object to compare
+     */
+    @Override
+    public boolean isEqual(Selectable toCompare) {
+        if(toCompare instanceof Student){
+            if(((Student) toCompare).color==this.color){
+                return ((Student) toCompare).positionID == this.positionID;
+            }
+        }
+        return false;
+    }
 }
