@@ -73,6 +73,7 @@ public class HagActionTest {
         input.add(std);
         testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
+        testGame.getActiveCharacterCard().getPossibleAction();
     }
 
 }

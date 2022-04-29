@@ -38,6 +38,7 @@ public class HeraldActionTest {
 
         testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input, testGame));
+        testGame.getActiveCharacterCard().getPossibleAction();
     }
 
     /**

@@ -120,6 +120,7 @@ public class JesterActionTest {
 
         testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
+        testGame.getActiveCharacterCard().getPossibleAction();
     }
 
     /**
@@ -144,5 +145,6 @@ public class JesterActionTest {
 
         testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
+        testGame.getActiveCharacterCard().setWasUsed(false);
     }
 }

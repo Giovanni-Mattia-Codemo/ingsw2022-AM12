@@ -41,8 +41,10 @@ public class PrincessActionTest {
         testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input, testGame));
         testCharacter.useAction(testGame);
-
         Assertions.assertEquals(1, testGame.getCurrentSchoolBoard().getDiningRoom().getAllStudents().size());
+        testGame.getActiveCharacterCard().getPossibleAction();
+        ((CharacterPrincess)testGame.getActiveCharacterCard()).setWasUsed(true, testGame);
+        ((CharacterPrincess)testGame.getActiveCharacterCard()).setWasUsed(false, testGame);
     }
 
     /**

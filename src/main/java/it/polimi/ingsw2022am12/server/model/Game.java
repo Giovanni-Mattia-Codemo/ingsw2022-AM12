@@ -2,7 +2,6 @@ package it.polimi.ingsw2022am12.server.model;
 
 import it.polimi.ingsw2022am12.exceptions.NotPresent;
 
-import it.polimi.ingsw2022am12.exceptions.NotValidSwap;
 import it.polimi.ingsw2022am12.server.model.characters.*;
 import it.polimi.ingsw2022am12.server.model.phases.SetupStrategy;
 
@@ -234,6 +233,10 @@ public class Game{
     }
 
  */
+
+    public PhaseStrategy getCurrentStrategy(){
+        return  currentStrategy;
+    }
 
     /**
      * Method only used for testing

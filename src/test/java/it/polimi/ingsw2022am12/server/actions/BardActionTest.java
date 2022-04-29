@@ -165,6 +165,7 @@ public class BardActionTest {
 
         testGame.collectCoin();
         testGame.payAndSetActiveCharacter(CharacterName.CHARACTER_BARD);
+        testGame.getActiveCharacterCard().getPossibleAction();
         Assertions.assertEquals(CharacterName.CHARACTER_BARD,testGame.getActiveCharacterName());
 
         ArrayList<Selectable> input = new ArrayList<>();
@@ -174,6 +175,7 @@ public class BardActionTest {
 
         testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
+        testGame.getActiveCharacterCard().setWasUsed(false);
     }
 
 }

@@ -7,6 +7,7 @@ import it.polimi.ingsw2022am12.server.model.characters.CharacterBeggar;
 import it.polimi.ingsw2022am12.server.model.characters.CharacterJester;
 import it.polimi.ingsw2022am12.server.model.characters.CharacterMonk;
 import it.polimi.ingsw2022am12.server.model.characters.CharacterPrincess;
+import it.polimi.ingsw2022am12.server.model.phases.ActionStrategy;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -140,6 +141,7 @@ public class GameTest {
         testGame.getCurrentSchoolBoard().insertToEntrance(red0);
         testGame.moveStudentFromEntranceToIsland(red0.getColor(), testMotherNature.getID());
 
+        Assertions.assertTrue(testGame.checkIfIsCurrentPlayer(testGame.getCurrentSchoolBoard().getNick()));
         Assertions.assertEquals(7, testGame.getCurrentSchoolBoard().getEntrance().amount());
         Assertions.assertTrue(testMotherNature.getStudentCollection().getFirstStudentOfColor(red0.getColor()).isPresent());
         Assertions.assertEquals(1, testMotherNature.getStudents().size());
@@ -212,6 +214,7 @@ public class GameTest {
 
         //Leaving SetupStrategy
         testGame.endTurn();
+        testGame.getCurrentStrategy().getValidActions(testGame);
         testGame.endTurn();
         //Entering PlanningStrategy
 
@@ -219,6 +222,7 @@ public class GameTest {
         ArrayList<Assistant> playableAssistants = schoolBoard1.getPlayableAssistants();
         int assistantPower = playableAssistants.get(7).getTurnPower();
         testGame.playAssistant(assistantPower);
+        testGame.getCurrentStrategy().getValidActions(testGame);
 
         testGame.endTurn();
 
@@ -230,6 +234,14 @@ public class GameTest {
         Assertions.assertEquals(schoolBoard1, testGame.getTurnOrder().get(1));
         Assertions.assertEquals(schoolBoard2, testGame.getTurnOrder().get(0));
         Assertions.assertFalse(testGame.getIsLastRoundFlag());
+
+        Assertions.assertFalse(testGame.movedAllDisksThisTurn());
+
+        testGame.endTurn();
+        testGame.getCurrentStrategy().getValidActions(testGame);
+        testGame.endTurn();
+
+        testGame.endGame();
 
     }
 

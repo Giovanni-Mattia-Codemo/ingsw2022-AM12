@@ -3,6 +3,7 @@ package it.polimi.ingsw2022am12.server.actions;
 import it.polimi.ingsw2022am12.server.model.*;
 import it.polimi.ingsw2022am12.server.model.actions.ActionStep;
 import it.polimi.ingsw2022am12.server.model.actions.MerchantAction;
+import it.polimi.ingsw2022am12.server.model.characters.CharacterMerchant;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -37,6 +38,8 @@ public class MerchantActionTest {
 
         testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input, testGame));
+        ((CharacterMerchant)testGame.getActiveCharacterCard()).getColor();
+        ((CharacterMerchant)testGame.getActiveCharacterCard()).setWasUsed(true);
     }
 
     /**
@@ -63,5 +66,7 @@ public class MerchantActionTest {
 
         testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
+        ((CharacterMerchant)testGame.getActiveCharacterCard()).setColor(DiskColor.PINK);
+        testGame.getActiveCharacterCard().setWasUsed(false);
     }
 }
