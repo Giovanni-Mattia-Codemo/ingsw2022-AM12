@@ -26,6 +26,16 @@ public class IslandTileSet implements Selectable {
     }
 
     /**
+     * Constructor method of IslandTileSet. Creates the new collections and sets everything to null
+     */
+    public IslandTileSet(int ID){
+        this.ID= ID;
+        students = null;
+        noEntries = null;
+        towers = null;
+    }
+
+    /**
      * Getter method of IslandTileSet
      *
      * @return ID of the island

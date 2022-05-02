@@ -8,6 +8,8 @@ import it.polimi.ingsw2022am12.server.model.actions.ActionStep;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.locks.Lock;
 
 public class Controller {
     private Game myGame;
@@ -18,6 +20,7 @@ public class Controller {
     private boolean creatingGame;
     private boolean acceptingUsers;
     private final Map<VirtualView, String> userMap;
+
 
     public Controller(){
         this.userMap = new HashMap<>();
@@ -74,8 +77,16 @@ public class Controller {
     }
 
 
+    /**
+     * selectUsername allows the users to select their usernames, which cannot be repeated
+     * @param v the view of the user
+     * @param nick nickname of the user
+     * @return ControlMessages
+     */
     public synchronized ControlMessages selectUsername(String nick, VirtualView v){
-
+            if(userMap.containsKey(v)){
+                return ControlMessages.ALREADYIN;
+            }
             while(creatingGame){
                 try {
                     this.wait();
@@ -83,6 +94,7 @@ public class Controller {
                     e.printStackTrace();
                 }
             }
+
             if(acceptingUsers){
                 if(userMap.containsValue(nick)){
                     return ControlMessages.RETRY;
@@ -92,6 +104,7 @@ public class Controller {
 
             }
             return ControlMessages.GAMEISFULL;
+
 
     }
 

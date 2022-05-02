@@ -2,8 +2,7 @@ package it.polimi.ingsw2022am12.server;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import it.polimi.ingsw2022am12.server.adapter.CharacterAdapter;
+import it.polimi.ingsw2022am12.server.adapter.CharacterAdapterFactory;
 import it.polimi.ingsw2022am12.server.adapter.NoEntryAdapter;
 import it.polimi.ingsw2022am12.server.adapter.StudentAdapter;
 import it.polimi.ingsw2022am12.server.adapter.StudentDiskCollectionAdapter;
@@ -25,7 +24,12 @@ public class VirtualView implements Runnable{
         this.myController = newController;
     }
 
-    public void forwardMsg(JsonElement gameState){
+    /**
+     * forwardMsg puts the gameState string as a message in the output stream of the socket, then flushes it
+     * @param gameState the state of the game coded as a string
+     *
+     */
+    public void forwardMsg(String gameState){
         try {
             PrintWriter out1 = new PrintWriter(socket.getOutputStream());
             out1.println(gameState);
@@ -76,6 +80,7 @@ public class VirtualView implements Runnable{
                         NoEntry noEntry = gson.fromJson(res, NoEntry.class);
                         msg = myController.send(this, noEntry);
                         break;
+
                     case "Character":
                         gson = new GsonBuilder().registerTypeAdapter(CharacterCard.class, new CharacterAdapter()).create();
                         CharacterCard characterCard= gson.fromJson(res, CharacterCard.class);

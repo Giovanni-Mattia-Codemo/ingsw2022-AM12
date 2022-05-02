@@ -2,18 +2,16 @@ package it.polimi.ingsw2022am12.server.model.actions;
 
 import it.polimi.ingsw2022am12.server.model.Game;
 import it.polimi.ingsw2022am12.server.model.PossibleAction;
-import it.polimi.ingsw2022am12.server.model.Selectable;
 import it.polimi.ingsw2022am12.server.model.StudentDiskCollection;
-
-import java.util.ArrayList;
 
 /**
  * Class that defines the process of drawing from a generic cloud
  */
 public class DrawFromCloud extends PossibleAction {
 
-    int usableID=0;
-
+    /**
+     * Constructor method of the DrawFromCloud class
+     */
     public DrawFromCloud(){
         super(1);
     }

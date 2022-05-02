@@ -10,6 +10,11 @@ import java.util.ArrayList;
  */
 public class ActionStrategy implements PhaseStrategy {
 
+    /**
+     * getName returns the name of the phase
+     *
+     * @return string name of the phase
+     */
     @Override
     public String getName() {
         return "Action phase";

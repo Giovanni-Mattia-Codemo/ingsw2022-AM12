@@ -1,14 +1,12 @@
 package it.polimi.ingsw2022am12.server;
 
 import it.polimi.ingsw2022am12.server.controller.Controller;
-
 import java.io.IOException;
 import java.net.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Server {
-
 
     private int port;
     private ServerSocket serverSocket;
@@ -23,8 +21,6 @@ public class Server {
     public static void main(String[] args) {
         Server server = new Server(1344);
         server.startServer();
-
-
     }
 
 
@@ -49,6 +45,5 @@ public class Server {
         }
         executor.shutdown();
     }
-
 
 }

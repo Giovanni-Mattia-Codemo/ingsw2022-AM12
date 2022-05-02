@@ -1,12 +1,13 @@
 package it.polimi.ingsw2022am12.server;
+
+import it.polimi.ingsw2022am12.InputMode;
 import it.polimi.ingsw2022am12.server.adapter.GameAdapter;
-import it.polimi.ingsw2022am12.server.adapter.StudentDiskCollectionAdapter;
+import it.polimi.ingsw2022am12.server.adapter.MessageAdapter;
 import it.polimi.ingsw2022am12.server.model.*;
 import it.polimi.ingsw2022am12.server.adapter.StudentAdapter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import com.google.gson.*;
-
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -15,10 +16,9 @@ import java.util.Map;
  */
 public class SerializationTest {
 
-/*
+
     @Test
     public void test(){
-
 
         Student foo = new Student();
         foo.setColor(DiskColor.RED);
@@ -102,8 +102,10 @@ public class SerializationTest {
         jsonString = gson.toJson(foo);
         System.out.println(jsonString);
 
+         */
+
     }
 
-    */
+
 
 }
