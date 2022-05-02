@@ -68,6 +68,10 @@ public abstract class PossibleAction {
      */
     public void setSelectables(Game game){}
 
+    public String getUserSelectionsMessage(){
+        return null;
+    }
+
     /**
      * getSelectables method returns an array of selectable objects
      *
@@ -76,7 +80,9 @@ public abstract class PossibleAction {
     public ArrayList<Selectable> getSelectables(){
         ArrayList<Selectable> result = new ArrayList<>();
         for (int i = 0; i < selectables.size(); i++) {
-            result.addAll(selectables.get(i));
+            if(!score.containsKey(i)){
+                result.addAll(selectables.get(i));
+            }
         }
         return result;
     }

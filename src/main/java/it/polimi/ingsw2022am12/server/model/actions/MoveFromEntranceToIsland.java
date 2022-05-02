@@ -2,16 +2,10 @@ package it.polimi.ingsw2022am12.server.model.actions;
 
 import it.polimi.ingsw2022am12.server.model.*;
 
-import java.util.ArrayList;
-
 /**
  * Class that defines the process of moving a student from the entrance of a SchoolBoard to an island
  */
 public class MoveFromEntranceToIsland extends PossibleAction {
-
-
-    private DiskColor colorInEntrance;
-    private int islandID;
 
     /**
      * Constructor method of MoveFromEntranceToIsland class
@@ -29,6 +23,18 @@ public class MoveFromEntranceToIsland extends PossibleAction {
     public void setSelectables(Game game) {
         selectables.put(0, game.getCurrentSchoolBoard().getEntrance().getStudentsAsSelectables());
         selectables.put(1, game.getIslandList().getIslandsAsSelectable());
+    }
+
+    @Override
+    public String getUserSelectionsMessage() {
+        String msg = "";
+        msg = msg.concat("To move a student from the entrance to an island: ");
+        if(!score.containsKey(0)){
+            msg = msg.concat(" select the student from the entrance.");
+        }else if(!score.containsKey(1)){
+            msg = msg.concat(" select the chosen island.");
+        }
+        return msg;
     }
 
     /**

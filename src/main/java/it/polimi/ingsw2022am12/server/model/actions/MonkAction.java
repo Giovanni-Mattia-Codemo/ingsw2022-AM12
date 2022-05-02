@@ -1,7 +1,6 @@
 package it.polimi.ingsw2022am12.server.model.actions;
 
 import it.polimi.ingsw2022am12.server.model.*;
-import it.polimi.ingsw2022am12.server.model.characters.CharacterJester;
 import it.polimi.ingsw2022am12.server.model.characters.CharacterMonk;
 
 import java.util.ArrayList;
@@ -10,9 +9,6 @@ import java.util.ArrayList;
  * Class that defines the process of activation of the Monk Card
  */
 public class MonkAction extends PossibleAction {
-
-    private int islandID;
-    private DiskColor color;
 
     /**
      * Constructor method of MonkAction class
@@ -31,6 +27,18 @@ public class MonkAction extends PossibleAction {
         ArrayList<Selectable> result = new ArrayList<>(((CharacterMonk) game.getActiveCharacterCard()).getStudents().getStudentsAsSelectables());
         selectables.put(0, result);
         selectables.put(1, game.getIslandList().getIslandsAsSelectable());
+    }
+
+    @Override
+    public String getUserSelectionsMessage() {
+        String msg = "";
+        msg = msg.concat("To use the monk:");
+        if(!score.containsKey(0)){
+            msg = msg.concat(" select a student on the card.");
+        }else if(!score.containsKey(1)){
+            msg = msg.concat(" select the island to place it on.");
+        }
+        return msg;
     }
 
     /**

@@ -31,6 +31,18 @@ public class HerbalistAction extends PossibleAction {
         selectables.put(1, game.getIslandList().getIslandsAsSelectable());
     }
 
+    @Override
+    public String getUserSelectionsMessage() {
+        String msg = "";
+        msg = msg.concat("To use the herbalist:");
+        if(!score.containsKey(0)){
+            msg = msg.concat(" select an available no entry token.");
+        }else if(!score.containsKey(1)){
+            msg = msg.concat(" select an island to place it on.");
+        }
+        return msg;
+    }
+
     /**
      * Method useAction uses the power of the Herbalist, and sets the Herbalist to Used
      *

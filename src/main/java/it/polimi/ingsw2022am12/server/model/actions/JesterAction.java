@@ -32,6 +32,18 @@ public class JesterAction extends PossibleAction {
         selectables.put(1, game.getCurrentSchoolBoard().getEntrance().getStudentsAsSelectables());
     }
 
+    @Override
+    public String getUserSelectionsMessage() {
+        String msg = "";
+        msg = msg.concat("To use the jester:");
+        if(!score.containsKey(0)){
+            msg = msg.concat(" select a student on the card.");
+        }else if(!score.containsKey(1)){
+            msg = msg.concat(" select the student to swap in your entrance.");
+        }
+        return msg;
+    }
+
     /**
      * Method useAction uses the power of the Jester, and sets the Jester to Used
      *

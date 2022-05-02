@@ -24,6 +24,11 @@ public class SelectMage extends PossibleAction {
         selectables.put(0, tmp);
     }
 
+    @Override
+    public String getUserSelectionsMessage() {
+        return "To select a mage pick one.";
+    }
+
     /**
      * Method useAction selects the mage, and then ends the turn
      *

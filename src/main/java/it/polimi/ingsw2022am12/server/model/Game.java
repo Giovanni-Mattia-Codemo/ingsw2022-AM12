@@ -311,7 +311,13 @@ public class Game{
         else return null;
     }
 
+    public StudentDiskCollection[] getClouds() {
+        return clouds;
+    }
 
+    public boolean isExpertMode() {
+        return isExpertMode;
+    }
 
     /**
      * Getter method for isLastRoundFlag
@@ -349,6 +355,10 @@ public class Game{
         return null;
     }
 
+    public SchoolBoard[] getProfessors() {
+        return professors;
+    }
+
     public boolean checkIfCloudDrawableByID(int ID){
         for (int i= 0; i<numOfPlayers; i++){
             if(clouds[i].getID()==ID){
@@ -358,6 +368,13 @@ public class Game{
         return false;
     }
 
+    public int getRound() {
+        return round;
+    }
+
+    public int getTurn() {
+        return turn;
+    }
 
     /**
      * Method getSelectableClouds returns a boolean that says if a selected cloud is empty or not;

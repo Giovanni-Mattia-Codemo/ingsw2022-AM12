@@ -11,10 +11,7 @@ import java.util.Map;
  */
 public class SerializationTest {
 
-    /**
-     * test() creates a new Student, initializes it, and then serializes it using the JSON format, passing through the
-     * GSON format
-     */
+/*
     @Test
     public void test(){
 
@@ -43,7 +40,9 @@ public class SerializationTest {
         foo.setPositionID(4);
         jsonString = gson.toJson(foo);
         System.out.println(jsonString);
-         */
+
     }
+
+    */
 
 }

@@ -16,7 +16,7 @@ public class HeraldAction extends PossibleAction {
      * Constructor Method of HeraldAction class
      */
     public HeraldAction(){
-        super(1);
+        super(2);
     }
 
     /**
@@ -27,6 +27,18 @@ public class HeraldAction extends PossibleAction {
     @Override
     public void setSelectables(Game game) {
         selectables.put(0, game.getIslandList().getIslandsAsSelectable());
+    }
+
+    @Override
+    public String getUserSelectionsMessage() {
+        String msg = "";
+        msg = msg.concat("To use the herald:");
+        if(!score.containsKey(0)){
+            msg = msg.concat(" select the herald card.");
+        }else if(!score.containsKey(1)){
+            msg = msg.concat(" select an island to conquer.");
+        }
+        return msg;
     }
 
     /**

@@ -23,6 +23,11 @@ public class DrawFromCloud extends PossibleAction {
         selectables.put(0, game.getDrawableClouds());
     }
 
+    @Override
+    public String getUserSelectionsMessage() {
+        return "To draw from a cloud select it.";
+    }
+
     /**
      * Method useAction draws from a usable cloud, and then ends the turn
      *

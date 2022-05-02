@@ -27,6 +27,20 @@ public class BardAction extends PossibleAction {
         selectables.put(1, game.getCurrentSchoolBoard().getDiningRoom().getStudentsAsSelectables());
     }
 
+    @Override
+    public String getUserSelectionsMessage() {
+        String msg = "";
+        msg = msg.concat("To use the bard select:");
+        if(!score.containsKey(0)){
+            msg = msg.concat(" a student from the entrance.");
+        }else if(!score.containsKey(1)){
+            msg = msg.concat(" the student to swap it with.");
+        }
+        return msg;
+    }
+
+
+
     /**
      * Method useAction uses the power of the Bard, and sets the Bard to Used
      *

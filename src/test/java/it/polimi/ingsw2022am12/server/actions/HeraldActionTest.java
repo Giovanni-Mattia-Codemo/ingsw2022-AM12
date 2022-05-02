@@ -34,6 +34,7 @@ public class HeraldActionTest {
 
         ArrayList<Selectable> input = new ArrayList<>();
         Selectable island = testGame.getIslandList().getByIndex(4);
+        input.add(testGame.getActiveCharacterCard());
         input.add(island);
 
         testCharacter.setSelectables(testGame);

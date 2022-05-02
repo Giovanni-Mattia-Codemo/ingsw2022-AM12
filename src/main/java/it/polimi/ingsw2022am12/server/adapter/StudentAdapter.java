@@ -20,7 +20,6 @@ public class StudentAdapter extends TypeAdapter<Student> {
      * @param foo the Student I want to serialize
      * @throws IOException if there is a problem with my input
      */
-
     @Override
     public void write(JsonWriter writer, Student foo) throws IOException {
         writer.beginObject();
@@ -51,8 +50,6 @@ public class StudentAdapter extends TypeAdapter<Student> {
                 //get the current token
                 fieldname = reader.nextName();
             }
-
-
 
             if("positionID".equals(fieldname)) {
                 //move to next token

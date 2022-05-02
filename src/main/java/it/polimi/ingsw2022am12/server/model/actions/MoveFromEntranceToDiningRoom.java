@@ -9,8 +9,6 @@ import java.util.ArrayList;
  */
 public class MoveFromEntranceToDiningRoom extends PossibleAction {
 
-    private DiskColor colorInEntrance;
-
     /**
      * Constructor method of MoveFromEntranceToDiningRoom class
      */
@@ -31,6 +29,18 @@ public class MoveFromEntranceToDiningRoom extends PossibleAction {
         tmp.removeIf(a -> game.getCurrentSchoolBoard().isDiningRoomFull(((Student) a).getColor()));
         selectables.put(0, tmp);
         selectables.put(1, result);
+    }
+
+    @Override
+    public String getUserSelectionsMessage() {
+        String msg = "";
+        msg = msg.concat("To move a student from the entrance to a dining room: ");
+        if(!score.containsKey(0)){
+            msg = msg.concat(" select the student from the entrance.");
+        }else if(!score.containsKey(1)){
+            msg = msg.concat(" select the dining rooms.");
+        }
+        return msg;
     }
 
     /**

@@ -33,6 +33,11 @@ public class MerchantAction extends PossibleAction {
         selectables.put(0, result);
     }
 
+    @Override
+    public String getUserSelectionsMessage() {
+        return "To use the merchant select a color";
+    }
+
     /**
      * Method useAction uses the power of the Merchant, and sets the Merchant to Used
      *

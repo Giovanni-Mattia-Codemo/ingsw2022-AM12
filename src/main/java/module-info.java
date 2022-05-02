@@ -9,5 +9,6 @@ module it.polimi.ingsw2022am12 {
     exports it.polimi.ingsw2022am12.server.model;
     exports it.polimi.ingsw2022am12.server.controller;
     exports it.polimi.ingsw2022am12.server.model.actions;
+    exports it.polimi.ingsw2022am12.server;
 
 }

@@ -21,6 +21,11 @@ public class ActivateCharacter extends PossibleAction {
         selectables.put(0, game.getPlayableCharacters());
     }
 
+    @Override
+    public String getUserSelectionsMessage() {
+        return "To activate a character select it. ";
+    }
+
     /**
      * Method useAction uses the power of the Character that does not require particular inputs, and sets the Character to Used
      *
@@ -30,4 +35,5 @@ public class ActivateCharacter extends PossibleAction {
     public void useAction(Game game) {
         game.payAndSetActiveCharacter(((CharacterCard)score.get(0)).getName());
     }
+
 }

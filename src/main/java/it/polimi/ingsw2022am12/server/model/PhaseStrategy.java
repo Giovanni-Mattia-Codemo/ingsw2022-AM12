@@ -21,6 +21,7 @@ public interface PhaseStrategy {
      void endRound(Game game);
   //   ArrayList<Selectable> getValidSelections(Game game);
 
+
     /**
      * Method that returns valid actions
      *

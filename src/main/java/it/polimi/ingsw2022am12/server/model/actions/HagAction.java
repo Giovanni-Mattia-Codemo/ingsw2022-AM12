@@ -30,6 +30,11 @@ public class HagAction extends PossibleAction {
         selectables.put(0, result);
     }
 
+    @Override
+    public String getUserSelectionsMessage() {
+        return "To use the hag select a color";
+    }
+
     /**
      * Method useAction uses the power of the Hag, and sets the Hag to Used
      *

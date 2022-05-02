@@ -26,6 +26,11 @@ public class PrincessAction extends PossibleAction {
         selectables.put(0, tmp);
     }
 
+    @Override
+    public String getUserSelectionsMessage() {
+        return "To use the princess select a color";
+    }
+
     /**
      * Method useAction uses the power of the Princess, and then sets the Princess to Used
      *

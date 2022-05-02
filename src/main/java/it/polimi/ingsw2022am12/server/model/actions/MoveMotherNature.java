@@ -29,6 +29,18 @@ public class MoveMotherNature extends PossibleAction {
         selectables.put(1, tmp);
     }
 
+    @Override
+    public String getUserSelectionsMessage() {
+        String msg = "";
+        msg = msg.concat("To move mother nature: ");
+        if(!score.containsKey(0)){
+            msg = msg.concat(" select the island with mother nature.");
+        }else if(!score.containsKey(1)){
+            msg = msg.concat(" select the island where you want to move her.");
+        }
+        return msg;
+    }
+
     /**
      * Method useAction moves Mother Nature
      *

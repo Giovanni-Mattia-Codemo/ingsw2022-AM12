@@ -1,10 +1,7 @@
 package it.polimi.ingsw2022am12.server.actions;
 
-import it.polimi.ingsw2022am12.server.model.CharacterName;
-import it.polimi.ingsw2022am12.server.model.DiskColor;
-import it.polimi.ingsw2022am12.server.model.Game;
-import it.polimi.ingsw2022am12.server.model.Selectable;
-import it.polimi.ingsw2022am12.server.model.Student;
+import it.polimi.ingsw2022am12.server.controller.InputHandler;
+import it.polimi.ingsw2022am12.server.model.*;
 import it.polimi.ingsw2022am12.server.model.actions.ActionStep;
 import it.polimi.ingsw2022am12.server.model.actions.BardAction;
 import org.junit.jupiter.api.Assertions;
@@ -178,4 +175,52 @@ public class BardActionTest {
         testGame.getActiveCharacterCard().setWasUsed(false);
     }
 
+    @Test
+    public void testingStuff(){
+        ArrayList<String> nicks = new ArrayList<>();
+        nicks.add("Nick1");
+        nicks.add("Nick2");
+        int num = 2;
+        Game testGame = new Game(nicks, true);
+        testGame.setUp();
+
+        InputHandler inputHandler = new InputHandler(testGame);
+        Student st = new Student(DiskColor.RED);
+        System.out.println(inputHandler.addSelection(st));
+
+
+        Mage mg = testGame.getAvailableMages().get(0);
+        System.out.println(inputHandler.addSelection(mg));
+        Mage mg2 = testGame.getAvailableMages().get(0);
+        System.out.println(inputHandler.addSelection(mg2));
+
+
+
+        for (int i = 0; i < num; i++) {
+            Assistant ass = testGame.getPlayableAssistants().get(0);
+            System.out.println(inputHandler.addSelection(ass));
+        }
+
+        for(int j = 0; j<num; j++){
+            for (int i = 0; i < 2; i++) {
+                Student st0 = testGame.getCurrentSchoolBoard().getEntrance().getByIndex(0);
+                System.out.println(inputHandler.addSelection(st0));
+
+                StudentDiskCollection diningRoom = testGame.getCurrentSchoolBoard().getDiningRoom();
+                System.out.println(inputHandler.addSelection(diningRoom));
+            }
+
+            Student st1 = testGame.getCurrentSchoolBoard().getEntrance().getByIndex(0);
+            System.out.println(inputHandler.addSelection(st1));
+            System.out.println(inputHandler.addSelection(testGame.getIslandList().getIslandsAsSelectable().get(0)));
+
+            ArrayList<Selectable> tmp = new ArrayList<>(testGame.getIslandList().getIslandsAsSelectable());
+            tmp.removeIf(a->!testGame.checkIfIslandInRange(((IslandTileSet)a)));
+
+            System.out.println(inputHandler.addSelection(testGame.getIslandList().getByIndex(testGame.getIslandList().getMotherNatureIndex())));
+            System.out.println(inputHandler.addSelection(tmp.get(0)));
+
+            System.out.println(inputHandler.addSelection(testGame.getDrawableClouds().get(0)));
+        }
+    }
 }

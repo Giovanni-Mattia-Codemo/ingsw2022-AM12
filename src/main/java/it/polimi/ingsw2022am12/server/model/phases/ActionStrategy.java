@@ -10,6 +10,11 @@ import java.util.ArrayList;
  */
 public class ActionStrategy implements PhaseStrategy {
 
+    @Override
+    public String getName() {
+        return "Action phase";
+    }
+
     /**
      * Method endTurn checks if it's the last turn, else it calls the nextTurn method
      *

@@ -24,6 +24,11 @@ public class PlayAssistant extends PossibleAction {
         selectables.put(0, result );
     }
 
+    @Override
+    public String getUserSelectionsMessage() {
+        return "To play an assistant select one.";
+    }
+
     /**
      * Method useAction plays the Assistant, and then ends the turn
      *
