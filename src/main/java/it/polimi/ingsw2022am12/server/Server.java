@@ -30,6 +30,7 @@ public class Server {
 
         try{
             serverSocket = new ServerSocket(port);
+            System.out.println("Server up and running \n");
         }catch(IOException e){
             e.printStackTrace();
         }

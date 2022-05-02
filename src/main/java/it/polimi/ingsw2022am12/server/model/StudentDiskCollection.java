@@ -25,6 +25,14 @@ public class StudentDiskCollection implements Position, Selectable {
     }
 
     /**
+     * Constructor method creates a new list of type Student, using an input as the ID
+     */
+    public StudentDiskCollection(int i){
+        id = i;
+        students = null;
+    }
+
+    /**
      * Getter method of StudentDiskCollection
      *
      * @return ID of the StudentDiskCollection

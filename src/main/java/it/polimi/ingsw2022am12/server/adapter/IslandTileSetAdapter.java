@@ -35,7 +35,28 @@ public class IslandTileSetAdapter extends TypeAdapter<IslandTileSet> {
     }
 
     @Override
-    public IslandTileSet read(JsonReader jsonReader) throws IOException {
+    public IslandTileSet read(JsonReader reader) throws IOException {
+        reader.beginObject();
+        String fieldName = null;
+
+        while (reader.hasNext()) {
+            JsonToken token = reader.peek();
+
+            if (token.equals(JsonToken.NAME)) {
+
+                fieldName = reader.nextName();
+            }
+
+            if("ID".equals(fieldName)) {
+
+                token = reader.peek();
+                return new IslandTileSet(reader.nextInt());
+            }
+
+
+
+        }
+        reader.endObject();
         return null;
     }
 }

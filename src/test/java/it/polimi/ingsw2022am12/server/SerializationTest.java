@@ -73,9 +73,21 @@ public class SerializationTest {
 
         GsonBuilder build = new GsonBuilder();
         build.registerTypeAdapter(Game.class, new GameAdapter());
-        Gson newGson = build.setPrettyPrinting().create();
+        Gson newGson = build.serializeNulls().create();
         String output = newGson.toJson(newGame, Game.class);
         System.out.println(output);
+
+        InputMode inputMode = new InputMode();
+        Gson gson1234 = new GsonBuilder().registerTypeAdapter(InputMode.class, new MessageAdapter()).create();
+        String outpu = gson1234.toJson(inputMode);
+        System.out.println(outpu);
+
+        Map myMap = gson1234.fromJson(outpu, Map.class);
+        String number =  myMap.get("number").toString();
+        System.out.println(number);
+
+
+
 
         /*
         StudentDiskCollection studentDiskCollection = new StudentDiskCollection();

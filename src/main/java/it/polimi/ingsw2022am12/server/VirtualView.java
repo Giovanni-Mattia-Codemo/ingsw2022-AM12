@@ -46,21 +46,27 @@ public class VirtualView implements Runnable{
 
             Scanner in = new Scanner(socket.getInputStream());
             PrintWriter out = new PrintWriter(socket.getOutputStream());
-
+            System.out.println("Im alive");
             while (true){
                 String line = in.next();
+                System.out.println("working on this input:"+line);
 
                 Gson gson = new Gson();
                 Map map = gson.fromJson(line, Map.class);
+                System.out.println("managed to extract a map");
                 String tag =(String) map.get("tag");
+                System.out.println("    and got the tag");
                 map.remove("tag");
                 String res = gson.toJson(map);
+                System.out.println(" and removed it: "+res);
                 String msg = "";
                 switch(tag){
                     case "Nick":
+                        System.out.println("t'was indeed a nick");
                         String nick = (String) map.get("nick");
                         ControlMessages messages = myController.selectUsername(nick, this);
                         msg = msg.concat(messages.getMessage());
+                        System.out.println("i handled and answered the player username");
                         break;
                     case "Student":
                         GsonBuilder builder = new GsonBuilder();
@@ -82,7 +88,7 @@ public class VirtualView implements Runnable{
                         break;
 
                     case "Character":
-                        gson = new GsonBuilder().registerTypeAdapter(CharacterCard.class, new CharacterAdapter()).create();
+                        gson = new GsonBuilder().registerTypeAdapterFactory(new CharacterAdapterFactory()).create();
                         CharacterCard characterCard= gson.fromJson(res, CharacterCard.class);
                         msg = myController.send(this, characterCard);
                         break;
@@ -100,17 +106,20 @@ public class VirtualView implements Runnable{
                         break;
 
                     case "InputMode":
-                        int num = (int)map.get("number");
+                        System.out.println("inside input mode");
+                        int num = (int) Math.round((double)map.get("number"));
+                        System.out.println("lanimaccia");
                         boolean b = (boolean) map.get("mode");
+                        System.out.println("after mapping");
                         msg = (myController.setGameMode(this, num, b)).getMessage();
-
+                        System.out.println("set the game");
                         break;
 
                     default:
                         msg = "Unrecognized input"+"\n";
                         break;
                 }
-                out.print(msg);
+                out.println(msg);
                 out.flush();
             }
 

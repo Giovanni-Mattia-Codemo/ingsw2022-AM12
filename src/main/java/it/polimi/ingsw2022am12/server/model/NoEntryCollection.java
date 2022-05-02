@@ -21,6 +21,14 @@ public class NoEntryCollection implements Position {
     }
 
     /**
+     * Constructor method creates the ArrayList of type NoEntry noEntries, which uses an input as the ID
+     */
+    public  NoEntryCollection(int id){
+        myId = id;
+        noEntries = null;
+    }
+
+    /**
      * Method noEntriesSize returns the size of noEntries
      *
      * @return noEntries size
@@ -87,4 +95,6 @@ public class NoEntryCollection implements Position {
     public boolean contains(PlaceableObject o){
         return noEntries.contains(o);
     }
+
+    
 }

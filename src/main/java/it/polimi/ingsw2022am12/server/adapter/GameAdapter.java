@@ -70,13 +70,14 @@ public class GameAdapter extends TypeAdapter<Game> {
         writer.name("Mode");
         writer.value(myGame.isExpertMode());
         writer.name("Characters");
-        embedded = new GsonBuilder().registerTypeAdapter(CharacterCard.class, new CharacterAdapter()).create();
-        embedded.toJson(embedded.toJsonTree(myGame.getAvailableCharacters()));
-        writer.name("Active Character");
-        builder = new GsonBuilder().serializeNulls().registerTypeAdapter(CharacterCard.class, new CharacterAdapter());
-        embedded = builder.create();
-        embedded.toJson(myGame.getActiveCharacterCard());
+        //embedded = new GsonBuilder().registerTypeAdapter(CharacterCard.class, new CharacterAdapter()).create();
+        embedded = new GsonBuilder().registerTypeAdapterFactory(new CharacterAdapterFactory()).create();
 
+        embedded.toJson(embedded.toJsonTree(myGame.getAvailableCharacters()),writer);
+        writer.name("Active Character");
+        if(myGame.getActiveCharacterCard()!=null){
+            writer.value(myGame.getActiveCharacterCard().getName().toString());
+        }else writer.value("null");
         writer.endObject();
     }
 

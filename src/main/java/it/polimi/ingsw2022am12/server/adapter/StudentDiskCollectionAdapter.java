@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import it.polimi.ingsw2022am12.server.model.Student;
 import it.polimi.ingsw2022am12.server.model.StudentDiskCollection;
@@ -30,6 +31,21 @@ public class StudentDiskCollectionAdapter extends TypeAdapter<StudentDiskCollect
 
     @Override
     public StudentDiskCollection read(JsonReader jsonReader) throws IOException {
+        jsonReader.beginObject();
+        String fieldName = null;
+
+        while(jsonReader.hasNext()){
+            JsonToken token = jsonReader.peek();
+            if(token.equals(JsonToken.NAME)){
+                fieldName = jsonReader.nextName();
+            }
+
+            if("ID".equals(fieldName)){
+                return new StudentDiskCollection(jsonReader.nextInt());
+            }
+
+        }
+        jsonReader.endObject();
         return null;
     }
 }

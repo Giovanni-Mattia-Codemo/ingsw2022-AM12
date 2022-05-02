@@ -1,11 +1,15 @@
 package it.polimi.ingsw2022am12.server.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import it.polimi.ingsw2022am12.server.ControlMessages;
 import it.polimi.ingsw2022am12.server.VirtualView;
+import it.polimi.ingsw2022am12.server.adapter.GameAdapter;
 import it.polimi.ingsw2022am12.server.model.Game;
 import it.polimi.ingsw2022am12.server.model.Selectable;
 import it.polimi.ingsw2022am12.server.model.actions.ActionStep;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
@@ -26,16 +30,21 @@ public class Controller {
         this.userMap = new HashMap<>();
         creatingGame = false;
         acceptingUsers = true;
+        gameWasSet = false;
 
     }
 
     private void updateAllViews(){
+        Gson gson = new GsonBuilder().registerTypeAdapter(Game.class, new GameAdapter()).create();
+        String result = gson.toJson(myGame);
         for(VirtualView v: userMap.keySet()){
-            //v.forwardMsg(myGame.getStateMsg);
+            v.forwardMsg(result);
         }
     }
 
     public synchronized String send(VirtualView v, Selectable s){
+
+        if (myGame == null) return "Game isn't ready yet";
 
         //check username
         if(myGame.getCurrentSchoolBoard().getNick().equals(userMap.get(v))){
@@ -58,16 +67,20 @@ public class Controller {
 
     public ControlMessages setGameMode(VirtualView v, int i, boolean b){
         if(userMap.containsKey(v)){
+            System.out.println("in set gamemode and i m a verified user");
             if(gameWasSet){
                 return ControlMessages.GAMEWASSET;
             }
 
             if(i>1&&i<=4){
+                System.out.println("number was checked");
                 difficulty =b;
                 numOfPlayers = i;
                 creatingGame = false;
                 gameWasSet = true;
-                this.notifyAll();
+
+                notifyAll();
+                System.out.println("notified all");
                 return ControlMessages.ACCEPTED;
             }else{
                 return ControlMessages.INVALIDVALUES;
@@ -117,6 +130,12 @@ public class Controller {
         }
         if(userMap.size()==numOfPlayers){
             acceptingUsers = false;
+            ArrayList<String> nicks = new ArrayList<>();
+            for(String userName: userMap.values()){
+                nicks.add(userName);
+            }
+            myGame = new Game(nicks, difficulty);
+            inputHandler = new InputHandler(myGame);
         }
         return ControlMessages.ACCEPTED;
     }

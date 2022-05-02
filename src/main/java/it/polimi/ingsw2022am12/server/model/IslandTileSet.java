@@ -208,7 +208,7 @@ public class IslandTileSet implements Selectable {
     @Override
     public boolean isEqual(Selectable toCompare) {
         if(toCompare instanceof IslandTileSet){
-            return ((IslandTileSet) toCompare).ID == this.ID;
+            return ((IslandTileSet) toCompare).getID() == this.ID;
         }
         return false;
     }
