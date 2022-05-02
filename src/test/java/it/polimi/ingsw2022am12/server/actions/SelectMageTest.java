@@ -40,6 +40,10 @@ public class SelectMageTest {
         int numOfAvailableMagesAfter = testGame.getAvailableMages().size();
         Assertions.assertEquals(testGame.getTurnOrder().get(0).getMage(), mage);
         Assertions.assertEquals(numOfAvailableMagesBefore-1, numOfAvailableMagesAfter);
+
+
+        input.clear();
+
     }
 
     /**

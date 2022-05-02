@@ -1,5 +1,6 @@
 package it.polimi.ingsw2022am12.server.model;
 
+import com.google.gson.JsonElement;
 import it.polimi.ingsw2022am12.exceptions.NotPresent;
 
 import it.polimi.ingsw2022am12.server.model.characters.*;
@@ -337,6 +338,10 @@ public class Game{
         return activeCharacterCard;
     }
 
+
+    public ArrayList<PossibleAction> getValidActions(){
+        return currentStrategy.getValidActions(this);
+    }
 
 
     /**
@@ -910,6 +915,11 @@ public class Game{
      * Method nextTurn is used to iterate on the turnOrder and keep track of the players' turn
      */
     public void nextTurn(){
+        hasMovedMotherNature=false;
+        disksMovedThisTurn = 0;
+        if(activeCharacterCard!=null){
+            activeCharacterCard.setWasUsed(false);
+        }
         if(isLastTurn()){
             turn=0;   //resets the turn count
         }else turn++;
@@ -1025,6 +1035,8 @@ public class Game{
             }
         }
     }
-
+    public JsonElement getStateMsg(){
+        return null;
+    }
 
 }

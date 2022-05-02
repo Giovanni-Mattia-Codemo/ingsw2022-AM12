@@ -92,14 +92,17 @@ public class ActionStrategy implements PhaseStrategy {
             result.add(new MoveMotherNature());
         }else result.add(new DrawFromCloud());
 
-        if(game.getActiveCharacterName()==null){
-                result.add(new ActivateCharacter());
-        }else{
-            if(!game.getActiveCharacterCard().getWasUsed()){
-                PossibleAction action = game.getActiveCharacterCard().getPossibleAction();
-                if(action!=null)result.add(action);
-            }
 
+        if(game.isExpertMode()){
+            if(game.getActiveCharacterName()==null){
+                result.add(new ActivateCharacter());
+            }else{
+                if(!game.getActiveCharacterCard().getWasUsed()){
+                    PossibleAction action = game.getActiveCharacterCard().getPossibleAction();
+                    if(action!=null)result.add(action);
+                }
+
+            }
         }
 
         return result;

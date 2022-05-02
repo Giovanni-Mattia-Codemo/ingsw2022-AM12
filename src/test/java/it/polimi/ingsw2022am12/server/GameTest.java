@@ -515,6 +515,13 @@ public class GameTest {
 
         Assertions.assertEquals(mage, testGame.getCurrentSchoolBoard().getMage());
         Assertions.assertEquals(3, testGame.getAvailableMages().size());
+
+        testGame.endTurn();
+
+        Mage mage2 = testGame.getAvailableMages().get(0);
+        testGame.selectMage(mage2.getID());
+        Assertions.assertEquals(mage2, testGame.getCurrentSchoolBoard().getMage());
+
     }
 
     @Test

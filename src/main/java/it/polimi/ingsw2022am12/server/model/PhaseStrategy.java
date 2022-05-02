@@ -29,4 +29,6 @@ public interface PhaseStrategy {
      * @return List of possible actions
      */
      ArrayList<PossibleAction> getValidActions(Game game);
+
+     public String getName();
 }

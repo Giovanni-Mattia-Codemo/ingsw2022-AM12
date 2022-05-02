@@ -25,8 +25,6 @@ public class StudentAdapter extends TypeAdapter<Student> {
         writer.beginObject();
         writer.name("color");
         writer.value(String.valueOf(foo.getColor()));
-        writer.name("positionID");
-        writer.value(foo.getPositionID());
         writer.endObject();
     }
 

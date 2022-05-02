@@ -49,7 +49,14 @@ public class PlanningStrategy implements PhaseStrategy {
         result.add(new PlayAssistant());
         return result;
     }
-/*
+
+    @Override
+    public String getName() {
+        return "Planning phase";
+    }
+
+
+    /*
     /**
      * Method getValidSelection returns the possible selections a player can do during the Planning Phase
      *

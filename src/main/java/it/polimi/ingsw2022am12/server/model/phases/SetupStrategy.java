@@ -60,4 +60,9 @@ public class SetupStrategy implements PhaseStrategy {
         result.add(new SelectMage());
         return result;
     }
+
+    @Override
+    public String getName() {
+        return "Setup Phase";
+    }
 }

@@ -26,7 +26,10 @@ public class HeraldAction extends PossibleAction {
      */
     @Override
     public void setSelectables(Game game) {
-        selectables.put(0, game.getIslandList().getIslandsAsSelectable());
+        ArrayList<Selectable> tmp = new ArrayList<>();
+        tmp.add(game.getActiveCharacterCard());
+        selectables.put(0, tmp);
+        selectables.put(1, game.getIslandList().getIslandsAsSelectable());
     }
 
     @Override
