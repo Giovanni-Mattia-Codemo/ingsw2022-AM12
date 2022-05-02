@@ -46,7 +46,7 @@ public class Controller {
                 String msg = "Action completed successfully." + "\n";
                 if(myGame.getCurrentSchoolBoard().getNick().equals(userMap.get(v))){
                     msg = msg.concat(inputHandler.getNextSelection());
-                }
+                }else msg = msg.concat("Your turn has ended"+ "\n");
                 return msg;
             }
         }

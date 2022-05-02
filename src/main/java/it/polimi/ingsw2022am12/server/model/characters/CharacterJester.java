@@ -74,5 +74,7 @@ public class CharacterJester extends CharacterCard {
         }
     }
 
-
+    public int getMovesDone() {
+        return movesDone;
+    }
 }
