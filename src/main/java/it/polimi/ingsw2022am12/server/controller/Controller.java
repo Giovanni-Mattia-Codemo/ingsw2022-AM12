@@ -15,6 +15,9 @@ import java.util.Map;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.Lock;
 
+/**
+ * Controller class represents the component which receives inputs from the client and generates a response updating views
+ */
 public class Controller {
     private Game myGame;
     private boolean gameWasSet;
@@ -26,6 +29,9 @@ public class Controller {
     private final Map<VirtualView, String> userMap;
 
 
+    /**
+     * Constructor method of Controller class
+     */
     public Controller(){
         this.userMap = new HashMap<>();
         creatingGame = false;
@@ -34,6 +40,9 @@ public class Controller {
 
     }
 
+    /**
+     * updateAllViews converts the state of the game in a string, and forwards it to the various VirtualViews
+     */
     private void updateAllViews(){
         Gson gson = new GsonBuilder().registerTypeAdapter(Game.class, new GameAdapter()).create();
         String result = gson.toJson(myGame);
@@ -42,6 +51,12 @@ public class Controller {
         }
     }
 
+    /**
+     * send method has the function to send certain messages to the VirtualViews according to the action selected by a user
+     * @param v the VirtualView in the server
+     * @param s selected object
+     * @return String the message sent
+     */
     public synchronized String send(VirtualView v, Selectable s){
 
         if (myGame == null) return "Game isn't ready yet";
@@ -65,7 +80,14 @@ public class Controller {
         return "Not your turn";
     }
 
-    public ControlMessages setGameMode(VirtualView v, int i, boolean b){
+    /**
+     * setGameMode is the method that sets the instance of my game
+     * @param v view of my user
+     * @param b game mode, which can be Easy or Expert
+     * @param i selected number of players
+     * @return ControlMessages
+     */
+    public synchronized ControlMessages setGameMode(VirtualView v, int i, boolean b){
         if(userMap.containsKey(v)){
             System.out.println("in set gamemode and i m a verified user");
             if(gameWasSet){
@@ -121,7 +143,12 @@ public class Controller {
 
     }
 
-
+    /**
+     * bindView binds the VirtualView to a certain username
+     * @param nick the chosen nickname
+     * @param v the view of the user
+     * @return ControlMessages
+     */
     private ControlMessages bindView(VirtualView v, String nick){
         userMap.put(v, nick);
         if(userMap.size()==1){

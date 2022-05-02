@@ -16,11 +16,20 @@ public class ActivateCharacter extends PossibleAction {
         super(1);
     }
 
+    /**
+     * setSelectables inserts in a "selectables" map the playableCharacters, with a key value 0
+     *
+     * @param game instance of my game
+     */
     @Override
     public void setSelectables(Game game) {
         selectables.put(0, game.getPlayableCharacters());
     }
 
+    /**
+     * getUserSelectionsMessage returns a message based on what the user wants to select
+     * @return string message
+     */
     @Override
     public String getUserSelectionsMessage() {
         return "To activate a character select it. ";

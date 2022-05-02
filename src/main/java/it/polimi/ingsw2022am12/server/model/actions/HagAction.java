@@ -17,7 +17,7 @@ public class HagAction extends PossibleAction {
     }
 
     /**
-     * setSelectables method sets the selectable objects
+     * setSelectables method sets the selectable map, associating a key value to a certain object
      *
      * @param game instance of my game
      */
@@ -30,6 +30,11 @@ public class HagAction extends PossibleAction {
         selectables.put(0, result);
     }
 
+    /**
+     * getUserSelectionsMessage returns a certain string based on the users selections
+     *
+     * @return string message
+     */
     @Override
     public String getUserSelectionsMessage() {
         return "To use the hag select a color";

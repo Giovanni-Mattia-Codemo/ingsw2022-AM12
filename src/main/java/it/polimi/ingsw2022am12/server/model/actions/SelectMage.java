@@ -18,12 +18,22 @@ public class SelectMage extends PossibleAction {
         super(1);
     }
 
+    /**
+     * setSelectables method sets the selectable map, associating a key value to a certain object
+     *
+     * @param game instance of my game
+     */
     @Override
     public void setSelectables(Game game) {
         ArrayList<Selectable> tmp = new ArrayList<>(game.getAvailableMages());
         selectables.put(0, tmp);
     }
 
+    /**
+     * getUserSelectionsMessage returns a certain string based on the users selections
+     *
+     * @return string message
+     */
     @Override
     public String getUserSelectionsMessage() {
         return "To select a mage pick one.";

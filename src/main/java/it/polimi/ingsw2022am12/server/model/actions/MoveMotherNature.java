@@ -18,6 +18,11 @@ public class MoveMotherNature extends PossibleAction {
         super(2);
     }
 
+    /**
+     * setSelectables method sets the selectable map, associating a key value to a certain object
+     *
+     * @param game instance of my game
+     */
     @Override
     public void setSelectables(Game game) {
         ArrayList<Selectable>result = new ArrayList<>();
@@ -29,6 +34,11 @@ public class MoveMotherNature extends PossibleAction {
         selectables.put(1, tmp);
     }
 
+    /**
+     * getUserSelectionsMessage returns a certain string based on the users selections
+     *
+     * @return string message
+     */
     @Override
     public String getUserSelectionsMessage() {
         String msg = "";

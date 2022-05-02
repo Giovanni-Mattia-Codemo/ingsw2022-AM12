@@ -9,7 +9,7 @@ public class Student extends PlaceableObject implements Selectable {
     private int positionID;
 
     /**
-     * Constructor of Student
+     * Default constructor of Student
      *
      */
     public Student(){

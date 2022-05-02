@@ -62,18 +62,22 @@ public abstract class PossibleAction {
     }
 
     /**
-     * setSelectables method sets the selectable objects
+     * setSelectables method sets the selectable mapping values
      *
      * @param game instance of my game
      */
     public void setSelectables(Game game){}
 
+    /**
+     * getUserSelectionsMessage returns a message based on what the user wants to select
+     * @return string message
+     */
     public String getUserSelectionsMessage(){
         return null;
     }
 
     /**
-     * getSelectables method returns an array of selectable objects
+     * getSelectables method returns an array of the selectable objects contained in the map
      *
      * @return ArrayList</Selectable>
      */

@@ -18,12 +18,22 @@ public class PlayAssistant extends PossibleAction {
         super(1);
     }
 
+    /**
+     * setSelectables method sets the selectable map, associating a key value to a certain object
+     *
+     * @param game instance of my game
+     */
     @Override
     public void setSelectables(Game game) {
         ArrayList<Selectable> result = new ArrayList<>(game.getPlayableAssistants());
         selectables.put(0, result );
     }
 
+    /**
+     * getUserSelectionsMessage returns a certain string based on the users selections
+     *
+     * @return string message
+     */
     @Override
     public String getUserSelectionsMessage() {
         return "To play an assistant select one.";

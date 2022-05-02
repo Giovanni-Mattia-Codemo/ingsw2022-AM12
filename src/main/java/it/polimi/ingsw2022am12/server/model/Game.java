@@ -160,7 +160,8 @@ public class Game{
     }
 
     /**
-     *Method setup is used to set all the initial values of the attributes of the game, when the expertMode is selected
+     * Method setUpForExpertMode is used to set all the initial values of the attributes of the game, when the expertMode
+     * is selected
      */
     private void setUpForExpertMode(){
         for (int i=0; i<coinsTOTAL; i++){
@@ -235,6 +236,11 @@ public class Game{
 
  */
 
+    /**
+     * getCurrentStrategy returns the current phase strategy
+     *
+     * @return the current strategy used in the game
+     */
     public PhaseStrategy getCurrentStrategy(){
         return  currentStrategy;
     }
@@ -312,10 +318,20 @@ public class Game{
         else return null;
     }
 
+    /**
+     * method getClouds returns all the clouds
+     *
+     * @return StudentDiskCollection
+     */
     public StudentDiskCollection[] getClouds() {
         return clouds;
     }
 
+    /**
+     * method isExpertMode returns a boolean value
+     *
+     * @return boolean true if is Expert mMde
+     */
     public boolean isExpertMode() {
         return isExpertMode;
     }
@@ -338,7 +354,11 @@ public class Game{
         return activeCharacterCard;
     }
 
-
+    /**
+     * Getter method for ValidActions
+     *
+     * @return ArrayList<PossibleAction> the list of valid actions
+     */
     public ArrayList<PossibleAction> getValidActions(){
         return currentStrategy.getValidActions(this);
     }
@@ -360,10 +380,20 @@ public class Game{
         return null;
     }
 
+    /**
+     * Getter method for professors
+     *
+     * @return SchoolBoard[] array of professors
+     */
     public SchoolBoard[] getProfessors() {
         return professors;
     }
 
+    /**
+     * checkIfIslandDrawableByID returns true if the cloud is drawable
+     * @param ID of the cloud
+     * @return boolaen value
+     */
     public boolean checkIfCloudDrawableByID(int ID){
         for (int i= 0; i<numOfPlayers; i++){
             if(clouds[i].getID()==ID){
@@ -373,10 +403,20 @@ public class Game{
         return false;
     }
 
+    /**
+     * Getter method for round
+     *
+     * @return int number of round
+     */
     public int getRound() {
         return round;
     }
 
+    /**
+     * Getter method for turn
+     *
+     * @return int number of turn
+     */
     public int getTurn() {
         return turn;
     }
@@ -1035,6 +1075,11 @@ public class Game{
             }
         }
     }
+
+    /**
+     * getStateMsg returns a state message
+     * @return JsonElement null
+     */
     public JsonElement getStateMsg(){
         return null;
     }

@@ -108,6 +108,10 @@ public abstract class CharacterCard implements Selectable {
         return false;
     }
 
+    /**
+     *
+     * @return true if there are additional coins, else false
+     */
     public boolean getCoin(){
         if (additionalCoins.size()>0)return true;
         return false;

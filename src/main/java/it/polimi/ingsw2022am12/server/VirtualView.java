@@ -15,10 +15,19 @@ import java.net.*;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * VirtualView class represents the layer that transforms information that come from the client and sends them to the
+ * controller inside the server
+ */
 public class VirtualView implements Runnable{
     private final Socket socket;
     private final Controller myController;
 
+    /**
+     * constructor method of VirtualView class
+     * @param socket the socket associated to my VirtualView
+     * @param newController the controller associated to my virtualView
+     */
     public VirtualView(Socket socket, Controller newController){
         this.socket = socket;
         this.myController = newController;
@@ -39,6 +48,10 @@ public class VirtualView implements Runnable{
         }
     }
 
+    /**
+     * void run is the method executed by the various threads; it receives information from the client, and deserializes it,
+     * sending it to the Controller
+     */
     public void run(){
         try{
 

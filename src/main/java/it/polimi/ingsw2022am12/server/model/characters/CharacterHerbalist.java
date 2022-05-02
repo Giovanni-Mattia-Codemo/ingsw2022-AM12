@@ -23,6 +23,11 @@ public class CharacterHerbalist extends CharacterCard {
         this.noEntryCollection= new NoEntryCollection();
     }
 
+    /**
+     * getNoEntryCollection returns the collection of NoEntries placed on the Herbalist card
+     *
+     * @return the collection of NoEntries placed on the card
+     */
     public NoEntryCollection getNoEntryCollection(){
         return noEntryCollection;
     }

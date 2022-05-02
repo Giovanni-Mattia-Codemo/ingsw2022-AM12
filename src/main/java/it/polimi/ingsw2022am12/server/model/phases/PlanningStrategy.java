@@ -50,6 +50,11 @@ public class PlanningStrategy implements PhaseStrategy {
         return result;
     }
 
+    /**
+     * getName returns the name of the phase
+     *
+     * @return string name of the phase
+     */
     @Override
     public String getName() {
         return "Planning phase";

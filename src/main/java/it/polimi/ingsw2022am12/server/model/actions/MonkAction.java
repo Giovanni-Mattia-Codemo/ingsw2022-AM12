@@ -18,7 +18,7 @@ public class MonkAction extends PossibleAction {
     }
 
     /**
-     * setSelectables method sets the selectable objects
+     * setSelectables method sets the selectable map, associating a key value to a certain object
      *
      * @param game instance of my game
      */
@@ -29,6 +29,11 @@ public class MonkAction extends PossibleAction {
         selectables.put(1, game.getIslandList().getIslandsAsSelectable());
     }
 
+    /**
+     * getUserSelectionsMessage returns a certain string based on the users selections
+     *
+     * @return string message
+     */
     @Override
     public String getUserSelectionsMessage() {
         String msg = "";

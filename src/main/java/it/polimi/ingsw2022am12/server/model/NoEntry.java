@@ -25,6 +25,12 @@ public class NoEntry extends PlaceableObject implements Selectable {
         return characterNoEntryCollection;
     }
 
+    /**
+     * Method isEqual compares two objects, and checks if they are in the same state
+     *
+     * @param toCompare the Selectable object to compare
+     * @return boolean true if the objects have the same values
+     */
     @Override
     public boolean isEqual(Selectable toCompare) {
         return toCompare instanceof NoEntry;

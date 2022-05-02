@@ -6,24 +6,38 @@ import java.net.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * Server class represents the component which receives requests from the client, and sends responses
+ */
 public class Server {
 
     private int port;
     private ServerSocket serverSocket;
     private final Controller myController;
 
-
+    /**
+     * Constructor method of the Server class
+     *
+     * @param port the server's port
+     */
     public Server(int port){
         this.port = port;
         this.myController = new Controller();
     }
 
+    /**
+     * Main method for the Server
+     *
+     * @param args array of parameters written as strings
+     */
     public static void main(String[] args) {
         Server server = new Server(1344);
         server.startServer();
     }
 
-
+    /**
+     * The method that starts the server
+     */
     public void startServer(){
 
         ExecutorService executor = Executors.newCachedThreadPool();

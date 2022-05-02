@@ -1,5 +1,8 @@
 package it.polimi.ingsw2022am12.server;
 
+/**
+ * ControlMessages is an enum that contains the type of messages a client can receive from the server
+ */
 public enum ControlMessages {
     RETRY(0, "Try another"),
     ACCEPTED(1, "Input accepted"),
@@ -15,9 +18,9 @@ public enum ControlMessages {
     private final String message;
 
     /**
-     * Constructor method of DiskColor. Initiates the values of the enum
+     * Constructor method of ControlMessages. Initiates the values of the enum
      *
-     * @param newValue value of the specific color
+     * @param newValue value of the specific message
      * @param s message for the client
      */
     ControlMessages(final int newValue, String s){
@@ -26,14 +29,19 @@ public enum ControlMessages {
     }
 
     /**
-     * Method getValue returns the correspondent value of a color
+     * Method getValue returns the correspondent value of a message
      *
-     * @return value of color
+     * @return int value of message
      */
     public int getValue(){
         return value;
     }
 
+    /**
+     * Method getMessage returns a certain message
+     *
+     * @return String message
+     */
     public String getMessage() {
         return message;
     }

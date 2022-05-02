@@ -36,6 +36,15 @@ public class CharacterJester extends CharacterCard {
     }
 
     /**
+     * getMovesDone returns the number of swaps done by the card
+     *
+     * @return int number of moves done
+     */
+    public int getMovesDone() {
+        return movesDone;
+    }
+
+    /**
      * Method PossibleAction allows me to know the Jester power
      *
      * @return PossibleAction the Jester action I can use
@@ -74,7 +83,5 @@ public class CharacterJester extends CharacterCard {
         }
     }
 
-    public int getMovesDone() {
-        return movesDone;
-    }
+
 }

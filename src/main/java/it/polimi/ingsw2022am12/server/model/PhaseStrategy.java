@@ -30,5 +30,10 @@ public interface PhaseStrategy {
      */
      ArrayList<PossibleAction> getValidActions(Game game);
 
+    /**
+     * Method that returns name
+     *
+     * @return string name
+     */
      public String getName();
 }
