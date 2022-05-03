@@ -28,11 +28,11 @@ public class StudentDiskCollectionAdapter extends TypeAdapter<StudentDiskCollect
         jsonWriter.endObject();
     }
 
-
     @Override
     public StudentDiskCollection read(JsonReader jsonReader) throws IOException {
         jsonReader.beginObject();
         String fieldName = null;
+        StudentDiskCollection studentDiskCollection = null;
 
         while(jsonReader.hasNext()){
             JsonToken token = jsonReader.peek();

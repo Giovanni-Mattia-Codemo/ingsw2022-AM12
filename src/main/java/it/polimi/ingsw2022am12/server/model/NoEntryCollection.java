@@ -28,6 +28,10 @@ public class NoEntryCollection implements Position {
         noEntries = null;
     }
 
+    public int getMyId() {
+        return myId;
+    }
+
     /**
      * Method noEntriesSize returns the size of noEntries
      *

@@ -25,6 +25,7 @@ public class AssistantAdapter extends TypeAdapter<Assistant> {
     public Assistant read(JsonReader jsonReader) throws IOException {
         
         jsonReader.beginObject();
+        Assistant assistant = null;
         String fieldName = null;
 
         while (jsonReader.hasNext()) {
@@ -37,15 +38,12 @@ public class AssistantAdapter extends TypeAdapter<Assistant> {
             if("AssistantTurnPower".equals(fieldName)) {
 
                 token = jsonReader.peek();
-                return AssistantCreator.createAssistant(jsonReader.nextInt());
+                assistant = AssistantCreator.createAssistant(jsonReader.nextInt());
             }
 
         }
         jsonReader.endObject();
         
-        
-        
-        
-        return null;
+        return assistant;
     }
 }

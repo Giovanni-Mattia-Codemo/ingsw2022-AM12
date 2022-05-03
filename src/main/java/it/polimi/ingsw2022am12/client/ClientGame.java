@@ -1,7 +1,9 @@
 package it.polimi.ingsw2022am12.client;
 
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.Collections;
+
+
 
 /**
  * ClientGame represents the main attributes of the game from the client's side
@@ -16,12 +18,18 @@ public class ClientGame {
     private String phase;
     private ArrayList<ClientSchoolBoard> schoolBoards;
     private ArrayList<ClientIsland> islands;
-    private ClientStudentCollection[] clouds;
+    private ArrayList<ClientStudentCollection> clouds;
     private String[] professors;
     private ArrayList<ClientTeam> teams;
     private ArrayList<ClientCharacter> characters;
     private String activeCharacter;
 
+    /**
+     * Default constructor of the ClientGame class
+     */
+    public ClientGame(){
+        this.professors = new String[5];
+    }
 
     /**
      * Setter method for round

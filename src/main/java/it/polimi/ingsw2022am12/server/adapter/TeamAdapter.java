@@ -20,10 +20,10 @@ public class TeamAdapter extends TypeAdapter<Team> {
 
         jsonWriter.name("TeamName");
         jsonWriter.value(team.getSchoolBoardWithTowers().getNick());
+        jsonWriter.name("Player2");
         if(team.getSchoolBoards().size()>1){
-            jsonWriter.name("Player2");
             jsonWriter.value(team.getSchoolBoards().get(1).getNick());
-        }
+        }else jsonWriter.value("null");
         jsonWriter.endObject();
 
     }

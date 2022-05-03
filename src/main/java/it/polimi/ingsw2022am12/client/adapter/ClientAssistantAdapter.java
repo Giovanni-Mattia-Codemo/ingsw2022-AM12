@@ -2,8 +2,11 @@ package it.polimi.ingsw2022am12.client.adapter;
 
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import it.polimi.ingsw2022am12.client.ClientAssistant;
+import it.polimi.ingsw2022am12.server.model.DiskColor;
+import it.polimi.ingsw2022am12.server.model.Student;
 
 import java.io.IOException;
 
@@ -20,7 +23,25 @@ public class ClientAssistantAdapter extends TypeAdapter<ClientAssistant> {
     }
 
     @Override
-    public ClientAssistant read(JsonReader jsonReader) throws IOException {
-        return null;
+    public ClientAssistant read(JsonReader reader) throws IOException {
+
+        ClientAssistant clientAssistant = new ClientAssistant();
+        reader.beginObject();
+        String fieldname = null;
+
+        while (reader.hasNext()) {
+            JsonToken token = reader.peek();
+
+            if (token.equals(JsonToken.NAME)) {
+                fieldname = reader.nextName();
+            }
+
+            if("AssistantTurnPower".equals(fieldname)) {
+                token = reader.peek();
+                clientAssistant.setTurnPower(reader.nextInt());
+            }
+        }
+        reader.endObject();
+        return clientAssistant;
     }
 }

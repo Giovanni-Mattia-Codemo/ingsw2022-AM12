@@ -8,13 +8,9 @@ import it.polimi.ingsw2022am12.server.adapter.GameAdapter;
 import it.polimi.ingsw2022am12.server.model.Game;
 import it.polimi.ingsw2022am12.server.model.Selectable;
 import it.polimi.ingsw2022am12.server.model.actions.ActionStep;
-
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.Semaphore;
-import java.util.concurrent.locks.Lock;
 
 /**
  * Controller class represents the component which receives inputs from the client and generates a response updating views

@@ -6,6 +6,11 @@ package it.polimi.ingsw2022am12.client;
 public class ClientCharacter {
 
     private String name;
+    private boolean hasCoin;
+    private int cost;
+    private ClientStudentCollection students;
+    private int numberOfNoEntries;
+    private int noEntryCollectionID;
 
     /**
      * Constructor method of ClientCharacter class

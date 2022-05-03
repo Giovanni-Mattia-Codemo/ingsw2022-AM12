@@ -37,8 +37,9 @@ public class CharacterAdapterFactory implements TypeAdapterFactory {
             if(characterCard.getCoin()){
                 jsonWriter.value("true");
             }else jsonWriter.value("false");
-
-            Gson gson = new GsonBuilder().registerTypeAdapter(Student.class, new StudentAdapter()).create();
+            jsonWriter.name("Cost");
+            jsonWriter.value(characterCard.getCost());
+            Gson gson = new GsonBuilder().registerTypeAdapter(StudentDiskCollection.class, new StudentDiskCollectionAdapter()).create();
 
             switch (characterCard.getName().toString()) {
                 case "CHARACTER_HERBALIST" -> {
@@ -57,7 +58,7 @@ public class CharacterAdapterFactory implements TypeAdapterFactory {
                 }
                 case "CHARACTER_PRINCESS" -> {
                     jsonWriter.name("Students");
-                    gson.toJson(gson.toJsonTree(((CharacterPrincess) characterCard).getStudents().getAllStudents()), jsonWriter);
+                    gson.toJson(gson.toJsonTree(((CharacterPrincess) characterCard).getStudents()), jsonWriter);
                 }
                 default -> {
                 }

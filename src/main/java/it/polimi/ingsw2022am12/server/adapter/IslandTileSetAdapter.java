@@ -58,6 +58,6 @@ public class IslandTileSetAdapter extends TypeAdapter<IslandTileSet> {
 
         }
         reader.endObject();
-        return null;
+        return island;
     }
 }

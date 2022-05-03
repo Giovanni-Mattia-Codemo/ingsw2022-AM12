@@ -14,6 +14,7 @@ public class Client {
     private String ip;
     private PrintWriter stdout;
     private PrintWriter out;
+    private ClientGame clientGame;
 
     /**
      * Constructor method of the Client class
@@ -121,5 +122,10 @@ public class Client {
     public void forwardJson(String s){
         out.println(s);
         out.flush();
+    }
+
+    public void updateGameState(ClientGame clientGame){
+        System.out.println("gettin my game updated");
+        this.clientGame = clientGame;
     }
 }

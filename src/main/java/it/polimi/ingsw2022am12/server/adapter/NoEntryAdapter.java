@@ -42,6 +42,6 @@ public class NoEntryAdapter extends TypeAdapter<NoEntry> {
 
         }
         reader.endObject();
-        return null;
+        return noEntry;
     }
 }

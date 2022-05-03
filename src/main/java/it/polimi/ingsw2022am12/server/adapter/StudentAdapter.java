@@ -39,22 +39,22 @@ public class StudentAdapter extends TypeAdapter<Student> {
     public Student read(JsonReader reader) throws IOException {
         Student student = new Student();
         reader.beginObject();
-        String fieldname = null;
+        String fieldName = null;
 
         while (reader.hasNext()) {
             JsonToken token = reader.peek();
 
             if (token.equals(JsonToken.NAME)) {
                 //get the current token
-                fieldname = reader.nextName();
+                fieldName = reader.nextName();
             }
 
-            if("positionID".equals(fieldname)) {
+            if("positionID".equals(fieldName)) {
                 //move to next token
                 token = reader.peek();
                 student.setPositionID(reader.nextInt());
             }
-            if ("color".equals(fieldname)) {
+            if ("color".equals(fieldName)) {
                 //move to next token
                 token = reader.peek();
                 student.setColor(DiskColor.valueOf(reader.nextString()));
