@@ -74,7 +74,7 @@ public class GameAdapter extends TypeAdapter<Game> {
         embedded = new GsonBuilder().registerTypeAdapterFactory(new CharacterAdapterFactory()).create();
 
         embedded.toJson(embedded.toJsonTree(myGame.getAvailableCharacters()),writer);
-        writer.name("Active Character");
+        writer.name("ActiveCharacter");
         if(myGame.getActiveCharacterCard()!=null){
             writer.value(myGame.getActiveCharacterCard().getName().toString());
         }else writer.value("null");

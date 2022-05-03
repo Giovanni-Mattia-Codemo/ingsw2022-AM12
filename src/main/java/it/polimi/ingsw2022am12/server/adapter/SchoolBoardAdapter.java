@@ -33,7 +33,7 @@ public class SchoolBoardAdapter extends TypeAdapter<SchoolBoard> {
         jsonWriter.name("Mage");
         if(schoolBoard.getMage()!=null){
             jsonWriter.value(schoolBoard.getMage().getID());
-        }else jsonWriter.value("null");
+        }else jsonWriter.value(-1);
 
         jsonWriter.name("Towers");
         jsonWriter.value(schoolBoard.getTowersNumber());

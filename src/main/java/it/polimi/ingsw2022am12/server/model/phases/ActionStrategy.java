@@ -17,7 +17,7 @@ public class ActionStrategy implements PhaseStrategy {
      */
     @Override
     public String getName() {
-        return "Action phase";
+        return "ActionPhase";
     }
 
     /**

@@ -22,7 +22,30 @@ public class ClientStudentAdapter extends TypeAdapter<ClientStudent> {
     }
 
     @Override
-    public ClientStudent read(JsonReader jsonReader) throws IOException {
-        return null;
+    public ClientStudent read(JsonReader reader) throws IOException {
+
+        ClientStudent student = null;
+        reader.beginObject();
+        String fieldName = null;
+
+        while (reader.hasNext()) {
+            JsonToken token = reader.peek();
+
+            if (token.equals(JsonToken.NAME)) {
+                //get the current token
+                fieldName = reader.nextName();
+            }
+
+            if ("color".equals(fieldName)) {
+                //move to next token
+                token = reader.peek();
+                student = new ClientStudent();
+                student.setColor(reader.nextString());
+            }
+
+
+        }
+        reader.endObject();
+        return student;
     }
 }

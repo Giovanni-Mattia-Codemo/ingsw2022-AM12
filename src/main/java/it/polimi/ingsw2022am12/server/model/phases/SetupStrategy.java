@@ -68,6 +68,6 @@ public class SetupStrategy implements PhaseStrategy {
      */
     @Override
     public String getName() {
-        return "Setup Phase";
+        return "SetupPhase";
     }
 }

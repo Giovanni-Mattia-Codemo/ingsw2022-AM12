@@ -21,7 +21,7 @@ public class NoEntryAdapter extends TypeAdapter<NoEntry> {
     public NoEntry read(JsonReader reader) throws IOException {
         reader.beginObject();
         String fieldName = null;
-
+        NoEntry noEntry = null;
         while (reader.hasNext()) {
             JsonToken token = reader.peek();
 
@@ -35,7 +35,7 @@ public class NoEntryAdapter extends TypeAdapter<NoEntry> {
                 token = reader.peek();
                 NoEntryCollection noEntryCollection = new NoEntryCollection(reader.nextInt());
                 
-                return new NoEntry(noEntryCollection);
+                noEntry = new NoEntry(noEntryCollection);
             }
 
 

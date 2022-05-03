@@ -57,7 +57,7 @@ public class PlanningStrategy implements PhaseStrategy {
      */
     @Override
     public String getName() {
-        return "Planning phase";
+        return "PlanningPhase";
     }
 
 

@@ -10,6 +10,7 @@ import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import it.polimi.ingsw2022am12.server.model.CharacterCard;
 import it.polimi.ingsw2022am12.server.model.Student;
+import it.polimi.ingsw2022am12.server.model.StudentDiskCollection;
 import it.polimi.ingsw2022am12.server.model.characters.*;
 
 import java.io.IOException;
@@ -41,16 +42,18 @@ public class CharacterAdapterFactory implements TypeAdapterFactory {
 
             switch (characterCard.getName().toString()) {
                 case "CHARACTER_HERBALIST" -> {
-                    jsonWriter.name("NoEntries");
+                    jsonWriter.name("EntryNum");
                     jsonWriter.value(((CharacterHerbalist) characterCard).getNoEntryCollection().noEntriesSize());
+                    jsonWriter.name("EntryId");
+                    jsonWriter.value(((CharacterHerbalist) characterCard).getNoEntryCollection().getMyId());
                 }
                 case "CHARACTER_JESTER" -> {
                     jsonWriter.name("Students");
-                    gson.toJson(gson.toJsonTree(((CharacterJester) characterCard).getStudents().getAllStudents()), jsonWriter);
+                    gson.toJson(gson.toJsonTree(((CharacterJester) characterCard).getStudents()), jsonWriter);
                 }
                 case "CHARACTER_MONK" -> {
                     jsonWriter.name("Students");
-                    gson.toJson(gson.toJsonTree(((CharacterMonk) characterCard).getStudents().getAllStudents()), jsonWriter);
+                    gson.toJson(gson.toJsonTree(((CharacterMonk) characterCard).getStudents()), jsonWriter);
                 }
                 case "CHARACTER_PRINCESS" -> {
                     jsonWriter.name("Students");

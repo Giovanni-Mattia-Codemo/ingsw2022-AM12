@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class ClientStudentCollection {
     private int ID;
 
-    public ClientStudentCollection(int ID){
-        this.ID = ID;
+    public ClientStudentCollection(int id){
+        this.ID = id;
     }
 
     public int getID() {

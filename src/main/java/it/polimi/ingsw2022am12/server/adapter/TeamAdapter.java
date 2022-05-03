@@ -17,6 +17,7 @@ public class TeamAdapter extends TypeAdapter<Team> {
     @Override
     public void write(JsonWriter jsonWriter, Team team) throws IOException {
         jsonWriter.beginObject();
+
         jsonWriter.name("TeamName");
         jsonWriter.value(team.getSchoolBoardWithTowers().getNick());
         if(team.getSchoolBoards().size()>1){

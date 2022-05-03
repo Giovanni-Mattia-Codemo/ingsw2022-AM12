@@ -10,4 +10,6 @@ public class ClientCharacter {
     public String getName() {
         return name;
     }
+
+
 }

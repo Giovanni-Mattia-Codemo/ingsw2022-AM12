@@ -9,6 +9,7 @@ import com.google.gson.stream.JsonWriter;
 import it.polimi.ingsw2022am12.server.model.DiskColor;
 import it.polimi.ingsw2022am12.server.model.IslandTileSet;
 import it.polimi.ingsw2022am12.server.model.Student;
+import it.polimi.ingsw2022am12.server.model.StudentDiskCollection;
 
 import java.io.IOException;
 
@@ -22,9 +23,9 @@ public class IslandTileSetAdapter extends TypeAdapter<IslandTileSet> {
         jsonWriter.name("ID");
         jsonWriter.value(islandTileSet.getID());
         jsonWriter.name("Students");
-        GsonBuilder builder = new GsonBuilder().registerTypeAdapter(Student.class, new StudentAdapter());
+        GsonBuilder builder = new GsonBuilder().registerTypeAdapter(StudentDiskCollection.class, new StudentDiskCollectionAdapter());
         embedded = builder.create();
-        embedded.toJson(embedded.toJsonTree(islandTileSet.getStudents()), jsonWriter);
+        embedded.toJson(embedded.toJsonTree(islandTileSet.getStudentCollection()),jsonWriter);
         jsonWriter.name("IslandNumber");
         jsonWriter.value(islandTileSet.getNumOfIslandsInThisSet());
         jsonWriter.name("Conqueror");
@@ -38,7 +39,7 @@ public class IslandTileSetAdapter extends TypeAdapter<IslandTileSet> {
     public IslandTileSet read(JsonReader reader) throws IOException {
         reader.beginObject();
         String fieldName = null;
-
+        IslandTileSet island = null;
         while (reader.hasNext()) {
             JsonToken token = reader.peek();
 
@@ -50,7 +51,7 @@ public class IslandTileSetAdapter extends TypeAdapter<IslandTileSet> {
             if("ID".equals(fieldName)) {
 
                 token = reader.peek();
-                return new IslandTileSet(reader.nextInt());
+                island = new IslandTileSet(reader.nextInt());
             }
 
 

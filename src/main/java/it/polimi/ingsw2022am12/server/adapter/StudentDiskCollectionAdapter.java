@@ -41,11 +41,11 @@ public class StudentDiskCollectionAdapter extends TypeAdapter<StudentDiskCollect
             }
 
             if("ID".equals(fieldName)){
-                return new StudentDiskCollection(jsonReader.nextInt());
+                studentDiskCollection = new StudentDiskCollection(jsonReader.nextInt());
             }
 
         }
         jsonReader.endObject();
-        return null;
+        return studentDiskCollection;
     }
 }
