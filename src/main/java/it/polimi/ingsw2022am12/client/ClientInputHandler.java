@@ -60,6 +60,8 @@ public class ClientInputHandler implements Runnable {
                 break;
 
             case "Island":
+
+
                 ClientIsland clientIsland = new ClientIsland(Integer.parseInt(tokens[1]));
                 gson = new GsonBuilder().registerTypeAdapter(ClientIsland.class, new ClientIslandAdapter()).create();
                 result=gson.toJson(clientIsland);

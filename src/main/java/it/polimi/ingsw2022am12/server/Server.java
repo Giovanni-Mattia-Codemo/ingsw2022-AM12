@@ -3,6 +3,7 @@ package it.polimi.ingsw2022am12.server;
 import it.polimi.ingsw2022am12.server.controller.Controller;
 import java.io.IOException;
 import java.net.*;
+import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -41,7 +42,7 @@ public class Server {
     public void startServer(){
 
         ExecutorService executor = Executors.newCachedThreadPool();
-
+        Scanner serverTerminalIn = new Scanner(System.in);
         try{
             serverSocket = new ServerSocket(port);
             System.out.println("Server up and running \n");
@@ -59,6 +60,10 @@ public class Server {
             }
         }
         executor.shutdown();
+    }
+
+    public void closeServer(){
+
     }
 
 }

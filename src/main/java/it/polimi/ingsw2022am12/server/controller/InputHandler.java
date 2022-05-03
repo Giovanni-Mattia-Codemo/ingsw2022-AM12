@@ -22,7 +22,7 @@ public class InputHandler {
         this.myGame = myGame;
         this.selected = new ArrayList<>();
         this.actions = new ArrayList<>();
-        updateActions();
+        this.updateActions();
     }
 
     /**

@@ -14,9 +14,9 @@ public class ClientStudentAdapter extends TypeAdapter<ClientStudent> {
         jsonWriter.beginObject();
         jsonWriter.name("tag");
         jsonWriter.value("Student");
-        jsonWriter.name("Color");
+        jsonWriter.name("color");
         jsonWriter.value(clientStudent.getColor());
-        jsonWriter.name("ID");
+        jsonWriter.name("positionID");
         jsonWriter.value(clientStudent.getID());
         jsonWriter.endObject();
     }

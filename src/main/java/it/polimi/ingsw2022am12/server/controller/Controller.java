@@ -9,6 +9,7 @@ import it.polimi.ingsw2022am12.server.model.Game;
 import it.polimi.ingsw2022am12.server.model.Selectable;
 import it.polimi.ingsw2022am12.server.model.actions.ActionStep;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -73,7 +74,10 @@ public class Controller {
                 String msg = "Action completed successfully." + "\n";
                 if(myGame.getCurrentSchoolBoard().getNick().equals(userMap.get(v))){
                     msg = msg.concat(inputHandler.getNextSelection());
-                }else msg = msg.concat("Your turn has ended"+ "\n");
+                }else {
+                    msg = msg.concat("Your turn has ended"+ "\n");
+                    notifyNextPlayerOfSel();
+                }
                 return msg;
             }
         }
@@ -156,15 +160,31 @@ public class Controller {
             return  ControlMessages.INSERTMODE;
         }
         if(userMap.size()==numOfPlayers){
+            System.out.println("reached max players");
             acceptingUsers = false;
             ArrayList<String> nicks = new ArrayList<>();
             for(String userName: userMap.values()){
                 nicks.add(userName);
             }
             myGame = new Game(nicks, difficulty);
+            myGame.setUp();
+            System.out.println("game is up");
             inputHandler = new InputHandler(myGame);
+            notifyNextPlayerOfSel();
+
         }
         return ControlMessages.ACCEPTED;
     }
 
+
+    public void notifyNextPlayerOfSel(){
+        for(VirtualView virtualView : userMap.keySet()){
+            System.out.println("in the for");
+
+            if(userMap.get(virtualView).equals(myGame.getCurrentSchoolBoard().getNick())){
+                System.out.println("about to forward");
+                virtualView.forwardMsg(inputHandler.getNextSelection());
+            }
+        }
+    }
 }

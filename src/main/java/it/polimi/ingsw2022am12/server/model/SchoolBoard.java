@@ -307,7 +307,10 @@ public class SchoolBoard{
      * @return int turnPower of lastPlayedAssistant
      */
     public int getLastPlayedAssistantPower(){
-        return lastPlayedAssistant.getTurnPower();
+        if(lastPlayedAssistant!=null){
+            return lastPlayedAssistant.getTurnPower();
+        }
+        return -1;
     }
 
     /**

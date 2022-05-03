@@ -91,10 +91,16 @@ public class Client {
         }
 
         */
-        //Nick nome
-        //GameSettings 2 true
-        //{"tag":"InputMode","number":2,"mode":true}
-        // {"tag":"Nick","nick":"mynick3"}
+
+        /*
+        Nick nome
+        GameSettings 2 true
+        Mage 1
+
+        {"tag":"InputMode","number":2,"mode":true}
+         {"tag":"Nick","nick":"mynick3"}
+
+         */
     }
 
     public void showServerMessage(String message){
