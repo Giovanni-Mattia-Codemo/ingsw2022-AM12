@@ -103,11 +103,21 @@ public class Client {
          */
     }
 
+    /**
+     * showServerMessage prints the message from the server, then flushes the output
+     *
+     * @param message from the server
+     */
     public void showServerMessage(String message){
         stdout.println(message);
         stdout.flush();
     }
 
+    /**
+     * forwardJson prints the Json string, then flushes the output
+     *
+     * @param s string that represents my data
+     */
     public void forwardJson(String s){
         out.println(s);
         out.flush();

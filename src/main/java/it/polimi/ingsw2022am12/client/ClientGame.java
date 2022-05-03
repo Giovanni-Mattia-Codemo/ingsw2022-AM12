@@ -3,6 +3,9 @@ package it.polimi.ingsw2022am12.client;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * ClientGame represents the main attributes of the game from the client's side
+ */
 public class ClientGame {
     private int round;
     private int freeCoins;
