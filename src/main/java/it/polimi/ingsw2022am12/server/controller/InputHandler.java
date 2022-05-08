@@ -16,7 +16,7 @@ public class InputHandler {
 
     /**
      * constructor method of InputHandler class
-     * @param myGame
+     * @param myGame instance
      */
     public InputHandler(Game myGame){
         this.myGame = myGame;
@@ -88,7 +88,7 @@ public class InputHandler {
      * it's NOTOK, it removes the possible action from the array. If the counter is greater than 0 by the end of the cycle,
      * the new array is stored in "actions"and returns HALFOK
      *
-     * @returns ActionStep the correctness of my selections
+     * @return ActionStep the correctness of my selections
      */
     private ActionStep tryUsingSelection(){
         int count = 0;

@@ -6,9 +6,7 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
-import it.polimi.ingsw2022am12.server.model.DiskColor;
 import it.polimi.ingsw2022am12.server.model.IslandTileSet;
-import it.polimi.ingsw2022am12.server.model.Student;
 import it.polimi.ingsw2022am12.server.model.StudentDiskCollection;
 
 import java.io.IOException;
@@ -50,7 +48,7 @@ public class IslandTileSetAdapter extends TypeAdapter<IslandTileSet> {
 
             if("ID".equals(fieldName)) {
 
-                token = reader.peek();
+                reader.peek();
                 island = new IslandTileSet(reader.nextInt());
             }
 

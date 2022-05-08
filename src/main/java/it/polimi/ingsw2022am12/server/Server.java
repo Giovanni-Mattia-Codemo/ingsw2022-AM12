@@ -12,7 +12,7 @@ import java.util.concurrent.Executors;
  */
 public class Server {
 
-    private int port;
+    private final int port;
     private ServerSocket serverSocket;
     private final Controller myController;
 
@@ -60,10 +60,6 @@ public class Server {
             }
         }
         executor.shutdown();
-    }
-
-    public void closeServer(){
-
     }
 
 }

@@ -79,4 +79,17 @@ public class ClientSchoolBoard {
     public int getTowers() {
         return towers;
     }
+
+    /**
+     * getAssistantsPowers turns the powers of the Assistants in a string
+     *
+     * @return string list of the powers
+     */
+    public String getAssistantsPowers(){
+        String powers = "";
+        for(ClientAssistant ca : assistants){
+            powers = powers.concat(ca.getTurnPower() + "\t");
+        }
+        return powers;
+    }
 }

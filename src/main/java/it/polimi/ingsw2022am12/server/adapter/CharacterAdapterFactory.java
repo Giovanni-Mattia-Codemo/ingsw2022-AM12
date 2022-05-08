@@ -9,7 +9,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import it.polimi.ingsw2022am12.server.model.CharacterCard;
-import it.polimi.ingsw2022am12.server.model.Student;
 import it.polimi.ingsw2022am12.server.model.StudentDiskCollection;
 import it.polimi.ingsw2022am12.server.model.characters.*;
 
@@ -25,7 +24,7 @@ public class CharacterAdapterFactory implements TypeAdapterFactory {
         return null;
     }
 
-    private TypeAdapter<CharacterCard> customTypeAdapter = new TypeAdapter<CharacterCard>() {
+    private final TypeAdapter<CharacterCard> customTypeAdapter = new TypeAdapter<>() {
 
         @Override
         public void write(JsonWriter jsonWriter, CharacterCard characterCard) throws IOException {
@@ -81,7 +80,7 @@ public class CharacterAdapterFactory implements TypeAdapterFactory {
                 }
 
                 if("CharacterName".equals(fieldName)) {
-                    token = in.peek();
+                    in.peek();
                     String name = in.nextString();
                     switch (name) {
                         case "CHARACTER_HERBALIST" -> characterCard = new CharacterHerbalist();

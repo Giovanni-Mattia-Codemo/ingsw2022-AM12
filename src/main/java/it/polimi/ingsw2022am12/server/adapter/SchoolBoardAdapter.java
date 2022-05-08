@@ -7,7 +7,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import it.polimi.ingsw2022am12.server.model.Assistant;
 import it.polimi.ingsw2022am12.server.model.SchoolBoard;
-import it.polimi.ingsw2022am12.server.model.Student;
 import it.polimi.ingsw2022am12.server.model.StudentDiskCollection;
 
 import java.io.IOException;

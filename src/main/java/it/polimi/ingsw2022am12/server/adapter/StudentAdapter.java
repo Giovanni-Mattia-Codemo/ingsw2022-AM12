@@ -29,9 +29,9 @@ public class StudentAdapter extends TypeAdapter<Student> {
     }
 
     /**
-     * Method read reads a JSON encoded Student as a stream of tokens
+     * Method "read" reads a JSON encoded Student as a stream of tokens
      *
-     * @param reader the reader wich will receive my JSON data
+     * @param reader the reader which will receive my JSON data
      * @return Student the Student created from the JSON values
      * @throws IOException if there is a problem with my input
      */
@@ -50,13 +50,11 @@ public class StudentAdapter extends TypeAdapter<Student> {
             }
 
             if("positionID".equals(fieldName)) {
-                //move to next token
-                token = reader.peek();
+                reader.peek();
                 student.setPositionID(reader.nextInt());
             }
             if ("color".equals(fieldName)) {
-                //move to next token
-                token = reader.peek();
+                reader.peek();
                 student.setColor(DiskColor.valueOf(reader.nextString()));
             }
 

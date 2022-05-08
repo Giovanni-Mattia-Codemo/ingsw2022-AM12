@@ -1,18 +1,9 @@
 package it.polimi.ingsw2022am12.server;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import it.polimi.ingsw2022am12.server.adapter.CharacterAdapterFactory;
-import it.polimi.ingsw2022am12.server.adapter.NoEntryAdapter;
-import it.polimi.ingsw2022am12.server.adapter.StudentAdapter;
-import it.polimi.ingsw2022am12.server.adapter.StudentDiskCollectionAdapter;
 import it.polimi.ingsw2022am12.server.controller.Controller;
-import it.polimi.ingsw2022am12.server.model.*;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.*;
-import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -22,7 +13,7 @@ import java.util.Scanner;
 public class VirtualView implements Runnable{
     private final Socket socket;
     private final Controller myController;
-    private PrintWriter out= null;
+    private PrintWriter out = null;
 
     /**
      * constructor method of VirtualView class
@@ -40,8 +31,6 @@ public class VirtualView implements Runnable{
      *
      */
     public void forwardMsg(String gameState){
-
-        System.out.println("almost there");
         out.println(gameState);
         out.flush();
     }
@@ -52,16 +41,11 @@ public class VirtualView implements Runnable{
      */
     public void run(){
         try{
-
-           // gsonBuilder = new GsonBuilder(Selectable.class, new SelectableAdapter());
-
             Scanner in = new Scanner(socket.getInputStream());
             out = new PrintWriter(socket.getOutputStream());
             VirtualViewMessagesParser virtualViewMessagesParser = new VirtualViewMessagesParser(this, in, myController);
             new Thread(virtualViewMessagesParser).start();
             System.out.println("Im alive");
-
-
         }catch (IOException e){
             System.err.println(e.getMessage());
         }

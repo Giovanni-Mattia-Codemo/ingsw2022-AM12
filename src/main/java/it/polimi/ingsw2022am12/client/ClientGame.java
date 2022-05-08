@@ -1,9 +1,8 @@
 package it.polimi.ingsw2022am12.client;
 
+import it.polimi.ingsw2022am12.server.model.DiskColor;
+
 import java.util.ArrayList;
-import java.util.Collections;
-
-
 
 /**
  * ClientGame represents the main attributes of the game from the client's side
@@ -19,7 +18,7 @@ public class ClientGame {
     private ArrayList<ClientSchoolBoard> schoolBoards;
     private ArrayList<ClientIsland> islands;
     private ArrayList<ClientStudentCollection> clouds;
-    private String[] professors;
+    private final String[] professors;
     private ArrayList<ClientTeam> teams;
     private ArrayList<ClientCharacter> characters;
     private String activeCharacter;
@@ -104,7 +103,10 @@ public class ClientGame {
         this.professors[i] = professor;
     }
 
-
+    /**
+     * Setter method for teams
+     * @param teams list of ClientTeams
+     */
     public void setTeams(ArrayList<ClientTeam> teams) {
         this.teams = teams;
     }

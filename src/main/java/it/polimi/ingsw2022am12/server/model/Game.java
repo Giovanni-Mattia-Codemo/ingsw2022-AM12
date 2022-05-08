@@ -194,48 +194,6 @@ public class Game{
         }
     }
 
-/*
-    public void printBoards(){
-        System.out.println("Boards: ");
-        for(SchoolBoard s: turnOrder){
-            System.out.println(" ");
-            System.out.println(s.getNick()+"'s board: ");
-            System.out.print("Entrance: ");
-            s.getEntrance().printStudents();
-
-            System.out.println("\n Towers: "+ s.getTowersNumber());
-            System.out.print("DiningRoom: ");
-            s.getDiningRoom().printStudents();
-            System.out.println(" ");
-        }
-        System.out.println("\n ...");
-    }
-
-    public void printIslands(){
-        islandList.printIslands();
-        System.out.println("\n ...");
-    }
-
-    public void printClouds(){
-        System.out.println("\nClouds: ");
-        for (int i = 0; i < numOfPlayers; i++) {
-            System.out.println("\n cloud of index "+ i);
-            System.out.print("    Students:");
-            clouds[i].printStudents();
-        }
-        System.out.println("\n ...");
-    }
-
-    public void printTurnOrder(){
-        System.out.print("TurnOrder: ");
-        for(SchoolBoard s: turnOrder){
-            System.out.print(s.getNick()+" ");
-        }
-        System.out.println("\n ...");
-    }
-
- */
-
     /**
      * getCurrentStrategy returns the current phase strategy
      *

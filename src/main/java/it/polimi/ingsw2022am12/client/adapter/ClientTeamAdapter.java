@@ -5,14 +5,12 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import it.polimi.ingsw2022am12.client.ClientTeam;
-
 import java.io.IOException;
 
 public class ClientTeamAdapter extends TypeAdapter<ClientTeam> {
 
     @Override
     public void write(JsonWriter jsonWriter, ClientTeam team) throws IOException {
-        return;
     }
 
     @Override
@@ -20,33 +18,26 @@ public class ClientTeamAdapter extends TypeAdapter<ClientTeam> {
 
         ClientTeam team = new ClientTeam();
         reader.beginObject();
-        String fieldname = null;
+        String fieldName = null;
 
         while (reader.hasNext()) {
             JsonToken token = reader.peek();
 
             if (token.equals(JsonToken.NAME)) {
-                fieldname = reader.nextName();
+                fieldName = reader.nextName();
             }
 
-            if("TeamName".equals(fieldname)) {
-                token = reader.peek();
+            if("TeamName".equals(fieldName)) {
+                reader.peek();
                 team.setPlayer1(reader.nextString());
             }
 
-            if ("Player2".equals(fieldname)) {
-                token = reader.peek();
+            if ("Player2".equals(fieldName)) {
+                reader.peek();
                 team.setPlayer2(reader.nextString());
             }
-
-
-
-
-
-
         }
         reader.endObject();
         return team;
-
     }
 }

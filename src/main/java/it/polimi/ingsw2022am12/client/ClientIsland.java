@@ -1,7 +1,5 @@
 package it.polimi.ingsw2022am12.client;
 
-import java.util.ArrayList;
-
 public class ClientIsland {
     private int ID;
     private int number;
@@ -9,7 +7,6 @@ public class ClientIsland {
     private String conqueror;
 
     public ClientIsland(){
-
     }
 
     public ClientIsland(int id){

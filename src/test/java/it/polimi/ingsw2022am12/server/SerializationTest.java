@@ -2,7 +2,6 @@ package it.polimi.ingsw2022am12.server;
 
 import it.polimi.ingsw2022am12.InputMode;
 import it.polimi.ingsw2022am12.server.adapter.GameAdapter;
-import it.polimi.ingsw2022am12.server.adapter.MessageAdapter;
 import it.polimi.ingsw2022am12.server.model.*;
 import it.polimi.ingsw2022am12.server.adapter.StudentAdapter;
 import org.junit.jupiter.api.Assertions;
@@ -78,13 +77,13 @@ public class SerializationTest {
         System.out.println(output);
 
         InputMode inputMode = new InputMode();
-        Gson gson1234 = new GsonBuilder().registerTypeAdapter(InputMode.class, new MessageAdapter()).create();
-        String outpu = gson1234.toJson(inputMode);
-        System.out.println(outpu);
+        //Gson gson1234 = new GsonBuilder().registerTypeAdapter(InputMode.class, new MessageAdapter()).create();
+        //String outpu = gson1234.toJson(inputMode);
+        //System.out.println(outpu);
 
-        Map myMap = gson1234.fromJson(outpu, Map.class);
-        String number =  myMap.get("number").toString();
-        System.out.println(number);
+        //Map myMap = gson1234.fromJson(outpu, Map.class);
+        //String number =  myMap.get("number").toString();
+        //System.out.println(number);
 
 
 

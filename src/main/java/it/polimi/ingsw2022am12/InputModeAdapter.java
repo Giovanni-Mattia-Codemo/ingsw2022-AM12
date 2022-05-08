@@ -1,9 +1,8 @@
-package it.polimi.ingsw2022am12.client.adapter;
+package it.polimi.ingsw2022am12;
 
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import it.polimi.ingsw2022am12.client.InputMode;
 
 import java.io.IOException;
 

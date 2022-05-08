@@ -1,6 +1,5 @@
 package it.polimi.ingsw2022am12.client.adapter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapter;
@@ -8,9 +7,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import it.polimi.ingsw2022am12.client.*;
-import it.polimi.ingsw2022am12.server.model.DiskColor;
-import it.polimi.ingsw2022am12.server.model.Student;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -35,41 +31,41 @@ public class ClientSchoolBoardAdapter extends TypeAdapter<ClientSchoolBoard> {
             }
 
             if("Nick".equals(fieldName)) {
-                token = reader.peek();
+                reader.peek();
                 clientSchoolBoard.setNick(reader.nextString());
             }
             if ("Entrance".equals(fieldName)) {
-                token = reader.peek();
+                reader.peek();
                 Gson gson = new GsonBuilder().registerTypeAdapter(ClientStudentCollection.class, new ClientStudentCollectionAdapter()).create();
                 ClientStudentCollection tmp = gson.fromJson(reader, ClientStudentCollection.class);
                 clientSchoolBoard.setEntrance(tmp);
             }
             if ("DiningRoom".equals(fieldName)) {
-                token = reader.peek();
+                reader.peek();
                 Gson gson = new GsonBuilder().registerTypeAdapter(ClientStudentCollection.class, new ClientStudentCollectionAdapter()).create();
                 ClientStudentCollection tmp = gson.fromJson(reader, ClientStudentCollection.class);
                 clientSchoolBoard.setDiningRooms(tmp);
             }
             if ("Coins".equals(fieldName)) {
-                token = reader.peek();
+                reader.peek();
 
                 clientSchoolBoard.setCoins(reader.nextInt());
             }
             if ("Towers".equals(fieldName)) {
-                token = reader.peek();
+                reader.peek();
 
                 clientSchoolBoard.setTowers(reader.nextInt());
             }
             if ("Mage".equals(fieldName)) {
-                token = reader.peek();
+                reader.peek();
                 clientSchoolBoard.setMage(reader.nextInt());
             }
             if ("LastPlayedAssistant".equals(fieldName)) {
-                token = reader.peek();
+                reader.peek();
                 clientSchoolBoard.setPlayedAssistant(reader.nextInt());
             }
             if ("Assistants".equals(fieldName)) {
-                token = reader.peek();
+                reader.peek();
 
                 ArrayList<ClientAssistant> assistants = new ArrayList<>();
                 reader.beginArray();
@@ -81,11 +77,8 @@ public class ClientSchoolBoardAdapter extends TypeAdapter<ClientSchoolBoard> {
 
                 clientSchoolBoard.setAssistants(assistants);
             }
-
         }
         reader.endObject();
         return clientSchoolBoard;
-
-
     }
 }

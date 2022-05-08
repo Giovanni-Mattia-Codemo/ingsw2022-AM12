@@ -40,9 +40,7 @@ public class Controller {
     /**
      * updateAllViews converts the state of the game in a string, and forwards it to the various VirtualViews
      */
-    private void updateAllViews(){
-        Gson gson = new GsonBuilder().registerTypeAdapter(Game.class, new GameAdapter()).create();
-        String result = gson.toJson(myGame);
+    private void updateAllViews(String result){
         for(VirtualView v: userMap.keySet()){
             v.forwardMsg(result);
         }
@@ -55,7 +53,7 @@ public class Controller {
      * @return String the message sent
      */
     public synchronized String send(VirtualView v, Selectable s){
-
+        String msg = "";
         if (myGame == null) return "Game isn't ready yet";
 
         //check username
@@ -66,16 +64,20 @@ public class Controller {
             }else if(result.equals(ActionStep.HALFOK)){
                 return inputHandler.getNextSelection();
             }else if(result.equals(ActionStep.OK)){
-                updateAllViews();
-                String msg = "Action completed successfully." + "\n";
+                Gson gson = new GsonBuilder().registerTypeAdapter(Game.class, new GameAdapter()).create();
+                String gameState = gson.toJson(myGame);
+                updateAllViews(gameState);
+                msg = msg.concat("Action completed successfully." + "\n") ;
                 if(myGame.getCurrentSchoolBoard().getNick().equals(userMap.get(v))){
                     msg = msg.concat(inputHandler.getNextSelection());
                 }else {
                     msg = msg.concat("Your turn has ended"+ "\n");
                     notifyNextPlayerOfSel();
                 }
-                return msg;
+
             }
+            return msg;
+
         }
         return "Not your turn";
     }
@@ -89,20 +91,16 @@ public class Controller {
      */
     public synchronized ControlMessages setGameMode(VirtualView v, int i, boolean b){
         if(userMap.containsKey(v)){
-            System.out.println("in set gamemode and i m a verified user");
             if(gameWasSet){
                 return ControlMessages.GAMEWASSET;
             }
 
             if(i>1&&i<=4){
-                System.out.println("number was checked");
-                difficulty =b;
+                difficulty = b;
                 numOfPlayers = i;
                 creatingGame = false;
                 gameWasSet = true;
-
                 notifyAll();
-                System.out.println("notified all");
                 return ControlMessages.ACCEPTED;
             }else{
                 return ControlMessages.INVALIDVALUES;
@@ -156,7 +154,7 @@ public class Controller {
             return  ControlMessages.INSERTMODE;
         }
         if(userMap.size()==numOfPlayers){
-            System.out.println("reached max players");
+            System.out.println("Reached max players");
             acceptingUsers = false;
             ArrayList<String> nicks = new ArrayList<>();
             for(String userName: userMap.values()){
@@ -164,7 +162,7 @@ public class Controller {
             }
             myGame = new Game(nicks, difficulty);
             myGame.setUp();
-            System.out.println("game is up");
+            System.out.println("Game is up");
             inputHandler = new InputHandler(myGame);
             notifyNextPlayerOfSel();
 
@@ -175,10 +173,7 @@ public class Controller {
 
     public void notifyNextPlayerOfSel(){
         for(VirtualView virtualView : userMap.keySet()){
-            System.out.println("in the for");
-
             if(userMap.get(virtualView).equals(myGame.getCurrentSchoolBoard().getNick())){
-                System.out.println("about to forward");
                 virtualView.forwardMsg(inputHandler.getNextSelection());
             }
         }

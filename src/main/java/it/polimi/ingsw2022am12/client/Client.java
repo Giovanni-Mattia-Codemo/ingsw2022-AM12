@@ -10,11 +10,13 @@ import java.util.Scanner;
  */
 public class Client {
 
-    private int port;
-    private String ip;
+    private final int port;
+    private final String ip;
     private PrintWriter stdout;
     private PrintWriter out;
     private ClientGame clientGame;
+    ExecutorService executor;
+    Socket socket;
 
     /**
      * Constructor method of the Client class
@@ -44,8 +46,8 @@ public class Client {
      * The method that starts the client
      */
     public void startClient() throws IOException{
-
-        Socket socket = new Socket(ip, port);
+        executor = Executors.newCachedThreadPool();
+        socket = new Socket(ip, port);
         System.out.println("Connected!");
         Scanner in = new Scanner(socket.getInputStream());
          out = new PrintWriter(socket.getOutputStream());
@@ -55,53 +57,14 @@ public class Client {
         System.out.println("Enter nick \n");
         stdout.println("Enter your nick for the game\n");
         stdout.flush();
-        String fromServer ="";
-        String input = "";
-        String line = null;
         ClientInputHandler clientInputHandler = new ClientInputHandler(stdin, this);
-        new Thread(clientInputHandler).start();
+        executor.submit(clientInputHandler);
         ServerMessageHandler serverMessageHandler = new ServerMessageHandler(in, this);
-        new Thread(serverMessageHandler).start();
+        executor.submit(serverMessageHandler);
+        Timer timer = new Timer();
+        ClientPingTimerTask pingTimerTask = new ClientPingTimerTask(this);
+        timer.schedule(pingTimerTask, 3000, 3000);
 
-
-        /*
-        do{
-
-            String nick = stdin.nextLine();
-            System.out.println("User input: "+ nick);
-            nick =clientInputHandler.convertInputToJsonString(nick);
-            out.println(nick);
-            out.flush();
-            fromServer = in.nextLine();
-            if(fromServer.equals(ControlMessages.GAMEISFULL.getMessage())){
-                System.out.print("The server is full, try again later");
-                stdin.close();
-                socket.close();
-                stdout.close();
-            }
-            System.out.println(fromServer);
-        }while(!(fromServer.equals(ControlMessages.ACCEPTED.getMessage())||fromServer.equals(ControlMessages.INSERTMODE.getMessage())));
-        while (true){
-            String input = "";
-            input = stdin.nextLine();
-            System.out.println(" inserted: "+input);
-            out.println(input);
-            out.flush();
-            fromServer= in.nextLine();
-            System.out.println(fromServer);
-        }
-
-        */
-
-        /*
-        Nick nome
-        GameSettings 2 true
-        Mage 1
-
-        {"tag":"InputMode","number":2,"mode":true}
-         {"tag":"Nick","nick":"mynick3"}
-
-         */
     }
 
     /**
@@ -125,7 +88,16 @@ public class Client {
     }
 
     public void updateGameState(ClientGame clientGame){
-        System.out.println("gettin my game updated");
         this.clientGame = clientGame;
+    }
+
+    public void disconnected(){
+        System.out.println("disconnecting");
+        executor.shutdown();
+        try {
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

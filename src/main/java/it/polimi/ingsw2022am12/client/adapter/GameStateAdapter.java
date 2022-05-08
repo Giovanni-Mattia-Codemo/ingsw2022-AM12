@@ -30,39 +30,39 @@ public class GameStateAdapter extends TypeAdapter<ClientGame> {
             }
 
             if("FreeCoins".equals(fieldName)) {
-                token = reader.peek();
+                reader.peek();
                 clientGame.setFreeCoins(reader.nextInt());
             }
             if ("Turn".equals(fieldName)) {
-                token = reader.peek();
+                reader.peek();
                 clientGame.setTurn(reader.nextInt());
             }
             if ("Round".equals(fieldName)) {
-                token = reader.peek();
+                reader.peek();
                 clientGame.setRound(reader.nextInt());
             }
             if ("LastRoundFlag".equals(fieldName)) {
-                token = reader.peek();
+                reader.peek();
                 clientGame.setLastRound(reader.nextBoolean());
             }
             if ("Mode".equals(fieldName)) {
-                token = reader.peek();
+                reader.peek();
                 clientGame.setMode(reader.nextBoolean());
             }
             if ("MotherNature".equals(fieldName)) {
-                token = reader.peek();
+                reader.peek();
                 clientGame.setMotherNatureIndex(reader.nextInt());
             }
             if ("Phase".equals(fieldName)) {
-                token = reader.peek();
+                reader.peek();
                 clientGame.setPhase(reader.nextString());
             }
             if ("ActiveCharacter".equals(fieldName)) {
-                token = reader.peek();
+                reader.peek();
                 clientGame.setActiveCharacter(reader.nextString());
             }
             if ("Characters".equals(fieldName)) {
-                token = reader.peek();
+                reader.peek();
                 ArrayList<ClientCharacter> characters = new ArrayList<>();
 
                 reader.beginArray();
@@ -76,7 +76,7 @@ public class GameStateAdapter extends TypeAdapter<ClientGame> {
 
             }
             if ("turnOrder".equals(fieldName)) {
-                token = reader.peek();
+                reader.peek();
                 ArrayList<ClientSchoolBoard> schoolBoards = new ArrayList<>();
 
                 reader.beginArray();
@@ -90,7 +90,7 @@ public class GameStateAdapter extends TypeAdapter<ClientGame> {
             }
 
             if ("IslandList".equals(fieldName)) {
-                token = reader.peek();
+                reader.peek();
                 ArrayList<ClientIsland> islands = new ArrayList<>();
 
                 reader.beginArray();
@@ -103,7 +103,7 @@ public class GameStateAdapter extends TypeAdapter<ClientGame> {
                 clientGame.setIslands(islands);
             }
             if ("Clouds".equals(fieldName)) {
-                token = reader.peek();
+                reader.peek();
                 ArrayList<ClientStudentCollection> clouds = new ArrayList<>();
 
                 reader.beginArray();
@@ -118,34 +118,34 @@ public class GameStateAdapter extends TypeAdapter<ClientGame> {
 
 
             if ("Professor0".equals(fieldName)) {
-                token = reader.peek();
+                reader.peek();
                 String res = reader.nextString();
                 clientGame.setProfessor(0, res);
             }
             if ("Professor1".equals(fieldName)) {
-                token = reader.peek();
+                reader.peek();
                 String res = reader.nextString();
                 clientGame.setProfessor(1, res);
             }
             if ("Professor2".equals(fieldName)) {
-                token = reader.peek();
+                reader.peek();
                 String res = reader.nextString();
                 clientGame.setProfessor(2, res);
             }
             if ("Professor3".equals(fieldName)) {
-                token = reader.peek();
+                reader.peek();
                 String res = reader.nextString();
                 clientGame.setProfessor(3, res);
             }
             if ("Professor4".equals(fieldName)) {
-                token = reader.peek();
+                reader.peek();
                 String res = reader.nextString();
                 clientGame.setProfessor(4, res);
             }
 
 
             if ("Teams".equals(fieldName)) {
-                token = reader.peek();
+                reader.peek();
                 ArrayList<ClientTeam> teams = new ArrayList<>();
 
                 reader.beginArray();

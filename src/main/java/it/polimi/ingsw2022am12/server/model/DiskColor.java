@@ -29,4 +29,15 @@ public enum DiskColor {
     public int getValue(){
         return value;
     }
+
+    public String getColor(int i){
+        return switch(i){
+            case 0 -> "RED";
+            case 1 -> "YELLOW";
+            case 2 -> "BLUE";
+            case 3 -> "PINK";
+            case 4 -> "GREEN";
+            default -> null;
+        };
+    }
 }

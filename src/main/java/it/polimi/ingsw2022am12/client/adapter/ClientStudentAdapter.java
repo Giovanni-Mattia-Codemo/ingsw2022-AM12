@@ -5,9 +5,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import it.polimi.ingsw2022am12.client.ClientStudent;
-import it.polimi.ingsw2022am12.server.model.DiskColor;
-import it.polimi.ingsw2022am12.server.model.Student;
-
 import java.io.IOException;
 
 public class ClientStudentAdapter extends TypeAdapter<ClientStudent> {
@@ -33,20 +30,14 @@ public class ClientStudentAdapter extends TypeAdapter<ClientStudent> {
 
         while (reader.hasNext()) {
             JsonToken token = reader.peek();
-
             if (token.equals(JsonToken.NAME)) {
-                //get the current token
                 fieldName = reader.nextName();
             }
-
             if ("color".equals(fieldName)) {
-                //move to next token
-                token = reader.peek();
+                reader.peek();
                 student = new ClientStudent();
                 student.setColor(reader.nextString());
             }
-
-
         }
         reader.endObject();
         return student;

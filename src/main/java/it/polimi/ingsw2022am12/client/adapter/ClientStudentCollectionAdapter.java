@@ -7,8 +7,6 @@ import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import it.polimi.ingsw2022am12.client.ClientStudent;
 import it.polimi.ingsw2022am12.client.ClientStudentCollection;
-import it.polimi.ingsw2022am12.server.model.DiskColor;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -38,11 +36,11 @@ public class ClientStudentCollectionAdapter extends TypeAdapter<ClientStudentCol
             }
 
             if("ID".equals(fieldName)) {
-                token = reader.peek();
+                reader.peek();
                 student.setID(reader.nextInt());
             }
             if ("Students".equals(fieldName)) {
-                token = reader.peek();
+                reader.peek();
 
                 ArrayList<ClientStudent> students = new ArrayList<>();
                 reader.beginArray();

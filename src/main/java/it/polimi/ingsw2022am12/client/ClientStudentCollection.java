@@ -29,4 +29,16 @@ public class ClientStudentCollection {
     public ArrayList<ClientStudent> getStudents() {
         return students;
     }
+
+    /**
+     * getStudents as string visualises the students contained in the collection as a String
+     * @return string list of students
+     */
+    public String getStudentsAsString(){
+        String stringStudents = "";
+        for(ClientStudent std : students){
+            stringStudents = stringStudents.concat(std.getColor()+"\t");
+        }
+        return stringStudents;
+    }
 }

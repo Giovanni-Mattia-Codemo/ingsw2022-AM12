@@ -4,7 +4,6 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
-import it.polimi.ingsw2022am12.server.model.IslandTileSet;
 import it.polimi.ingsw2022am12.server.model.NoEntry;
 import it.polimi.ingsw2022am12.server.model.NoEntryCollection;
 
@@ -32,7 +31,7 @@ public class NoEntryAdapter extends TypeAdapter<NoEntry> {
 
             if("ID".equals(fieldName)) {
 
-                token = reader.peek();
+                reader.peek();
                 NoEntryCollection noEntryCollection = new NoEntryCollection(reader.nextInt());
                 
                 noEntry = new NoEntry(noEntryCollection);

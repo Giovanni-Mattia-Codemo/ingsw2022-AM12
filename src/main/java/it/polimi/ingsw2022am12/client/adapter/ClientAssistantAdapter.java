@@ -5,9 +5,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import it.polimi.ingsw2022am12.client.ClientAssistant;
-import it.polimi.ingsw2022am12.server.model.DiskColor;
-import it.polimi.ingsw2022am12.server.model.Student;
-
 import java.io.IOException;
 
 public class ClientAssistantAdapter extends TypeAdapter<ClientAssistant> {
@@ -27,17 +24,17 @@ public class ClientAssistantAdapter extends TypeAdapter<ClientAssistant> {
 
         ClientAssistant clientAssistant = new ClientAssistant();
         reader.beginObject();
-        String fieldname = null;
+        String fieldName = null;
 
         while (reader.hasNext()) {
             JsonToken token = reader.peek();
 
             if (token.equals(JsonToken.NAME)) {
-                fieldname = reader.nextName();
+                fieldName = reader.nextName();
             }
 
-            if("AssistantTurnPower".equals(fieldname)) {
-                token = reader.peek();
+            if("AssistantTurnPower".equals(fieldName)) {
+                reader.peek();
                 clientAssistant.setTurnPower(reader.nextInt());
             }
         }

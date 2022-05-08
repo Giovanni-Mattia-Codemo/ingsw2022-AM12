@@ -6,9 +6,6 @@ import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import it.polimi.ingsw2022am12.server.model.Assistant;
 import it.polimi.ingsw2022am12.server.model.AssistantCreator;
-import it.polimi.ingsw2022am12.server.model.IslandTileSet;
-
-
 import java.io.IOException;
 
 public class AssistantAdapter extends TypeAdapter<Assistant> {
@@ -37,7 +34,7 @@ public class AssistantAdapter extends TypeAdapter<Assistant> {
 
             if("AssistantTurnPower".equals(fieldName)) {
 
-                token = jsonReader.peek();
+                jsonReader.peek();
                 assistant = AssistantCreator.createAssistant(jsonReader.nextInt());
             }
 
