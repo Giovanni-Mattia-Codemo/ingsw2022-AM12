@@ -8,9 +8,9 @@ Cristiana Calvaresi cristiana.calvaresi@mail.polimi.it
 |:-----------------|:--------------------------------------------------:|
 | Basic rules      | 🟡 |
 | Complete rules   | 🟡 |
-| Socket           | 🔴 |
+| Socket           | 🟡 |
 | GUI              | 🔴 |
-| CLI              | 🔴 |
+| CLI              | 🟡 |
 | Four players     | 🟡 |
 | Persistence      | 🟡 |
 | All Characters   | 🟡 |
