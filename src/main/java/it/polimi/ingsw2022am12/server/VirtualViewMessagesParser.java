@@ -7,6 +7,7 @@ import it.polimi.ingsw2022am12.server.controller.Controller;
 import it.polimi.ingsw2022am12.server.model.*;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Timer;
 
 public class VirtualViewMessagesParser implements Runnable{
 
@@ -28,6 +29,9 @@ public class VirtualViewMessagesParser implements Runnable{
 
     @Override
     public void run() {
+        Timer tim = new Timer(true);
+        PingTimerTask pingTimerTask = new PingTimerTask(virtualView);
+        tim.schedule(pingTimerTask, 15000, 6000);
 
         while (true){
             String line = in.next();

@@ -110,4 +110,60 @@ public class ClientGame {
     public void setTeams(ArrayList<ClientTeam> teams) {
         this.teams = teams;
     }
+
+    /**
+     * getBoardStringToView uses the current values of the Game's attributes, and writes them all in a string
+     *
+     * @return string message that represents the state of the Game
+     */
+    public String getBoardStringToView(){
+        String msg = "";
+        msg = msg.concat("Phase:"+phase+"\n");
+        msg = msg.concat("Round:"+round+"\n");
+        msg = msg.concat("Turn:"+turn+"\n");
+        msg = msg.concat("Turn order:"+"\n");
+        for(ClientSchoolBoard s : schoolBoards){
+            msg = msg.concat(s.getNick()+"'s school board"+"\n");
+            msg = msg.concat("\t Entrance: id "+s.getEntrance().getID()+". Students: "+s.getEntrance().getStudentsAsString()+"\n");
+            msg = msg.concat("\t Dining room: "+". Students: "+s.getDiningRooms().getStudentsAsString()+"\n");
+            if(mode){
+                msg = msg.concat("\t Coins:" + s.getCoins()+"\n");
+            }
+            msg = msg.concat("\t Towers: "+s.getTowers()+"\n");
+            for(int i= 0; i< professors.length; i++){
+                if(professors[i].equals(s.getNick())){
+                    msg = msg.concat("\t"+DiskColor.RED.getColor(i)+" professor" +"\n");
+                }
+
+            }
+            msg = msg.concat("\t Assistants: "+ s.getAssistantsPowers()+"\n");
+
+
+        }
+        msg = msg.concat("Islands: \n");
+        for (ClientIsland clientIsland: islands){
+            msg = msg.concat(clientIsland.getID()+" with students: "+clientIsland.getStudents().getStudentsAsString()+"\n");
+
+        }
+
+        msg = msg.concat("Clouds:"+phase+"\n");
+        for(ClientStudentCollection cloud : clouds){
+            msg = msg.concat(cloud.getID()+" with students: "+cloud.getStudentsAsString()+"\n");
+        }
+        if(mode){
+            for(ClientCharacter character: characters){
+                msg = msg.concat("character "+ character.getName()+". Cost:"+character.getCost()+". ");
+                if(character.getStudents()!=null){
+                    msg = msg.concat("Students: "+ character.getStudents().getStudentsAsString());
+                }else if(character.getNumberOfNoEntries()!=0){
+                    msg = msg.concat(character.getNumberOfNoEntries()+" no entries, with id "+ character.getNoEntryCollectionID());
+                }
+                msg = msg.concat("\n");
+            }
+
+            msg = msg.concat("Coins on table: "+freeCoins+"\n");
+        }
+        return msg;
+    }
+
 }

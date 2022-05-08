@@ -58,5 +58,39 @@ public class ClientCharacter {
         return name;
     }
 
+    /**
+     * Getter method for cost
+     *
+     * @return cost
+     */
+    public int getCost() {
+        return cost;
+    }
 
+    /**
+     * Getter method for students
+     *
+     * @return students
+     */
+    public ClientStudentCollection getStudents() {
+        return students;
+    }
+
+    /**
+     * Getter method for numberOfNoEntries
+     *
+     * @return numberOfNoEntries
+     */
+    public int getNumberOfNoEntries() {
+        return numberOfNoEntries;
+    }
+
+    /**
+     * Getter method for noEntryCollectionID
+     *
+     * @return noEntryCollectionID
+     */
+    public int getNoEntryCollectionID() {
+        return noEntryCollectionID;
+    }
 }

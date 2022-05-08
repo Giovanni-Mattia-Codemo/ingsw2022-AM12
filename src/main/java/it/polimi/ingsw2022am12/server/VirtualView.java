@@ -34,6 +34,9 @@ public class VirtualView implements Runnable{
         out.println(gameState);
         out.flush();
     }
+    public void disconnected(){
+        myController.endGame();
+    }
 
     /**
      * void run is the method executed by the various threads; it receives information from the client, and deserializes it,

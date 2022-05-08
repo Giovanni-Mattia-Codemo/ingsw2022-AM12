@@ -24,6 +24,8 @@ public class GameAdapter extends TypeAdapter<Game> {
     @Override
     public void write(JsonWriter writer, Game myGame) throws IOException {
         writer.beginObject();
+        writer.name("tag");
+        writer.value("GameState");
         writer.name("FreeCoins");
         writer.value(myGame.getFreeCoins().size());
         writer.name("Round");

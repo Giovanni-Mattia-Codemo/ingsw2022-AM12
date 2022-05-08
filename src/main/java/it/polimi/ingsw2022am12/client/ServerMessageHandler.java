@@ -7,6 +7,9 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Timer;
 
+/**
+ * ServerMessageHandler represents the layer of the client which deals with the messages from the server
+ */
 public class ServerMessageHandler implements Runnable {
 
     private final Scanner scanner;

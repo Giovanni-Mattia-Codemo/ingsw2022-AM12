@@ -60,7 +60,8 @@ public class Controller {
         if(myGame.getCurrentSchoolBoard().getNick().equals(userMap.get(v))){
             ActionStep result = inputHandler.addSelection(s);
             if (result.equals(ActionStep.NOTOK)){
-                return "Invalid selection.";
+                msg = msg.concat("Invalid selection."+"\n") ;
+                msg = msg.concat(inputHandler.getNextSelection());
             }else if(result.equals(ActionStep.HALFOK)){
                 return inputHandler.getNextSelection();
             }else if(result.equals(ActionStep.OK)){
@@ -148,11 +149,14 @@ public class Controller {
      * @return ControlMessages
      */
     private ControlMessages bindView(VirtualView v, String nick){
+
         userMap.put(v, nick);
         if(userMap.size()==1){
             creatingGame=true;
             return  ControlMessages.INSERTMODE;
         }
+        String message = "A player was added. "+(numOfPlayers- userMap.size())+" players missing";
+        updateAllViews(message);
         if(userMap.size()==numOfPlayers){
             System.out.println("Reached max players");
             acceptingUsers = false;
@@ -178,4 +182,10 @@ public class Controller {
             }
         }
     }
+
+    public void endGame(){
+        System.out.println("a player disconnected");
+    }
+
+
 }

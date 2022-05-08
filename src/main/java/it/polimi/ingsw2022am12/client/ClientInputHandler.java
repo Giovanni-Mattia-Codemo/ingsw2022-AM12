@@ -7,6 +7,7 @@ import it.polimi.ingsw2022am12.InputModeAdapter;
 import it.polimi.ingsw2022am12.client.adapter.*;
 import java.util.Scanner;
 
+
 public class ClientInputHandler implements Runnable {
 
     private final Scanner in;

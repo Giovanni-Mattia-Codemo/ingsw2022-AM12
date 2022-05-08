@@ -14,9 +14,9 @@ public class InputModeAdapter extends TypeAdapter<InputMode> {
         jsonWriter.name("tag");
         jsonWriter.value("InputMode");
         jsonWriter.name("number");
-        jsonWriter.value(inputMode.getInteger());
+        jsonWriter.value(inputMode.getNumber());
         jsonWriter.name("mode");
-        jsonWriter.value(inputMode.getBoolean());
+        jsonWriter.value(inputMode.getMode());
         jsonWriter.endObject();
     }
 

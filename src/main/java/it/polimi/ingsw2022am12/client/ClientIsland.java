@@ -25,6 +25,19 @@ public class ClientIsland {
         this.students = students;
     }
 
+    /**
+     * Getter method for students
+     *
+     * @return the collection of students
+     */
+    public ClientStudentCollection getStudents() {
+        return students;
+    }
+
+    /**
+     * Setter method for number
+     * @param number int value of islands
+     */
     public void setNumber(int number) {
         this.number = number;
     }

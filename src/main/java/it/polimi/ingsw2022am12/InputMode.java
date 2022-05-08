@@ -6,8 +6,13 @@ package it.polimi.ingsw2022am12;
  */
 public class InputMode {
     private final String tag = "InputMode";
-    private final int number = 2;
-    private final boolean mode = true;
+    private int number = 2;
+    private boolean mode = true;
+
+    public InputMode(int n, boolean b){
+        number =n;
+        mode = b;
+    }
 
     /**
      * Constructor method of InputMode class

@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Client class represents the component which sends requests to the server, waiting for a response
@@ -89,6 +92,7 @@ public class Client {
 
     public void updateGameState(ClientGame clientGame){
         this.clientGame = clientGame;
+        showServerMessage(clientGame.getBoardStringToView());
     }
 
     public void disconnected(){

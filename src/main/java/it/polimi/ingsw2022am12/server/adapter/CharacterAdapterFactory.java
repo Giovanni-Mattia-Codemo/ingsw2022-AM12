@@ -32,10 +32,7 @@ public class CharacterAdapterFactory implements TypeAdapterFactory {
             jsonWriter.name("CharacterName");
             jsonWriter.value(characterCard.getName().toString());
             jsonWriter.name("HasCoin");
-
-            if(characterCard.getCoin()){
-                jsonWriter.value("true");
-            }else jsonWriter.value("false");
+            jsonWriter.value(characterCard.getCoin());
             jsonWriter.name("Cost");
             jsonWriter.value(characterCard.getCost());
             Gson gson = new GsonBuilder().registerTypeAdapter(StudentDiskCollection.class, new StudentDiskCollectionAdapter()).create();

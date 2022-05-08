@@ -49,6 +49,8 @@ public class Game{
      */
     public Game(ArrayList<String> playerNicks, boolean characterMode){
 
+        System.out.println("Game being created: difficulty "+characterMode);
+
         this.isExpertMode = characterMode;
         this.mages = new ArrayList<>();
         this.currentStrategy = new SetupStrategy();

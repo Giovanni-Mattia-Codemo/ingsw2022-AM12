@@ -39,16 +39,19 @@ public abstract class PossibleAction {
                 return ActionStep.NOTOK;
             }
             for(int i= 0; i< selectables.size(); i++){
-                for (Selectable s: selectables.get(i)
-                     ) {
-                    for (Selectable in:input
-                         ) {
-                        if(s.isEqual(in)){
-                            score.put(i,in);
+                if(score.containsKey(i-1)||i==0){
+                    for (Selectable s: selectables.get(i)
+                    ) {
+                        for (Selectable in:input
+                        ) {
+                            if(s.isEqual(in)){
+                                score.put(i,in);
+                            }
                         }
-                    }
 
+                    }
                 }
+
             }
             if(score.size()==0){
                 return ActionStep.NOTOK;
