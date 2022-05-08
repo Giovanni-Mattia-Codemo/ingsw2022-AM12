@@ -7,13 +7,31 @@ import it.polimi.ingsw2022am12.server.model.Team;
 
 import java.io.IOException;
 
+/**
+ * Class used to simplify the handling of a certain event.
+ * In this case,it helps to handle objects of the type TEAM.
+ */
 public class TeamAdapter extends TypeAdapter<Team> {
 
+    /**
+     * Method "read" reads a JSON encoded Team
+     *
+     * @param jsonReader the reader which will receive my JSON data
+     * @return null value
+     * @throws IOException if there is a problem with my input
+     */
     @Override
     public Team read(JsonReader jsonReader) throws IOException {
         return null;
     }
 
+    /**
+     * Method write receives an object of type Team and serializes it in the JSON format
+     *
+     * @param jsonWriter the writer which will generate my JSON data
+     * @param team the Team I want to serialize
+     * @throws IOException if there is a problem with my input
+     */
     @Override
     public void write(JsonWriter jsonWriter, Team team) throws IOException {
         jsonWriter.beginObject();

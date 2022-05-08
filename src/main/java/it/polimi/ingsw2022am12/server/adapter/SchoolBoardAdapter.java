@@ -11,10 +11,21 @@ import it.polimi.ingsw2022am12.server.model.StudentDiskCollection;
 
 import java.io.IOException;
 
+/**
+ * Class used to simplify the handling of a certain event.
+ * In this case,it helps to handle objects of the type SchoolBoard.
+ */
 public class SchoolBoardAdapter extends TypeAdapter<SchoolBoard> {
 
     Gson embedded = new Gson();
 
+    /**
+     * Method write receives an object of type SchoolBoard and serializes it in the JSON format
+     *
+     * @param jsonWriter the writer which will generate my JSON data
+     * @param schoolBoard the SchoolBoard I want to serialize
+     * @throws IOException if there is a problem with my input
+     */
     @Override
     public void write(JsonWriter jsonWriter, SchoolBoard schoolBoard) throws IOException {
         jsonWriter.beginObject();
@@ -47,6 +58,12 @@ public class SchoolBoardAdapter extends TypeAdapter<SchoolBoard> {
         jsonWriter.endObject();
     }
 
+    /**
+     * Method "read" reads a JSON encoded SchoolBoard
+     *
+     * @return SchoolBoard as a null value
+     * @throws IOException if there is a problem with my input
+     */
     @Override
     public SchoolBoard read(JsonReader jsonReader) throws IOException {
         return null;

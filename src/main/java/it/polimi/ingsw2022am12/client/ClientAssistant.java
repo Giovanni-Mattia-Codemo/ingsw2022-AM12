@@ -16,10 +16,19 @@ public class ClientAssistant {
         this.turnPower = turnPower;
     }
 
+    /**
+     * Default constructor method of ClientAssistant class
+     *
+     */
     public ClientAssistant(){
 
     }
 
+    /**
+     * Setter method for turnPower
+     *
+     * @param turnPower  int turn power
+     */
     public void setTurnPower(int turnPower) {
         this.turnPower = turnPower;
     }

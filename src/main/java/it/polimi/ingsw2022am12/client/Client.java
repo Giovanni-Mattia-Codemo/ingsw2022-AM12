@@ -90,6 +90,11 @@ public class Client {
         out.flush();
     }
 
+    /**
+     * updateGameState deals with updating the game state for each client
+     *
+     * @param clientGame the current game state
+     */
     public void updateGameState(ClientGame clientGame){
         this.clientGame = clientGame;
         showServerMessage(clientGame.getBoardStringToView());

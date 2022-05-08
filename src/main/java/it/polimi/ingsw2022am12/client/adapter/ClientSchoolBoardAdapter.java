@@ -10,13 +10,31 @@ import it.polimi.ingsw2022am12.client.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Class used to simplify the handling of a certain event.
+ * In this case,it helps to handle objects of the type ClientSCHOOLBOARD.
+ */
 public class ClientSchoolBoardAdapter extends TypeAdapter<ClientSchoolBoard> {
 
+    /**
+     * Method write receives an object of type ClientSchoolBoard and serializes it in the JSON format
+     *
+     * @param jsonWriter the writer which will generate my JSON data
+     * @param clientSchoolBoard the ClientSchoolBoard I want to serialize
+     * @throws IOException if there is a problem with my input
+     */
     @Override
     public void write(JsonWriter jsonWriter, ClientSchoolBoard clientSchoolBoard) throws IOException {
 
     }
 
+    /**
+     * Method "read" reads a JSON encoded ClientSchoolBoard as a stream of tokens
+     *
+     * @param reader the reader which will receive my JSON data
+     * @return ClientSchoolBoard the ClientSchoolBoard created from the JSON values
+     * @throws IOException if there is a problem with my input
+     */
     @Override
     public ClientSchoolBoard read(JsonReader reader) throws IOException {
         ClientSchoolBoard clientSchoolBoard = new ClientSchoolBoard();

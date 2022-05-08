@@ -27,6 +27,9 @@ public class ServerMessageHandler implements Runnable {
             this.client = client;
     }
 
+    /**
+     * method run has the ServerMessageHandler wait for the pong message, and handle the messages incoming from the server
+     */
     @Override
     public void run() {
         String message;
@@ -39,6 +42,13 @@ public class ServerMessageHandler implements Runnable {
         }
     }
 
+    /**
+     * handle method deals with the messages coming from the server; if the message starts with "{" it means it's a gameState update
+     * and so the game's state from the client's side is updated, else if it starts with "Pong" it sets hasPonged to true, else it just shows the Server's message
+     *
+     * @param message the message incoming from the server
+     * @param client the client that is receiving the message
+     */
     private void handle(String message, Client client){
 
         if(message.startsWith("{")){

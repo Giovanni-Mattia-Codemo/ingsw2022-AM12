@@ -9,6 +9,9 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Timer;
 
+/**
+ * Class that represents the MessagesParser for our VirtualView
+ */
 public class VirtualViewMessagesParser implements Runnable{
 
     private final VirtualView virtualView;
@@ -27,6 +30,10 @@ public class VirtualViewMessagesParser implements Runnable{
         myController = controller;
     }
 
+    /**
+     * method run receives a JSON value in input from the scanner (which can be an encoded student, nickname... etc. etc.)
+     * and forwards a corresponding message to the VirtualView after parsing the JSON data into an actual object
+     */
     @Override
     public void run() {
         Timer tim = new Timer(true);

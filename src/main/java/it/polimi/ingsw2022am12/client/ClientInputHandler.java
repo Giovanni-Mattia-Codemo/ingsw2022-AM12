@@ -8,6 +8,9 @@ import it.polimi.ingsw2022am12.client.adapter.*;
 import java.util.Scanner;
 
 
+/**
+ * ClientInputHandler class represents the component that handles the data in input from the client's side
+ */
 public class ClientInputHandler implements Runnable {
 
     private final Scanner in;
@@ -24,6 +27,9 @@ public class ClientInputHandler implements Runnable {
         this.client = client;
     }
 
+    /**
+     * run method makes the client able to accept different inputs
+     */
     @Override
     public void run() {
         String input;
@@ -33,6 +39,13 @@ public class ClientInputHandler implements Runnable {
         }
     }
 
+    /**
+     * handle method deals with string inputs that represent a certain object (considering tokens[0]), and creates a JSON
+     * format data though a switch case that changes based on the input string
+     *
+     * @param input the string that represents my object in input
+     * @param client the client that is receiving the message
+     */
     private void handle(String input, Client client){
         String result;
         String[]tokens = input.split(" ", -1);

@@ -7,8 +7,19 @@ import it.polimi.ingsw2022am12.client.ClientMage;
 
 import java.io.IOException;
 
+/**
+ * Class used to simplify the handling of a certain event.
+ * In this case,it helps to handle objects of the type ClientMAGE.
+ */
 public class ClientMageAdapter extends TypeAdapter<ClientMage> {
 
+    /**
+     * Method write receives an object of type ClientMage and serializes it in the JSON format
+     *
+     * @param jsonWriter the writer which will generate my JSON data
+     * @param clientMage the ClientMage I want to serialize
+     * @throws IOException if there is a problem with my input
+     */
     @Override
     public void write(JsonWriter jsonWriter, ClientMage clientMage) throws IOException {
         jsonWriter.beginObject();
@@ -19,6 +30,13 @@ public class ClientMageAdapter extends TypeAdapter<ClientMage> {
         jsonWriter.endObject();
     }
 
+    /**
+     * Method "read" reads a JSON encoded ClientMage as a stream of tokens
+     *
+     * @param jsonReader the reader which will receive my JSON data
+     * @return ClientMage as a null value
+     * @throws IOException if there is a problem with my input
+     */
     @Override
     public ClientMage read(JsonReader jsonReader) throws IOException {
         return null;

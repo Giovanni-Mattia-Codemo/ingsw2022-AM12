@@ -14,8 +14,19 @@ import it.polimi.ingsw2022am12.server.model.characters.*;
 
 import java.io.IOException;
 
+/**
+ * Class used to simplify the handling of a certain event.
+ * In this case,it helps to handle objects of the type CHARACTERCARD.
+ */
 public class CharacterAdapterFactory implements TypeAdapterFactory {
 
+    /**
+     * Custom creation of a TypeAdapter
+     * @param gson my Gson object
+     * @param typeToken my type token
+     * @param <T> generic type for the TypeAdapter
+     * @return custom type adapter
+     */
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> typeToken) {
         if(CharacterCard.class.isAssignableFrom(typeToken.getRawType())) {
@@ -26,6 +37,13 @@ public class CharacterAdapterFactory implements TypeAdapterFactory {
 
     private final TypeAdapter<CharacterCard> customTypeAdapter = new TypeAdapter<>() {
 
+        /**
+         * Method write receives an object of type CharacterCard and serializes it in the JSON format
+         *
+         * @param jsonWriter the writer which will generate my JSON data
+         * @param characterCard the CharacterCard I want to serialize
+         * @throws IOException if there is a problem with my input
+         */
         @Override
         public void write(JsonWriter jsonWriter, CharacterCard characterCard) throws IOException {
             jsonWriter.beginObject();
@@ -63,6 +81,14 @@ public class CharacterAdapterFactory implements TypeAdapterFactory {
             jsonWriter.endObject();
         }
 
+        /**
+         * Method "read" reads a JSON encoded CharacterCard as a stream of tokens, and uses a switch on the enum
+         * CHARACTERNAME
+         *
+         * @param in the reader which will receive my JSON data
+         * @return the CharacterCard created from the JSON values
+         * @throws IOException the reader which will receive my JSON data
+         */
         @Override
         public CharacterCard read(JsonReader in) throws IOException {
             in.beginObject();

@@ -1,5 +1,8 @@
 package it.polimi.ingsw2022am12.client;
 
+/**
+ * ClientMage represents a mage from the client's side
+ */
 public class ClientMage {
 
     private int ID;

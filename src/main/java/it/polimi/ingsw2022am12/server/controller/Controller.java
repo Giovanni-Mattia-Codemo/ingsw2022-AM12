@@ -175,6 +175,9 @@ public class Controller {
     }
 
 
+    /**
+     *notifyNextPlayerOfSel iterates on the VirtualViews
+     */
     public void notifyNextPlayerOfSel(){
         for(VirtualView virtualView : userMap.keySet()){
             if(userMap.get(virtualView).equals(myGame.getCurrentSchoolBoard().getNick())){

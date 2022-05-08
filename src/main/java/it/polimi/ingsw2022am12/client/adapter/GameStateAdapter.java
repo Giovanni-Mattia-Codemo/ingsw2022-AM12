@@ -8,14 +8,31 @@ import it.polimi.ingsw2022am12.client.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Class used to simplify the handling of a certain event.
+ * In this case,it helps to handle objects of the type ClientGAME.
+ */
 public class GameStateAdapter extends TypeAdapter<ClientGame> {
 
-
+    /**
+     * Method write receives an object of type clientGame and serializes it in the JSON format
+     *
+     * @param jsonWriter the writer which will generate my JSON data
+     * @param clientGame the state of the game
+     * @throws IOException if there is a problem with my input
+     */
     @Override
     public void write(JsonWriter jsonWriter, ClientGame clientGame) throws IOException {
 
     }
 
+    /**
+     * Method "read" reads a JSON encoded clientGame as a stream of tokens
+     *
+     * @param reader the reader which will receive my JSON data
+     * @return clientGame the clientGame created from the JSON values
+     * @throws IOException if there is a problem with my input
+     */
     @Override
     public ClientGame read(JsonReader reader) throws IOException {
         ClientGame clientGame = new ClientGame();

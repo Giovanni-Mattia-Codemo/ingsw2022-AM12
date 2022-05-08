@@ -66,39 +66,75 @@ public class ClientGame {
         isLastRound = lastRound;
     }
 
+    /**
+     * Setter method for mode
+     * @param mode boolean value, true is ExpertMode is on
+     */
     public void setMode(boolean mode) {
         this.mode = mode;
     }
 
+    /**
+     * Setter method for motherNatureIndex
+     * @param motherNatureIndex index of the position of mother nature
+     */
     public void setMotherNatureIndex(int motherNatureIndex) {
         this.motherNatureIndex = motherNatureIndex;
     }
 
+    /**
+     * Setter method for phase
+     * @param phase name of the phase
+     */
     public void setPhase(String phase) {
         this.phase = phase;
     }
 
+    /**
+     * Setter method for SchoolBoards
+     * @param schoolBoards list of school boards
+     */
     public void setSchoolBoards(ArrayList<ClientSchoolBoard> schoolBoards) {
         this.schoolBoards = schoolBoards;
     }
 
+    /**
+     * Setter method for activeCharacter
+     * @param activeCharacter name of the active character
+     */
     public void setActiveCharacter(String activeCharacter) {
         this.activeCharacter = activeCharacter;
     }
 
+    /**
+     * Setter method for characters
+     * @param characters list of characters
+     */
     public void setCharacters(ArrayList<ClientCharacter> characters) {
         this.characters = characters;
     }
 
+    /**
+     * Setter method for clouds
+     * @param clouds list of clouds
+     */
     public void setClouds(ArrayList<ClientStudentCollection> clouds) {
         this.clouds = clouds;
     }
 
-
+    /**
+     * Setter method for islands
+     * @param islands list of islands
+     */
     public void setIslands(ArrayList<ClientIsland> islands) {
         this.islands = islands;
     }
 
+    /**
+     * Setter method for professors
+     * @param i index in the professors' array
+     * @param professor my chosen professor
+     */
     public void setProfessor(int i, String professor) {
         this.professors[i] = professor;
     }

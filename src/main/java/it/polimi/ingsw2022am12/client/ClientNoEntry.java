@@ -1,7 +1,11 @@
 package it.polimi.ingsw2022am12.client;
 
+/**
+ * Class that represents the NoEntry tile from the client's side
+ */
 public class ClientNoEntry {
-    private int ID;
+
+    private final int ID;
 
     /**
      * Constructor method of the ClientNoEntry class

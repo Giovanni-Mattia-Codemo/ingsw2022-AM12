@@ -8,6 +8,10 @@ import com.google.gson.stream.JsonWriter;
 import it.polimi.ingsw2022am12.server.model.*;
 import java.io.IOException;
 
+/**
+ * Class used to simplify the handling of a certain event.
+ * In this case,it helps to handle objects of the type GAME.
+ */
 public class GameAdapter extends TypeAdapter<Game> {
     Gson embedded = new Gson();
 
@@ -77,6 +81,13 @@ public class GameAdapter extends TypeAdapter<Game> {
         writer.endObject();
     }
 
+    /**
+     * Method "read" reads a JSON encoded Game
+     *
+     * @param jsonReader the reader which will receive my JSON data
+     * @return null value
+     * @throws IOException if there is a problem with my input
+     */
     @Override
     public Game read(JsonReader jsonReader) throws IOException {
         return null;

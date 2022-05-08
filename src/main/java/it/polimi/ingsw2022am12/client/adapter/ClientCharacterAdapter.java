@@ -16,6 +16,13 @@ import java.io.IOException;
  */
 public class ClientCharacterAdapter extends TypeAdapter<ClientCharacter> {
 
+    /**
+     * Method write receives an object of type ClientCharacter and serializes it in the JSON format
+     *
+     * @param jsonWriter the writer which will generate my JSON data
+     * @param clientCharacter the ClientCharacter I want to serialize
+     * @throws IOException if there is a problem with my input
+     */
     @Override
     public void write(JsonWriter jsonWriter, ClientCharacter clientCharacter) throws IOException {
         jsonWriter.beginObject();
@@ -26,6 +33,13 @@ public class ClientCharacterAdapter extends TypeAdapter<ClientCharacter> {
         jsonWriter.endObject();
     }
 
+    /**
+     * Method "read" reads a JSON encoded ClientCharacter as a stream of tokens
+     *
+     * @param reader the reader which will receive my JSON data
+     * @return ClientCharacter the ClientCharacter created from the JSON values
+     * @throws IOException if there is a problem with my input
+     */
     @Override
     public ClientCharacter read(JsonReader reader) throws IOException {
         ClientCharacter student = new ClientCharacter();

@@ -11,10 +11,21 @@ import it.polimi.ingsw2022am12.server.model.StudentDiskCollection;
 
 import java.io.IOException;
 
+/**
+ * Class used to simplify the handling of a certain event.
+ * In this case,it helps to handle objects of the type IslandTILESET.
+ */
 public class IslandTileSetAdapter extends TypeAdapter<IslandTileSet> {
 
     Gson embedded = new Gson();
 
+    /**
+     * Method write receives an object of type IslandTileSet and serializes it in the JSON format
+     *
+     * @param jsonWriter the writer which will generate my JSON data
+     * @param islandTileSet the islandTileSet I want to serialize
+     * @throws IOException if there is a problem with my input
+     */
     @Override
     public void write(JsonWriter jsonWriter, IslandTileSet islandTileSet) throws IOException {
         jsonWriter.beginObject();
@@ -33,6 +44,13 @@ public class IslandTileSetAdapter extends TypeAdapter<IslandTileSet> {
         jsonWriter.endObject();
     }
 
+    /**
+     * Method "read" reads a JSON encoded IslandTileSet
+     *
+     * @param reader the reader which will receive my JSON data
+     * @return IslandTileSet translated from the JSON format data
+     * @throws IOException if there is a problem with my input
+     */
     @Override
     public IslandTileSet read(JsonReader reader) throws IOException {
         reader.beginObject();
