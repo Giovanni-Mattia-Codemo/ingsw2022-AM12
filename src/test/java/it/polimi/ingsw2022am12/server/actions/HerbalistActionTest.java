@@ -79,7 +79,7 @@ public class HerbalistActionTest {
      * ArrayList, then we check if checkInputValidity returns HALFOK
      */
     @Test
-    public void checkCheckInputValidityHALFOK2(){
+    public void checkCheckInputValidityNOTOK3(){
         HerbalistAction testCharacter = new HerbalistAction();
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Nick1");
@@ -96,7 +96,7 @@ public class HerbalistActionTest {
         input.add(motherNatureIsland);
 
         testCharacter.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.HALFOK, testCharacter.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
     }
 
     /**

@@ -85,7 +85,7 @@ public class MoveFromEntranceToIslandTest {
      * destination island in the input array, and checks if checkInputValidity returns HALFOK
      */
     @Test
-    public void checkCheckInputValidityHALFOK2(){
+    public void checkCheckInputValidityNOTOK3(){
         MoveFromEntranceToIsland testMove = new MoveFromEntranceToIsland();
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Nick1");
@@ -98,7 +98,7 @@ public class MoveFromEntranceToIslandTest {
         IslandTileSet destination = testGame.getIslandList().getByIndex(4);
         input.add(destination);
         testMove.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.HALFOK, testMove.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.NOTOK, testMove.checkInputValidity(input, testGame));
     }
 
     /**

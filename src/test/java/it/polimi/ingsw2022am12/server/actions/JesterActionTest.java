@@ -77,7 +77,7 @@ public class JesterActionTest {
      *
      */
     @Test
-    public void checkCheckInputValidityHALOK2(){
+    public void checkCheckInputValidityNOTOK3(){
         JesterAction testCharacter = new JesterAction();
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Nick1");
@@ -92,7 +92,7 @@ public class JesterActionTest {
         input.add(stdEntrance);
 
         testCharacter.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.HALFOK, testCharacter.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
     }
 
     /**

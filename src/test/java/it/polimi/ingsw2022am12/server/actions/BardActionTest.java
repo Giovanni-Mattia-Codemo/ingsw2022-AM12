@@ -89,7 +89,7 @@ public class BardActionTest {
      *
      */
     @Test
-    public void checkCheckInputValidityHALFOK2(){
+    public void checkCheckInputValidityNOTOK3(){
         BardAction testCharacter = new BardAction();
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Nick1");
@@ -110,7 +110,7 @@ public class BardActionTest {
         input.add(s1);
 
         testCharacter.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.HALFOK, testCharacter.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
     }
 
     /**

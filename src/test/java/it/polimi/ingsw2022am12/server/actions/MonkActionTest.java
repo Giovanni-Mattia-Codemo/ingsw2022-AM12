@@ -76,7 +76,7 @@ public class MonkActionTest {
      * then we check if checkInputValidity returns HALFOK
      */
     @Test
-    public void checkCheckInputValidityHALFOK2(){
+    public void checkCheckInputValidityNOTOK3(){
         MonkAction testCharacter = new MonkAction();
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Nick1");
@@ -93,7 +93,7 @@ public class MonkActionTest {
         input.add(motherNatureIsland);
 
         testCharacter.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.HALFOK, testCharacter.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
     }
 
     /**

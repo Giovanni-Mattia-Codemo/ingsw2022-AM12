@@ -87,7 +87,7 @@ public class MoveFromEntranceToDiningRoomTest {
      * DiningRoom in the input array and checks if checkInputValidity returns HALFOK
      */
     @Test
-    public void checkCheckInputValidityHALFOK2(){
+    public void checkCheckInputValidityNOTOK3(){
         MoveFromEntranceToDiningRoom testMove = new MoveFromEntranceToDiningRoom();
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Nick1");
@@ -98,7 +98,7 @@ public class MoveFromEntranceToDiningRoomTest {
         ArrayList<Selectable> input = new ArrayList<>();
         input.add(testGame.getCurrentSchoolBoard().getDiningRoom());
         testMove.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.HALFOK, testMove.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.NOTOK, testMove.checkInputValidity(input, testGame));
     }
 
     /**
