@@ -167,7 +167,7 @@ public class SchoolBoard{
      * @param coin to be removed
      * @throws NotPresent id the collection is empty
      */
-    public void removeCoin(Coin coin) throws NotPresent{
+    public void removeCoin(Coin coin){
         if(coins.contains(coin))
             coins.removeElement(coin);
     }

@@ -116,6 +116,10 @@ public class Client {
         showServerMessage(clientGame.getBoardStringToView());
     }
 
+    /**
+     * disconnected method initiates the process of disconnection from the server, closing the socket and shutting down
+     * the various client threads
+     */
     public void disconnected(){
         System.out.println("disconnecting");
         in.close();

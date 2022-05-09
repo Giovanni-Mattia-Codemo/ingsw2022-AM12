@@ -185,6 +185,9 @@ public class Controller {
         }
     }
 
+    /**
+     * endGame terminates the game if a player disconnects
+     */
     public void endGame(){
         System.out.println("a player disconnected");
     }

@@ -36,6 +36,10 @@ public class VirtualView implements Runnable{
         out.println(gameState);
         out.flush();
     }
+
+    /**
+     * disconnected method ends the game and prints a message of disconnection
+     */
     public void disconnected(){
         myController.endGame();
     }

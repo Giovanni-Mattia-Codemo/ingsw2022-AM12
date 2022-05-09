@@ -7,10 +7,17 @@ import it.polimi.ingsw2022am12.communication.PingAdapter;
 
 import java.util.TimerTask;
 
+/**
+ * Class that represents a ClientPing TimerTask
+ */
 public class ClientPingTimerTask extends TimerTask {
 
     private final Client myClient;
 
+    /**
+     * Constructor method of PingTimerTask
+     * @param client my client
+     */
     public ClientPingTimerTask(Client client){
         this.myClient = client;
     }
