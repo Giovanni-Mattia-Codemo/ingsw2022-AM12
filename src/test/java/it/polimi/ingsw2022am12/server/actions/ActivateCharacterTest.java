@@ -65,11 +65,8 @@ public class ActivateCharacterTest {
 
         ArrayList<Selectable> input = new ArrayList<>();
 
-        try {
-            testGame.getCurrentSchoolBoard().removeCoin(testGame.getCurrentSchoolBoard().getFirstCoin());
-        } catch (NotPresent e) {
-            e.printStackTrace();
-        }
+        testGame.getCurrentSchoolBoard().removeCoin(testGame.getCurrentSchoolBoard().getFirstCoin());
+
         //Not enough coins
         Selectable rightCharacter = testGame.getAvailableCharacters().get(0);
         input.add(rightCharacter);

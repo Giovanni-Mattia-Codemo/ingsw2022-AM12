@@ -96,12 +96,10 @@ public class SchoolBoard{
      * Method removeTower removes a tower from the TowerCollection towers
      *
      * @param tower to be removed
-     * @throws NotPresent id the collection is empty
      */
     public void removeTower(Tower tower) throws NotPresent{
         if(towers.contains(tower))
             towers.removeElement(tower);
-        else throw new NotPresent();
     }
 
     /**
@@ -172,7 +170,6 @@ public class SchoolBoard{
     public void removeCoin(Coin coin) throws NotPresent{
         if(coins.contains(coin))
             coins.removeElement(coin);
-        else throw new NotPresent();
     }
 
     /**
@@ -187,12 +184,11 @@ public class SchoolBoard{
      * Method removeFromDiningRoom removes a Student from the dining room
      *
      * @param student to be removed
-     * @throws NotPresent if the collection is empty
      */
-    public void removeFromDiningRoom(Student student)throws NotPresent{
+    public void removeFromDiningRoom(Student student){
         if(diningRoom.contains(student))
-        diningRoom.removeElement(student);
-        else throw new NotPresent();
+            diningRoom.removeElement(student);
+
     }
 
     /**

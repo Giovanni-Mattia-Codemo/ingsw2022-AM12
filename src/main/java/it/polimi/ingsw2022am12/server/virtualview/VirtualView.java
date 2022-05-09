@@ -1,4 +1,4 @@
-package it.polimi.ingsw2022am12.server;
+package it.polimi.ingsw2022am12.server.virtualview;
 
 import it.polimi.ingsw2022am12.server.controller.Controller;
 import java.io.IOException;
@@ -14,6 +14,8 @@ public class VirtualView implements Runnable{
     private final Socket socket;
     private final Controller myController;
     private PrintWriter out = null;
+    private Scanner in;
+    private Thread parser;
 
     /**
      * constructor method of VirtualView class
@@ -44,10 +46,11 @@ public class VirtualView implements Runnable{
      */
     public void run(){
         try{
-            Scanner in = new Scanner(socket.getInputStream());
+            in = new Scanner(socket.getInputStream());
             out = new PrintWriter(socket.getOutputStream());
             VirtualViewMessagesParser virtualViewMessagesParser = new VirtualViewMessagesParser(this, in, myController);
-            new Thread(virtualViewMessagesParser).start();
+            parser = new Thread(virtualViewMessagesParser);
+            parser.start();
             System.out.println("Im alive");
         }catch (IOException e){
             System.err.println(e.getMessage());

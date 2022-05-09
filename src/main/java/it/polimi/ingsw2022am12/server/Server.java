@@ -1,5 +1,6 @@
 package it.polimi.ingsw2022am12.server;
 
+import it.polimi.ingsw2022am12.server.virtualview.VirtualView;
 import it.polimi.ingsw2022am12.server.controller.Controller;
 import java.io.IOException;
 import java.net.*;

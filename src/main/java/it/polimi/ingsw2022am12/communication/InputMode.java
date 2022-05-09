@@ -1,4 +1,4 @@
-package it.polimi.ingsw2022am12;
+package it.polimi.ingsw2022am12.communication;
 
 /**
  * Input mode is a class that defines three inputs to insert during the connection to the server

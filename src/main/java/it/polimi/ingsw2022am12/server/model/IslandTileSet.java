@@ -1,6 +1,4 @@
 package it.polimi.ingsw2022am12.server.model;
-
-import it.polimi.ingsw2022am12.exceptions.NotPresent;
 import java.util.ArrayList;
 
 /**
@@ -128,12 +126,10 @@ public class IslandTileSet implements Selectable {
      * Method removeTower removes a specific tower from the TowerCollection towers
      *
      * @param tower to be removed
-     * @throws NotPresent if there's no towers in the collection
      */
-    public void removeTower(Tower tower) throws NotPresent {
+    public void removeTower(Tower tower){
         if(towers.contains(tower))
             towers.removeElement(tower);
-        else throw new NotPresent();
     }
 
     /**
@@ -173,14 +169,13 @@ public class IslandTileSet implements Selectable {
      * Method giveBackNoEntry takes the first noEntry in noEntries and moves it back into the character
      * that holds the noEntries
      *
-     * @throws NotPresent thrown when no towers are left on this schoolBoard
      */
-    public void giveBackNoEntry() throws NotPresent{
+    public void giveBackNoEntry(){
         NoEntry tmp = noEntries.getFirstNoEntry();
-        if(tmp!=null){
+        if(tmp!=null) {
             tmp.getCharacterNoEntryCollection().insertElement(tmp);
             noEntries.removeElement(tmp);
-        }else throw new NotPresent();
+        }
     }
 
     /**

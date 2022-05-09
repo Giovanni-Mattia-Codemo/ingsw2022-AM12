@@ -1,8 +1,6 @@
 package it.polimi.ingsw2022am12.server.model;
 
 import com.google.gson.JsonElement;
-import it.polimi.ingsw2022am12.exceptions.NotPresent;
-
 import it.polimi.ingsw2022am12.server.model.characters.*;
 import it.polimi.ingsw2022am12.server.model.phases.SetupStrategy;
 
@@ -497,11 +495,7 @@ public class Game{
         IslandTileSet islandToConquer = islandList.getByIndex(index);
 
         if(islandToConquer.getNoEntries().size()!=0){
-            try {
                 islandToConquer.giveBackNoEntry();
-            } catch (NotPresent e) {
-                e.printStackTrace();
-            }
         }else {
 
             int[] scores= new int[teams.size()];
@@ -939,11 +933,7 @@ public class Game{
         Coin toBeMoved;
         for(int i=0; i<coinsUsed; i++){
             toBeMoved = getCurrentSchoolBoard().getFirstCoin();
-            try {
-                getCurrentSchoolBoard().removeCoin(toBeMoved);
-            } catch (NotPresent e) { //never enters (number checked before doing action)
-                e.printStackTrace();
-            }
+            getCurrentSchoolBoard().removeCoin(toBeMoved);
             freeCoins.insertElement(toBeMoved);
         }
     }
@@ -1024,14 +1014,12 @@ public class Game{
             availableOfColor = s.getStudentsInRoomByColor(color);
             for (int i=0; i< Math.min(availableOfColor, hagStudentsToRemove); i++){
                 Student tmp = s.getFirstStudentInRoomOfColor(color);
-                try {
-                    s.removeFromDiningRoom(tmp);
-                    bag.insertElement(tmp);
-                } catch (NotPresent e) {
-                    e.printStackTrace();
-                }
+                s.removeFromDiningRoom(tmp);
+                bag.insertElement(tmp);
+
             }
         }
+
     }
 
     /**

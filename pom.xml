@@ -12,7 +12,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.8.2</junit.version>
-        <sonar.exclusions>**/JavaFX/**/*,**/adapter/**/*,**/controller/**/*,**/exceptions/**/*</sonar.exclusions>
+        <sonar.exclusions>**/JavaFX/**/*,**/adapter/**/*,**/controller/**/*,**/client/**/*,**/virtualview/**/*,**/Server.java,**/communication/**/*</sonar.exclusions>
     </properties>
 
     <dependencies>

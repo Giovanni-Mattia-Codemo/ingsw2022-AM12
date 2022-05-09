@@ -1,6 +1,5 @@
 package it.polimi.ingsw2022am12.server;
 
-import it.polimi.ingsw2022am12.exceptions.NotPresent;
 import it.polimi.ingsw2022am12.server.model.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
@@ -127,24 +126,6 @@ public class SchoolBoardTest {
         SchoolBoard testSchool = new SchoolBoard("Mario");
         testSchool.playAssistant(7);
         Assertions.assertTrue(true);
-    }
-
-    /**
-     * checkRemoveFromRoom creates a new testingBoard; it then checks if the NotPresent exception is thrown, since
-     * the Dining Room is empty
-     *
-     */
-    @Test
-    public void checkRemoveFromRoom(){
-        SchoolBoard testSchool = new SchoolBoard("Tony");
-        String msg = null;
-        Student s0 = new Student(DiskColor.RED);
-        try {
-            testSchool.removeFromDiningRoom(s0);
-        } catch (NotPresent e) {
-            msg = e.getMessage();
-        }
-        assert msg != null;
     }
 
     /**

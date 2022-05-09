@@ -18,8 +18,10 @@ public class Client {
     private PrintWriter stdout;
     private PrintWriter out;
     private ClientGame clientGame;
-    ExecutorService executor;
-    Socket socket;
+    private ExecutorService executor;
+    private Socket socket;
+    private Scanner in;
+    private Timer timer;
 
     /**
      * Constructor method of the Client class
@@ -52,8 +54,8 @@ public class Client {
         executor = Executors.newCachedThreadPool();
         socket = new Socket(ip, port);
         System.out.println("Connected!");
-        Scanner in = new Scanner(socket.getInputStream());
-         out = new PrintWriter(socket.getOutputStream());
+        in = new Scanner(socket.getInputStream());
+        out = new PrintWriter(socket.getOutputStream());
         Scanner stdin = new Scanner(System.in);
 
         stdout = new PrintWriter(System.out);
@@ -68,6 +70,20 @@ public class Client {
         ClientPingTimerTask pingTimerTask = new ClientPingTimerTask(this);
         timer.schedule(pingTimerTask, 3000, 3000);
 
+    }
+
+    /**
+     * restartClient method reopens a new socket, and submits a new pool of threads
+     */
+    private void restartClient() throws IOException{
+        socket = new Socket(ip, port);
+        System.out.println("Connected!");
+        in = new Scanner(socket.getInputStream());
+        out = new PrintWriter(socket.getOutputStream());
+        executor.submit(new ServerMessageHandler(in,this));
+        timer = new Timer();
+        ClientPingTimerTask pingTimerTask = new ClientPingTimerTask(this);
+        timer.schedule(pingTimerTask, 3000, 3000);
     }
 
     /**
@@ -102,11 +118,26 @@ public class Client {
 
     public void disconnected(){
         System.out.println("disconnecting");
-        executor.shutdown();
+        in.close();
+        out.close();
         try {
             socket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        timer.cancel();
+
+        Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
+        for(Thread t: threadSet){
+            System.out.println(t.getName());
+        }
+
+        try{
+            restartClient();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
+
     }
 }

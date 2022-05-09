@@ -1,6 +1,6 @@
 package it.polimi.ingsw2022am12.server;
 
-import it.polimi.ingsw2022am12.InputMode;
+import it.polimi.ingsw2022am12.communication.InputMode;
 import it.polimi.ingsw2022am12.server.adapter.GameAdapter;
 import it.polimi.ingsw2022am12.server.model.*;
 import it.polimi.ingsw2022am12.server.adapter.StudentAdapter;

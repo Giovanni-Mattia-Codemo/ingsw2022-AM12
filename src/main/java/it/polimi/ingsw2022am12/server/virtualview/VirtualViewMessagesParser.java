@@ -1,8 +1,9 @@
-package it.polimi.ingsw2022am12.server;
+package it.polimi.ingsw2022am12.server.virtualview;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import it.polimi.ingsw2022am12.server.adapter.*;
+import it.polimi.ingsw2022am12.server.controller.ControlMessages;
 import it.polimi.ingsw2022am12.server.controller.Controller;
 import it.polimi.ingsw2022am12.server.model.*;
 import java.util.Map;
@@ -39,9 +40,16 @@ public class VirtualViewMessagesParser implements Runnable{
         Timer tim = new Timer(true);
         PingTimerTask pingTimerTask = new PingTimerTask(virtualView);
         tim.schedule(pingTimerTask, 15000, 6000);
-
+        String line;
         while (true){
-            String line = in.next();
+            try{
+                line = in.next();
+            }catch (RuntimeException e){
+                virtualView.close();
+                tim.cancel();
+                myController.removeView(virtualView);
+                break;
+            }
             Gson gson = new Gson();
             Map map = gson.fromJson(line, Map.class);
             String tag =(String) map.get("tag");

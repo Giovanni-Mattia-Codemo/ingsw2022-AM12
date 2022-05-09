@@ -1,4 +1,4 @@
-package it.polimi.ingsw2022am12.server;
+package it.polimi.ingsw2022am12.server.virtualview;
 
 import java.util.TimerTask;
 

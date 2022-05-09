@@ -2,8 +2,8 @@ package it.polimi.ingsw2022am12.client;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import it.polimi.ingsw2022am12.Ping;
-import it.polimi.ingsw2022am12.PingAdapter;
+import it.polimi.ingsw2022am12.communication.Ping;
+import it.polimi.ingsw2022am12.communication.PingAdapter;
 
 import java.util.TimerTask;
 

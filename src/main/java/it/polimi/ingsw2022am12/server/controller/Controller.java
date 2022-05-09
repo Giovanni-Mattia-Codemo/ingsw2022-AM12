@@ -2,8 +2,7 @@ package it.polimi.ingsw2022am12.server.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import it.polimi.ingsw2022am12.server.ControlMessages;
-import it.polimi.ingsw2022am12.server.VirtualView;
+import it.polimi.ingsw2022am12.server.virtualview.VirtualView;
 import it.polimi.ingsw2022am12.server.adapter.GameAdapter;
 import it.polimi.ingsw2022am12.server.model.Game;
 import it.polimi.ingsw2022am12.server.model.Selectable;

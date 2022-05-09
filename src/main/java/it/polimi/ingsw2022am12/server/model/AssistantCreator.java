@@ -1,8 +1,5 @@
 package it.polimi.ingsw2022am12.server.model;
 
-import it.polimi.ingsw2022am12.exceptions.NotValidAssistant;
-import it.polimi.ingsw2022am12.server.model.Assistant;
-
 /**
  * Factory method of Assistant.
  * It returns a new Assistant card.

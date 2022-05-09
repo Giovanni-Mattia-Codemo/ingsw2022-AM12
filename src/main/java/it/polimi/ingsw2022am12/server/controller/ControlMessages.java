@@ -1,4 +1,4 @@
-package it.polimi.ingsw2022am12.server;
+package it.polimi.ingsw2022am12.server.controller;
 
 /**
  * ControlMessages is an enum that contains the type of messages a client can receive from the server
