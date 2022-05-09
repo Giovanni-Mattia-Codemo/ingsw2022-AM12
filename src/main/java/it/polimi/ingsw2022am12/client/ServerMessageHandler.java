@@ -37,8 +37,15 @@ public class ServerMessageHandler implements Runnable {
         pong = new PongTimerTask(client);
         timer.schedule(pong, 18000, 9000 );
         while (true){
-            message = scanner.nextLine();
-            handle(message, client);
+            try{
+                message = scanner.nextLine();
+                handle(message, client);
+            }catch (RuntimeException e){
+                timer.cancel();
+                client.disconnected();
+                break;
+            }
+
         }
     }
 

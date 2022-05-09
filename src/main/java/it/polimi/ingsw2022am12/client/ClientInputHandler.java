@@ -34,8 +34,13 @@ public class ClientInputHandler implements Runnable {
     public void run() {
         String input;
         while(true){
-            input = in.nextLine();
-            handle(input, client);
+            try{
+                input = in.nextLine();
+                handle(input, client);
+            }catch (RuntimeException e){
+                break;
+            }
+
         }
     }
 

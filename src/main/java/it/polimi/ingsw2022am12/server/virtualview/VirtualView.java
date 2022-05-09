@@ -33,6 +33,7 @@ public class VirtualView implements Runnable{
      *
      */
     public void forwardMsg(String gameState){
+
         out.println(gameState);
         out.flush();
     }
@@ -41,7 +42,7 @@ public class VirtualView implements Runnable{
      * disconnected method ends the game and prints a message of disconnection
      */
     public void disconnected(){
-        myController.endGame();
+        myController.removeView(this);
     }
 
     /**
@@ -59,5 +60,19 @@ public class VirtualView implements Runnable{
         }catch (IOException e){
             System.err.println(e.getMessage());
         }
+    }
+
+    /**
+     * close method closes both the socket and the in Scanner/ out PrintWriter
+     */
+    public void close(){
+        in.close();
+        out.close();
+        try {
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

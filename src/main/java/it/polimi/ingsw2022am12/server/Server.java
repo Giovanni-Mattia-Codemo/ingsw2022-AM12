@@ -56,6 +56,7 @@ public class Server {
                 Socket socket = serverSocket.accept();
                 VirtualView virtualView = new VirtualView(socket, myController);
                 executor.submit(virtualView);
+
             }catch(IOException e ){
                 break;
             }

@@ -37,6 +37,7 @@ public class VirtualViewMessagesParser implements Runnable{
      */
     @Override
     public void run() {
+
         Timer tim = new Timer(true);
         PingTimerTask pingTimerTask = new PingTimerTask(virtualView);
         tim.schedule(pingTimerTask, 15000, 6000);

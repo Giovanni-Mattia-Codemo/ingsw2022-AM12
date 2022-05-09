@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.Timer;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -66,7 +67,7 @@ public class Client {
         executor.submit(clientInputHandler);
         ServerMessageHandler serverMessageHandler = new ServerMessageHandler(in, this);
         executor.submit(serverMessageHandler);
-        Timer timer = new Timer();
+        timer = new Timer();
         ClientPingTimerTask pingTimerTask = new ClientPingTimerTask(this);
         timer.schedule(pingTimerTask, 3000, 3000);
 

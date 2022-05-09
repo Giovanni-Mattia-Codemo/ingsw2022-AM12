@@ -1,6 +1,6 @@
 package it.polimi.ingsw2022am12.server.actions;
 
-import it.polimi.ingsw2022am12.exceptions.NotPresent;
+
 import it.polimi.ingsw2022am12.server.model.CharacterCard;
 import it.polimi.ingsw2022am12.server.model.Game;
 import it.polimi.ingsw2022am12.server.model.Selectable;

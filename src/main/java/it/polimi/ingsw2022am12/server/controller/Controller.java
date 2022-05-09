@@ -41,6 +41,7 @@ public class Controller {
      */
     private void updateAllViews(String result){
         for(VirtualView v: userMap.keySet()){
+            System.out.println("updating virtualview "+ v.toString());
             v.forwardMsg(result);
         }
     }
@@ -189,7 +190,29 @@ public class Controller {
      * endGame terminates the game if a player disconnects
      */
     public void endGame(){
-        System.out.println("a player disconnected");
+        System.out.println("Closing game");
+        updateAllViews("Game is closing because of a played disconnection");
+        myGame = null;
+
+        gameWasSet = false;
+        creatingGame = false;
+        acceptingUsers = true;
+        for(VirtualView v: userMap.keySet()){
+            v.close();
+        }
+        userMap.clear();
+    }
+
+    /**
+     * removeView removes the view when a player disconnects
+     * @param v my Virtual view
+     */
+    public void removeView(VirtualView v){
+        System.out.println("A player disconnected");
+
+        userMap.remove(v);
+        endGame();
+
     }
 
 

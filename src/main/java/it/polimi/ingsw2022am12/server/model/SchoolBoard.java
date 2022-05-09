@@ -1,6 +1,6 @@
 package it.polimi.ingsw2022am12.server.model;
 
-import it.polimi.ingsw2022am12.exceptions.NotPresent;
+
 
 import java.util.ArrayList;
 
@@ -97,7 +97,7 @@ public class SchoolBoard{
      *
      * @param tower to be removed
      */
-    public void removeTower(Tower tower) throws NotPresent{
+    public void removeTower(Tower tower){
         if(towers.contains(tower))
             towers.removeElement(tower);
     }
@@ -165,7 +165,7 @@ public class SchoolBoard{
      * Method removeCoin removes a coin from the CoinCollection coins
      *
      * @param coin to be removed
-     * @throws NotPresent id the collection is empty
+     *
      */
     public void removeCoin(Coin coin){
         if(coins.contains(coin))
