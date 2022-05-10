@@ -85,8 +85,16 @@ public class Client {
         stdout.println("Enter your nick for the game\n");
         stdout.flush();
 
+        socket = new Socket(ip, port);
+        System.out.println("Connected!");
+        in = new Scanner(socket.getInputStream());
+        out = new PrintWriter(socket.getOutputStream());
 
-
+        ServerMessageHandler serverMessageHandler = new ServerMessageHandler(in, this);
+        executor.submit(serverMessageHandler);
+        timer = new Timer();
+        ClientPingTimerTask pingTimerTask = new ClientPingTimerTask(this);
+        timer.schedule(pingTimerTask, 3000, 3000);
     }
 
     /**
@@ -151,13 +159,13 @@ public class Client {
         for(Thread t: threadSet){
             System.out.println(t.getName());
         }
-
+/*
         try{
             restartClient();
         }catch(IOException e){
             e.printStackTrace();
         }
-
+*/
 
     }
 }

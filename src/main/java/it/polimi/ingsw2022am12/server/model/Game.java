@@ -809,10 +809,11 @@ public class Game{
 
     public ArrayList<Assistant> getPlayableAssistants(){
         ArrayList<Assistant> playable = new ArrayList<>(getCurrentSchoolBoard().getPlayableAssistants());
+        ArrayList<Assistant> toRemove = new ArrayList<>();
         for(int i=0; i<getCurrentSchoolBoard().getPlayableAssistants().size(); i++){
-            int turnPower = getCurrentSchoolBoard().getPlayableAssistants().get(i).getTurnPower();
-            if(!isAssistantPlayable(turnPower)){
-                playable.remove(i);
+            Assistant tmp = getCurrentSchoolBoard().getPlayableAssistants().get(i);
+            if(!isAssistantPlayable(tmp.getTurnPower())){
+                toRemove.add(tmp);
             }
         }
         playable.removeAll(toRemove);
@@ -833,7 +834,7 @@ public class Game{
 
         if(cardWasPlayed){
             for(int i=0; i<getCurrentSchoolBoard().getPlayableAssistants().size(); i++){
-                boolean thisWasPlayed=false;
+
                 int currentCardPower = getCurrentSchoolBoard().getPlayableAssistants().get(i).getTurnPower();
 
 
@@ -846,6 +847,17 @@ public class Game{
 
         return noOtherPlayableAssistants;
     }
+
+
+    private boolean wasCardPlayed(int turnPower){
+        for(int j=0; j<turn; j++){
+            int toCheck = turnOrder.get(j).getLastPlayedAssistantPower();
+            if(toCheck==turnPower){
+                return true;
+            }
+        }return false;
+    }
+
 
     /**
      * Method correctOrder sorts the turnOrder with the correct order of players for the next action phase

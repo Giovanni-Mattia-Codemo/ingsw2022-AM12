@@ -29,6 +29,7 @@ public class ClientPingTimerTask extends TimerTask {
     public void run() {
         Gson gson = new GsonBuilder().registerTypeAdapter(Ping.class, new PingAdapter()).create();
         String ping = gson.toJson(new Ping());
+
         myClient.forwardJson(ping);
     }
 }

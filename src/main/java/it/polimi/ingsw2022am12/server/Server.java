@@ -4,6 +4,7 @@ import it.polimi.ingsw2022am12.server.virtualview.VirtualView;
 import it.polimi.ingsw2022am12.server.controller.Controller;
 import java.io.IOException;
 import java.net.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -14,6 +15,7 @@ public class Server {
     private final int port;
     private ServerSocket serverSocket;
     private final Controller myController;
+    private final ArrayList<VirtualView> virtualViews;
 
     /**
      * Constructor method of the Server class
@@ -22,7 +24,8 @@ public class Server {
      */
     public Server(int port){
         this.port = port;
-        this.myController = new Controller();
+        this.myController = new Controller(this);
+        virtualViews = new ArrayList<>();
     }
 
     /**
@@ -47,18 +50,25 @@ public class Server {
         }catch(IOException e){
             e.printStackTrace();
         }
+        ConnectionHandler connectionHandler = new ConnectionHandler(myController, serverSocket, this);
+        new Thread(connectionHandler, "Connection Handler").start();
+    }
 
-        while(true){
-            try{
-                Socket socket = serverSocket.accept();
-                VirtualView virtualView = new VirtualView(socket, myController);
-                executor.submit(virtualView);
+    public void addView(VirtualView v){
+        System.out.println("adding a view to server");
+        virtualViews.add(v);
+    }
 
-            }catch(IOException e ){
-                break;
-            }
+    public void removeView(VirtualView v){
+        System.out.println("removing a view from server");
+        v.close();
+        virtualViews.remove(v);
+    }
+
+    public void updateViewsOfStatus(){
+        for(VirtualView v : virtualViews){
+            v.forwardMsg(myController.getMatchStatusOfView(v).getMessage());
         }
-        executor.shutdown();
     }
 
 }
