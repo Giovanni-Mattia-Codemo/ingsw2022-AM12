@@ -56,20 +56,12 @@ public class Client {
      * The method that starts the client
      */
     public void startClient() throws IOException{
-        executor = Executors.newCachedThreadPool();
-        socket = new Socket(ip, port);
-        System.out.println("Connected!");
-        in = new Scanner(socket.getInputStream());
-        out = new PrintWriter(socket.getOutputStream());
+
         Scanner stdin = new Scanner(System.in);
-        ServerMessageHandler serverMessageHandler = new ServerMessageHandler(in, this);
-        executor.submit(serverMessageHandler);
-        timer = new Timer();
-        ClientPingTimerTask pingTimerTask = new ClientPingTimerTask(this);
-        timer.schedule(pingTimerTask, 3000, 3000);
         stdout = new PrintWriter(System.out);
+        executor = Executors.newCachedThreadPool();
         System.out.println("Enter GUI or CLI to pick a client mode");
-        String sel = null;
+        String sel;
         boolean correct;
         do {
             correct = true;

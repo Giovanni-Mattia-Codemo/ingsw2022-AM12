@@ -815,6 +815,7 @@ public class Game{
                 playable.remove(i);
             }
         }
+        playable.removeAll(toRemove);
         return playable;
     }
 
@@ -825,27 +826,18 @@ public class Game{
      * @return true if the assistant is playable, false otherwise
      */
     private boolean isAssistantPlayable(int assistantPower){
-        boolean cardWasPlayed = false;
+        boolean cardWasPlayed;
         boolean noOtherPlayableAssistants = true;
 
-        for(int j=0; j<turn; j++){
-            int toCheck = turnOrder.get(j).getLastPlayedAssistantPower();
-            if(toCheck==assistantPower){
-                cardWasPlayed=true;
-            }
-        }
+        cardWasPlayed = wasCardPlayed(assistantPower);
 
         if(cardWasPlayed){
             for(int i=0; i<getCurrentSchoolBoard().getPlayableAssistants().size(); i++){
                 boolean thisWasPlayed=false;
                 int currentCardPower = getCurrentSchoolBoard().getPlayableAssistants().get(i).getTurnPower();
-                for(int j=0; j<turn; j++){
-                    int toCheck = turnOrder.get(j).getLastPlayedAssistantPower();
-                    if(toCheck==currentCardPower){
-                        thisWasPlayed=true;
-                    }
-                }
-                if(!thisWasPlayed){
+
+
+                if(!wasCardPlayed(currentCardPower)){
                     noOtherPlayableAssistants=false;
                     break;
                 }

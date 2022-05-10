@@ -10,7 +10,7 @@ import java.util.Scanner;
  * VirtualView class represents the layer that transforms information that come from the client and sends them to the
  * controller inside the server
  */
-public class VirtualView implements Runnable{
+public class VirtualView{
     private final Socket socket;
     private final Controller myController;
     private PrintWriter out = null;
@@ -25,6 +25,16 @@ public class VirtualView implements Runnable{
     public VirtualView(Socket socket, Controller newController){
         this.socket = socket;
         this.myController = newController;
+        try{
+            in = new Scanner(socket.getInputStream());
+            out = new PrintWriter(socket.getOutputStream());
+            VirtualViewMessagesParser virtualViewMessagesParser = new VirtualViewMessagesParser(this, in, myController);
+            parser = new Thread(virtualViewMessagesParser);
+            parser.start();
+            System.out.println("Im alive");
+        }catch (IOException e){
+            System.err.println(e.getMessage());
+        }
     }
 
     /**
@@ -43,23 +53,6 @@ public class VirtualView implements Runnable{
      */
     public void disconnected(){
         myController.removeView(this);
-    }
-
-    /**
-     * void run is the method executed by the various threads; it receives information from the client, and deserializes it,
-     * sending it to the Controller
-     */
-    public void run(){
-        try{
-            in = new Scanner(socket.getInputStream());
-            out = new PrintWriter(socket.getOutputStream());
-            VirtualViewMessagesParser virtualViewMessagesParser = new VirtualViewMessagesParser(this, in, myController);
-            parser = new Thread(virtualViewMessagesParser);
-            parser.start();
-            System.out.println("Im alive");
-        }catch (IOException e){
-            System.err.println(e.getMessage());
-        }
     }
 
     /**

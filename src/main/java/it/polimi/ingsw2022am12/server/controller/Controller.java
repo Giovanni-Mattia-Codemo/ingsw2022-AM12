@@ -2,6 +2,7 @@ package it.polimi.ingsw2022am12.server.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import it.polimi.ingsw2022am12.server.Server;
 import it.polimi.ingsw2022am12.server.virtualview.VirtualView;
 import it.polimi.ingsw2022am12.server.adapter.GameAdapter;
 import it.polimi.ingsw2022am12.server.model.Game;
@@ -27,13 +28,15 @@ public class Controller {
     private boolean acceptingUsers;
     private final Map<VirtualView, String> userMap;
     private final Lock lock;
+    private final Server server;
 
 
     /**
      * Constructor method of Controller class
      */
-    public Controller(){
+    public Controller(Server server){
         this.userMap = new HashMap<>();
+        this.server = server;
         creatingGame = false;
         acceptingUsers = true;
         gameWasSet = false;
@@ -55,7 +58,6 @@ public class Controller {
      * send method has the function to send certain messages to the VirtualViews according to the action selected by a user
      * @param v the VirtualView in the server
      * @param s selected object
-     * @return String the message sent
      */
     public String send(VirtualView v, Selectable s){
         synchronized (lock){
@@ -69,16 +71,17 @@ public class Controller {
                     msg = msg.concat("Invalid selection."+"\n") ;
                     msg = msg.concat(inputHandler.getNextSelection());
                 }else if(result.equals(ActionStep.HALFOK)){
-                    return inputHandler.getNextSelection();
+                    v.forwardMsg(inputHandler.getNextSelection());
+                    return;
                 }else if(result.equals(ActionStep.OK)){
                     Gson gson = new GsonBuilder().registerTypeAdapter(Game.class, new GameAdapter()).create();
                     String gameState = gson.toJson(myGame);
                     updateAllViews(gameState);
                     msg = msg.concat("Action completed successfully." + "\n") ;
                     if(myGame.getCurrentSchoolBoard().getNick().equals(userMap.get(v))){
-                        msg = msg.concat(inputHandler.getNextSelection());
+                        v.forwardMsg(inputHandler.getNextSelection());
                     }else {
-                        msg = msg.concat("Your turn has ended"+ "\n");
+                        v.forwardMsg("Your turn has ended"+ "\n");
                         notifyNextPlayerOfSel();
                     }
 
@@ -88,15 +91,13 @@ public class Controller {
             }
             return "Not your turn";
         }
-
     }
 
     /**
      * setGameMode is the method that sets the instance of my game
      * @param v view of my user
-     * @param b game mode, which can be Easy or Expert
+     * @param b game mode, which can be Easy (false) or Expert (true)
      * @param i selected number of players
-     * @return ControlMessages
      */
     public ControlMessages setGameMode(VirtualView v, int i, boolean b){
         synchronized (lock){
@@ -110,11 +111,10 @@ public class Controller {
                     numOfPlayers = i;
                     creatingGame = false;
                     gameWasSet = true;
-
-
-                    return ControlMessages.ACCEPTED;
-                }else{
-                    return ControlMessages.INVALIDVALUES;
+                    v.forwardMsg(ControlMessages.ACCEPTED.getMessage());
+                    informServerOfMatchStatus();
+                } else {
+                    v.forwardMsg(ControlMessages.INVALIDVALUES.getMessage());
                 }
             }return ControlMessages.INVALIDUSER;
         }
@@ -127,7 +127,6 @@ public class Controller {
      * selectUsername allows the users to select their usernames, which cannot be repeated
      * @param v the view of the user
      * @param nick nickname of the user
-     * @return ControlMessages
      */
     public ControlMessages selectUsername(String nick, VirtualView v){
         synchronized (lock) {
@@ -140,10 +139,12 @@ public class Controller {
 
             if (acceptingUsers) {
                 if (userMap.containsValue(nick)) {
-                    return ControlMessages.RETRY;
+                    v.forwardMsg(ControlMessages.RETRY.getMessage());
+
                 } else {
-                    return bindView(v, nick);
+                    bindView(v, nick);
                 }
+                return;
 
             }
             return ControlMessages.GAMEISFULL;
@@ -155,9 +156,8 @@ public class Controller {
      * bindView binds the VirtualView to a certain username
      * @param nick the chosen nickname
      * @param v the view of the user
-     * @return ControlMessages
      */
-    private ControlMessages bindView(VirtualView v, String nick){
+    private void bindView(VirtualView v, String nick){
 
         userMap.put(v, nick);
         if(userMap.size()==1){
@@ -169,10 +169,7 @@ public class Controller {
         if(userMap.size()==numOfPlayers){
             System.out.println("Reached max players");
             acceptingUsers = false;
-            ArrayList<String> nicks = new ArrayList<>();
-            for(String userName: userMap.values()){
-                nicks.add(userName);
-            }
+            ArrayList<String> nicks = new ArrayList<>(userMap.values());
             myGame = new Game(nicks, difficulty);
             myGame.setUp();
             System.out.println("Game is up");
@@ -200,7 +197,8 @@ public class Controller {
      */
     public void endGame(){
         System.out.println("Closing game");
-        updateAllViews("Game is closing because of a played disconnection");
+        updateAllViews("Game is closing because of a player disconnection");
+
         myGame = null;
 
         gameWasSet = false;
@@ -210,6 +208,7 @@ public class Controller {
             v.close();
         }
         userMap.clear();
+        informServerOfMatchStatus();
     }
 
     /**

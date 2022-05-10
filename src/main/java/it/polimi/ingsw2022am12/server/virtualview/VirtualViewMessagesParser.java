@@ -3,7 +3,6 @@ package it.polimi.ingsw2022am12.server.virtualview;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import it.polimi.ingsw2022am12.server.adapter.*;
-import it.polimi.ingsw2022am12.server.controller.ControlMessages;
 import it.polimi.ingsw2022am12.server.controller.Controller;
 import it.polimi.ingsw2022am12.server.model.*;
 import java.util.Map;
@@ -43,79 +42,82 @@ public class VirtualViewMessagesParser implements Runnable{
         tim.schedule(pingTimerTask, 15000, 6000);
         String line;
         while (true){
-            try{
-                line = in.next();
-            }catch (RuntimeException e){
-                virtualView.close();
-                tim.cancel();
-                myController.removeView(virtualView);
-                break;
+            while (in.hasNextLine()) {
+                try {
+                    line = in.nextLine();
+                } catch (RuntimeException e) {
+                    System.out.println("scanner issue");
+                    virtualView.close();
+                    tim.cancel();
+                    myController.removeView(virtualView);
+                    break;
+                }
+                Gson gson = new Gson();
+                Map map = gson.fromJson(line, Map.class);
+                String tag = (String) map.get("tag");
+                map.remove("tag");
+                String res = gson.toJson(map);
+
+                switch (tag) {
+                    case "Nick" -> {
+                        String nick = (String) map.get("nick");
+                        myController.selectUsername(nick, virtualView);
+
+                    }
+                    case "Student" -> {
+                        GsonBuilder builder = new GsonBuilder();
+                        builder.registerTypeAdapter(Student.class, new StudentAdapter());
+                        gson = builder.create();
+                        Student student = gson.fromJson(res, Student.class);
+                        myController.send(virtualView, student);
+                    }
+                    case "StudentDiskCollection" -> {
+                        gson = new GsonBuilder().registerTypeAdapter(StudentDiskCollection.class, new StudentDiskCollectionAdapter()).create();
+                        StudentDiskCollection studentDiskCollection = gson.fromJson(res, StudentDiskCollection.class);
+                        myController.send(virtualView, studentDiskCollection);
+                    }
+                    case "NoEntry" -> {
+                        gson = new GsonBuilder().registerTypeAdapter(NoEntry.class, new NoEntryAdapter()).create();
+                        NoEntry noEntry = gson.fromJson(res, NoEntry.class);
+                        myController.send(virtualView, noEntry);
+                    }
+                    case "Character" -> {
+                        gson = new GsonBuilder().registerTypeAdapterFactory(new CharacterAdapterFactory()).create();
+                        CharacterCard characterCard = gson.fromJson(res, CharacterCard.class);
+                        myController.send(virtualView, characterCard);
+                    }
+                    case "Island" -> {
+                        gson = new GsonBuilder().registerTypeAdapter(IslandTileSet.class, new IslandTileSetAdapter()).create();
+                        IslandTileSet islandTileSet = gson.fromJson(res, IslandTileSet.class);
+                        myController.send(virtualView, islandTileSet);
+                    }
+                    case "Color" -> {
+                        DiskColor color = (DiskColor) map.get("color");
+                        myController.send(virtualView, new ColorSelection(color));
+                    }
+                    case "InputMode" -> {
+                        int num = (int) Math.round((double) map.get("number"));
+                        boolean b = (boolean) map.get("mode");
+                        myController.setGameMode(virtualView, num, b);
+                    }
+                    case "Mage" -> {
+                        int id = (int) Math.round((double) map.get("ID"));
+                        Mage mage = new Mage(id);
+                        myController.send(virtualView, mage);
+                    }
+                    case "Assistant" -> {
+                        int turnPower = (int) Math.round((double) map.get("TurnPower"));
+                        Assistant assistant = AssistantCreator.createAssistant(turnPower);
+                        myController.send(virtualView, assistant);
+                    }
+                    case "Ping" -> {
+                        pingTimerTask.ping();
+                        virtualView.forwardMsg("Pong");
+                    }
+                    default -> virtualView.forwardMsg("Unrecognized input" + "\n");
+                }
+
             }
-            Gson gson = new Gson();
-            Map map = gson.fromJson(line, Map.class);
-            String tag =(String) map.get("tag");
-            map.remove("tag");
-            String res = gson.toJson(map);
-            String msg = "";
-            switch (tag) {
-                case "Nick" -> {
-                    String nick = (String) map.get("nick");
-                    ControlMessages messages = myController.selectUsername(nick, virtualView);
-                    msg = msg.concat(messages.getMessage());
-                }
-                case "Student" -> {
-                    GsonBuilder builder = new GsonBuilder();
-                    builder.registerTypeAdapter(Student.class, new StudentAdapter());
-                    gson = builder.create();
-                    Student student = gson.fromJson(res, Student.class);
-                    msg = myController.send(virtualView, student);
-                }
-                case "StudentDiskCollection" -> {
-                    gson = new GsonBuilder().registerTypeAdapter(StudentDiskCollection.class, new StudentDiskCollectionAdapter()).create();
-                    StudentDiskCollection studentDiskCollection = gson.fromJson(res, StudentDiskCollection.class);
-                    msg = myController.send(virtualView, studentDiskCollection);
-                }
-                case "NoEntry" -> {
-                    gson = new GsonBuilder().registerTypeAdapter(NoEntry.class, new NoEntryAdapter()).create();
-                    NoEntry noEntry = gson.fromJson(res, NoEntry.class);
-                    msg = myController.send(virtualView, noEntry);
-                }
-                case "Character" -> {
-                    gson = new GsonBuilder().registerTypeAdapterFactory(new CharacterAdapterFactory()).create();
-                    CharacterCard characterCard = gson.fromJson(res, CharacterCard.class);
-                    msg = myController.send(virtualView, characterCard);
-                }
-                case "Island" -> {
-                    gson = new GsonBuilder().registerTypeAdapter(IslandTileSet.class, new IslandTileSetAdapter()).create();
-                    IslandTileSet islandTileSet = gson.fromJson(res, IslandTileSet.class);
-                    msg = myController.send(virtualView, islandTileSet);
-                }
-                case "Color" -> {
-                    DiskColor color = (DiskColor) map.get("color");
-                    msg = myController.send(virtualView, new ColorSelection(color));
-                }
-                case "InputMode" -> {
-                    int num = (int) Math.round((double) map.get("number"));
-                    boolean b = (boolean) map.get("mode");
-                    msg = (myController.setGameMode(virtualView, num, b)).getMessage();
-                }
-                case "Mage" -> {
-                    int id = (int) Math.round((double) map.get("ID"));
-                    Mage mage = new Mage(id);
-                    msg = (myController.send(virtualView, mage));
-                }
-                case "Assistant" -> {
-                    int turnPower = (int) Math.round((double) map.get("TurnPower"));
-                    Assistant assistant = AssistantCreator.createAssistant(turnPower);
-                    msg = (myController.send(virtualView, assistant));
-                }
-                case "Ping" ->{
-                    pingTimerTask.ping();
-                    msg = "Pong";
-                }
-                default -> msg = "Unrecognized input" + "\n";
-            }
-            virtualView.forwardMsg(msg);
         }
     }
 }

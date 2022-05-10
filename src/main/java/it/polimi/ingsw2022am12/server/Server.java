@@ -5,8 +5,6 @@ import it.polimi.ingsw2022am12.server.controller.Controller;
 import java.io.IOException;
 import java.net.*;
 import java.util.Scanner;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * Server class represents the component which receives requests from the client, and sends responses
@@ -42,7 +40,6 @@ public class Server {
      */
     public void startServer(){
 
-        ExecutorService executor = Executors.newCachedThreadPool();
         Scanner serverTerminalIn = new Scanner(System.in);
         try{
             serverSocket = new ServerSocket(port);
