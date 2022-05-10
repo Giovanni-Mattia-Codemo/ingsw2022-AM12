@@ -3,6 +3,8 @@ package it.polimi.ingsw2022am12.client;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import it.polimi.ingsw2022am12.client.adapter.GameStateAdapter;
+import it.polimi.ingsw2022am12.client.model.ClientGame;
+
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Timer;

@@ -1,4 +1,4 @@
-package it.polimi.ingsw2022am12.client;
+package it.polimi.ingsw2022am12.client.model;
 
 /**
  * ClientIsland represents an Island tile from the client's side

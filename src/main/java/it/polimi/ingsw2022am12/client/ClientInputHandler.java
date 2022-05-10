@@ -2,6 +2,7 @@ package it.polimi.ingsw2022am12.client;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import it.polimi.ingsw2022am12.client.model.*;
 import it.polimi.ingsw2022am12.communication.InputMode;
 import it.polimi.ingsw2022am12.communication.InputModeAdapter;
 import it.polimi.ingsw2022am12.client.adapter.*;
@@ -11,7 +12,7 @@ import java.util.Scanner;
 /**
  * ClientInputHandler class represents the component that handles the data in input from the client's side
  */
-public class ClientInputHandler implements Runnable {
+public class ClientInputHandler implements  Runnable {
 
     private final Scanner in;
     private final Client client;

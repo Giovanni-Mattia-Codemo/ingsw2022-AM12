@@ -43,6 +43,7 @@ public class TowerCollection implements Position {
      * @return Tower first tower
      */
     public Tower getFirstTower(){
+        if (towers.isEmpty())return null;
         return towers.get(0);
     }
 

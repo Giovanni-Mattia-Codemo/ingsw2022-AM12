@@ -1,4 +1,4 @@
-package it.polimi.ingsw2022am12.client;
+package it.polimi.ingsw2022am12.client.model;
 
 /**
  * ClientCharacter represents the Character card from the client's side

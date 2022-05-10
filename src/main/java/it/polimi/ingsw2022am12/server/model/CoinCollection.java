@@ -22,6 +22,7 @@ public class CoinCollection implements Position {
      * @return Coin the first coin of the collection
      */
     public Coin getFirstCoin(){
+        if(coins.isEmpty())return null;
         return coins.get(0);
     }
 

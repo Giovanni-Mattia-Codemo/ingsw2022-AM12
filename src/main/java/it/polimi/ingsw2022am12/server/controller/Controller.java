@@ -10,6 +10,9 @@ import it.polimi.ingsw2022am12.server.model.actions.ActionStep;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 
 /**
  * Controller class represents the component which receives inputs from the client and generates a response updating views
@@ -23,6 +26,7 @@ public class Controller {
     private boolean creatingGame;
     private boolean acceptingUsers;
     private final Map<VirtualView, String> userMap;
+    private final Lock lock;
 
 
     /**
@@ -33,6 +37,7 @@ public class Controller {
         creatingGame = false;
         acceptingUsers = true;
         gameWasSet = false;
+        lock = new ReentrantLock();
 
     }
 
@@ -52,35 +57,38 @@ public class Controller {
      * @param s selected object
      * @return String the message sent
      */
-    public synchronized String send(VirtualView v, Selectable s){
-        String msg = "";
-        if (myGame == null) return "Game isn't ready yet";
+    public String send(VirtualView v, Selectable s){
+        synchronized (lock){
+            String msg = "";
+            if (myGame == null) return "Game isn't ready yet";
 
-        //check username
-        if(myGame.getCurrentSchoolBoard().getNick().equals(userMap.get(v))){
-            ActionStep result = inputHandler.addSelection(s);
-            if (result.equals(ActionStep.NOTOK)){
-                msg = msg.concat("Invalid selection."+"\n") ;
-                msg = msg.concat(inputHandler.getNextSelection());
-            }else if(result.equals(ActionStep.HALFOK)){
-                return inputHandler.getNextSelection();
-            }else if(result.equals(ActionStep.OK)){
-                Gson gson = new GsonBuilder().registerTypeAdapter(Game.class, new GameAdapter()).create();
-                String gameState = gson.toJson(myGame);
-                updateAllViews(gameState);
-                msg = msg.concat("Action completed successfully." + "\n") ;
-                if(myGame.getCurrentSchoolBoard().getNick().equals(userMap.get(v))){
+            //check username
+            if(myGame.getCurrentSchoolBoard().getNick().equals(userMap.get(v))){
+                ActionStep result = inputHandler.addSelection(s);
+                if (result.equals(ActionStep.NOTOK)){
+                    msg = msg.concat("Invalid selection."+"\n") ;
                     msg = msg.concat(inputHandler.getNextSelection());
-                }else {
-                    msg = msg.concat("Your turn has ended"+ "\n");
-                    notifyNextPlayerOfSel();
+                }else if(result.equals(ActionStep.HALFOK)){
+                    return inputHandler.getNextSelection();
+                }else if(result.equals(ActionStep.OK)){
+                    Gson gson = new GsonBuilder().registerTypeAdapter(Game.class, new GameAdapter()).create();
+                    String gameState = gson.toJson(myGame);
+                    updateAllViews(gameState);
+                    msg = msg.concat("Action completed successfully." + "\n") ;
+                    if(myGame.getCurrentSchoolBoard().getNick().equals(userMap.get(v))){
+                        msg = msg.concat(inputHandler.getNextSelection());
+                    }else {
+                        msg = msg.concat("Your turn has ended"+ "\n");
+                        notifyNextPlayerOfSel();
+                    }
+
                 }
+                return msg;
 
             }
-            return msg;
-
+            return "Not your turn";
         }
-        return "Not your turn";
+
     }
 
     /**
@@ -90,23 +98,27 @@ public class Controller {
      * @param i selected number of players
      * @return ControlMessages
      */
-    public synchronized ControlMessages setGameMode(VirtualView v, int i, boolean b){
-        if(userMap.containsKey(v)){
-            if(gameWasSet){
-                return ControlMessages.GAMEWASSET;
-            }
+    public ControlMessages setGameMode(VirtualView v, int i, boolean b){
+        synchronized (lock){
+            if(userMap.containsKey(v)){
+                if(gameWasSet){
+                    return ControlMessages.GAMEWASSET;
+                }
 
-            if(i>1&&i<=4){
-                difficulty = b;
-                numOfPlayers = i;
-                creatingGame = false;
-                gameWasSet = true;
-                notifyAll();
-                return ControlMessages.ACCEPTED;
-            }else{
-                return ControlMessages.INVALIDVALUES;
-            }
-        }return ControlMessages.INVALIDUSER;
+                if(i>1&&i<=4){
+                    difficulty = b;
+                    numOfPlayers = i;
+                    creatingGame = false;
+                    gameWasSet = true;
+
+
+                    return ControlMessages.ACCEPTED;
+                }else{
+                    return ControlMessages.INVALIDVALUES;
+                }
+            }return ControlMessages.INVALIDUSER;
+        }
+
 
     }
 
@@ -117,29 +129,26 @@ public class Controller {
      * @param nick nickname of the user
      * @return ControlMessages
      */
-    public synchronized ControlMessages selectUsername(String nick, VirtualView v){
-            if(userMap.containsKey(v)){
+    public ControlMessages selectUsername(String nick, VirtualView v){
+        synchronized (lock) {
+            if (userMap.containsKey(v)) {
                 return ControlMessages.ALREADYIN;
             }
-            while(creatingGame){
-                try {
-                    this.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            if (creatingGame) {
+                return ControlMessages.GAMEISBEINGCREATED;
             }
 
-            if(acceptingUsers){
-                if(userMap.containsValue(nick)){
+            if (acceptingUsers) {
+                if (userMap.containsValue(nick)) {
                     return ControlMessages.RETRY;
-                }else{
+                } else {
                     return bindView(v, nick);
                 }
 
             }
             return ControlMessages.GAMEISFULL;
 
-
+        }
     }
 
     /**

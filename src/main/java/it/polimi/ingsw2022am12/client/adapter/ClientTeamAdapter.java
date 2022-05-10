@@ -4,7 +4,7 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
-import it.polimi.ingsw2022am12.client.ClientTeam;
+import it.polimi.ingsw2022am12.client.model.ClientTeam;
 import java.io.IOException;
 
 /**

@@ -6,7 +6,10 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
-import it.polimi.ingsw2022am12.client.*;
+import it.polimi.ingsw2022am12.client.model.ClientAssistant;
+import it.polimi.ingsw2022am12.client.model.ClientSchoolBoard;
+import it.polimi.ingsw2022am12.client.model.ClientStudentCollection;
+
 import java.io.IOException;
 import java.util.ArrayList;
 

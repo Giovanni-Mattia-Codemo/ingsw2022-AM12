@@ -3,7 +3,7 @@ package it.polimi.ingsw2022am12.client.adapter;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import it.polimi.ingsw2022am12.client.ClientNoEntry;
+import it.polimi.ingsw2022am12.client.model.ClientNoEntry;
 
 import java.io.IOException;
 

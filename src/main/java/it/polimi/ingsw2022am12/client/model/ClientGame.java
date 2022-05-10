@@ -1,4 +1,4 @@
-package it.polimi.ingsw2022am12.client;
+package it.polimi.ingsw2022am12.client.model;
 
 import it.polimi.ingsw2022am12.server.model.DiskColor;
 
@@ -161,7 +161,7 @@ public class ClientGame {
         for(ClientSchoolBoard s : schoolBoards){
             msg = msg.concat(s.getNick()+"'s school board"+"\n");
             msg = msg.concat("\t Entrance: id "+s.getEntrance().getID()+". Students: "+s.getEntrance().getStudentsAsString()+"\n");
-            msg = msg.concat("\t Dining room: "+". Students: "+s.getDiningRooms().getStudentsAsString()+"\n");
+            msg = msg.concat("\t Dining room: "+s.getDiningRooms().getID()+". Students: "+s.getDiningRooms().getStudentsAsString()+"\n");
             if(mode){
                 msg = msg.concat("\t Coins:" + s.getCoins()+"\n");
             }

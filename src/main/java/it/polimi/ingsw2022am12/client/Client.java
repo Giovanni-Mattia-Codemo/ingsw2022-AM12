@@ -1,5 +1,8 @@
 package it.polimi.ingsw2022am12.client;
 
+import it.polimi.ingsw2022am12.client.CLI.CLIView;
+import it.polimi.ingsw2022am12.client.model.ClientGame;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -23,6 +26,7 @@ public class Client {
     private Socket socket;
     private Scanner in;
     private Timer timer;
+    private View view;
 
     /**
      * Constructor method of the Client class
@@ -58,18 +62,38 @@ public class Client {
         in = new Scanner(socket.getInputStream());
         out = new PrintWriter(socket.getOutputStream());
         Scanner stdin = new Scanner(System.in);
-
-        stdout = new PrintWriter(System.out);
-        System.out.println("Enter nick \n");
-        stdout.println("Enter your nick for the game\n");
-        stdout.flush();
-        ClientInputHandler clientInputHandler = new ClientInputHandler(stdin, this);
-        executor.submit(clientInputHandler);
         ServerMessageHandler serverMessageHandler = new ServerMessageHandler(in, this);
         executor.submit(serverMessageHandler);
         timer = new Timer();
         ClientPingTimerTask pingTimerTask = new ClientPingTimerTask(this);
         timer.schedule(pingTimerTask, 3000, 3000);
+        stdout = new PrintWriter(System.out);
+        System.out.println("Enter GUI or CLI to pick a client mode");
+        String sel = null;
+        boolean correct;
+        do {
+            correct = true;
+            sel = stdin.nextLine();
+
+
+            switch (sel) {
+                case "CLI":
+                    ClientInputHandler clientInputHandler = new ClientInputHandler(stdin, this);
+                    executor.submit(clientInputHandler);
+                    view = new CLIView();
+                    break;
+
+                case "GUI":
+                    break;
+
+                default: correct = false;
+                    break;
+            }
+        }while(!correct);
+        stdout.println("Enter your nick for the game\n");
+        stdout.flush();
+
+
 
     }
 
@@ -93,8 +117,7 @@ public class Client {
      * @param message from the server
      */
     public void showServerMessage(String message){
-        stdout.println(message);
-        stdout.flush();
+        view.viewMessage(message);
     }
 
     /**
