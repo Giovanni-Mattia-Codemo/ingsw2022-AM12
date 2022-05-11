@@ -215,7 +215,8 @@ public class Controller {
         acceptingUsers = true;
 
         for(VirtualView v: userMap.keySet()){
-            server.removeView(v);
+            virtualViews.remove(v);
+            v.close();
         }
         userMap.clear();
         updateViewsOfStatus();
@@ -226,12 +227,16 @@ public class Controller {
      * @param v my Virtual view
      */
     public void removeView(VirtualView v){
-        System.out.println("A player disconnected");
 
-        userMap.remove(v);
-        server.removeView(v);
-        endGame();
-
+        if(userMap.remove(v)!=null){
+            System.out.println("a player disconnected");
+            v.close();
+            endGame();
+        }else{
+            System.out.println("Someone disconnected");
+            virtualViews.remove(v);
+            v.close();
+        }
     }
 
     public ControlMessages getMatchStatusOfView(VirtualView v){

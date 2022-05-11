@@ -56,7 +56,7 @@ public class Client {
 
         Scanner stdin = new Scanner(System.in);
         stdout = new PrintWriter(System.out);
-        executor = Executors.newCachedThreadPool();
+
         System.out.println("Enter GUI or CLI to pick a client mode");
         String sel;
         boolean correct;
@@ -79,8 +79,6 @@ public class Client {
                     break;
             }
         }while(!correct);
-        stdout.println("Enter your nick for the game\n");
-        stdout.flush();
 
         socket = new Socket(ip, port);
         System.out.println("Connected!");

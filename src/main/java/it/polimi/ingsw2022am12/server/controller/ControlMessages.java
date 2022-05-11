@@ -14,7 +14,7 @@ public enum ControlMessages {
     ALREADYIN(8,"you are already in the game"),
     REQUESTINGNICK(9, "Insert a Nick to enter the game"),
     INSERTMODE(4, "Insert the number of players and mode of the match: number of players between 2 and 4, followed by either true or false to be in the expert mode or not"),
-    WAITINGFORPLAYERS(10, "Another player connected, waiting for more"),
+    WAITINGFORPLAYERS(10, "Player connected, waiting for more"),
     MATCHMAKINGCOMPLETE(11, "Your match is starting"),
     GAMEHASNTSTARTED(12, "The game isn't ready yet"),
     INVALIDSELECTION(13, "Invalid selection"),

@@ -59,6 +59,8 @@ public class VirtualView{
      * close method closes both the socket and the in Scanner/ out PrintWriter
      */
     public void close(){
+        parser.interrupt();
+        System.out.println("parser thread is interrupted:"+ parser.isInterrupted());
         in.close();
         out.close();
         try {

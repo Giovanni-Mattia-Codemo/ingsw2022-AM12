@@ -46,7 +46,7 @@ public class Server {
         }catch(IOException e){
             e.printStackTrace();
         }
-        ConnectionHandler connectionHandler = new ConnectionHandler(myController, serverSocket, this);
+        ConnectionHandler connectionHandler = new ConnectionHandler(myController, serverSocket);
         new Thread(connectionHandler, "Connection Handler").start();
     }
 

@@ -11,14 +11,14 @@ import java.net.Socket;
 
 public class ConnectionHandler implements Runnable{
 
-    private final Server server;
+
     private final Controller controller;
     private final ServerSocket serverSocket;
 
-    public ConnectionHandler(Controller controller, ServerSocket serverSocket, Server server){
+    public ConnectionHandler(Controller controller, ServerSocket serverSocket){
         this.controller = controller;
         this.serverSocket = serverSocket;
-        this.server = server;
+
     }
 
     @Override
@@ -29,7 +29,7 @@ public class ConnectionHandler implements Runnable{
 
                 VirtualView virtualView = new VirtualView(socket, controller);
 
-                server.addView(virtualView);
+                controller.addView(virtualView);
                 System.out.println("created virtualview");
                 ControlMessages msg = controller.getMatchStatusOfView(virtualView);
                 virtualView.forwardMsg(msg.getMessage());

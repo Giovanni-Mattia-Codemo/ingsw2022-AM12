@@ -44,10 +44,10 @@ public class ServerMessageHandler implements Runnable {
                 while (scanner.hasNextLine()) {
                     message = scanner.nextLine();
                     handle(message, client);
-                } catch (RuntimeException e) {
+                }
+            } catch (RuntimeException e) {
                     System.out.println("server message handler scanner exception");
                     timer.cancel();
-                    client.disconnected();
                     break;
                 }
             }
