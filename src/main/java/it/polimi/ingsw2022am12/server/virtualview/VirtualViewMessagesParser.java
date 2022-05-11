@@ -45,23 +45,17 @@ public class VirtualViewMessagesParser implements Runnable{
             while (in.hasNextLine()) {
                 try {
                     line = in.nextLine();
-                } catch (RuntimeException e) {
-                    System.out.println("scanner issue");
-                    virtualView.close();
-                    tim.cancel();
-                    myController.removeView(virtualView);
-                    break;
-                }
-                Gson gson = new Gson();
-                Map map = gson.fromJson(line, Map.class);
-                String tag = (String) map.get("tag");
-                map.remove("tag");
-                String res = gson.toJson(map);
 
-                switch (tag) {
-                    case "Nick" -> {
-                        String nick = (String) map.get("nick");
-                        myController.selectUsername(nick, virtualView);
+                    Gson gson = new Gson();
+                    Map map = gson.fromJson(line, Map.class);
+                    String tag = (String) map.get("tag");
+                    map.remove("tag");
+                    String res = gson.toJson(map);
+
+                    switch (tag) {
+                        case "Nick" -> {
+                            String nick = (String) map.get("nick");
+                            myController.selectUsername(nick, virtualView);
 
                     }
                     case "Student" -> {
@@ -117,6 +111,10 @@ public class VirtualViewMessagesParser implements Runnable{
                     default -> virtualView.forwardMsg("Unrecognized input" + "\n");
                 }
 
+                }
+            } catch (RuntimeException e) {
+                tim.cancel();
+                break;
             }
         }
     }

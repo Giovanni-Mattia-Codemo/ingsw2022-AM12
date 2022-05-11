@@ -27,6 +27,7 @@ public class Controller {
     private boolean creatingGame;
     private boolean acceptingUsers;
     private final Map<VirtualView, String> userMap;
+    private final ArrayList<VirtualView> virtualViews;
     private final Lock lock;
     private final Server server;
 
@@ -41,6 +42,7 @@ public class Controller {
         acceptingUsers = true;
         gameWasSet = false;
         lock = new ReentrantLock();
+        virtualViews = new ArrayList<>();
 
     }
 
@@ -115,7 +117,7 @@ public class Controller {
                     creatingGame = false;
                     gameWasSet = true;
                     v.forwardMsg(ControlMessages.ACCEPTED.getMessage());
-                    informServerOfMatchStatus();
+                    updateViewsOfStatus();
                 } else {
                     v.forwardMsg(ControlMessages.INVALIDVALUES.getMessage());
                 }
@@ -167,7 +169,7 @@ public class Controller {
         v.forwardMsg(ControlMessages.ACCEPTED.getMessage());
         if(userMap.size()==1){
             creatingGame=true;
-            informServerOfMatchStatus();
+            updateViewsOfStatus();
             return;
         }
 
@@ -179,11 +181,11 @@ public class Controller {
             myGame.setUp();
             System.out.println("Game is up");
             inputHandler = new InputHandler(myGame);
-            informServerOfMatchStatus();
+            updateViewsOfStatus();
             notifyNextPlayerOfSel();
             return;
         }
-        informServerOfMatchStatus();
+        updateViewsOfStatus();
 
     }
 
@@ -216,7 +218,7 @@ public class Controller {
             server.removeView(v);
         }
         userMap.clear();
-        informServerOfMatchStatus();
+        updateViewsOfStatus();
     }
 
     /**
@@ -253,9 +255,15 @@ public class Controller {
         }
     }
 
-    private void informServerOfMatchStatus(){
-        server.updateViewsOfStatus();
+    public void addView(VirtualView v){
+        System.out.println("adding a view to server");
+        virtualViews.add(v);
     }
 
+    public void updateViewsOfStatus(){
+        for(VirtualView v : virtualViews){
+            v.forwardMsg(getMatchStatusOfView(v).getMessage());
+        }
+    }
 
 }

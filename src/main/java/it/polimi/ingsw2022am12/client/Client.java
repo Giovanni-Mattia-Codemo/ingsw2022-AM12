@@ -7,10 +7,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
-import java.util.Set;
 import java.util.Timer;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * Client class represents the component which sends requests to the server, waiting for a response
@@ -22,11 +19,11 @@ public class Client {
     private PrintWriter stdout;
     private PrintWriter out;
     private ClientGame clientGame;
-    private ExecutorService executor;
     private Socket socket;
     private Scanner in;
     private Timer timer;
     private View view;
+    private Thread serverMsg, clientInput;
 
     /**
      * Constructor method of the Client class
@@ -67,11 +64,11 @@ public class Client {
             correct = true;
             sel = stdin.nextLine();
 
-
             switch (sel) {
                 case "CLI":
                     ClientInputHandler clientInputHandler = new ClientInputHandler(stdin, this);
-                    executor.submit(clientInputHandler);
+                    clientInput = new Thread(clientInputHandler);
+                    clientInput.start();
                     view = new CLIView();
                     break;
 
@@ -91,7 +88,8 @@ public class Client {
         out = new PrintWriter(socket.getOutputStream());
 
         ServerMessageHandler serverMessageHandler = new ServerMessageHandler(in, this);
-        executor.submit(serverMessageHandler);
+        serverMsg = new Thread(serverMessageHandler);
+        serverMsg.start();
         timer = new Timer();
         ClientPingTimerTask pingTimerTask = new ClientPingTimerTask(this);
         timer.schedule(pingTimerTask, 3000, 3000);
@@ -105,7 +103,6 @@ public class Client {
         System.out.println("Connected!");
         in = new Scanner(socket.getInputStream());
         out = new PrintWriter(socket.getOutputStream());
-        executor.submit(new ServerMessageHandler(in,this));
         timer = new Timer();
         ClientPingTimerTask pingTimerTask = new ClientPingTimerTask(this);
         timer.schedule(pingTimerTask, 3000, 3000);
@@ -146,6 +143,7 @@ public class Client {
      */
     public void disconnected(){
         System.out.println("disconnecting");
+        serverMsg.interrupt();
         in.close();
         out.close();
         try {
@@ -155,11 +153,12 @@ public class Client {
         }
         timer.cancel();
 
+/*
         Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
         for(Thread t: threadSet){
             System.out.println(t.getName());
         }
-/*
+
         try{
             restartClient();
         }catch(IOException e){

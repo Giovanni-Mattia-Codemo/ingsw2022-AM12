@@ -40,8 +40,8 @@ public class ServerMessageHandler implements Runnable {
         pong = new PongTimerTask(client);
         timer.schedule(pong, 18000, 9000 );
         while (true){
-            while (scanner.hasNextLine()) {
-                try {
+            try {
+                while (scanner.hasNextLine()) {
                     message = scanner.nextLine();
                     handle(message, client);
                 } catch (RuntimeException e) {
@@ -52,7 +52,7 @@ public class ServerMessageHandler implements Runnable {
                 }
             }
         }
-    }
+
 
     /**
      * handle method deals with the messages coming from the server; if the message starts with "{" it means it's a gameState update
