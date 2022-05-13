@@ -1,4 +1,4 @@
-package it.polimi.ingsw2022am12.JavaFX;
+package it.polimi.ingsw2022am12.client.GUI;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

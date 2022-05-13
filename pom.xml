@@ -82,7 +82,7 @@
                             <transformers>
                                 <transformer implementation=
                                                      "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>it.polimi.ingsw2022am12/it.polimi.ingsw2022am12.JavaFX.HelloApplication</mainClass>
+                                    <mainClass>it.polimi.ingsw2022am12/it.polimi.ingsw2022am12.client.GUI.GUIView</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
@@ -139,7 +139,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>it.polimi.ingsw2022am12/it.polimi.ingsw2022am12.JavaFX.HelloApplication</mainClass>
+                            <mainClass>it.polimi.ingsw2022am12/it.polimi.ingsw2022am12.client.GUI.GUIView</mainClass>
                         </configuration>
                     </execution>
                 </executions>
