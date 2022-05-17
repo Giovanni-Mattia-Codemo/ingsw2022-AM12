@@ -11,6 +11,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.ArrayList;
+import javafx.scene.layout.*;
 
 
 public class GUIView extends Application implements View {

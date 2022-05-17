@@ -132,7 +132,7 @@ public class Client {
      */
     public void updateGameState(ClientGame clientGame){
         this.clientGame = clientGame;
-        showServerMessage(clientGame.getBoardStringToView());
+        view.updateGameView(clientGame);
     }
 
     /**
