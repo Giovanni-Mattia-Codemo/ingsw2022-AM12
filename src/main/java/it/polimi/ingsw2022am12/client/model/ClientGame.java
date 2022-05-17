@@ -1,7 +1,6 @@
 package it.polimi.ingsw2022am12.client.model;
 
-import it.polimi.ingsw2022am12.server.model.DiskColor;
-
+import it.polimi.ingsw2022am12.*;
 import java.util.ArrayList;
 
 /**
@@ -16,6 +15,7 @@ public class ClientGame {
     private int motherNatureIndex;
     private String phase;
     private ArrayList<ClientSchoolBoard> schoolBoards;
+    private ArrayList<String> nick;
     private ArrayList<ClientIsland> islands;
     private ArrayList<ClientStudentCollection> clouds;
     private final String[] professors;
@@ -139,12 +139,96 @@ public class ClientGame {
         this.professors[i] = professor;
     }
 
+    public void setNick(ArrayList<String> nick) {
+        this.nick = nick;
+    }
+
     /**
      * Setter method for teams
      * @param teams list of ClientTeams
      */
     public void setTeams(ArrayList<ClientTeam> teams) {
         this.teams = teams;
+    }
+
+    public ClientSchoolBoard getSchoolBoardByNick(String nick) {
+        for (ClientSchoolBoard s:schoolBoards
+             ) {
+            if(s.getNick().equals(nick)){
+                return s;
+            }
+        }
+        return null;
+    }
+
+    public ClientStudentCollection getCloudByID(int id){
+        for (ClientStudentCollection c:clouds
+             ) {
+            if (c.getID()==id){
+                return c;
+            }
+
+        }
+        return  null;
+    }
+
+    public ClientIsland getIslandByID(int id){
+        for (ClientIsland i:islands
+             ) {
+            if (i.getID()==id){
+                return i;
+            }
+
+
+        }
+        return null;
+    }
+
+    public int getTurn() {
+        return turn;
+    }
+
+    public int getRound() {
+        return round;
+    }
+
+    public String getPhase() {
+        return phase;
+    }
+
+    public int getFreeCoins() {
+        return freeCoins;
+    }
+
+    public int getMotherNatureIndex() {
+        return motherNatureIndex;
+    }
+
+    public ArrayList<String> getNick() {
+        return nick;
+    }
+
+    public ClientCharacter getCharacterByName(String name){
+        for (ClientCharacter c:characters
+        ) {
+            if (c.getName().equals(name)){
+                return c;
+            }
+
+        }
+        return  null;
+    }
+
+    public String getActiveCharacter() {
+        return activeCharacter;
+    }
+
+    public String[] getProfessors() {
+        return professors;
+    }
+
+    public boolean isLastRound() {
+        return isLastRound;
     }
 
     /**
@@ -200,6 +284,73 @@ public class ClientGame {
             msg = msg.concat("Coins on table: "+freeCoins+"\n");
         }
         return msg;
+    }
+
+
+    public void updateFromGame(ClientGame newGame, UpdateFlag myFlag){
+        round = newGame.getRound();
+        turn = newGame.getTurn();
+        phase = newGame.getPhase();
+        motherNatureIndex = newGame.getMotherNatureIndex();
+        freeCoins = newGame.getFreeCoins();
+        nick = newGame.getNick();
+        for(int i=0; i< professors.length; i++){
+            professors[i]=newGame.getProfessors()[i];
+        }
+        activeCharacter = newGame.getActiveCharacter();
+        isLastRound = newGame.isLastRound();
+
+
+
+        switch (myFlag.getFlag()){
+            case FULLGAME:
+
+                for(String nick: nick){
+                    updateFromGame(newGame, new UpdateFlagSchool(nick));
+                }
+
+                updateFromGame(newGame, new UpdateFlag(Flag.ISLANDS));
+                updateFromGame(newGame, new UpdateFlag(Flag.CLOUDS));
+
+                break;
+
+            case SCHOOL:
+                String nickTocheck = ((UpdateFlagSchool)myFlag).getNick();
+                getSchoolBoardByNick(nickTocheck).updateFromSchool(newGame.getSchoolBoardByNick(nickTocheck));
+
+                break;
+
+            case CLOUDS:
+
+                for (ClientStudentCollection cloud:clouds
+                     ) {
+                    cloud.updateFromCollection(newGame.getCloudByID(cloud.getID()));
+                }
+
+                break;
+
+            case ISLANDS:
+                for (ClientIsland i:islands
+                     ) {
+
+                    ClientIsland tmp = newGame.getIslandByID(i.getID());
+                    if(tmp != null){
+                        i.updateFromIsland(tmp);
+                    }else{
+                        islands.remove(i);
+                    }
+
+
+                }
+
+                break;
+            case CHARACTERS:
+                String nameToCheck = ((UpdateFlagCharacter)myFlag).getNick();
+                getCharacterByName(nameToCheck).updateFromCharacter(newGame.getCharacterByName(nameToCheck));
+                break;
+            default:
+                break;
+        }
     }
 
 }

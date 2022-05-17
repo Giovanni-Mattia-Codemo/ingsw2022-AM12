@@ -1,11 +1,13 @@
 package it.polimi.ingsw2022am12.server.model;
 
+import it.polimi.ingsw2022am12.DiskColor;
+
 /**
  * Class Student defines a student disk
  */
 public class Student extends PlaceableObject implements Selectable {
 
-    private  DiskColor  color;
+    private DiskColor color;
     private int positionID;
 
     /**

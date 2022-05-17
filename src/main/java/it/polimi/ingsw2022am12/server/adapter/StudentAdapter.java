@@ -4,7 +4,7 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
-import it.polimi.ingsw2022am12.server.model.DiskColor;
+import it.polimi.ingsw2022am12.DiskColor;
 import it.polimi.ingsw2022am12.server.model.Student;
 import java.io.IOException;
 /**

@@ -1,5 +1,7 @@
 package it.polimi.ingsw2022am12.client.model;
 
+import it.polimi.ingsw2022am12.DiskColor;
+
 import java.util.ArrayList;
 
 /**
@@ -57,6 +59,15 @@ public class ClientStudentCollection {
         return students;
     }
 
+    public ClientStudent getStudentByID(int id){
+        for(ClientStudent st:students){
+            if(st.getID()==id){
+                return st;
+            }
+        }
+        return null;
+    }
+
     /**
      * getStudents as string visualises the students contained in the collection as a String
      * @return string list of students
@@ -68,4 +79,27 @@ public class ClientStudentCollection {
         }
         return stringStudents;
     }
+
+    public void updateFromCollection(ClientStudentCollection clientStudentCollection){
+        ArrayList<ClientStudent> tmpCopy = new ArrayList<>(clientStudentCollection.getStudents());
+        for(ClientStudent st:students){
+            ClientStudent tmp = clientStudentCollection.getStudentByID(st.getID());
+            if(tmp!=null){
+                tmpCopy.remove(tmp);
+            }else{
+                st.setColor(null);
+            }
+        }
+        for (ClientStudent stud: tmpCopy){
+            for(ClientStudent st: students){
+                if(st.getColor()==null){
+                    st.updateFromStudent(stud);
+                }else{
+                    students.add(stud);
+                }
+                break;
+            }
+        }
+    }
+
 }

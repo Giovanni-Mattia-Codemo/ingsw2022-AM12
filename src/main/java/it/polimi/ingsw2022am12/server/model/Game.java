@@ -1,6 +1,7 @@
 package it.polimi.ingsw2022am12.server.model;
 
 import com.google.gson.JsonElement;
+import it.polimi.ingsw2022am12.DiskColor;
 import it.polimi.ingsw2022am12.server.model.characters.*;
 import it.polimi.ingsw2022am12.server.model.phases.SetupStrategy;
 

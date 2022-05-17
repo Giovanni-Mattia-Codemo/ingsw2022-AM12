@@ -162,4 +162,29 @@ public class ClientSchoolBoard {
         }
         return powers;
     }
+
+    public void updateFromSchool(ClientSchoolBoard schoolBoard){
+
+        entrance.updateFromCollection(schoolBoard.getEntrance());
+        diningRooms.updateFromCollection(schoolBoard.getDiningRooms());
+        coins = schoolBoard.getCoins();
+
+        ArrayList<ClientAssistant> temp = new ArrayList<>();
+        for(ClientAssistant assistant:assistants){
+            boolean isPresent = false;
+            for(ClientAssistant tmp: schoolBoard.getAssistants()){
+                if(tmp.getTurnPower()==assistant.getTurnPower()){
+                    isPresent = true;
+                    break;
+                }
+            }
+            if(!isPresent){
+                temp.add(assistant);
+            }
+        }
+        assistants.removeAll(temp);
+
+        playedAssistant = schoolBoard.getPlayedAssistant();
+        towers = schoolBoard.getTowers();
+    }
 }

@@ -2,6 +2,7 @@ package it.polimi.ingsw2022am12.client;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import it.polimi.ingsw2022am12.DiskColor;
 import it.polimi.ingsw2022am12.client.model.*;
 import it.polimi.ingsw2022am12.communication.InputMode;
 import it.polimi.ingsw2022am12.communication.InputModeAdapter;
@@ -64,7 +65,7 @@ public class ClientInputHandler implements  Runnable {
                 client.forwardJson(result);
             }
             case "Student" -> {
-                ClientStudent clientStudent = new ClientStudent(tokens[1], Integer.parseInt(tokens[2]));
+                ClientStudent clientStudent = new ClientStudent(DiskColor.valueOf(tokens[1]), Integer.parseInt(tokens[2]));
                 gson = new GsonBuilder().registerTypeAdapter(ClientStudent.class, new ClientStudentAdapter()).create();
                 result = gson.toJson(clientStudent);
                 client.forwardJson(result);

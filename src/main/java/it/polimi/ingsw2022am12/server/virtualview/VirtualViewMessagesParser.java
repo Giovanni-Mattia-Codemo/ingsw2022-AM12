@@ -2,6 +2,7 @@ package it.polimi.ingsw2022am12.server.virtualview;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import it.polimi.ingsw2022am12.DiskColor;
 import it.polimi.ingsw2022am12.server.adapter.*;
 import it.polimi.ingsw2022am12.server.controller.Controller;
 import it.polimi.ingsw2022am12.server.model.*;

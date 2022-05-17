@@ -2,12 +2,13 @@ package it.polimi.ingsw2022am12.server;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import it.polimi.ingsw2022am12.DiskColor;
 import it.polimi.ingsw2022am12.server.model.*;
 import it.polimi.ingsw2022am12.server.model.characters.CharacterBeggar;
 import it.polimi.ingsw2022am12.server.model.characters.CharacterJester;
 import it.polimi.ingsw2022am12.server.model.characters.CharacterMonk;
 import it.polimi.ingsw2022am12.server.model.characters.CharacterPrincess;
-import it.polimi.ingsw2022am12.server.model.phases.ActionStrategy;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

@@ -1,11 +1,13 @@
 package it.polimi.ingsw2022am12.client.model;
 
+import it.polimi.ingsw2022am12.DiskColor;
+
 /**
  * Class that represents the Student disk from the client's side
  */
 public class ClientStudent {
 
-    private String color;
+    private DiskColor color;
     private int ID;
 
     /**
@@ -14,7 +16,7 @@ public class ClientStudent {
      * @param color of the student
      * @param ID of the student
      */
-    public ClientStudent(String color, int ID){
+    public ClientStudent(DiskColor color, int ID){
         this.color = color;
         this.ID = ID;
     }
@@ -30,7 +32,7 @@ public class ClientStudent {
      * Setter method of color
      * @param color of the student
      */
-    public void setColor(String color) {
+    public void setColor(DiskColor color) {
         this.color = color;
     }
 
@@ -46,7 +48,7 @@ public class ClientStudent {
      * Getter method of color
      * @return color of the student
      */
-    public String getColor() {
+    public DiskColor getColor() {
         return color;
     }
 
@@ -56,5 +58,10 @@ public class ClientStudent {
      */
     public int getID() {
         return ID;
+    }
+
+    public void updateFromStudent(ClientStudent student){
+        color = student.getColor();
+        ID = student.getID();
     }
 }

@@ -10,5 +10,6 @@ module it.polimi.ingsw2022am12 {
     exports it.polimi.ingsw2022am12.server.model.actions;
     exports it.polimi.ingsw2022am12.server;
     exports it.polimi.ingsw2022am12.server.virtualview;
+    exports it.polimi.ingsw2022am12;
 
 }

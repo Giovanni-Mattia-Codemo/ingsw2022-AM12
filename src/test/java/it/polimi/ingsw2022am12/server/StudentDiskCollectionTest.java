@@ -2,7 +2,7 @@ package it.polimi.ingsw2022am12.server;
 
 
 
-import it.polimi.ingsw2022am12.server.model.DiskColor;
+import it.polimi.ingsw2022am12.DiskColor;
 import it.polimi.ingsw2022am12.server.model.Student;
 import it.polimi.ingsw2022am12.server.model.StudentDiskCollection;
 import org.junit.jupiter.api.Assertions;

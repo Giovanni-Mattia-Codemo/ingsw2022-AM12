@@ -1,4 +1,6 @@
 package it.polimi.ingsw2022am12.server.model;
+import it.polimi.ingsw2022am12.DiskColor;
+
 import java.util.ArrayList;
 
 /**

@@ -1,5 +1,7 @@
 package it.polimi.ingsw2022am12.server.model;
 
+import it.polimi.ingsw2022am12.DiskColor;
+
 /**
  * Class ColorSelection is used to identify the specific color of a Selectable type object
  */

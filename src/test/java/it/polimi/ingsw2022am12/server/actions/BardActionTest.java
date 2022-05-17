@@ -1,6 +1,6 @@
 package it.polimi.ingsw2022am12.server.actions;
 
-import it.polimi.ingsw2022am12.server.controller.InputHandler;
+import it.polimi.ingsw2022am12.DiskColor;
 import it.polimi.ingsw2022am12.server.model.*;
 import it.polimi.ingsw2022am12.server.model.actions.ActionStep;
 import it.polimi.ingsw2022am12.server.model.actions.BardAction;

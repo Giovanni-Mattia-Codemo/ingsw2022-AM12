@@ -68,11 +68,26 @@ public class ClientIsland {
         this.number = number;
     }
 
+    public String getConqueror() {
+        return conqueror;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
     /**
      * Setter method for conqueror
      * @param conqueror name of the conqueror of the island
      */
     public void setConqueror(String conqueror) {
         this.conqueror = conqueror;
+    }
+
+    public void updateFromIsland(ClientIsland island){
+        ID = island.getID();
+        conqueror = island.getConqueror();
+        number = island.getNumber();
+        students.updateFromCollection(island.getStudents());
     }
 }

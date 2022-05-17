@@ -1,4 +1,4 @@
-package it.polimi.ingsw2022am12.server.model;
+package it.polimi.ingsw2022am12;
 
 /**
  * Class DiskColor contains the enumeration of the possible colors of the Students and Professors

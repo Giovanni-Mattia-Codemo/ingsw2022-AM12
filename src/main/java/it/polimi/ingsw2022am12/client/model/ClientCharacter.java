@@ -113,6 +113,10 @@ public class ClientCharacter {
         return numberOfNoEntries;
     }
 
+    public boolean isHasCoin() {
+        return hasCoin;
+    }
+
     /**
      * Getter method for noEntryCollectionID
      *
@@ -120,5 +124,15 @@ public class ClientCharacter {
      */
     public int getNoEntryCollectionID() {
         return noEntryCollectionID;
+    }
+
+    public void updateFromCharacter(ClientCharacter character){
+        hasCoin = character.isHasCoin();
+        cost = character.getCost();
+        if(students!=null){
+            students.updateFromCollection(character.getStudents());
+        }
+
+        numberOfNoEntries = character.getNumberOfNoEntries();
     }
 }
