@@ -18,7 +18,7 @@ public class Client {
     private final String ip;
     private PrintWriter stdout;
     private PrintWriter out;
-    private ClientGame clientGame;
+    private ClientGame clientGame, newClientGame;
     private Socket socket;
     private Scanner in;
     private Timer timer;
@@ -128,7 +128,7 @@ public class Client {
     /**
      * updateGameState deals with updating the game state for each client
      *
-     * @param clientGame the current game state
+     * @param flag fields to be updated
      */
     public void updateGameState(ClientGame clientGame){
         this.clientGame = clientGame;

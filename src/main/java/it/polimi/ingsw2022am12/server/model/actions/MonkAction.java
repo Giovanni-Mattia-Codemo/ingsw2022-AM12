@@ -14,7 +14,7 @@ public class MonkAction extends PossibleAction {
      * Constructor method of MonkAction class
      */
     public MonkAction(){
-        super(2);
+        super(3);
     }
 
     /**
@@ -25,8 +25,12 @@ public class MonkAction extends PossibleAction {
     @Override
     public void setSelectables(Game game) {
         ArrayList<Selectable> result = new ArrayList<>(((CharacterMonk) game.getActiveCharacterCard()).getStudents().getStudentsAsSelectables());
-        selectables.put(0, result);
-        selectables.put(1, game.getIslandList().getIslandsAsSelectable());
+        ArrayList<Selectable> character = new ArrayList<>();
+        character.add(game.getActiveCharacterCard());
+
+        selectables.put(0, character);
+        selectables.put(1, result);
+        selectables.put(2, game.getIslandList().getIslandsAsSelectable());
     }
 
     /**
@@ -39,8 +43,10 @@ public class MonkAction extends PossibleAction {
         String msg = "";
         msg = msg.concat("To use the monk:");
         if(!score.containsKey(0)){
-            msg = msg.concat(" select a student on the card.");
+            msg = msg.concat(" select it's character card");
         }else if(!score.containsKey(1)){
+            msg = msg.concat(" select a student on the card.");
+        }else if(!score.containsKey(2)){
             msg = msg.concat(" select the island to place it on.");
         }
         return msg;
@@ -53,7 +59,7 @@ public class MonkAction extends PossibleAction {
      */
     @Override
     public void useAction(Game game) {
-        game.moveStudentFromCardToIsland(((Student)score.get(0)).getColor(), ((IslandTileSet)score.get(1)).getID());
+        game.moveStudentFromCardToIsland(((Student)score.get(1)).getColor(), ((IslandTileSet)score.get(2)).getID());
         ((CharacterMonk)game.getActiveCharacterCard()).setWasUsed(true, game);
     }
 }

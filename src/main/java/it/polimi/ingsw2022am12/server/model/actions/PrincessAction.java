@@ -1,6 +1,5 @@
 package it.polimi.ingsw2022am12.server.model.actions;
 
-import it.polimi.ingsw2022am12.DiskColor;
 import it.polimi.ingsw2022am12.server.model.*;
 import it.polimi.ingsw2022am12.server.model.characters.CharacterPrincess;
 
@@ -11,13 +10,11 @@ import java.util.ArrayList;
  */
 public class PrincessAction extends PossibleAction {
 
-    private DiskColor color;
-
     /**
      * Constructor method of PrincessAction class
      */
     public PrincessAction(){
-        super(1);
+        super(2);
     }
 
     /**
@@ -29,7 +26,11 @@ public class PrincessAction extends PossibleAction {
     public void setSelectables(Game game) {
         ArrayList<Selectable> tmp = new ArrayList<>(((CharacterPrincess) game.getActiveCharacterCard()).getStudents().getStudentsAsSelectables());
         tmp.removeIf(a -> game.getCurrentSchoolBoard().isDiningRoomFull(((Student) a).getColor()));
-        selectables.put(0, tmp);
+        ArrayList<Selectable> character = new ArrayList<>();
+        character.add(game.getActiveCharacterCard());
+
+        selectables.put(0, character);
+        selectables.put(1, tmp);
     }
 
     /**
@@ -39,7 +40,14 @@ public class PrincessAction extends PossibleAction {
      */
     @Override
     public String getUserSelectionsMessage() {
-        return "To use the princess select a color";
+        String msg = "";
+        msg = msg.concat("To use the princess:");
+        if(!score.containsKey(0)){
+            msg = msg.concat(" select it's character card");
+        }else if(!score.containsKey(1)){
+            msg = msg.concat(" select a color.");
+        }
+        return msg;
     }
 
     /**
@@ -49,7 +57,7 @@ public class PrincessAction extends PossibleAction {
      */
     @Override
     public void useAction(Game game) {
-        game.moveStudentFromCardToRoom(((Student)score.get(0)).getColor());
+        game.moveStudentFromCardToRoom(((Student)score.get(1)).getColor());
         game.getActiveCharacterCard().setWasUsed(true);
     }
 }

@@ -3,7 +3,6 @@ package it.polimi.ingsw2022am12.client.GUI;
 import it.polimi.ingsw2022am12.client.model.ClientGame;
 import javafx.beans.binding.Bindings;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -15,7 +14,7 @@ public class SchoolBoardContainer extends GridPane {
     private SchoolBoardPane school;
     private GridPane assistantPanel;
 
-    public SchoolBoardContainer(){
+    public SchoolBoardContainer(ClientGame game){
         super();
         this.setBackground(Background.fill(Color.BLUE));
         this.setGridLinesVisible(true);
@@ -38,12 +37,6 @@ public class SchoolBoardContainer extends GridPane {
         rc.setFillHeight(true);
         rc.prefHeightProperty().bind(Bindings.min(this.widthProperty().multiply(0.7).multiply(schoolRatio), this.heightProperty()));
         this.getRowConstraints().add(rc);
-
-
-
-
-
-
 
         school = new SchoolBoardPane("");
         addColumn(0,school);

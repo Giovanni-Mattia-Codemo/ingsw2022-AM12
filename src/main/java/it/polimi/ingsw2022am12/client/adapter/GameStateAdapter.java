@@ -96,15 +96,18 @@ public class GameStateAdapter extends TypeAdapter<ClientGame> {
             if ("turnOrder".equals(fieldName)) {
                 reader.peek();
                 ArrayList<ClientSchoolBoard> schoolBoards = new ArrayList<>();
+                ArrayList<String> nicks = new ArrayList<>();
 
                 reader.beginArray();
                 while(reader.hasNext()){
                     ClientSchoolBoard school = (new GsonBuilder().registerTypeAdapter(ClientSchoolBoard.class, new ClientSchoolBoardAdapter()).create().fromJson(reader, ClientSchoolBoard.class));
                     schoolBoards.add(school);
+                    nicks.add(school.getNick());
 
                 }
                 reader.endArray();
                 clientGame.setSchoolBoards(schoolBoards);
+                clientGame.setOrderedNicks(nicks);
             }
 
             if ("IslandList".equals(fieldName)) {

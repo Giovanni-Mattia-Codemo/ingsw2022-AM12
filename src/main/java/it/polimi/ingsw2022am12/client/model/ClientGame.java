@@ -15,7 +15,7 @@ public class ClientGame {
     private int motherNatureIndex;
     private String phase;
     private ArrayList<ClientSchoolBoard> schoolBoards;
-    private ArrayList<String> nick;
+    private ArrayList<String> orderedNicks;
     private ArrayList<ClientIsland> islands;
     private ArrayList<ClientStudentCollection> clouds;
     private final String[] professors;
@@ -139,8 +139,8 @@ public class ClientGame {
         this.professors[i] = professor;
     }
 
-    public void setNick(ArrayList<String> nick) {
-        this.nick = nick;
+    public void setOrderedNicks(ArrayList<String> orderedNicks) {
+        this.orderedNicks = orderedNicks;
     }
 
     /**
@@ -204,8 +204,12 @@ public class ClientGame {
         return motherNatureIndex;
     }
 
-    public ArrayList<String> getNick() {
-        return nick;
+    /**
+     * Getter method for orderedNicks
+     * @return ArrayList of orderedNicks
+     */
+    public ArrayList<String> getOrderedNicks() {
+        return orderedNicks;
     }
 
     public ClientCharacter getCharacterByName(String name){
@@ -241,7 +245,21 @@ public class ClientGame {
         msg = msg.concat("Phase:"+phase+"\n");
         msg = msg.concat("Round:"+round+"\n");
         msg = msg.concat("Turn:"+turn+"\n");
-        msg = msg.concat("Turn order:"+"\n");
+        if(round==1){
+            if(!teams.get(0).getPlayer2().equals("null")){
+                msg = msg.concat("The teams in this match are:"+"\n");
+                int i = 0;
+                for(ClientTeam team:teams){
+                    msg = msg.concat("Team "+i+ ": "+team.getPlayer1()+" and "+team.getPlayer2()+"\n");
+                    i++;
+                }
+            }
+        }
+        msg = msg.concat("Turn order: ");
+        for(String nick:orderedNicks){
+            msg = msg.concat(nick+" ");
+        }
+        msg = msg.concat("\n");
         for(ClientSchoolBoard s : schoolBoards){
             msg = msg.concat(s.getNick()+"'s school board"+"\n");
             msg = msg.concat("\t Entrance: id "+s.getEntrance().getID()+". Students: "+s.getEntrance().getStudentsAsString()+"\n");
@@ -266,6 +284,8 @@ public class ClientGame {
 
         }
 
+        msg = msg.concat("Mother nature position: " +motherNatureIndex+"\n");
+
         msg = msg.concat("Clouds:"+phase+"\n");
         for(ClientStudentCollection cloud : clouds){
             msg = msg.concat(cloud.getID()+" with students: "+cloud.getStudentsAsString()+"\n");
@@ -283,6 +303,12 @@ public class ClientGame {
 
             msg = msg.concat("Coins on table: "+freeCoins+"\n");
         }
+        if(!activeCharacter.equals("null")){
+            msg = msg.concat("The active character is: "+activeCharacter);
+        }
+        if(isLastRound){
+            msg = msg.concat("THIS IS THE LAST ROUND");
+        }
         return msg;
     }
 
@@ -293,7 +319,7 @@ public class ClientGame {
         phase = newGame.getPhase();
         motherNatureIndex = newGame.getMotherNatureIndex();
         freeCoins = newGame.getFreeCoins();
-        nick = newGame.getNick();
+        orderedNicks = newGame.getOrderedNicks();
         for(int i=0; i< professors.length; i++){
             professors[i]=newGame.getProfessors()[i];
         }
@@ -305,7 +331,7 @@ public class ClientGame {
         switch (myFlag.getFlag()){
             case FULLGAME:
 
-                for(String nick: nick){
+                for(String nick: orderedNicks){
                     updateFromGame(newGame, new UpdateFlagSchool(nick));
                 }
 

@@ -1,9 +1,13 @@
 package it.polimi.ingsw2022am12.server.model.actions;
 
+import it.polimi.ingsw2022am12.Flag;
+import it.polimi.ingsw2022am12.UpdateFlag;
 import it.polimi.ingsw2022am12.server.model.Assistant;
 import it.polimi.ingsw2022am12.server.model.Game;
 import it.polimi.ingsw2022am12.server.model.PossibleAction;
 import it.polimi.ingsw2022am12.server.model.Selectable;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -49,4 +53,5 @@ public class PlayAssistant extends PossibleAction {
         game.playAssistant(((Assistant)score.get(0)).getTurnPower());
         game.endTurn();
     }
+    
 }

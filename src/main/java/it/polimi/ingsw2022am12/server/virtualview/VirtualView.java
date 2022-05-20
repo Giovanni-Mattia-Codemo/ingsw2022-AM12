@@ -39,12 +39,11 @@ public class VirtualView{
 
     /**
      * forwardMsg puts the gameState string as a message in the output stream of the socket, then flushes it
-     * @param gameState the state of the game coded as a string
+     * @param update the state of the game coded as a string
      *
      */
-    public void forwardMsg(String gameState){
-
-        out.println(gameState);
+    public void forwardMsg(String update){
+        out.println(update);
         out.flush();
     }
 

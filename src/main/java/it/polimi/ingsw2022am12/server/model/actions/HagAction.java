@@ -2,7 +2,6 @@ package it.polimi.ingsw2022am12.server.model.actions;
 
 import it.polimi.ingsw2022am12.DiskColor;
 import it.polimi.ingsw2022am12.server.model.*;
-
 import java.util.ArrayList;
 
 /**
@@ -14,7 +13,7 @@ public class HagAction extends PossibleAction {
      * Constructor method of HagAction class
      */
     public HagAction(){
-        super(1);
+        super(2);
     }
 
     /**
@@ -24,11 +23,16 @@ public class HagAction extends PossibleAction {
      */
     @Override
     public void setSelectables(Game game) {
+
+        ArrayList<Selectable> character = new ArrayList<>();
+        character.add(game.getActiveCharacterCard());
+        selectables.put(0, character);
         ArrayList<Selectable> result = new ArrayList<>();
         for(DiskColor c: DiskColor.values()){
             result.add(new ColorSelection(c));
         }
-        selectables.put(0, result);
+        selectables.put(1, result);
+
     }
 
     /**
@@ -38,7 +42,14 @@ public class HagAction extends PossibleAction {
      */
     @Override
     public String getUserSelectionsMessage() {
-        return "To use the hag select a color";
+        String msg = "";
+        msg = msg.concat("To use the Hag select:");
+        if(!score.containsKey(0)){
+            msg = msg.concat(" it's character card");
+        }else if(!score.containsKey(1)) {
+            msg = msg.concat(" a color.");
+        }
+        return msg;
     }
 
     /**

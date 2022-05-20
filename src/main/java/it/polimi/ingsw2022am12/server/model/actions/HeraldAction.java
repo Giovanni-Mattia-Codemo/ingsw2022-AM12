@@ -56,7 +56,7 @@ public class HeraldAction extends PossibleAction {
      */
     @Override
     public void useAction(Game game) {
-        game.conquerIsland(((IslandTileSet)score.get(0)).getID());
+        game.conquerIsland(((IslandTileSet)score.get(1)).getID());
         game.getActiveCharacterCard().setWasUsed(true);
 
     }

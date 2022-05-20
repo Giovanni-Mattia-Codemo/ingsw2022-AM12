@@ -28,7 +28,7 @@ public class ClientCharacterAdapter extends TypeAdapter<ClientCharacter> {
         jsonWriter.beginObject();
         jsonWriter.name("tag");
         jsonWriter.value("Character");
-        jsonWriter.name("Name");
+        jsonWriter.name("CharacterName");
         jsonWriter.value(clientCharacter.getName());
         jsonWriter.endObject();
     }

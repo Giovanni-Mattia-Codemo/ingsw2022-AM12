@@ -17,7 +17,7 @@ public class MerchantAction extends PossibleAction {
      * Constructor method of MerchantAction class
      */
     public MerchantAction(){
-        super(1);
+        super(2);
     }
 
     /**
@@ -27,11 +27,15 @@ public class MerchantAction extends PossibleAction {
      */
     @Override
     public void setSelectables(Game game) {
+
         ArrayList<Selectable> result = new ArrayList<>();
         for(DiskColor c: DiskColor.values()){
             result.add(new ColorSelection(c));
         }
-        selectables.put(0, result);
+        selectables.put(1, result);
+        ArrayList<Selectable> character = new ArrayList<>();
+        character.add(game.getActiveCharacterCard());
+        selectables.put(0, character);
     }
 
     /**
@@ -41,7 +45,14 @@ public class MerchantAction extends PossibleAction {
      */
     @Override
     public String getUserSelectionsMessage() {
-        return "To use the merchant select a color";
+        String msg="";
+        msg = msg.concat("To use the merchant select: ");
+        if(!score.containsKey(0)){
+            msg = msg.concat("it's character card");
+        }else if(!score.containsKey(1)){
+            msg = msg.concat("a color");
+        }
+        return msg;
     }
 
     /**

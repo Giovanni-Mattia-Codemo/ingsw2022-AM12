@@ -148,6 +148,7 @@ public class Controller {
                     v.forwardMsg(ControlMessages.RETRY.getMessage());
 
                 } else {
+                    v.forwardMsg(ControlMessages.ASSIGNEDNICK.getMessage());
                     bindView(v, nick);
                 }
                 return;
@@ -166,7 +167,6 @@ public class Controller {
     private void bindView(VirtualView v, String nick){
 
         userMap.put(v, nick);
-        v.forwardMsg(ControlMessages.ACCEPTED.getMessage());
         if(userMap.size()==1){
             creatingGame=true;
             updateViewsOfStatus();

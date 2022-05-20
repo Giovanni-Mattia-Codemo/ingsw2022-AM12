@@ -1,5 +1,7 @@
 package it.polimi.ingsw2022am12.server.model.actions;
 
+import it.polimi.ingsw2022am12.Flag;
+import it.polimi.ingsw2022am12.UpdateFlag;
 import it.polimi.ingsw2022am12.server.model.Game;
 import it.polimi.ingsw2022am12.server.model.IslandTileSet;
 import it.polimi.ingsw2022am12.server.model.PossibleAction;
@@ -59,5 +61,12 @@ public class MoveMotherNature extends PossibleAction {
     @Override
     public void useAction(Game game) {
         game.moveMotherNature(((IslandTileSet)score.get(1)).getID());
+    }
+    
+    @Override
+    public ArrayList<UpdateFlag> getUpdates(Game game){
+        ArrayList<UpdateFlag> update = new ArrayList<>();
+        update.add(new UpdateFlag(Flag.ISLANDS));
+        return update;
     }
 }

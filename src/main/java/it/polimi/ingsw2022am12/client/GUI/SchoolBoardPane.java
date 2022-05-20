@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class SchoolBoardPane extends GridPane{
 
@@ -40,7 +41,7 @@ public class SchoolBoardPane extends GridPane{
         pinkDiningStudents = new ArrayList<>();
         towerButtons = new ArrayList<>();
 
-        //stuff to make the entrance grid inside the schoolboard
+        //stuff to make the entrance grid inside the schoolBoard
         Double rowHeighPerc = 14.0;
         Double borderRowPerc = 5.0;
 
@@ -100,7 +101,7 @@ public class SchoolBoardPane extends GridPane{
         grid.prefHeightProperty().bind(this.heightProperty());
         grid.prefWidthProperty().bind(this.widthProperty().multiply(0.15));
         this.addColumn(0, grid);
-        //end othis
+        //end of this
 
         //diningroom
         GridPane diningRoom = new GridPane();
@@ -157,8 +158,6 @@ public class SchoolBoardPane extends GridPane{
             roomButton.setBackground(Background.EMPTY);
             roomButton.prefHeightProperty().bind(room.heightProperty());
             roomButton.prefWidthProperty().bind(room.widthProperty());
-            //students.prefWidthProperty().bind(room.widthProperty());
-            //students.prefHeightProperty().bind(room.heightProperty());
             room.setAlignment(Pos.CENTER_LEFT);
             room.getChildren().addAll(students, roomButton);
             room.prefHeightProperty().bind(diningRoom.getRowConstraints().get(i).prefHeightProperty());
@@ -200,7 +199,7 @@ public class SchoolBoardPane extends GridPane{
                         pinkDiningStudents.add(student);
                     }
                     case 5 ->{
-                        StudentButton student = new StudentButton(DiskColor.BLUE);
+                        student = new StudentButton(DiskColor.BLUE);
                         students.add(student, t, 0);
                         blueDiningStudents.add(student);
                     }
@@ -275,16 +274,11 @@ public class SchoolBoardPane extends GridPane{
             pane.setMinSize(1.0,1.0);
             pane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
             switch (i){
-                case 1-> prof = new Image(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/teacher_green.png").toString());
-
-                case 2-> prof = new Image(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/teacher_red.png").toString());
-
-                case 3-> prof = new Image(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/teacher_yellow.png").toString());
-
-                case 4-> prof = new Image(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/teacher_pink.png").toString());
-
-                case 5-> prof = new Image(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/teacher_blue.png").toString());
-
+                case 1-> prof = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/teacher_green.png")).toString());
+                case 2-> prof = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/teacher_red.png")).toString());
+                case 3-> prof = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/teacher_yellow.png")).toString());
+                case 4-> prof = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/teacher_pink.png")).toString());
+                case 5-> prof = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/teacher_blue.png")).toString());
                 default->{}
             }
             professorButtons.add(pane);
@@ -293,8 +287,6 @@ public class SchoolBoardPane extends GridPane{
             Background bGround = new Background(new BackgroundImage(prof, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,BackgroundPosition.CENTER, bSize));
             pane.setBackground(bGround);
             pane.setRotate(90);
-
-
             professors.add(pane, 1, i);
 
         }
@@ -358,9 +350,9 @@ public class SchoolBoardPane extends GridPane{
                 Image towerImage = null;
                 int col = 0;
                 switch (col){
-                    case 0-> towerImage = new Image(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/white_tower.png").toString());
-                    case 1-> towerImage = new Image(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/grey_tower.png").toString());
-                    case 2-> towerImage = new Image(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/black_tower.png").toString());
+                    case 0-> towerImage = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/white_tower.png")).toString());
+                    case 1-> towerImage = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/grey_tower.png")).toString());
+                    case 2-> towerImage = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/black_tower.png")).toString());
                     default -> {}
                 }
                 tower.setBackground(Background.EMPTY);
@@ -391,7 +383,7 @@ public class SchoolBoardPane extends GridPane{
 
 
         BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false,false,true,true);
-        Image image = new Image(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/Plancia_DEF2.png").toString());
+        Image image = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/Plancia_DEF2.png")).toString());
         Background background = new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, bSize));
         this.setBackground(background);
 

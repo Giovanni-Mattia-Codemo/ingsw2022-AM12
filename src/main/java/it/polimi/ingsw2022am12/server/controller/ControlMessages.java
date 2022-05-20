@@ -18,7 +18,8 @@ public enum ControlMessages {
     MATCHMAKINGCOMPLETE(11, "Your match is starting"),
     GAMEHASNTSTARTED(12, "The game isn't ready yet"),
     INVALIDSELECTION(13, "Invalid selection"),
-    ACTIONCOMPLETED(14, "Action completed successfully");
+    ACTIONCOMPLETED(14, "Action completed successfully"),
+    ASSIGNEDNICK(15, "Your nick has been set");
 
     private final int value;
     private final String message;

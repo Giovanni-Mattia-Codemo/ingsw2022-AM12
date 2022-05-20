@@ -16,7 +16,7 @@ public class HerbalistAction extends PossibleAction {
      * Constructor method of HerbalistAction class
      */
     public HerbalistAction(){
-        super(2);
+        super(3);
     }
 
     /**
@@ -27,8 +27,12 @@ public class HerbalistAction extends PossibleAction {
     @Override
     public void setSelectables(Game game) {
         ArrayList<Selectable> result = new ArrayList<>(((CharacterHerbalist) game.getActiveCharacterCard()).getNoEntryCollection().getAllNoEntries());
-        selectables.put(0, result);
-        selectables.put(1, game.getIslandList().getIslandsAsSelectable());
+        ArrayList<Selectable> character = new ArrayList<>();
+        character.add(game.getActiveCharacterCard());
+
+        selectables.put(0, character);
+        selectables.put(1, result);
+        selectables.put(2, game.getIslandList().getIslandsAsSelectable());
     }
 
     /**
@@ -40,9 +44,11 @@ public class HerbalistAction extends PossibleAction {
     public String getUserSelectionsMessage() {
         String msg = "";
         msg = msg.concat("To use the herbalist:");
-        if(!score.containsKey(0)){
-            msg = msg.concat(" select an available no entry token.");
+        if (!score.containsKey(0)) {
+            msg = msg.concat(" it's character card.");
         }else if(!score.containsKey(1)){
+            msg = msg.concat(" select an available no entry token.");
+        }else if(!score.containsKey(2)){
             msg = msg.concat(" select an island to place it on.");
         }
         return msg;
@@ -55,7 +61,7 @@ public class HerbalistAction extends PossibleAction {
      */
     @Override
     public void useAction(Game game) {
-        game.insertNoEntry(((IslandTileSet)score.get(1)).getID());
+        game.insertNoEntry(((IslandTileSet)score.get(2)).getID());
         game.getActiveCharacterCard().setWasUsed(true);
     }
 }

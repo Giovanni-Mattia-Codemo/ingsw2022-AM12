@@ -1,6 +1,8 @@
 package it.polimi.ingsw2022am12.server.model.actions;
 
 import it.polimi.ingsw2022am12.server.model.*;
+import it.polimi.ingsw2022am12.server.model.characters.CharacterBard;
+
 import java.util.ArrayList;
 
 /**
@@ -12,7 +14,7 @@ public class BardAction extends PossibleAction {
      * Constructor method of the BardAction class
      */
     public BardAction(){
-        super(2);
+        super(3);
     }
 
     /**
@@ -25,9 +27,12 @@ public class BardAction extends PossibleAction {
 
         ArrayList<Selectable> tmp = new ArrayList<>(game.getCurrentSchoolBoard().getEntrance().getStudentsAsSelectables());
         boolean b = tmp.removeIf(a -> game.getCurrentSchoolBoard().isDiningRoomFull(((Student) a).getColor()));
+        ArrayList<Selectable> character = new ArrayList<>();
+        character.add(game.getActiveCharacterCard());
 
-        selectables.put(0, tmp);
-        selectables.put(1, game.getCurrentSchoolBoard().getDiningRoom().getStudentsAsSelectables());
+        selectables.put(0, character);
+        selectables.put(1, tmp);
+        selectables.put(2, game.getCurrentSchoolBoard().getDiningRoom().getStudentsAsSelectables());
     }
 
     /**
@@ -39,8 +44,10 @@ public class BardAction extends PossibleAction {
         String msg = "";
         msg = msg.concat("To use the bard select:");
         if(!score.containsKey(0)){
-            msg = msg.concat(" a student from the entrance.");
+            msg = msg.concat(" it's character card");
         }else if(!score.containsKey(1)){
+            msg = msg.concat(" a student from the entrance.");
+        }else if(!score.containsKey(2)){
             msg = msg.concat(" the student to swap it with.");
         }
         return msg;
@@ -55,8 +62,8 @@ public class BardAction extends PossibleAction {
      */
     @Override
     public void useAction(Game game){
-        Student student1 = (Student)score.get(0);
-        Student student2 = (Student)score.get(1);
+        Student student1 = (Student)score.get(1);
+        Student student2 = (Student)score.get(2);
 
         game.swapStudents(student1.getColor(), student2.getColor());
 

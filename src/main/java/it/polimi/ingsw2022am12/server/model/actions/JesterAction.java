@@ -17,7 +17,7 @@ public class JesterAction extends PossibleAction {
      * Constructor method of JesterAction class
      */
     public JesterAction(){
-        super(2);
+        super(3);
     }
 
     /**
@@ -28,8 +28,12 @@ public class JesterAction extends PossibleAction {
     @Override
     public void setSelectables(Game game) {
         ArrayList<Selectable> result = new ArrayList<>(((CharacterJester) game.getActiveCharacterCard()).getStudents().getStudentsAsSelectables());
-        selectables.put(0, result);
-        selectables.put(1, game.getCurrentSchoolBoard().getEntrance().getStudentsAsSelectables());
+        ArrayList<Selectable> character = new ArrayList<>();
+        character.add(game.getActiveCharacterCard());
+
+        selectables.put(0, character);
+        selectables.put(1, result);
+        selectables.put(2, game.getCurrentSchoolBoard().getEntrance().getStudentsAsSelectables());
     }
 
     /**
@@ -40,11 +44,13 @@ public class JesterAction extends PossibleAction {
     @Override
     public String getUserSelectionsMessage() {
         String msg = "";
-        msg = msg.concat("To use the jester:");
-        if(!score.containsKey(0)){
-            msg = msg.concat(" select a student on the card.");
+        msg = msg.concat("To use the jester select:");
+        if (!score.containsKey(0)) {
+            msg = msg.concat(" it's character card.");
         }else if(!score.containsKey(1)){
-            msg = msg.concat(" select the student to swap in your entrance.");
+            msg = msg.concat(" a student on the card.");
+        }else if(!score.containsKey(2)){
+            msg = msg.concat(" the student to swap in your entrance.");
         }
         return msg;
     }
@@ -57,7 +63,7 @@ public class JesterAction extends PossibleAction {
     @Override
     public void useAction(Game game) {
 
-        game.jesterSwap(((Student)score.get(0)).getColor(), ((Student)score.get(1)).getColor());
+        game.jesterSwap(((Student)score.get(1)).getColor(), ((Student)score.get(2)).getColor());
         game.getActiveCharacterCard().setWasUsed(true);
 
     }
