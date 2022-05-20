@@ -3,8 +3,16 @@ package it.polimi.ingsw2022am12.client;
 import it.polimi.ingsw2022am12.UpdateFlag;
 import it.polimi.ingsw2022am12.client.model.ClientGame;
 
+/**
+ * Interface that defines the main features of a View component
+ */
 public interface View {
 
+    /**
+     * viewMessage visualizes a message on a certain view
+     *
+     * @param message the message I want to visualise
+     */
     public void viewMessage(String message);
 
     /**

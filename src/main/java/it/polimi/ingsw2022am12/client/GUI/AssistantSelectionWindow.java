@@ -106,7 +106,7 @@ public class AssistantSelectionWindow implements Window {
 
         yes.setOnAction(e -> {
             window.close();
-            this.closeAfterSelection(); //CLOSES BOTH WINDOWS
+            this.closeAfterSelection();
         });
 
         no.setOnAction(e -> {

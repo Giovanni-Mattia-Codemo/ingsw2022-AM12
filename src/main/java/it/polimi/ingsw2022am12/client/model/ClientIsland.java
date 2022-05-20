@@ -68,10 +68,18 @@ public class ClientIsland {
         this.number = number;
     }
 
+    /**
+     * Getter method for conqueror
+     * @return String conqueror
+     */
     public String getConqueror() {
         return conqueror;
     }
 
+    /**
+     * Getter method for number
+     * @return int number
+     */
     public int getNumber() {
         return number;
     }
@@ -84,6 +92,10 @@ public class ClientIsland {
         this.conqueror = conqueror;
     }
 
+    /**
+     * updateFromIsland updates the state of the current island using another island
+     * @param island the new island
+     */
     public void updateFromIsland(ClientIsland island){
         ID = island.getID();
         conqueror = island.getConqueror();

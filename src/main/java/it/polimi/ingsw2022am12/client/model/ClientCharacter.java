@@ -113,6 +113,10 @@ public class ClientCharacter {
         return numberOfNoEntries;
     }
 
+    /**
+     * Getter method for hasCoin
+     * @return boolean hasCoin
+     */
     public boolean isHasCoin() {
         return hasCoin;
     }
@@ -126,6 +130,10 @@ public class ClientCharacter {
         return noEntryCollectionID;
     }
 
+    /**
+     * updateFromCharacter updates the current character using a new one
+     * @param character the new character
+     */
     public void updateFromCharacter(ClientCharacter character){
         hasCoin = character.isHasCoin();
         cost = character.getCost();

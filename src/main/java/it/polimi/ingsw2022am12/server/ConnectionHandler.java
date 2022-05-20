@@ -1,5 +1,6 @@
 package it.polimi.ingsw2022am12.server;
 
+
 import it.polimi.ingsw2022am12.server.controller.ControlMessages;
 import it.polimi.ingsw2022am12.server.controller.Controller;
 import it.polimi.ingsw2022am12.server.virtualview.VirtualView;
@@ -9,18 +10,29 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * ConnectionHandler class represents the component that handles the connection with the server
+ */
 public class ConnectionHandler implements Runnable{
 
 
     private final Controller controller;
     private final ServerSocket serverSocket;
 
+    /**
+     * Constructor method of ConnectionHandler
+     * @param controller my controller
+     * @param serverSocket the socket of the Server
+     */
     public ConnectionHandler(Controller controller, ServerSocket serverSocket){
         this.controller = controller;
         this.serverSocket = serverSocket;
 
     }
 
+    /**
+     * 
+     */
     @Override
     public void run() {
         while(true){

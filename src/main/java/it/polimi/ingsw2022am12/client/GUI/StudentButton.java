@@ -15,6 +15,10 @@ public class StudentButton extends Button{
 
     private DiskColor color;
 
+    /**
+     * Constructor method of StudentButton class
+     * @param color the color of my student
+     */
     public StudentButton(DiskColor color){
 
         super();
@@ -24,13 +28,20 @@ public class StudentButton extends Button{
         setMaxWidth(Double.MAX_VALUE);
         setBackground(Background.EMPTY);
         setStudentColor(color);
-    }
+        }
 
-
+     /**
+     * Getter method for color
+     * @return DiskColor color
+     */
     public DiskColor getColor() {
         return color;
     }
 
+    /**
+     *
+     * @param color DiskColor chosen
+     */
     private void setStudentColor(DiskColor color){
         this.color = color;
         String resource = null;

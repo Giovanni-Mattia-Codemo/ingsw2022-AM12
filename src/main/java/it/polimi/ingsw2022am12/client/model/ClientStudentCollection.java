@@ -59,6 +59,11 @@ public class ClientStudentCollection {
         return students;
     }
 
+    /**
+     * getStudentByID iterates on the arrayList of students, and searches the one with a matching ID
+     * @param id the id of my student
+     * @return ClientStudent selected, null if no match is found
+     */
     public ClientStudent getStudentByID(int id){
         for(ClientStudent st:students){
             if(st.getID()==id){
@@ -80,6 +85,11 @@ public class ClientStudentCollection {
         return stringStudents;
     }
 
+    /**
+     * updateFromCollection updates a current collection using the data from a new one
+     *
+     * @param clientStudentCollection the new clientStudentCollection
+     */
     public void updateFromCollection(ClientStudentCollection clientStudentCollection){
         ArrayList<ClientStudent> tmpCopy = new ArrayList<>(clientStudentCollection.getStudents());
         ArrayList<ClientStudent> copyStudents = new ArrayList<>(students);

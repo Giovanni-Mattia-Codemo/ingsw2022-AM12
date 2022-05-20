@@ -170,6 +170,13 @@ public class ClientGame {
         this.teams = teams;
     }
 
+    /**
+     * Method that iterates on the array list of schoolboards and returns a Schoolboard if the nicks match, else returns
+     * null, if it can't find a match
+     *
+     * @param nick of the player
+     * @return ClientSchoolboard of the player
+     */
     public ClientSchoolBoard getSchoolBoardByNick(String nick) {
         for (ClientSchoolBoard s:schoolBoards
              ) {
@@ -180,6 +187,14 @@ public class ClientGame {
         return null;
     }
 
+    /**
+     * Method that iterates on the array list of ClientStudentCollections and returns a cloud if the ids match, else returns
+     * null, if it can't find a match
+     *
+     *
+     * @param id of my cloud
+     * @return cloud which is a clientStudentCollection
+     */
     public ClientStudentCollection getCloudByID(int id){
         for (ClientStudentCollection c:clouds
              ) {
@@ -191,6 +206,13 @@ public class ClientGame {
         return  null;
     }
 
+    /**
+     * Method that iterates on the array list of ClientIslands and returns an island if the ids match, else returns
+     * null, if it can't find a match
+     *
+     * @param id of the island
+     * @return clientIsland selected
+     */
     public ClientIsland getIslandByID(int id){
         for (ClientIsland i:islands
              ) {
@@ -203,22 +225,42 @@ public class ClientGame {
         return null;
     }
 
+    /**
+     * Getter method for turn
+     * @return int turn
+     */
     public int getTurn() {
         return turn;
     }
 
+    /**
+     * Getter method for round
+     * @return int round
+     */
     public int getRound() {
         return round;
     }
 
+    /**
+     * Getter method for phase
+     * @return String phase
+     */
     public String getPhase() {
         return phase;
     }
 
+    /**
+     * Getter method for FreeCoins
+     * @return int freeCoins
+     */
     public int getFreeCoins() {
         return freeCoins;
     }
 
+    /**
+     * Getter method for motherNatureIndex
+     * @return int motherNatureIndex
+     */
     public int getMotherNatureIndex() {
         return motherNatureIndex;
     }
@@ -231,6 +273,13 @@ public class ClientGame {
         return orderedNicks;
     }
 
+    /**
+     * getCharacterByName iterates on the array of Characters and returns a ClientCharacter if the names match, else returns
+     * null, if it can't find a match
+     *
+     * @param name of the ClientCharacter
+     * @return ClientCharacter selected
+     */
     public ClientCharacter getCharacterByName(String name){
         for (ClientCharacter c:characters
         ) {
@@ -242,14 +291,26 @@ public class ClientGame {
         return  null;
     }
 
+    /**
+     * Getter method for activeCharacter
+     * @return String activeCharacter
+     */
     public String getActiveCharacter() {
         return activeCharacter;
     }
 
+    /**
+     * Getter method for professors
+     * @return String[] professors
+     */
     public String[] getProfessors() {
         return professors;
     }
 
+    /**
+     * Getter method for isLastRound
+     * @return boolean isLastRound
+     */
     public boolean isLastRound() {
         return isLastRound;
     }
@@ -332,6 +393,12 @@ public class ClientGame {
     }
 
 
+    /**
+     * updateFromGame changes the old state of the game to the current one if a flag signals some changes
+     *
+     * @param newGame the new state of the game
+     * @param myFlag the update flag that signals the changes
+     */
     public void updateFromGame(ClientGame newGame, UpdateFlag myFlag){
         round = newGame.getRound();
         turn = newGame.getTurn();
