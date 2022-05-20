@@ -1,16 +1,40 @@
 package it.polimi.ingsw2022am12;
 
+import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
+import com.google.gson.TypeAdapterFactory;
+import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
+
 import java.io.IOException;
 import java.util.Objects;
 
-/**
- * UpdateFlagAdapter is the class that encodes/decodes an UpdateFlag in the JSON format
- */
-public class UpdateFlagAdapter extends TypeAdapter<UpdateFlag>{
+
+
+
+
+public class UpdateFlagAdapterFactory implements TypeAdapterFactory {
+
+    /**
+     * Custom creation of a TypeAdapter
+     * @param gson my Gson object
+     * @param typeToken my type token
+     * @param <T> generic type for the TypeAdapter
+     * @return custom type adapter
+     */
+    @Override
+    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> typeToken) {
+        if(UpdateFlag.class.isAssignableFrom(typeToken.getRawType())) {
+            return (TypeAdapter<T>) customTypeAdapter;
+        }
+        return null;
+    }
+
+    private final TypeAdapter<UpdateFlag> customTypeAdapter = new TypeAdapter<>() {
+
+   //     private final TypeAdapter<UpdateFlag> customTypeAdapter = new  TypeAdapter<>{
 
         /**
          * Method write receives an object of type CharacterCard and serializes it in the JSON format
@@ -106,4 +130,6 @@ public class UpdateFlagAdapter extends TypeAdapter<UpdateFlag>{
             }
         }
     }
+
+};
 }

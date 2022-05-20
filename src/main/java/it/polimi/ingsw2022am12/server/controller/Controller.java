@@ -3,7 +3,8 @@ package it.polimi.ingsw2022am12.server.controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import it.polimi.ingsw2022am12.UpdateFlag;
-import it.polimi.ingsw2022am12.UpdateFlagAdapter;
+
+import it.polimi.ingsw2022am12.UpdateFlagAdapterFactory;
 import it.polimi.ingsw2022am12.server.Server;
 import it.polimi.ingsw2022am12.server.virtualview.VirtualView;
 import it.polimi.ingsw2022am12.server.adapter.GameAdapter;
@@ -88,7 +89,7 @@ public class Controller {
                     System.out.println("getting updates");
                     ArrayList<UpdateFlag> up = inputHandler.getUpdates();
                     System.out.println("got em");
-                    gson = new GsonBuilder().registerTypeAdapter(UpdateFlag.class, new UpdateFlagAdapter()).create();
+                    gson = new GsonBuilder().registerTypeAdapterFactory(new UpdateFlagAdapterFactory()).create();
                     for(UpdateFlag f:up){
                         System.out.println("going to serialize from the list of updates");
                         String res = gson.toJson((UpdateFlag)f);

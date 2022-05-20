@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import it.polimi.ingsw2022am12.Flag;
 import it.polimi.ingsw2022am12.UpdateFlag;
-import it.polimi.ingsw2022am12.UpdateFlagAdapter;
+import it.polimi.ingsw2022am12.UpdateFlagAdapterFactory;
 import it.polimi.ingsw2022am12.client.adapter.GameStateAdapter;
 import it.polimi.ingsw2022am12.client.model.ClientGame;
 
@@ -13,6 +13,8 @@ import java.util.Scanner;
 import java.util.Timer;
 
 /**
+ *
+ *
  * ServerMessageHandler represents the layer of the client which deals with the messages from the server
  */
 public class ServerMessageHandler implements Runnable {
@@ -83,7 +85,7 @@ public class ServerMessageHandler implements Runnable {
                 case "UpdateFlag":
                     System.out.println("got an update flag");
                     String result = gson.toJson(map);
-                    gson = new GsonBuilder().registerTypeAdapter(UpdateFlag.class, new UpdateFlagAdapter()).create();
+                    gson = new GsonBuilder().registerTypeAdapterFactory(new UpdateFlagAdapterFactory()).create();
                     System.out.println("going t");
                     UpdateFlag flag = gson.fromJson(result, UpdateFlag.class);
                     client.updateGameState(flag);
