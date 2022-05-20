@@ -107,6 +107,7 @@ public class ClientInputHandler implements  Runnable {
                 client.forwardJson(result);
             }
             case "Character" -> {
+                System.out.println("received char name:"+tokens[1]);
                 ClientCharacter clientCharacter = new ClientCharacter(tokens[1]);
                 gson = new GsonBuilder().registerTypeAdapter(ClientCharacter.class, new ClientCharacterAdapter()).create();
                 result = gson.toJson(clientCharacter);
@@ -117,6 +118,9 @@ public class ClientInputHandler implements  Runnable {
                 gson = new GsonBuilder().registerTypeAdapter(InputMode.class, new InputModeAdapter()).create();
                 result = gson.toJson(inputMode);
                 client.forwardJson(result);
+            }
+            default -> {
+                System.out.println("unrecognized input");
             }
         }
     }

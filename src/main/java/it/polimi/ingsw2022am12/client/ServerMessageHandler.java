@@ -2,6 +2,9 @@ package it.polimi.ingsw2022am12.client;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import it.polimi.ingsw2022am12.Flag;
+import it.polimi.ingsw2022am12.UpdateFlag;
+import it.polimi.ingsw2022am12.UpdateFlagAdapter;
 import it.polimi.ingsw2022am12.client.adapter.GameStateAdapter;
 import it.polimi.ingsw2022am12.client.model.ClientGame;
 
@@ -66,11 +69,31 @@ public class ServerMessageHandler implements Runnable {
         if(message.startsWith("{")){
             Gson gson = new Gson();
             Map map = gson.fromJson(message, Map.class);
+            String tag = (String) map.get("tag");
             map.remove("tag");
-            String res = gson.toJson(map);
-            gson = new GsonBuilder().registerTypeAdapter(ClientGame.class, new GameStateAdapter()).create();
-            ClientGame tmp = gson.fromJson(res, ClientGame.class);
-            client.updateGameState(tmp);
+            switch (tag){
+                case "GameState":
+                    String res = gson.toJson(map);
+                    gson = new GsonBuilder().registerTypeAdapter(ClientGame.class, new GameStateAdapter()).create();
+                    ClientGame tmp = gson.fromJson(res, ClientGame.class);
+                    client.updateLastSavedGame(tmp);
+                    //client.updateGameState(new UpdateFlag(Flag.FULLGAME));
+                    break;
+
+                case "UpdateFlag":
+                    System.out.println("got an update flag");
+                    String result = gson.toJson(map);
+                    gson = new GsonBuilder().registerTypeAdapter(UpdateFlag.class, new UpdateFlagAdapter()).create();
+                    System.out.println("going t");
+                    UpdateFlag flag = gson.fromJson(result, UpdateFlag.class);
+                    client.updateGameState(flag);
+                    break;
+
+                default:
+                    System.out.println("wierd message from server");
+                    break;
+            }
+
         }else if(message.equals("Pong")){
             pong.pong();
         }else client.showServerMessage(message);

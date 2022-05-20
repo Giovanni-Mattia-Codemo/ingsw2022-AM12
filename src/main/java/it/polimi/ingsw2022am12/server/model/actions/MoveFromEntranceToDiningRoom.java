@@ -1,5 +1,7 @@
 package it.polimi.ingsw2022am12.server.model.actions;
 
+import it.polimi.ingsw2022am12.UpdateFlag;
+import it.polimi.ingsw2022am12.UpdateFlagSchool;
 import it.polimi.ingsw2022am12.server.model.*;
 
 import java.util.ArrayList;
@@ -58,5 +60,14 @@ public class MoveFromEntranceToDiningRoom extends PossibleAction {
 
             game.moveStudentFromEntranceToRoom(((Student)score.get(0)).getColor());
 
+    }
+
+
+    @Override
+    public ArrayList<UpdateFlag> getUpdates(Game game) {
+        ArrayList<UpdateFlag> updates = new ArrayList();
+        System.out.println("adding a school to the updates in action");
+        updates.add(new UpdateFlagSchool(game.getCurrentSchoolBoard().getNick()));
+        return updates;
     }
 }

@@ -1,5 +1,6 @@
 package it.polimi.ingsw2022am12.client;
 
+import it.polimi.ingsw2022am12.UpdateFlag;
 import it.polimi.ingsw2022am12.client.CLI.CLIView;
 import it.polimi.ingsw2022am12.client.model.ClientGame;
 
@@ -130,10 +131,19 @@ public class Client {
      *
      * @param flag fields to be updated
      */
-    public void updateGameState(ClientGame clientGame){
-        this.clientGame = clientGame;
-        view.updateGameView(clientGame);
+    public void updateGameState(UpdateFlag flag){
+        if(clientGame==null){
+            clientGame=newClientGame;
+        }else clientGame.updateFromGame(newClientGame, flag);
+        view.updateGameView(clientGame, flag);
+
     }
+
+    public void updateLastSavedGame(ClientGame newGame){
+        newClientGame = newGame;
+    }
+
+
 
     /**
      * disconnected method initiates the process of disconnection from the server, closing the socket and shutting down

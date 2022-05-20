@@ -1,6 +1,11 @@
 package it.polimi.ingsw2022am12.server.model.actions;
 
+import it.polimi.ingsw2022am12.Flag;
+import it.polimi.ingsw2022am12.UpdateFlag;
+import it.polimi.ingsw2022am12.UpdateFlagSchool;
 import it.polimi.ingsw2022am12.server.model.*;
+
+import java.util.ArrayList;
 
 /**
  * Class that defines the process of moving a student from the entrance of a SchoolBoard to an island
@@ -52,4 +57,11 @@ public class MoveFromEntranceToIsland extends PossibleAction {
         game.moveStudentFromEntranceToIsland(((Student)score.get(0)).getColor(), ((IslandTileSet)score.get(1)).getID());
     }
 
+    @Override
+    public ArrayList<UpdateFlag> getUpdates(Game game) {
+        ArrayList<UpdateFlag> updates = new ArrayList();
+        updates.add(new UpdateFlagSchool(game.getCurrentSchoolBoard().getNick()));
+        updates.add(new UpdateFlag(Flag.ISLANDS));
+        return updates;
+    }
 }

@@ -156,6 +156,7 @@ public class SchoolBoardPane extends GridPane{
             students.setGridLinesVisible(true);
 
             roomButton.setBackground(Background.EMPTY);
+            roomButton.setOnAction(e-> System.out.println("ROOM BUTTON"));
             roomButton.prefHeightProperty().bind(room.heightProperty());
             roomButton.prefWidthProperty().bind(room.widthProperty());
             room.setAlignment(Pos.CENTER_LEFT);
@@ -176,25 +177,27 @@ public class SchoolBoardPane extends GridPane{
 
                 // other settings as needed...
                 students.getColumnConstraints().add(cc);
+
+                StudentButton student = null;
                 switch (i) {
                     case 1 -> {
-                        StudentButton student = new StudentButton(DiskColor.GREEN);
+                        student = new StudentButton(DiskColor.GREEN);
                         students.add(student, t, 0);
                         greenDiningStudents.add(student);
 
                     }
                     case 2 ->{
-                        StudentButton student = new StudentButton(DiskColor.RED);
+                        student = new StudentButton(DiskColor.RED);
                         students.add(student, t, 0);
                         redDiningStudents.add(student);
                     }
                     case 3 ->{
-                        StudentButton student = new StudentButton(DiskColor.YELLOW);
+                        student = new StudentButton(DiskColor.YELLOW);
                         students.add(student, t, 0);
                         yellowDiningStudents.add(student);
                     }
                     case 4 ->{
-                        StudentButton student = new StudentButton(DiskColor.PINK);
+                        student = new StudentButton(DiskColor.PINK);
                         students.add(student, t, 0);
                         pinkDiningStudents.add(student);
                     }
@@ -206,6 +209,7 @@ public class SchoolBoardPane extends GridPane{
                     default -> {
                     }
                 }
+                student.setOnAction(e-> System.out.println("Student button"));
             }
 
             students.hgapProperty().bind(this.widthProperty().divide(250));

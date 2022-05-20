@@ -7,6 +7,7 @@ import java.util.ArrayList;
  * ClientGame represents the main attributes of the game from the client's side
  */
 public class ClientGame {
+    private String thisClientNick;
     private int round;
     private int freeCoins;
     private int turn;
@@ -28,6 +29,24 @@ public class ClientGame {
      */
     public ClientGame(){
         this.professors = new String[5];
+    }
+
+    /**
+     * getThisClientNick getter method of thisClientNick
+     *
+     * @return the Nick of a single client
+     */
+    public String getThisClientNick() {
+        return thisClientNick;
+    }
+
+    /**
+     * Setter method of thisClientNick
+     *
+     * @param thisClientNick the Nick of a single client
+     */
+    public void setThisClientNick(String thisClientNick) {
+        this.thisClientNick = thisClientNick;
     }
 
     /**

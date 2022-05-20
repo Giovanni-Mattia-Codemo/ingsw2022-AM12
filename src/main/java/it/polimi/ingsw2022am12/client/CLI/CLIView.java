@@ -1,5 +1,6 @@
 package it.polimi.ingsw2022am12.client.CLI;
 
+import it.polimi.ingsw2022am12.UpdateFlag;
 import it.polimi.ingsw2022am12.client.View;
 import it.polimi.ingsw2022am12.client.model.ClientGame;
 
@@ -10,7 +11,7 @@ public class CLIView implements View {
     }
 
     @Override
-    public void updateGameView(ClientGame game) {
+    public void updateGameView(ClientGame game, UpdateFlag flag) {
         System.out.println(game.getBoardStringToView());
     }
 }

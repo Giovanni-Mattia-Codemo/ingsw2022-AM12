@@ -46,6 +46,7 @@ public class ClientStudentCollectionAdapter extends TypeAdapter<ClientStudentCol
         reader.beginObject();
         String fieldName = null;
 
+
         while (reader.hasNext()) {
             JsonToken token = reader.peek();
 
@@ -56,6 +57,7 @@ public class ClientStudentCollectionAdapter extends TypeAdapter<ClientStudentCol
             if("ID".equals(fieldName)) {
                 reader.peek();
                 student.setID(reader.nextInt());
+
             }
             if ("Students".equals(fieldName)) {
                 reader.peek();
@@ -64,6 +66,7 @@ public class ClientStudentCollectionAdapter extends TypeAdapter<ClientStudentCol
                 reader.beginArray();
                 while (reader.hasNext()){
                     ClientStudent st = new GsonBuilder().registerTypeAdapter(ClientStudent.class, new ClientStudentAdapter()).create().fromJson(reader, ClientStudent.class);
+                    st.setID(student.getID());
                     students.add(st);
 
                 }

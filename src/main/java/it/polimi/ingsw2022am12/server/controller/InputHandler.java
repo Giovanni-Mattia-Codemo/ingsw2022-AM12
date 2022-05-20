@@ -1,5 +1,6 @@
 package it.polimi.ingsw2022am12.server.controller;
 
+import it.polimi.ingsw2022am12.UpdateFlag;
 import it.polimi.ingsw2022am12.server.model.Game;
 import it.polimi.ingsw2022am12.server.model.PossibleAction;
 import it.polimi.ingsw2022am12.server.model.Selectable;
@@ -13,6 +14,7 @@ public class InputHandler {
     private final Game myGame;
     private final ArrayList<Selectable> selected;
     private ArrayList<PossibleAction> actions;
+    private ArrayList<UpdateFlag> updates;
 
     /**
      * constructor method of InputHandler class
@@ -22,6 +24,7 @@ public class InputHandler {
         this.myGame = myGame;
         this.selected = new ArrayList<>();
         this.actions = new ArrayList<>();
+        this.updates = new ArrayList<>();
         this.updateActions();
     }
 
@@ -97,6 +100,7 @@ public class InputHandler {
             ActionStep result = pa.checkInputValidity(selected, myGame);
             if(result.equals(ActionStep.OK)){
                 pa.useAction(myGame);
+                setUpdate(pa.getUpdates(myGame));
                 flushSelected();
                 updateActions();
                 return ActionStep.OK;
@@ -115,4 +119,11 @@ public class InputHandler {
         return ActionStep.NOTOK;
     }
 
+    private void setUpdate(ArrayList<UpdateFlag> updates){
+        this.updates = updates;
+    }
+
+    public ArrayList<UpdateFlag> getUpdates() {
+        return updates;
+    }
 }

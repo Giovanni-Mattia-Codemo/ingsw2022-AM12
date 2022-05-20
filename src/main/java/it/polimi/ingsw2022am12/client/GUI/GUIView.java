@@ -171,7 +171,7 @@ public class GUIView extends Application implements View {
     }
 
     @Override
-    public void updateGameView(ClientGame game) {
+    public void updateGameView(ClientGame game, UpdateFlag flag) {
        /*
         for(SchoolBoardContainer sc : schools){
             sc.updateGame(game);

@@ -42,6 +42,7 @@ public class SchoolBoardView extends ScrollPane{
 
         box.setGridLinesVisible(true);
         box.setAlignment(Pos.CENTER);
+        setContent(box);
 
     }
 

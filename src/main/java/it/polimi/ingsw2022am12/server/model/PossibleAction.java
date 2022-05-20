@@ -1,5 +1,7 @@
 package it.polimi.ingsw2022am12.server.model;
 
+import it.polimi.ingsw2022am12.Flag;
+import it.polimi.ingsw2022am12.UpdateFlag;
 import it.polimi.ingsw2022am12.server.model.actions.ActionStep;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +15,7 @@ public abstract class PossibleAction {
     private final int requiredInputs;
     protected Map<Integer, ArrayList<Selectable>> selectables;
     protected Map<Integer, Selectable> score;
+    
     
 
     /**
@@ -101,6 +104,13 @@ public abstract class PossibleAction {
      */
     public void useAction(Game game){
 
+    }
+    
+    
+    public ArrayList<UpdateFlag> getUpdates(Game game){
+        ArrayList<UpdateFlag> result = new ArrayList<>();
+        result.add(new UpdateFlag(Flag.FULLGAME));
+        return result;
     }
 
 }

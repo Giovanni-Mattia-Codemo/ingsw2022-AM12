@@ -82,24 +82,44 @@ public class ClientStudentCollection {
 
     public void updateFromCollection(ClientStudentCollection clientStudentCollection){
         ArrayList<ClientStudent> tmpCopy = new ArrayList<>(clientStudentCollection.getStudents());
-        for(ClientStudent st:students){
-            ClientStudent tmp = clientStudentCollection.getStudentByID(st.getID());
-            if(tmp!=null){
-                tmpCopy.remove(tmp);
-            }else{
-                st.setColor(null);
-            }
-        }
-        for (ClientStudent stud: tmpCopy){
-            for(ClientStudent st: students){
-                if(st.getColor()==null){
-                    st.updateFromStudent(stud);
-                }else{
-                    students.add(stud);
+        ArrayList<ClientStudent> copyStudents = new ArrayList<>(students);
+        ArrayList<ClientStudent> toAdd = new ArrayList<>();
+
+        for(int i=0; i<tmpCopy.size();i++){
+            ClientStudent tmp = tmpCopy.get(i);
+            ClientStudent stud = null;
+            boolean found = false;
+            for(int j=0; j< copyStudents.size(); j++){
+                stud = copyStudents.get(j);
+                if(tmp.getColor()==stud.getColor()){
+                    found = true;
+                    System.out.println("Found "+i);
+                    copyStudents.remove(stud);
+
+                    break;
                 }
-                break;
             }
+            if(!found){
+                toAdd.add(tmp);
+            }
+
         }
+
+        for(ClientStudent st: toAdd){
+            System.out.println("adding "+st.getColor());
+            if(!copyStudents.isEmpty()){
+                copyStudents.get(0).setColor(st.getColor());
+                copyStudents.remove(0);
+            }else{
+                students.add(new ClientStudent(st.getColor(), this.getID()));
+            }
+
+        }
+        for(ClientStudent student : copyStudents){
+            System.out.println("setting remaining to null");
+                     student.setColor(null);
+        }
+        System.out.println("done");
     }
 
 }

@@ -105,6 +105,7 @@ public class CharacterAdapterFactory implements TypeAdapterFactory {
                 if("CharacterName".equals(fieldName)) {
                     in.peek();
                     String name = in.nextString();
+
                     switch (name) {
                         case "CHARACTER_HERBALIST" -> characterCard = new CharacterHerbalist();
                         case "CHARACTER_JESTER" -> characterCard = new CharacterJester();
@@ -124,6 +125,7 @@ public class CharacterAdapterFactory implements TypeAdapterFactory {
 
             }
             in.endObject();
+
             return characterCard;
         }
 

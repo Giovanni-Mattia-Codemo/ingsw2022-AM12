@@ -60,4 +60,6 @@ public class PrincessAction extends PossibleAction {
         game.moveStudentFromCardToRoom(((Student)score.get(1)).getColor());
         game.getActiveCharacterCard().setWasUsed(true);
     }
+    
+    
 }

@@ -30,7 +30,8 @@ public class AssistantSelectionWindow implements Window {
 
 
         ToggleGroup assistants = new ToggleGroup();
-        for(int i = 1; i<=10; i++){
+        int numOfAssistants = 10;
+        for(int i = 1; i<=numOfAssistants; i++){
             ToggleButton assistantButton = new ToggleButton();
             Image assistant = null;
 
@@ -71,8 +72,11 @@ public class AssistantSelectionWindow implements Window {
 
 
         Button selection = new Button("select");
-        selection.setOnAction(e->  //clientInputHandler.handle("Assistant "+assistants.getSelectedToggle().getProperties().get("id")));
-        System.out.println("Assistant "+assistants.getSelectedToggle().getProperties().get("id")));
+        selection.setOnAction(e-> {if(assistants.getSelectedToggle()!=null){
+                    System.out.println("Assistant "+assistants.getSelectedToggle().getProperties().get("id"));}
+            else System.out.println("Null value");
+        });//clientInputHandler.handle("Assistant "+assistants.getSelectedToggle().getProperties().get("id")));
+
         layout.getChildren().addAll(label, assistantsLayout, selection);
         layout.setAlignment(Pos.CENTER);
 
