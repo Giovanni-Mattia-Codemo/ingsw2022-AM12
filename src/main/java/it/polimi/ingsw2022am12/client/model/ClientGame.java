@@ -423,6 +423,7 @@ public class ClientGame {
 
                 updateFromGame(newGame, new UpdateFlag(Flag.ISLANDS));
                 updateFromGame(newGame, new UpdateFlag(Flag.CLOUDS));
+                updateFromGame(newGame, new UpdateFlagCharacter(activeCharacter));
 
                 break;
 
@@ -458,7 +459,9 @@ public class ClientGame {
                 break;
             case CHARACTERS:
                 String nameToCheck = ((UpdateFlagCharacter)myFlag).getNick();
-                getCharacterByName(nameToCheck).updateFromCharacter(newGame.getCharacterByName(nameToCheck));
+                if(!nameToCheck.equals("null")){
+                    getCharacterByName(nameToCheck).updateFromCharacter(newGame.getCharacterByName(nameToCheck));
+                }
                 break;
             default:
                 break;

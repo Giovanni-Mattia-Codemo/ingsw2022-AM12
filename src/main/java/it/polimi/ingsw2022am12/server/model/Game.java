@@ -916,6 +916,7 @@ public class Game{
         disksMovedThisTurn = 0;
         if(activeCharacterCard!=null){
             activeCharacterCard.setWasUsed(false);
+            activeCharacterCard = null;
         }
         if(isLastTurn()){
             turn=0;   //resets the turn count
