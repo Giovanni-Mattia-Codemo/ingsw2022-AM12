@@ -68,7 +68,6 @@ public class VirtualViewMessagesParser implements Runnable{
                             myController.send(virtualView, student);
                         }
                         case "StudentDiskCollection" -> {
-                            System.out.println("got smthin");
                             gson = new GsonBuilder().registerTypeAdapter(StudentDiskCollection.class, new StudentDiskCollectionAdapter()).create();
                             StudentDiskCollection studentDiskCollection = gson.fromJson(res, StudentDiskCollection.class);
                             myController.send(virtualView, studentDiskCollection);

@@ -2,9 +2,11 @@ package it.polimi.ingsw2022am12.server.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import it.polimi.ingsw2022am12.NickInputAdapter;
 import it.polimi.ingsw2022am12.UpdateFlag;
 
 import it.polimi.ingsw2022am12.UpdateFlagAdapterFactory;
+import it.polimi.ingsw2022am12.NickInput;
 import it.polimi.ingsw2022am12.server.Server;
 import it.polimi.ingsw2022am12.server.virtualview.VirtualView;
 import it.polimi.ingsw2022am12.server.adapter.GameAdapter;
@@ -86,14 +88,10 @@ public class Controller {
                     Gson gson = new GsonBuilder().registerTypeAdapter(Game.class, new GameAdapter()).create();
                     String gameState = gson.toJson(myGame);
                     updateAllViews(gameState);
-                    System.out.println("getting updates");
                     ArrayList<UpdateFlag> up = inputHandler.getUpdates();
-                    System.out.println("got em");
                     gson = new GsonBuilder().registerTypeAdapterFactory(new UpdateFlagAdapterFactory()).create();
                     for(UpdateFlag f:up){
-                        System.out.println("going to serialize from the list of updates");
                         String res = gson.toJson((UpdateFlag)f);
-                        System.out.println("serialized");
                         updateAllViews(res);
                     }
 
@@ -163,6 +161,10 @@ public class Controller {
 
                 } else {
                     v.forwardMsg(ControlMessages.ASSIGNEDNICK.getMessage());
+                    NickInput toBeSet = new NickInput(nick);
+                    Gson gson = new GsonBuilder().registerTypeAdapter(NickInput.class, new NickInputAdapter()).create();
+                    String setNick = gson.toJson(toBeSet);
+                    v.forwardMsg(setNick);
                     bindView(v, nick);
                 }
                 return;

@@ -1,5 +1,6 @@
 package it.polimi.ingsw2022am12.server.actions;
 
+import it.polimi.ingsw2022am12.CharacterName;
 import it.polimi.ingsw2022am12.DiskColor;
 import it.polimi.ingsw2022am12.server.model.*;
 import it.polimi.ingsw2022am12.server.model.actions.ActionStep;
@@ -38,6 +39,7 @@ public class PrincessActionTest {
 
         Selectable std = ((CharacterPrincess) testGame.getActiveCharacterCard()).getStudents().getByIndex(0);
         ArrayList<Selectable> input = new ArrayList<>();
+        input.add(testGame.getActiveCharacterCard());
         input.add(std);
         testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input, testGame));

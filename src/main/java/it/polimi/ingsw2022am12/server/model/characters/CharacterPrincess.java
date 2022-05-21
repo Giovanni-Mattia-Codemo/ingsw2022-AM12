@@ -1,7 +1,7 @@
 package it.polimi.ingsw2022am12.server.model.characters;
 
 import it.polimi.ingsw2022am12.server.model.CharacterCard;
-import it.polimi.ingsw2022am12.server.model.CharacterName;
+import it.polimi.ingsw2022am12.CharacterName;
 import it.polimi.ingsw2022am12.server.model.Game;
 import it.polimi.ingsw2022am12.server.model.PossibleAction;
 import it.polimi.ingsw2022am12.server.model.StudentDiskCollection;

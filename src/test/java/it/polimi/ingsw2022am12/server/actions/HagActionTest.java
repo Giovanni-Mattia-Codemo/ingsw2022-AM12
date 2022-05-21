@@ -1,5 +1,6 @@
 package it.polimi.ingsw2022am12.server.actions;
 
+import it.polimi.ingsw2022am12.CharacterName;
 import it.polimi.ingsw2022am12.DiskColor;
 import it.polimi.ingsw2022am12.server.model.*;
 import it.polimi.ingsw2022am12.server.model.actions.ActionStep;
@@ -39,6 +40,7 @@ public class HagActionTest {
         testGame.payAndSetActiveCharacter(CharacterName.CHARACTER_HAG);
         Selectable color = new ColorSelection(DiskColor.BLUE);
         ArrayList<Selectable> input = new ArrayList<>();
+        input.add(testGame.getActiveCharacterCard());
         input.add(color);
         testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input, testGame));

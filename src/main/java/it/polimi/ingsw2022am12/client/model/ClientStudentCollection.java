@@ -103,7 +103,6 @@ public class ClientStudentCollection {
                 stud = copyStudents.get(j);
                 if(tmp.getColor()==stud.getColor()){
                     found = true;
-                    System.out.println("Found "+i);
                     copyStudents.remove(stud);
 
                     break;
@@ -116,7 +115,6 @@ public class ClientStudentCollection {
         }
 
         for(ClientStudent st: toAdd){
-            System.out.println("adding "+st.getColor());
             if(!copyStudents.isEmpty()){
                 copyStudents.get(0).setColor(st.getColor());
                 copyStudents.remove(0);
@@ -126,10 +124,8 @@ public class ClientStudentCollection {
 
         }
         for(ClientStudent student : copyStudents){
-            System.out.println("setting remaining to null");
-                     student.setColor(null);
+            student.setColor(null);
         }
-        System.out.println("done");
     }
 
 }

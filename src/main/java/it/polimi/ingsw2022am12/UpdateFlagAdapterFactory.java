@@ -45,16 +45,13 @@ public class UpdateFlagAdapterFactory implements TypeAdapterFactory {
          */
         @Override
         public void write(JsonWriter jsonWriter, UpdateFlag flag) throws IOException {
-            System.out.println("inside the write");
             jsonWriter.beginObject();
             jsonWriter.name("tag");
             jsonWriter.value("UpdateFlag");
             jsonWriter.name("FlagName");
             jsonWriter.value(flag.getFlag().name());
-            System.out.println("switching on name");
             switch (flag.getFlag().name()) {
                 case "SCHOOL" -> {
-                    System.out.println("serializing a school flag");
                     jsonWriter.name("School");
                     jsonWriter.value(((UpdateFlagSchool)flag).getNick());
                 }
@@ -65,7 +62,6 @@ public class UpdateFlagAdapterFactory implements TypeAdapterFactory {
                 default -> {
                 }
             }
-            System.out.println("done");
             jsonWriter.endObject();
         }
 
@@ -78,7 +74,6 @@ public class UpdateFlagAdapterFactory implements TypeAdapterFactory {
      */
     @Override
     public UpdateFlag read(JsonReader reader) throws IOException {
-        System.out.println("reading an update flag");
         String name = null;
         String playerNick = null;
         String characterName = null;
@@ -107,10 +102,8 @@ public class UpdateFlagAdapterFactory implements TypeAdapterFactory {
 
         }
         reader.endObject();
-        System.out.println("received name:"+name);
         switch (Objects.requireNonNull(name)){
             case "FULLGAME" -> {
-                System.out.println("In FULLGAME flag");
                 return new UpdateFlag(Flag.FULLGAME);
             }
             case "ISLANDS" -> {

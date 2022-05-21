@@ -1,5 +1,6 @@
 package it.polimi.ingsw2022am12.server.actions;
 
+import it.polimi.ingsw2022am12.CharacterName;
 import it.polimi.ingsw2022am12.server.model.*;
 import it.polimi.ingsw2022am12.server.model.actions.ActionStep;
 import it.polimi.ingsw2022am12.server.model.actions.HeraldAction;

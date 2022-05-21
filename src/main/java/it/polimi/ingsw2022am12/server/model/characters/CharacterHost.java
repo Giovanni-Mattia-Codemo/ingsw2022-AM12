@@ -1,7 +1,7 @@
 package it.polimi.ingsw2022am12.server.model.characters;
 
 import it.polimi.ingsw2022am12.server.model.CharacterCard;
-import it.polimi.ingsw2022am12.server.model.CharacterName;
+import it.polimi.ingsw2022am12.CharacterName;
 
 /**
  * Class Character defines the main properties of a Host card

@@ -3,7 +3,6 @@ package it.polimi.ingsw2022am12.client;
 import it.polimi.ingsw2022am12.UpdateFlag;
 import it.polimi.ingsw2022am12.client.CLI.CLIView;
 import it.polimi.ingsw2022am12.client.model.ClientGame;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -25,6 +24,7 @@ public class Client {
     private Timer timer;
     private View view;
     private Thread serverMsg, clientInput;
+    private String thisClientNick;
 
     /**
      * Constructor method of the Client class
@@ -77,6 +77,7 @@ public class Client {
                     break;
 
                 default: correct = false;
+                    System.out.println("Wrong input, retry");
                     break;
             }
         }while(!correct);
@@ -85,23 +86,9 @@ public class Client {
         System.out.println("Connected!");
         in = new Scanner(socket.getInputStream());
         out = new PrintWriter(socket.getOutputStream());
-
         ServerMessageHandler serverMessageHandler = new ServerMessageHandler(in, this);
         serverMsg = new Thread(serverMessageHandler);
         serverMsg.start();
-        timer = new Timer();
-        ClientPingTimerTask pingTimerTask = new ClientPingTimerTask(this);
-        timer.schedule(pingTimerTask, 3000, 3000);
-    }
-
-    /**
-     * restartClient method reopens a new socket, and submits a new pool of threads
-     */
-    private void restartClient() throws IOException{
-        socket = new Socket(ip, port);
-        System.out.println("Connected!");
-        in = new Scanner(socket.getInputStream());
-        out = new PrintWriter(socket.getOutputStream());
         timer = new Timer();
         ClientPingTimerTask pingTimerTask = new ClientPingTimerTask(this);
         timer.schedule(pingTimerTask, 3000, 3000);
@@ -143,7 +130,9 @@ public class Client {
         newClientGame = newGame;
     }
 
-
+    public ClientGame getClientGame() {
+        return clientGame;
+    }
 
     /**
      * disconnected method initiates the process of disconnection from the server, closing the socket and shutting down
@@ -161,18 +150,13 @@ public class Client {
         }
         timer.cancel();
 
-/*
-        Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
-        for(Thread t: threadSet){
-            System.out.println(t.getName());
-        }
+    }
 
-        try{
-            restartClient();
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-*/
+    public void setThisClientNick(String thisClientNick) {
+        this.thisClientNick = thisClientNick;
+    }
 
+    public String getThisClientNick() {
+        return thisClientNick;
     }
 }

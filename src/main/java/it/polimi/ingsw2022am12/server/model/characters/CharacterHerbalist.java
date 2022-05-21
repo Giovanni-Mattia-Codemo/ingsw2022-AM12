@@ -1,6 +1,7 @@
 package it.polimi.ingsw2022am12.server.model.characters;
 
 
+import it.polimi.ingsw2022am12.CharacterName;
 import it.polimi.ingsw2022am12.server.model.*;
 import it.polimi.ingsw2022am12.server.model.actions.HerbalistAction;
 

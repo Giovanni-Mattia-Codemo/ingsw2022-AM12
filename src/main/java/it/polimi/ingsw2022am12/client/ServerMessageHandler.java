@@ -2,7 +2,6 @@ package it.polimi.ingsw2022am12.client;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import it.polimi.ingsw2022am12.Flag;
 import it.polimi.ingsw2022am12.UpdateFlag;
 import it.polimi.ingsw2022am12.UpdateFlagAdapterFactory;
 import it.polimi.ingsw2022am12.client.adapter.GameStateAdapter;
@@ -51,7 +50,7 @@ public class ServerMessageHandler implements Runnable {
                     handle(message, client);
                 }
             } catch (RuntimeException e) {
-                    System.out.println("server message handler scanner exception");
+                    System.out.println("Server message handler scanner exception");
                     timer.cancel();
                     break;
                 }
@@ -83,16 +82,19 @@ public class ServerMessageHandler implements Runnable {
                     break;
 
                 case "UpdateFlag":
-                    System.out.println("got an update flag");
                     String result = gson.toJson(map);
                     gson = new GsonBuilder().registerTypeAdapterFactory(new UpdateFlagAdapterFactory()).create();
-                    System.out.println("going t");
                     UpdateFlag flag = gson.fromJson(result, UpdateFlag.class);
                     client.updateGameState(flag);
                     break;
 
+                case "Nick":
+                    String nick = (String) map.get("nick");
+                    client.setThisClientNick(nick);
+                    break;
+
                 default:
-                    System.out.println("wierd message from server");
+                    System.out.println("Weird message from server");
                     break;
             }
 

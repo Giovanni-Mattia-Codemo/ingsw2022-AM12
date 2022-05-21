@@ -2,7 +2,10 @@ package it.polimi.ingsw2022am12.client;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import it.polimi.ingsw2022am12.CharacterName;
 import it.polimi.ingsw2022am12.DiskColor;
+import it.polimi.ingsw2022am12.NickInput;
+import it.polimi.ingsw2022am12.NickInputAdapter;
 import it.polimi.ingsw2022am12.client.model.*;
 import it.polimi.ingsw2022am12.communication.InputMode;
 import it.polimi.ingsw2022am12.communication.InputModeAdapter;
@@ -59,68 +62,162 @@ public class ClientInputHandler implements  Runnable {
         Gson gson;
         switch (tokens[0]) {
             case "Nick" -> {
+                if(tokens.length==1||tokens[1].equals("")){
+                    System.out.println("Message incomplete, retry");
+                    break;
+                }
                 NickInput nickInput = new NickInput(tokens[1]);
                 gson = new GsonBuilder().registerTypeAdapter(NickInput.class, new NickInputAdapter()).create();
                 result = gson.toJson(nickInput);
                 client.forwardJson(result);
             }
             case "Student" -> {
-                ClientStudent clientStudent = new ClientStudent(DiskColor.valueOf(tokens[1]), Integer.parseInt(tokens[2]));
+                if(tokens.length==1||tokens[1].equals("")){
+                    System.out.println("Message incomplete, retry");
+                    break;
+                }
+                DiskColor color;
+                try{
+                    color = DiskColor.valueOf(tokens[1]);
+                }catch(Exception e){
+                    System.out.println("Not a color, retry");
+                    break;
+                }
+                String name = client.getThisClientNick();
+                int id = client.getClientGame().getSchoolBoardByNick(name).getEntrance().getID();
+                ClientStudent clientStudent = new ClientStudent(color, id);
                 gson = new GsonBuilder().registerTypeAdapter(ClientStudent.class, new ClientStudentAdapter()).create();
                 result = gson.toJson(clientStudent);
                 client.forwardJson(result);
             }
             case "Assistant" -> {
-                ClientAssistant clientAssistant = new ClientAssistant(Integer.parseInt(tokens[1]));
+                if(tokens.length==1||tokens[1].equals("")){
+                    System.out.println("Message incomplete, retry");
+                    break;
+                }
+                int id;
+                try{
+                    id = Integer.parseInt(tokens[1]);
+                }catch(Exception e){
+                    System.out.println("Not a number, retry");
+                    break;
+                }
+                ClientAssistant clientAssistant = new ClientAssistant(id);
                 gson = new GsonBuilder().registerTypeAdapter(ClientAssistant.class, new ClientAssistantAdapter()).create();
                 result = gson.toJson(clientAssistant);
                 client.forwardJson(result);
             }
             case "Mage" -> {
-                ClientMage clientMage = new ClientMage(Integer.parseInt(tokens[1]));
+                if(tokens.length==1||tokens[1].equals("")){
+                    System.out.println("Message incomplete, retry");
+                    break;
+                }
+                int id;
+                try{
+                    id = Integer.parseInt(tokens[1]);
+                }catch(Exception e){
+                    System.out.println("Not a number, retry");
+                    break;
+                }
+                ClientMage clientMage = new ClientMage(id);
                 gson = new GsonBuilder().registerTypeAdapter(ClientMage.class, new ClientMageAdapter()).create();
                 result = gson.toJson(clientMage);
                 client.forwardJson(result);
             }
             case "Island" -> {
-                ClientIsland clientIsland = new ClientIsland(Integer.parseInt(tokens[1]));
+                if(tokens.length==1||tokens[1].equals("")){
+                    System.out.println("Message incomplete, retry");
+                    break;
+                }
+                int id;
+                try{
+                    id = Integer.parseInt(tokens[1]);
+                }catch(Exception e){
+                    System.out.println("Not a number, retry");
+                    break;
+                }
+                ClientIsland clientIsland = new ClientIsland(id);
                 gson = new GsonBuilder().registerTypeAdapter(ClientIsland.class, new ClientIslandAdapter()).create();
                 result = gson.toJson(clientIsland);
                 client.forwardJson(result);
             }
             case "Cloud" -> {
-                ClientStudentCollection cloud = new ClientStudentCollection(Integer.parseInt(tokens[1]));
+                if(tokens.length==1||tokens[1].equals("")){
+                    System.out.println("Message incomplete, retry");
+                    break;
+                }
+                int id;
+                try{
+                    id = Integer.parseInt(tokens[1]);
+                }catch(Exception e){
+                    System.out.println("Not a number, retry");
+                    break;
+                }
+                ClientStudentCollection collection = new ClientStudentCollection(id);
                 gson = new GsonBuilder().registerTypeAdapter(ClientStudentCollection.class, new ClientStudentCollectionAdapter()).create();
-                result = gson.toJson(cloud);
+                result = gson.toJson(collection);
                 client.forwardJson(result);
             }
             case "DiningRoom" -> {
-                ClientStudentCollection diningRoom = new ClientStudentCollection(Integer.parseInt(tokens[1]));
+                String name = client.getThisClientNick();
+                int id = client.getClientGame().getSchoolBoardByNick(name).getDiningRooms().getID();
+                ClientStudentCollection collection = new ClientStudentCollection(id);
                 gson = new GsonBuilder().registerTypeAdapter(ClientStudentCollection.class, new ClientStudentCollectionAdapter()).create();
-                result = gson.toJson(diningRoom);
+                result = gson.toJson(collection);
                 client.forwardJson(result);
             }
             case "NoEntry" -> {
-                ClientNoEntry clientNoEntry = new ClientNoEntry(Integer.parseInt(tokens[1]));
+                if(client.getClientGame().getCharacterByName("CHARACTER_HERBALIST")==null){
+                    System.out.println("Invalid selection");
+                    break;
+                }
+                int id = client.getClientGame().getCharacterByName("CHARACTER_HERBALIST").getNoEntryCollectionID();
+                ClientNoEntry clientNoEntry = new ClientNoEntry(id);
                 gson = new GsonBuilder().registerTypeAdapter(ClientNoEntry.class, new ClientNoEntryAdapter()).create();
                 result = gson.toJson(clientNoEntry);
                 client.forwardJson(result);
             }
             case "Character" -> {
-                System.out.println("received char name:"+tokens[1]);
+                if(tokens.length==1||tokens[1].equals("")){
+                    System.out.println("Message incomplete, retry");
+                    break;
+                }
+                boolean found = false;
+                for(CharacterName n: CharacterName.values()){
+                    if (n.name().equals(tokens[1])) {
+                        found = true;
+                        break;
+                    }
+                }
+                if(!found){
+                    System.out.println("Typed wrong name, retry");
+                    break;
+                }
                 ClientCharacter clientCharacter = new ClientCharacter(tokens[1]);
                 gson = new GsonBuilder().registerTypeAdapter(ClientCharacter.class, new ClientCharacterAdapter()).create();
                 result = gson.toJson(clientCharacter);
                 client.forwardJson(result);
             }
             case "GameSettings" -> {
-                InputMode inputMode = new InputMode(Integer.parseInt(tokens[1]), Boolean.parseBoolean(tokens[2]));
+                if(tokens.length==1||tokens.length==2||tokens[1].equals("")||tokens[2].equals("")){
+                    System.out.println("Message incomplete, retry");
+                    break;
+                }
+                int id;
+                boolean mode;
+                try{
+                    id = Integer.parseInt(tokens[1]);
+                }catch(Exception e){
+                    System.out.println("Not a number, retry");
+                    break;
+                }
+                InputMode inputMode = new InputMode(id, Boolean.parseBoolean(tokens[2]));
                 gson = new GsonBuilder().registerTypeAdapter(InputMode.class, new InputModeAdapter()).create();
                 result = gson.toJson(inputMode);
                 client.forwardJson(result);
             }
             default -> {
-                System.out.println("unrecognized input");
+                System.out.println("Unrecognized input");
             }
         }
     }

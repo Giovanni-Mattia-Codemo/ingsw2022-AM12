@@ -1,5 +1,7 @@
 package it.polimi.ingsw2022am12.server.model;
 
+import it.polimi.ingsw2022am12.CharacterName;
+
 /**
  * Class Character defines the main properties of a Character card
  */

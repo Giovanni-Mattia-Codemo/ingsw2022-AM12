@@ -1,4 +1,4 @@
-package it.polimi.ingsw2022am12.client;
+package it.polimi.ingsw2022am12;
 
 /**
  * Class that represents the Nickname string from the client's side

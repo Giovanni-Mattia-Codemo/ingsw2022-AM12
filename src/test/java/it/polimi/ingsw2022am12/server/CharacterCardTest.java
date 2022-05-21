@@ -1,7 +1,7 @@
 package it.polimi.ingsw2022am12.server;
 
 import it.polimi.ingsw2022am12.server.model.CharacterCard;
-import it.polimi.ingsw2022am12.server.model.CharacterName;
+import it.polimi.ingsw2022am12.CharacterName;
 import it.polimi.ingsw2022am12.server.model.Coin;
 import it.polimi.ingsw2022am12.server.model.characters.CharacterBeggar;
 import org.junit.jupiter.api.Assertions;

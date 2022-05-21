@@ -23,7 +23,6 @@ public class PingTimerTask extends TimerTask {
      */
     @Override
     public void run() {
-        System.out.println("pingTimerTask.run()");
         if (hasPinged){
             hasPinged = false;
         }else mine.disconnected();

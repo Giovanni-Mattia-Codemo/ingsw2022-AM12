@@ -1,5 +1,6 @@
 package it.polimi.ingsw2022am12.server.actions;
 
+import it.polimi.ingsw2022am12.CharacterName;
 import it.polimi.ingsw2022am12.DiskColor;
 import it.polimi.ingsw2022am12.server.model.*;
 import it.polimi.ingsw2022am12.server.model.actions.ActionStep;
@@ -35,6 +36,7 @@ public class MerchantActionTest {
 
         ArrayList<Selectable> input = new ArrayList<>();
         Selectable color = new ColorSelection(DiskColor.PINK);
+        input.add(testGame.getActiveCharacterCard());
         input.add(color);
 
         testCharacter.setSelectables(testGame);

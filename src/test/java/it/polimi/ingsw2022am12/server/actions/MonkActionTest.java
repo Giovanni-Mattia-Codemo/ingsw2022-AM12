@@ -1,5 +1,6 @@
 package it.polimi.ingsw2022am12.server.actions;
 
+import it.polimi.ingsw2022am12.CharacterName;
 import it.polimi.ingsw2022am12.DiskColor;
 import it.polimi.ingsw2022am12.server.model.*;
 import it.polimi.ingsw2022am12.server.model.actions.ActionStep;
@@ -36,6 +37,7 @@ public class MonkActionTest {
         int motherNatureIndex = testGame.getIslandList().getMotherNatureIndex();
         Selectable motherNatureIsland = testGame.getIslandList().getByIndex(motherNatureIndex);
         ArrayList<Selectable> input = new ArrayList<>();
+        input.add(testGame.getActiveCharacterCard());
         input.add(student);
         input.add(motherNatureIsland);
 
@@ -66,6 +68,7 @@ public class MonkActionTest {
 
         Selectable s0 = ((CharacterMonk)testGame.getActiveCharacterCard()).getStudents().getByIndex(0);
         ArrayList<Selectable> input = new ArrayList<>();
+        input.add(testGame.getActiveCharacterCard());
         input.add(s0);
         testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.HALFOK, testCharacter.checkInputValidity(input, testGame));

@@ -1,5 +1,6 @@
 package it.polimi.ingsw2022am12.server.actions;
 
+import it.polimi.ingsw2022am12.CharacterName;
 import it.polimi.ingsw2022am12.DiskColor;
 import it.polimi.ingsw2022am12.server.model.*;
 import it.polimi.ingsw2022am12.server.model.actions.ActionStep;
@@ -39,6 +40,7 @@ public class HerbalistActionTest {
         input.add(noEntry);
         int motherNatureIndex = testGame.getIslandList().getMotherNatureIndex();
         Selectable motherNatureIsland = testGame.getIslandList().getByIndex(motherNatureIndex);
+        input.add(testGame.getActiveCharacterCard());
         input.add(motherNatureIsland);
 
         testCharacter.setSelectables(testGame);
@@ -68,6 +70,7 @@ public class HerbalistActionTest {
 
         ArrayList<Selectable> input = new ArrayList<>();
         Selectable noEntry = ((CharacterHerbalist)testGame.getActiveCharacterCard()).getNoEntryCollection().getFirstNoEntry();
+        input.add(testGame.getActiveCharacterCard());
         input.add(noEntry);
 
         testCharacter.setSelectables(testGame);

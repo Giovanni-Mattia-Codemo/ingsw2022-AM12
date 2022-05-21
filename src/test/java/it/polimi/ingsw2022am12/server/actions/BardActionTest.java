@@ -1,5 +1,6 @@
 package it.polimi.ingsw2022am12.server.actions;
 
+import it.polimi.ingsw2022am12.CharacterName;
 import it.polimi.ingsw2022am12.DiskColor;
 import it.polimi.ingsw2022am12.server.model.*;
 import it.polimi.ingsw2022am12.server.model.actions.ActionStep;
@@ -40,6 +41,7 @@ public class BardActionTest {
         Student s1 = new Student(DiskColor.BLUE);
         testGame.getCurrentSchoolBoard().getEntrance().insertElement(s0);
         testGame.getCurrentSchoolBoard().getDiningRoom().insertElement(s1);
+        input.add(testGame.getActiveCharacterCard());
         input.add(s0);
         input.add(s1);
 
@@ -76,6 +78,7 @@ public class BardActionTest {
 
         Student s0 = new Student(DiskColor.RED);
         testGame.getCurrentSchoolBoard().getEntrance().insertElement(s0);
+        input.add(testGame.getActiveCharacterCard());
         input.add(s0);
 
         testCharacter.setSelectables(testGame);

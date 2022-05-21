@@ -1,4 +1,4 @@
-package it.polimi.ingsw2022am12.server.model;
+package it.polimi.ingsw2022am12;
 
 /**
  * Class CharacterName contains the enumeration of the possible names for the characters

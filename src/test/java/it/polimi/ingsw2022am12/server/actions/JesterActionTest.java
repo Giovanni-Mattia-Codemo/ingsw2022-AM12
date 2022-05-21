@@ -1,5 +1,6 @@
 package it.polimi.ingsw2022am12.server.actions;
 
+import it.polimi.ingsw2022am12.CharacterName;
 import it.polimi.ingsw2022am12.DiskColor;
 import it.polimi.ingsw2022am12.server.model.*;
 import it.polimi.ingsw2022am12.server.model.actions.ActionStep;
@@ -33,6 +34,7 @@ public class JesterActionTest {
         testGame.payAndSetActiveCharacter(CharacterName.CHARACTER_JESTER);
 
         ArrayList<Selectable> input = new ArrayList<>();
+        input.add(testGame.getActiveCharacterCard());
         Student stdJester = ((CharacterJester)testGame.getActiveCharacterCard()).getStudents().getByIndex(0);
         input.add(stdJester);
         Student stdEntrance = testGame.getCurrentSchoolBoard().getEntrance().getByIndex(0);
@@ -53,7 +55,7 @@ public class JesterActionTest {
      *
      */
     @Test
-    public void checkCheckInputValidityHALOK1(){
+    public void checkCheckInputValidityHALFOK1(){
         JesterAction testCharacter = new JesterAction();
         ArrayList<String> nicks = new ArrayList<>();
         nicks.add("Nick1");
@@ -64,6 +66,7 @@ public class JesterActionTest {
         testGame.payAndSetActiveCharacter(CharacterName.CHARACTER_JESTER);
 
         ArrayList<Selectable> input = new ArrayList<>();
+        input.add(testGame.getActiveCharacterCard());
         Student stdJester = ((CharacterJester)testGame.getActiveCharacterCard()).getStudents().getByIndex(0);
         input.add(stdJester);
 
