@@ -1,16 +1,11 @@
 package it.polimi.ingsw2022am12.client.GUI;
 
-import it.polimi.ingsw2022am12.UpdateFlag;
+import it.polimi.ingsw2022am12.updateFlag.UpdateFlag;
 import it.polimi.ingsw2022am12.client.ClientInputHandler;
 import it.polimi.ingsw2022am12.client.View;
 import it.polimi.ingsw2022am12.client.model.ClientGame;
 import javafx.application.Application;
-import javafx.beans.binding.Bindings;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;

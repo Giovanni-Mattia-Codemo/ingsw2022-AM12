@@ -1,10 +1,10 @@
-package it.polimi.ingsw2022am12;
+package it.polimi.ingsw2022am12.updateFlag;
 
 /**
  *UpdateFlag is the class that handles the updating and getting of flags that signal changes in the game
  */
 public class UpdateFlag {
-    private Flag flag;
+    private final Flag flag;
 
     /**
      * constructor method of the UpdateFlag class

@@ -46,13 +46,6 @@ public class Assistant implements Selectable {
     }
 
     /**
-     * Method printAssistantPower prints on the screen the value of assistant's turnPower
-     */
-    public void printAssistantPower(){
-        System.out.println(getTurnPower());
-    }
-
-    /**
      * Method isEqual compares two objects, and checks if they are in the same state
      *
      * @param toCompare the Selectable object to compare

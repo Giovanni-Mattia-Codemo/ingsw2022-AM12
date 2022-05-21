@@ -37,14 +37,18 @@ public class MoveMotherNatureTest {
         }else destination = testGame.getIslandList().getByIndex(11-indexMN);
 
         ArrayList<Selectable> input = new ArrayList<>();
+        testMove.getUserSelectionsMessage();
         input.add(destination);
+        testMove.getUserSelectionsMessage();
         input.add(testGame.getIslandList().getByIndex(indexMN));
+        testMove.getUserSelectionsMessage();
 
         testMove.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.OK, testMove.checkInputValidity(input, testGame));
 
         testMove.useAction(testGame);
         int newIndexMN = testGame.getIslandList().getMotherNatureIndex();
+        testMove.getUpdates(testGame);
         Assertions.assertEquals(destination.getID(), testGame.getIslandList().getByIndex(newIndexMN).getID());
     }
 

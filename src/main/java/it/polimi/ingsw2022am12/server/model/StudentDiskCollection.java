@@ -42,17 +42,6 @@ public class StudentDiskCollection implements Position, Selectable {
     }
 
     /**
-     * printStudents prints the Students contained in a certain collection
-     */
-    public void printStudents(){
-        String students = " ";
-        for (DiskColor c : DiskColor.values()) {
-            students = students.concat( getByColor(c)+" "+ c+" / ");
-        }
-        System.out.print(students);
-    }
-
-    /**
      * Method getAllStudents returns the copy of the students present in the StudentDiskCollection
      *
      * @return ArrayList students
@@ -112,11 +101,7 @@ public class StudentDiskCollection implements Position, Selectable {
      */
     @Override
     public void removeElement(PlaceableObject o) {
-        try{students.remove((Student) o);
-        }catch (ClassCastException e) {
-            System.out.println("ClassCastException in StudentDiskCollection.removeElement()");
-        }
-
+        students.remove((Student) o);
     }
 
     /**
@@ -127,13 +112,9 @@ public class StudentDiskCollection implements Position, Selectable {
      */
     @Override
     public void insertElement(PlaceableObject o) {
-        try{
-            if(o!=null){
-                students.add((Student) o);
-                o.setPosition(this);
-            }
-        }catch (ClassCastException e) {
-            System.out.println("ClassCastException in StudentDiskCollection.insertElement()");
+        if(o!=null){
+            students.add((Student) o);
+            o.setPosition(this);
         }
     }
 

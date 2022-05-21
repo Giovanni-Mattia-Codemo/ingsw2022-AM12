@@ -34,13 +34,17 @@ public class HeraldActionTest {
         testGame.payAndSetActiveCharacter(CharacterName.CHARACTER_HERALD);
 
         ArrayList<Selectable> input = new ArrayList<>();
+        testCharacter.getUserSelectionsMessage();
         Selectable island = testGame.getIslandList().getByIndex(4);
         input.add(testGame.getActiveCharacterCard());
+        testCharacter.getUserSelectionsMessage();
         input.add(island);
 
         testCharacter.setSelectables(testGame);
+        testCharacter.getUserSelectionsMessage();
         Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input, testGame));
         testGame.getActiveCharacterCard().getPossibleAction();
+        testCharacter.useAction(testGame);
     }
 
     /**

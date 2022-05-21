@@ -1,9 +1,5 @@
 package it.polimi.ingsw2022am12.server.model;
 
-import it.polimi.ingsw2022am12.server.model.PlaceableObject;
-import it.polimi.ingsw2022am12.server.model.Position;
-import it.polimi.ingsw2022am12.server.model.Tower;
-
 import java.util.ArrayList;
 
 /**
@@ -54,11 +50,7 @@ public class TowerCollection implements Position {
      */
     @Override
     public void removeElement(PlaceableObject o) {
-        try{towers.remove((Tower) o);
-        }catch (ClassCastException e) {
-            System.out.println("ClassCastException in TowerCollection.removeElement()");
-        }
-
+        towers.remove((Tower) o);
     }
 
     /**
@@ -68,11 +60,8 @@ public class TowerCollection implements Position {
      */
     @Override
     public void insertElement(PlaceableObject o) {
-        try{towers.add((Tower) o);
-            o.setPosition(this);
-        }catch (ClassCastException e) {
-            System.out.println("ClassCastException in TowerCollection.insertElement()");
-        }
+        towers.add((Tower) o);
+        o.setPosition(this);
     }
 
     /**

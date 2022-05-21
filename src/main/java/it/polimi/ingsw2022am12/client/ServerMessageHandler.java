@@ -2,8 +2,8 @@ package it.polimi.ingsw2022am12.client;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import it.polimi.ingsw2022am12.UpdateFlag;
-import it.polimi.ingsw2022am12.UpdateFlagAdapterFactory;
+import it.polimi.ingsw2022am12.updateFlag.UpdateFlag;
+import it.polimi.ingsw2022am12.updateFlag.UpdateFlagAdapterFactory;
 import it.polimi.ingsw2022am12.client.adapter.GameStateAdapter;
 import it.polimi.ingsw2022am12.client.model.ClientGame;
 

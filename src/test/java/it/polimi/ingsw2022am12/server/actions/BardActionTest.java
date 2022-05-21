@@ -110,9 +110,12 @@ public class BardActionTest {
 
         Student s1 = new Student(DiskColor.BLUE);
         testGame.getCurrentSchoolBoard().getDiningRoom().insertElement(s1);
+        testCharacter.getUserSelectionsMessage();
         input.add(s1);
 
         testCharacter.setSelectables(testGame);
+        testCharacter.getUserSelectionsMessage();
+        testCharacter.getSelectables();
         Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
     }
 

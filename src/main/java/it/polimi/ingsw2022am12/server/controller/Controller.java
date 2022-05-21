@@ -3,9 +3,8 @@ package it.polimi.ingsw2022am12.server.controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import it.polimi.ingsw2022am12.NickInputAdapter;
-import it.polimi.ingsw2022am12.UpdateFlag;
-
-import it.polimi.ingsw2022am12.UpdateFlagAdapterFactory;
+import it.polimi.ingsw2022am12.updateFlag.UpdateFlag;
+import it.polimi.ingsw2022am12.updateFlag.UpdateFlagAdapterFactory;
 import it.polimi.ingsw2022am12.NickInput;
 import it.polimi.ingsw2022am12.server.Server;
 import it.polimi.ingsw2022am12.server.virtualview.VirtualView;
@@ -91,7 +90,7 @@ public class Controller {
                     ArrayList<UpdateFlag> up = inputHandler.getUpdates();
                     gson = new GsonBuilder().registerTypeAdapterFactory(new UpdateFlagAdapterFactory()).create();
                     for(UpdateFlag f:up){
-                        String res = gson.toJson((UpdateFlag)f);
+                        String res = gson.toJson(f);
                         updateAllViews(res);
                     }
 

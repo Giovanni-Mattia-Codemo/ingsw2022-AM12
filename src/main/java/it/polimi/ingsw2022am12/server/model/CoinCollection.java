@@ -67,13 +67,8 @@ public class CoinCollection implements Position {
      */
     @Override
     public void insertElement(PlaceableObject o) {
-        try{
-
-            coins.add((Coin) o);
-            o.setPosition(this);
-        }catch (ClassCastException e) {
-            System.out.println("ClassCastException in CoinCollection.insertElement()");
-        }
+        coins.add((Coin) o);
+        o.setPosition(this);
     }
 
     /**

@@ -34,13 +34,17 @@ public class JesterActionTest {
         testGame.payAndSetActiveCharacter(CharacterName.CHARACTER_JESTER);
 
         ArrayList<Selectable> input = new ArrayList<>();
+        testCharacter.getUserSelectionsMessage();
         input.add(testGame.getActiveCharacterCard());
+        testCharacter.getUserSelectionsMessage();
         Student stdJester = ((CharacterJester)testGame.getActiveCharacterCard()).getStudents().getByIndex(0);
         input.add(stdJester);
         Student stdEntrance = testGame.getCurrentSchoolBoard().getEntrance().getByIndex(0);
+        testCharacter.getUserSelectionsMessage();
         input.add(stdEntrance);
 
         testCharacter.setSelectables(testGame);
+        testCharacter.getUserSelectionsMessage();
         Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input, testGame));
 
         testCharacter.useAction(testGame);

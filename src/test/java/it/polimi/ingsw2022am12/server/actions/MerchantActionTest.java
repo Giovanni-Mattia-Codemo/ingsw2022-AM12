@@ -36,10 +36,14 @@ public class MerchantActionTest {
 
         ArrayList<Selectable> input = new ArrayList<>();
         Selectable color = new ColorSelection(DiskColor.PINK);
+        testCharacter.getUserSelectionsMessage();
         input.add(testGame.getActiveCharacterCard());
+        testCharacter.getUserSelectionsMessage();
         input.add(color);
+        testCharacter.getUserSelectionsMessage();
 
         testCharacter.setSelectables(testGame);
+        testCharacter.getUpdates(testGame);
         Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input, testGame));
         ((CharacterMerchant)testGame.getActiveCharacterCard()).getColor();
         ((CharacterMerchant)testGame.getActiveCharacterCard()).setWasUsed(true);

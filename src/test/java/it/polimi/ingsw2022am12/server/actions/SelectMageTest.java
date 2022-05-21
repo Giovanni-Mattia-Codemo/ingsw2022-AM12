@@ -29,6 +29,7 @@ public class SelectMageTest {
         nicks.add("Nick2");
         Game testGame = new Game(nicks, false);
         testGame.setUp();
+        Assertions.assertEquals("To select a mage pick one.",testMove.getUserSelectionsMessage());
 
         ArrayList<Selectable> input = new ArrayList<>();
         Selectable mage = testGame.getAvailableMages().get(0);
@@ -40,8 +41,6 @@ public class SelectMageTest {
         int numOfAvailableMagesAfter = testGame.getAvailableMages().size();
         Assertions.assertEquals(testGame.getTurnOrder().get(0).getMage(), mage);
         Assertions.assertEquals(numOfAvailableMagesBefore-1, numOfAvailableMagesAfter);
-
-
         input.clear();
 
     }

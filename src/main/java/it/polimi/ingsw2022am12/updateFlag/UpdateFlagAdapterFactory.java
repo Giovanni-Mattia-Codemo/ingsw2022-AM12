@@ -1,4 +1,4 @@
-package it.polimi.ingsw2022am12;
+package it.polimi.ingsw2022am12.updateFlag;
 
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;

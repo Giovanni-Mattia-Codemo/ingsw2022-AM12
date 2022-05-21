@@ -37,9 +37,13 @@ public class MonkActionTest {
         int motherNatureIndex = testGame.getIslandList().getMotherNatureIndex();
         Selectable motherNatureIsland = testGame.getIslandList().getByIndex(motherNatureIndex);
         ArrayList<Selectable> input = new ArrayList<>();
+        testCharacter.getUserSelectionsMessage();
         input.add(testGame.getActiveCharacterCard());
+        testCharacter.getUserSelectionsMessage();
         input.add(student);
+        testCharacter.getUserSelectionsMessage();
         input.add(motherNatureIsland);
+        testCharacter.getUserSelectionsMessage();
 
         testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input, testGame));

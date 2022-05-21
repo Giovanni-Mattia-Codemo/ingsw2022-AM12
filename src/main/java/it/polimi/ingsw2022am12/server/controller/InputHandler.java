@@ -1,6 +1,6 @@
 package it.polimi.ingsw2022am12.server.controller;
 
-import it.polimi.ingsw2022am12.UpdateFlag;
+import it.polimi.ingsw2022am12.updateFlag.UpdateFlag;
 import it.polimi.ingsw2022am12.server.model.Game;
 import it.polimi.ingsw2022am12.server.model.PossibleAction;
 import it.polimi.ingsw2022am12.server.model.Selectable;

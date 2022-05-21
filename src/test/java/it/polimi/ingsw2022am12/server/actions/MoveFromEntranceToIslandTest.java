@@ -31,6 +31,7 @@ public class MoveFromEntranceToIslandTest {
         ArrayList<Selectable> input = new ArrayList<>();
 
         Student sRed = new Student(DiskColor.RED);
+        testMove.getUserSelectionsMessage();
         if(testGame.getCurrentSchoolBoard().getEntrance().getFirstStudentOfColor(DiskColor.RED).isPresent()) {
             Student stEn = testGame.getCurrentSchoolBoard().getEntrance().getFirstStudentOfColor(DiskColor.RED).get();
             input.add(stEn);
@@ -43,11 +44,14 @@ public class MoveFromEntranceToIslandTest {
         int initialStudentsOnIslandOfColorRed = testGame.getIslandList().getByIndex(4).getStudentCollection().getByColor(DiskColor.RED);
 
         IslandTileSet destination = testGame.getIslandList().getByIndex(4);
+        testMove.getUserSelectionsMessage();
         input.add(destination);
+        testMove.getUserSelectionsMessage();
         testMove.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.OK, testMove.checkInputValidity(input, testGame));
 
         testMove.useAction(testGame);
+        testMove.getUpdates(testGame);
         Assertions.assertEquals(initialStudentsInEntranceOfColorRed-1, testGame.getCurrentSchoolBoard().getEntrance().getByColor(DiskColor.RED));
         Assertions.assertEquals(initialStudentsOnIslandOfColorRed+1, testGame.getIslandList().getByIndex(4).getStudentCollection().getByColor(DiskColor.RED));
     }

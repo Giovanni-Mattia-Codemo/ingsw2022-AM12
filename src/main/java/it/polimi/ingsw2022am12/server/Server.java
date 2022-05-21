@@ -3,7 +3,6 @@ package it.polimi.ingsw2022am12.server;
 import it.polimi.ingsw2022am12.server.controller.Controller;
 import java.io.IOException;
 import java.net.*;
-import java.util.Scanner;
 
 /**
  * Server class represents the component which receives requests from the client, and sends responses
@@ -39,7 +38,6 @@ public class Server {
      */
     public void startServer(){
 
-        Scanner serverTerminalIn = new Scanner(System.in);
         try{
             serverSocket = new ServerSocket(port);
             System.out.println("Server up and running \n");

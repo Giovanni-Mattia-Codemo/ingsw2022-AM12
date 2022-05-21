@@ -32,11 +32,15 @@ public class MoveFromEntranceToDiningRoomTest {
         ArrayList<Selectable> input = new ArrayList<>();
 
         Student sRed = new Student(DiskColor.RED);
+        testMove.getUserSelectionsMessage();
         if(testGame.getCurrentSchoolBoard().getEntrance().getFirstStudentOfColor(DiskColor.RED).isPresent()) {
             Student stEn = testGame.getCurrentSchoolBoard().getEntrance().getFirstStudentOfColor(DiskColor.RED).get();
+            testMove.getUserSelectionsMessage();
             input.add(stEn);
+            testMove.getUserSelectionsMessage();
         }else {
             testGame.getCurrentSchoolBoard().insertToEntrance(sRed);
+            testMove.getUserSelectionsMessage();
             input.add(sRed);
         }
 
@@ -48,6 +52,7 @@ public class MoveFromEntranceToDiningRoomTest {
         Assertions.assertEquals(ActionStep.OK, testMove.checkInputValidity(input, testGame));
 
         testMove.useAction(testGame);
+        testMove.getUpdates(testGame);
         Assertions.assertEquals(initialStudentsInEntranceOfColorRed-1, testGame.getCurrentSchoolBoard().getEntrance().getByColor(DiskColor.RED));
         Assertions.assertEquals(1, testGame.getCurrentSchoolBoard().getDiningRoom().getByColor(DiskColor.RED));
 

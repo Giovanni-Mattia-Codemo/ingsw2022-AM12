@@ -67,11 +67,7 @@ public class NoEntryCollection implements Position {
      */
     @Override
     public void removeElement(PlaceableObject o) {
-        try{noEntries.remove((NoEntry) o);
-        }catch (ClassCastException e) {
-            System.out.println("ClassCastException in NoEntryCollection.removeElement()");
-        }
-
+        noEntries.remove((NoEntry) o);
     }
 
     /**

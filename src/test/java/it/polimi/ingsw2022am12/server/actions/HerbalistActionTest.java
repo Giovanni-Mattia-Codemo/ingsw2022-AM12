@@ -36,14 +36,18 @@ public class HerbalistActionTest {
         testGame.payAndSetActiveCharacter(CharacterName.CHARACTER_HERBALIST);
 
         ArrayList<Selectable> input = new ArrayList<>();
+        testCharacter.getUserSelectionsMessage();
         Selectable noEntry = ((CharacterHerbalist)testGame.getActiveCharacterCard()).getNoEntryCollection().getFirstNoEntry();
         input.add(noEntry);
+        testCharacter.getUserSelectionsMessage();
         int motherNatureIndex = testGame.getIslandList().getMotherNatureIndex();
         Selectable motherNatureIsland = testGame.getIslandList().getByIndex(motherNatureIndex);
         input.add(testGame.getActiveCharacterCard());
+        testCharacter.getUserSelectionsMessage();
         input.add(motherNatureIsland);
 
         testCharacter.setSelectables(testGame);
+        testCharacter.getUserSelectionsMessage();
         Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input, testGame));
 
         testCharacter.useAction(testGame);

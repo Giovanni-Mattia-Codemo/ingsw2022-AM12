@@ -1,6 +1,6 @@
 package it.polimi.ingsw2022am12.client;
 
-import it.polimi.ingsw2022am12.UpdateFlag;
+import it.polimi.ingsw2022am12.updateFlag.UpdateFlag;
 import it.polimi.ingsw2022am12.client.model.ClientGame;
 
 /**

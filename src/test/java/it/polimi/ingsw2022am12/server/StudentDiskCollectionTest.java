@@ -46,12 +46,12 @@ public class StudentDiskCollectionTest {
         Student s1 = new Student(DiskColor.RED);
         studentDiskCollection0.insertElement(s0);
         studentDiskCollection0.insertElement(s1);
-        try {
-            studentDiskCollection0.removeElement(s0);
-        }catch(Exception e){ System.out.println("Not valid move");}
+        studentDiskCollection0.removeElement(s0);
 
         Assertions.assertFalse(studentDiskCollection0.getAllStudents().contains(s0));
         Assertions.assertTrue(studentDiskCollection0.getAllStudents().contains(s1));
+
+        StudentDiskCollection studentDiskCollection1 = new StudentDiskCollection(1);
     }
 
 

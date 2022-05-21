@@ -56,6 +56,8 @@ public class DrawFromCloudTest {
         Selectable cloud = new StudentDiskCollection();
         input.add(cloud);
         testMove.setSelectables(testGame);
+        testMove.getUpdates(testGame);
         Assertions.assertEquals(ActionStep.NOTOK, testMove.checkInputValidity(input, testGame));
     }
+
 }

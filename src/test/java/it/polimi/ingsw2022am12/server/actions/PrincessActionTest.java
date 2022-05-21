@@ -39,8 +39,11 @@ public class PrincessActionTest {
 
         Selectable std = ((CharacterPrincess) testGame.getActiveCharacterCard()).getStudents().getByIndex(0);
         ArrayList<Selectable> input = new ArrayList<>();
+        testCharacter.getUserSelectionsMessage();
         input.add(testGame.getActiveCharacterCard());
+        testCharacter.getUserSelectionsMessage();
         input.add(std);
+        testCharacter.getUserSelectionsMessage();
         testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input, testGame));
         testCharacter.useAction(testGame);

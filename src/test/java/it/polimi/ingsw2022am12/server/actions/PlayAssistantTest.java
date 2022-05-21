@@ -28,6 +28,7 @@ public class PlayAssistantTest {
         nicks.add("Nick2");
         Game testGame = new Game(nicks, false);
         testGame.setUp();
+        Assertions.assertEquals("To play an assistant select one.",testMove.getUserSelectionsMessage());
 
         ArrayList<Selectable> input = new ArrayList<>();
         Selectable assistantToPlay = testGame.getCurrentSchoolBoard().getPlayableAssistants().get(0);

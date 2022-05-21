@@ -1,6 +1,11 @@
 package it.polimi.ingsw2022am12.client.model;
 
 import it.polimi.ingsw2022am12.*;
+import it.polimi.ingsw2022am12.updateFlag.Flag;
+import it.polimi.ingsw2022am12.updateFlag.UpdateFlag;
+import it.polimi.ingsw2022am12.updateFlag.UpdateFlagCharacter;
+import it.polimi.ingsw2022am12.updateFlag.UpdateFlagSchool;
+
 import java.util.ArrayList;
 
 /**

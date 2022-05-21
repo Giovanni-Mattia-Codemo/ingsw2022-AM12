@@ -40,9 +40,12 @@ public class HagActionTest {
         testGame.payAndSetActiveCharacter(CharacterName.CHARACTER_HAG);
         Selectable color = new ColorSelection(DiskColor.BLUE);
         ArrayList<Selectable> input = new ArrayList<>();
+        testCharacter.getUserSelectionsMessage();
         input.add(testGame.getActiveCharacterCard());
+        testCharacter.getUserSelectionsMessage();
         input.add(color);
         testCharacter.setSelectables(testGame);
+        testCharacter.getUserSelectionsMessage();
         Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input, testGame));
 
         testCharacter.useAction(testGame);

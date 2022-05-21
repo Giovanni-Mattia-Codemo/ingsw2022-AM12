@@ -1,11 +1,11 @@
-package it.polimi.ingsw2022am12;
+package it.polimi.ingsw2022am12.updateFlag;
 
 /**
  * UpdateFlagSchool is the class that handles the updating and getting of flags that signal changes in the SchoolBoards
  */
-public class UpdateFlagSchool extends UpdateFlag{
+public class UpdateFlagSchool extends UpdateFlag {
 
-    private String nick;
+    private final String nick;
 
     /**
      * constructor method of the UpdateFlagSchool class, also uses the constructor of the superclass

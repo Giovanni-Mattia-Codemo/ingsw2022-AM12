@@ -1,11 +1,11 @@
-package it.polimi.ingsw2022am12;
+package it.polimi.ingsw2022am12.updateFlag;
 
 /**
  * UpdateFlagCharacter is the class that handles the updating and getting of flags that signal changes in the Characters
  */
-public class UpdateFlagCharacter extends UpdateFlag{
+public class UpdateFlagCharacter extends UpdateFlag {
 
-    private String nick;
+    private final String nick;
 
     /**
      * constructor method of the UpdateFlagCharacter class, also uses the constructor of the superclass
