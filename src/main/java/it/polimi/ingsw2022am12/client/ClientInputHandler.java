@@ -16,37 +16,11 @@ import java.util.Scanner;
 /**
  * ClientInputHandler class represents the component that handles the data in input from the client's side
  */
-public class ClientInputHandler implements  Runnable {
+public class ClientInputHandler {
 
-    private final Scanner in;
-    private final Client client;
 
-    /**
-     * ClientInputHandler class constructor
-     *
-     * @param in scanner in input
-     * @param client my client
-     */
-    public ClientInputHandler(Scanner in, Client client){
-        this.in = in;
-        this.client = client;
-    }
+    public ClientInputHandler(){
 
-    /**
-     * run method makes the client able to accept different inputs
-     */
-    @Override
-    public void run() {
-        String input;
-        while(true){
-            try{
-                input = in.nextLine();
-                handle(input, client);
-            }catch (RuntimeException e){
-                break;
-            }
-
-        }
     }
 
     /**
@@ -56,7 +30,7 @@ public class ClientInputHandler implements  Runnable {
      * @param input the string that represents my object in input
      * @param client the client that is receiving the message
      */
-    private void handle(String input, Client client){
+    public void handle(String input, Client client){
         String result;
         String[]tokens = input.split(" ", -1);
         Gson gson;

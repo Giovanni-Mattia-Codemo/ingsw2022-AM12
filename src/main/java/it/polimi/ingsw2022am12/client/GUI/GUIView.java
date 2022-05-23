@@ -1,7 +1,6 @@
 package it.polimi.ingsw2022am12.client.GUI;
 
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlag;
-import it.polimi.ingsw2022am12.client.ClientInputHandler;
 import it.polimi.ingsw2022am12.client.View;
 import it.polimi.ingsw2022am12.client.model.ClientGame;
 import javafx.application.Application;
@@ -40,14 +39,22 @@ public class GUIView extends Application implements View {
     
     @Override
     public void start(Stage stage) throws IOException {
+        System.out.println("lanimaaa");
 
+        System.out.println(activeScene);
+
+        stage.setScene(activeScene);
+        this.stage = stage;
+        stage.show();
+        System.out.println(activeScene);
+        /*
         SchoolBoardView schools = new SchoolBoardView(myGame);
         HBox box = new HBox();
         GameStateView state = new GameStateView();
         /*
               Button checkIsland = new Button("Go to Islands");
               checkIsland.SetOnAction(e-> stage.setScene(islandScene);
-         */
+
         box.getChildren().addAll(schools, state);
 
         Scene scene = new Scene(box);
@@ -55,8 +62,6 @@ public class GUIView extends Application implements View {
 
         stage.setResizable(true);
         stage.show();
-
-        /*
 
 
 
@@ -155,6 +160,42 @@ public class GUIView extends Application implements View {
 
 
     }
+*/
+
+
+    @Override
+    public void run() {
+
+
+            inactiveScene = new Scene(new Label("nick"));
+            activeScene = new Scene(new Label("mariposa"));
+            System.out.println(activeScene);
+            System.out.println(inactiveScene);
+            lock = new ReentrantLock();
+            primary = new Stage();
+            primary.setScene(activeScene);
+            primary.show();
+
+            /*
+            synchronized (lock){
+                // This block will be executed on JavaFX Thread
+                while(true){
+                    System.out.println("f");
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    Platform.runLater(()->{handleUpdates();});
+                }
+            }
+
+             */
+
+
+
+
+    }
 
     public static void main(String[] args) {
         launch();
@@ -167,11 +208,10 @@ public class GUIView extends Application implements View {
 
     @Override
     public void updateGameView(ClientGame game, UpdateFlag flag) {
-       /*
-        for(SchoolBoardContainer sc : schools){
-            sc.updateGame(game);
-        }
+       if(myGame == null){
+           myGame = game;
+       }else{
 
-        */
+       }
     }
 }

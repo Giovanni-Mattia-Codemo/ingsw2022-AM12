@@ -1,5 +1,6 @@
 package it.polimi.ingsw2022am12.client;
 
+import it.polimi.ingsw2022am12.client.GUI.GUIView;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlag;
 import it.polimi.ingsw2022am12.client.CLI.CLIView;
 import it.polimi.ingsw2022am12.client.model.ClientGame;
@@ -67,8 +68,8 @@ public class Client {
 
             switch (sel) {
                 case "CLI":
-                    ClientInputHandler clientInputHandler = new ClientInputHandler(stdin, this);
-                    clientInput = new Thread(clientInputHandler);
+                    CLIHandler cliHandler = new CLIHandler(stdin, this);
+                    clientInput = new Thread(cliHandler);
                     clientInput.start();
                     view = new CLIView();
                     break;
