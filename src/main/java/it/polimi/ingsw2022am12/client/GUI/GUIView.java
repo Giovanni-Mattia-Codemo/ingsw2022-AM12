@@ -1,21 +1,37 @@
 package it.polimi.ingsw2022am12.client.GUI;
 
+import it.polimi.ingsw2022am12.client.Client;
+import it.polimi.ingsw2022am12.server.controller.ControlMessages;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlag;
 import it.polimi.ingsw2022am12.client.View;
 import it.polimi.ingsw2022am12.client.model.ClientGame;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 import javafx.scene.layout.*;
 
 
-public class GUIView extends Application implements View {
+public class GUIView implements View, Runnable{
 
     private ClientGame myGame;
-    private ClientInputHandler inputHandler;
-    private ArrayList<Scene> activeScene;
+    private Client client;
+    private Scene activeScene;
+    private Scene inactiveScene;
+    private Stage primary;
+    private String update;
+    private Lock lock;
+
+
 
 
     private ArrayList<SchoolBoardContainer> schools;
@@ -30,13 +46,15 @@ public class GUIView extends Application implements View {
     /**
      * Constructor for setting the game
      *
-     * @param game being sent to view
+     *
      */
-    public GUIView(ClientGame game, ClientInputHandler inputHandler){
-        myGame = game;
-        this.inputHandler = inputHandler;
+    public GUIView(Client client){
+
+        this.client = client;
     }
-    
+
+
+    /*
     @Override
     public void start(Stage stage) throws IOException {
         System.out.println("lanimaaa");
@@ -155,7 +173,7 @@ public class GUIView extends Application implements View {
 
 
 
-         */
+
 
 
 
@@ -198,13 +216,32 @@ public class GUIView extends Application implements View {
     }
 
     public static void main(String[] args) {
-        launch();
+        //launch();
     }
 
     @Override
     public void viewMessage(String message) {
+        synchronized (lock) {
 
+            switch (message) {
+                case "Insert a Nick to enter the game": {
+                    System.out.println("In insert nick case");
+                    System.out.println("my active scene is:" + activeScene);
+                    System.out.println("my inactive scene:" + inactiveScene);
+                    Stage primaryStage = (Stage) activeScene.getWindow();
+                    System.out.println("got the stage:" + primaryStage);
+                    System.out.println("compared to:" + primary);
+                    update = message;
+                    Platform.runLater(()->handleUpdates());
+                    System.out.println(update);
+                    break;
+                }
+            }
+            System.out.println("wiii");
+        }
     }
+
+
 
     @Override
     public void updateGameView(ClientGame game, UpdateFlag flag) {
@@ -213,5 +250,14 @@ public class GUIView extends Application implements View {
        }else{
 
        }
+    }
+
+
+    private void handleUpdates(){
+        if(update!=null){
+            System.out.println("my update:"+ update);
+            update = null;
+            primary.setScene(inactiveScene);
+        }
     }
 }

@@ -4,12 +4,15 @@ import it.polimi.ingsw2022am12.client.GUI.GUIView;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlag;
 import it.polimi.ingsw2022am12.client.CLI.CLIView;
 import it.polimi.ingsw2022am12.client.model.ClientGame;
+import javafx.application.Application;
+import javafx.application.Platform;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 import java.util.Timer;
-
+import java.util.concurrent.TimeUnit;
 /**
  * Client class represents the component which sends requests to the server, waiting for a response
  */
@@ -75,6 +78,9 @@ public class Client {
                     break;
 
                 case "GUI":
+                    GUIView guiView = new GUIView(this);
+                    Platform.startup(guiView);
+                    view = guiView;
                     break;
 
                 default: correct = false;
@@ -82,6 +88,13 @@ public class Client {
                     break;
             }
         }while(!correct);
+
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
 
         socket = new Socket(ip, port);
         System.out.println("Connected!");
