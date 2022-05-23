@@ -10,7 +10,6 @@ import it.polimi.ingsw2022am12.client.model.*;
 import it.polimi.ingsw2022am12.communication.InputMode;
 import it.polimi.ingsw2022am12.communication.InputModeAdapter;
 import it.polimi.ingsw2022am12.client.adapter.*;
-import java.util.Scanner;
 
 
 /**
@@ -30,7 +29,7 @@ public class ClientInputHandler {
      * @param input the string that represents my object in input
      * @param client the client that is receiving the message
      */
-    public void handle(String input, Client client){
+    public static void handle(String input, Client client){
         String result;
         String[]tokens = input.split(" ", -1);
         Gson gson;
@@ -178,7 +177,6 @@ public class ClientInputHandler {
                     break;
                 }
                 int id;
-                boolean mode;
                 try{
                     id = Integer.parseInt(tokens[1]);
                 }catch(Exception e){
@@ -195,7 +193,4 @@ public class ClientInputHandler {
             }
         }
     }
-
-
-
 }

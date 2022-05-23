@@ -8,7 +8,6 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.stage.Modality;
 import javafx.scene.image.Image;
-
 import java.util.Objects;
 
 public class AssistantSelectionWindow implements Window {
@@ -34,7 +33,6 @@ public class AssistantSelectionWindow implements Window {
         for(int i = 1; i<=numOfAssistants; i++){
             ToggleButton assistantButton = new ToggleButton();
             Image assistant = null;
-
 
             switch (i){
                 case 1->assistant = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/Assistente (1).png")).toString());

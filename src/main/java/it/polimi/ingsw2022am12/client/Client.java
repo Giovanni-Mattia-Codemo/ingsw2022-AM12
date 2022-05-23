@@ -89,13 +89,6 @@ public class Client {
             }
         }while(!correct);
 
-        try {
-            TimeUnit.SECONDS.sleep(2);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-
         socket = new Socket(ip, port);
         System.out.println("Connected!");
         in = new Scanner(socket.getInputStream());

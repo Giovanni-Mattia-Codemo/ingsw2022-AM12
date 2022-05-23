@@ -25,7 +25,7 @@ public class CLIHandler implements Runnable{
         while(true){
             try{
                 input = in.nextLine();
-                new ClientInputHandler().handle(input, client);
+                ClientInputHandler.handle(input, client);
             }catch (RuntimeException e){
                 break;
             }

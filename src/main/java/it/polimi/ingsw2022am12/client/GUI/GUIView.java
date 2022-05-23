@@ -1,32 +1,27 @@
 package it.polimi.ingsw2022am12.client.GUI;
 
 import it.polimi.ingsw2022am12.client.Client;
-import it.polimi.ingsw2022am12.server.controller.ControlMessages;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlag;
 import it.polimi.ingsw2022am12.client.View;
 import it.polimi.ingsw2022am12.client.model.ClientGame;
-import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.Event;
-import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
-import javafx.scene.layout.*;
-
 
 public class GUIView implements View, Runnable{
 
     private ClientGame myGame;
     private Client client;
-    private Scene activeScene;
-    private Scene inactiveScene;
+    private Scene nickInputScene;
+    private Scene tryAgainLater;
+    private Scene tryAnother;
+    private Scene schoolBoardScene;
     private Stage primary;
     private String update;
     private Lock lock;
@@ -171,12 +166,6 @@ public class GUIView implements View, Runnable{
 
         Scene islandScene = new Scene(vBox);
 
-
-
-
-
-
-
     }
 */
 
@@ -184,61 +173,40 @@ public class GUIView implements View, Runnable{
     @Override
     public void run() {
 
+        primary = new Stage();
+        nickInputScene = new Scene(new NickInputWindow(client), 800, 600);
+        primary.setResizable(true);
+        primary.setScene(nickInputScene);
+        primary.setMaximized(true);
+        primary.show();
+        setTryAgain();
+        setTryAnother();
 
-            inactiveScene = new Scene(new Label("nick"));
-            activeScene = new Scene(new Label("mariposa"));
-            System.out.println(activeScene);
-            System.out.println(inactiveScene);
-            lock = new ReentrantLock();
-            primary = new Stage();
-            primary.setScene(activeScene);
-            primary.show();
-
-            /*
-            synchronized (lock){
-                // This block will be executed on JavaFX Thread
-                while(true){
-                    System.out.println("f");
-                    try {
-                        lock.wait();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    Platform.runLater(()->{handleUpdates();});
-                }
-            }
-
-             */
-
-
-
-
-    }
-
-    public static void main(String[] args) {
-        //launch();
     }
 
     @Override
     public void viewMessage(String message) {
-        synchronized (lock) {
-
             switch (message) {
                 case "Insert a Nick to enter the game": {
-                    System.out.println("In insert nick case");
-                    System.out.println("my active scene is:" + activeScene);
-                    System.out.println("my inactive scene:" + inactiveScene);
-                    Stage primaryStage = (Stage) activeScene.getWindow();
-                    System.out.println("got the stage:" + primaryStage);
-                    System.out.println("compared to:" + primary);
                     update = message;
-                    Platform.runLater(()->handleUpdates());
-                    System.out.println(update);
                     break;
                 }
+                case "Game format is being decided, wait":{
+                    Platform.runLater(()->primary.setScene(tryAgainLater));
+                    break;
+                }
+                case "Try another": {
+                    Platform.runLater(()->primary.setScene(tryAnother));
+                    break;
+                }
+                case "Your nick has been set": {
+                    System.out.println("Your nick has been set");
+                    break;
+                }
+                default:
+                    System.out.println("Not valid");
+                    break;
             }
-            System.out.println("wiii");
-        }
     }
 
 
@@ -257,7 +225,31 @@ public class GUIView implements View, Runnable{
         if(update!=null){
             System.out.println("my update:"+ update);
             update = null;
-            primary.setScene(inactiveScene);
+            primary.setScene(schoolBoardScene);
         }
+    }
+
+    private void setTryAgain(){
+        VBox pane = new VBox();
+        Label tryAnother = new Label("The game is being decided, wait");
+        Button close = new Button("Got it");
+        close.setOnAction(e->{
+            primary.setScene(nickInputScene);
+        });
+        pane.getChildren().addAll(tryAnother, close);
+        pane.setAlignment(Pos.CENTER);
+        tryAgainLater = new Scene(pane, 800, 600);
+    }
+
+    private void setTryAnother(){
+        VBox pane = new VBox();
+        Label tryAnotherLabel = new Label("The name you picked was already taken");
+        Button close = new Button("Got it");
+        close.setOnAction(e->{
+            primary.setScene(nickInputScene);
+        });
+        pane.getChildren().addAll(tryAnotherLabel, close);
+        pane.setAlignment(Pos.CENTER);
+        tryAnother = new Scene(pane, 800, 600);
     }
 }
