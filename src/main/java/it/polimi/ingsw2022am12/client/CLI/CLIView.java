@@ -1,8 +1,12 @@
 package it.polimi.ingsw2022am12.client.CLI;
 
+import it.polimi.ingsw2022am12.server.controller.ControlMessages;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlag;
 import it.polimi.ingsw2022am12.client.View;
 import it.polimi.ingsw2022am12.client.model.ClientGame;
+
+import java.util.ArrayList;
+
 /**
  *
  * CLIView class represents the main functions of the Command Line Interface for the client

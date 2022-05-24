@@ -1,5 +1,6 @@
 package it.polimi.ingsw2022am12.server.model.actions;
 
+import it.polimi.ingsw2022am12.server.controller.ControlMessages;
 import it.polimi.ingsw2022am12.server.model.*;
 import it.polimi.ingsw2022am12.server.model.characters.CharacterMonk;
 
@@ -39,17 +40,17 @@ public class MonkAction extends PossibleAction {
      * @return string message
      */
     @Override
-    public String getUserSelectionsMessage() {
-        String msg = "";
-        msg = msg.concat("To use the monk:");
+    public ArrayList<ControlMessages> getUserSelectionsMessage() {
+        ArrayList<ControlMessages> res = new ArrayList<>();
+        res.add(ControlMessages.MONKACTION);
         if(!score.containsKey(0)){
-            msg = msg.concat(" select it's character card");
+            res.add(ControlMessages.CHARACTERCARD);
         }else if(!score.containsKey(1)){
-            msg = msg.concat(" select a student on the card.");
+            res.add(ControlMessages.JESTERACTION1);
         }else if(!score.containsKey(2)){
-            msg = msg.concat(" select the island to place it on.");
+            res.add(ControlMessages.MONKACTION1);
         }
-        return msg;
+        return res;
     }
 
     /**

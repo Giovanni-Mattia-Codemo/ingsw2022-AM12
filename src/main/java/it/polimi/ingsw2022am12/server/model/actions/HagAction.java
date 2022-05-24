@@ -1,6 +1,7 @@
 package it.polimi.ingsw2022am12.server.model.actions;
 
 import it.polimi.ingsw2022am12.DiskColor;
+import it.polimi.ingsw2022am12.server.controller.ControlMessages;
 import it.polimi.ingsw2022am12.server.model.*;
 import java.util.ArrayList;
 
@@ -41,9 +42,9 @@ public class HagAction extends PossibleAction {
      * @return string message
      */
     @Override
-    public String getUserSelectionsMessage() {
-        String msg = "";
-        msg = msg.concat("To use the Hag select:");
+    public ArrayList<ControlMessages> getUserSelectionsMessage() {
+        ArrayList<ControlMessages> messages = new ArrayList<>();
+        messages.add(ControlMessages.HAGACTION);
         if(!score.containsKey(0)){
             messages.add(ControlMessages.CHARACTERCARD);
         }else if(!score.containsKey(1)) {

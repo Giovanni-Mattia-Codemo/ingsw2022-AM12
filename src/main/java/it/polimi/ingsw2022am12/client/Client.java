@@ -1,6 +1,7 @@
 package it.polimi.ingsw2022am12.client;
 
 import it.polimi.ingsw2022am12.client.GUI.GUIView;
+import it.polimi.ingsw2022am12.server.controller.ControlMessages;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlag;
 import it.polimi.ingsw2022am12.client.CLI.*;
 import it.polimi.ingsw2022am12.client.model.ClientGame;
@@ -107,6 +108,10 @@ public class Client {
      */
     public void showServerMessage(String message){
         view.viewMessage(message);
+    }
+
+    public void controlMessageToView(ArrayList<ControlMessages> msg){
+        view.viewControlMessages(msg);
     }
 
     /**

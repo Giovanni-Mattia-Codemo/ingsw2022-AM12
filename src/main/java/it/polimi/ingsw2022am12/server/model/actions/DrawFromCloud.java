@@ -1,8 +1,11 @@
 package it.polimi.ingsw2022am12.server.model.actions;
 
+import it.polimi.ingsw2022am12.server.controller.ControlMessages;
 import it.polimi.ingsw2022am12.server.model.Game;
 import it.polimi.ingsw2022am12.server.model.PossibleAction;
 import it.polimi.ingsw2022am12.server.model.StudentDiskCollection;
+
+import java.util.ArrayList;
 
 /**
  * Class that defines the process of drawing from a generic cloud
@@ -31,8 +34,10 @@ public class DrawFromCloud extends PossibleAction {
      * @return string message
      */
     @Override
-    public String getUserSelectionsMessage() {
-        return "To draw from a cloud select it.";
+    public ArrayList<ControlMessages> getUserSelectionsMessage() {
+        ArrayList<ControlMessages> messages = new ArrayList<>();
+        messages.add(ControlMessages.DRAWFROMCLOUD);
+        return messages;
     }
 
     /**

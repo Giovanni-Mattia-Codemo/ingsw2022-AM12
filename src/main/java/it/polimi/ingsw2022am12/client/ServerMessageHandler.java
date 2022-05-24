@@ -2,6 +2,8 @@ package it.polimi.ingsw2022am12.client;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import it.polimi.ingsw2022am12.ControlMessagesAdapter;
+import it.polimi.ingsw2022am12.server.controller.ControlMessages;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlag;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlagAdapterFactory;
 import it.polimi.ingsw2022am12.client.adapter.GameStateAdapter;
@@ -72,9 +74,10 @@ public class ServerMessageHandler implements Runnable {
             Map map = gson.fromJson(message, Map.class);
             String tag = (String) map.get("tag");
             map.remove("tag");
+            String res = null;
             switch (tag){
                 case "GameState":
-                    String res = gson.toJson(map);
+                    res = gson.toJson(map);
                     gson = new GsonBuilder().registerTypeAdapter(ClientGame.class, new GameStateAdapter()).create();
                     ClientGame tmp = gson.fromJson(res, ClientGame.class);
                     client.updateLastSavedGame(tmp);
@@ -82,9 +85,9 @@ public class ServerMessageHandler implements Runnable {
                     break;
 
                 case "UpdateFlag":
-                    String result = gson.toJson(map);
+                    res = gson.toJson(map);
                     gson = new GsonBuilder().registerTypeAdapterFactory(new UpdateFlagAdapterFactory()).create();
-                    UpdateFlag flag = gson.fromJson(result, UpdateFlag.class);
+                    UpdateFlag flag = gson.fromJson(res, UpdateFlag.class);
                     client.updateGameState(flag);
                     break;
 
@@ -93,14 +96,25 @@ public class ServerMessageHandler implements Runnable {
                     client.setThisClientNick(nick);
                     break;
 
+
+                case "ControlMessages":
+                    res = gson.toJson(map);
+                    System.out.println(res);
+                    gson = new GsonBuilder().registerTypeAdapter(ArrayList.class, new ControlMessagesAdapter()).create();
+                    ArrayList<ControlMessages> msg = gson.fromJson(res, ArrayList.class );
+                    client.controlMessageToView(msg);
+                    break;
+
+                case "Ping":
+                    pong.pong();
+                    break;
+
                 default:
                     System.out.println("Weird message from server");
                     break;
             }
 
-        }else if(message.equals("Pong")){
-            pong.pong();
-        }else client.showServerMessage(message);
+        }
 
     }
 }

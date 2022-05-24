@@ -1,5 +1,6 @@
 package it.polimi.ingsw2022am12.server.model;
 
+import it.polimi.ingsw2022am12.server.controller.ControlMessages;
 import it.polimi.ingsw2022am12.updateFlag.Flag;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlag;
 import it.polimi.ingsw2022am12.server.model.actions.ActionStep;
@@ -78,7 +79,7 @@ public abstract class PossibleAction {
      * getUserSelectionsMessage returns a message based on what the user wants to select
      * @return ControlMessages message
      */
-    public String getUserSelectionsMessage(){
+    public ArrayList<ControlMessages> getUserSelectionsMessage(){
         return null;
     }
 

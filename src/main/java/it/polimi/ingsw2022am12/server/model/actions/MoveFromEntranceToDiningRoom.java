@@ -1,5 +1,6 @@
 package it.polimi.ingsw2022am12.server.model.actions;
 
+import it.polimi.ingsw2022am12.server.controller.ControlMessages;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlag;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlagSchool;
 import it.polimi.ingsw2022am12.server.model.*;
@@ -39,15 +40,15 @@ public class MoveFromEntranceToDiningRoom extends PossibleAction {
      * @return string message
      */
     @Override
-    public String getUserSelectionsMessage() {
-        String msg = "";
-        msg = msg.concat("To move a student from the entrance to a dining room: ");
+    public ArrayList<ControlMessages> getUserSelectionsMessage() {
+        ArrayList<ControlMessages> res = new ArrayList<>();
+        res.add(ControlMessages.MOVEFROMENTRANCETODININGROOM);
         if(!score.containsKey(0)){
-            msg = msg.concat(" select the student from the entrance.");
+            res.add(ControlMessages.BARDACTION1);
         }else if(!score.containsKey(1)){
-            msg = msg.concat(" select the dining rooms.");
+            res.add(ControlMessages.DININGROOM);
         }
-        return msg;
+        return res;
     }
 
     /**

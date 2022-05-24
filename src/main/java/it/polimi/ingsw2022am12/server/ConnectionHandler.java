@@ -1,6 +1,9 @@
 package it.polimi.ingsw2022am12.server;
 
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import it.polimi.ingsw2022am12.ControlMessagesAdapter;
 import it.polimi.ingsw2022am12.server.controller.ControlMessages;
 import it.polimi.ingsw2022am12.server.controller.Controller;
 import it.polimi.ingsw2022am12.server.virtualview.VirtualView;
@@ -9,6 +12,7 @@ import java.io.IOException;
 
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  * ConnectionHandler class represents the component that handles the connection with the server
@@ -44,7 +48,10 @@ public class ConnectionHandler implements Runnable{
                 controller.addView(virtualView);
                 System.out.println("created virtualview");
                 ControlMessages msg = controller.getMatchStatusOfView(virtualView);
-                virtualView.forwardMsg(msg.getMessage());
+                ArrayList<ControlMessages> msgs = new ArrayList<>();
+                msgs.add(msg);
+                Gson g = new GsonBuilder().registerTypeAdapter(ArrayList.class, new ControlMessagesAdapter()).create();
+                virtualView.forwardMsg(g.toJson(msgs));
                 System.out.println("Sent it a message");
 
             }catch(IOException e ){

@@ -68,7 +68,8 @@ public class Controller {
      */
     public void send(VirtualView v, Selectable s){
         synchronized (lock){
-
+            ArrayList<ControlMessages> messages = new ArrayList<>();
+            Gson gsonForMessages = new GsonBuilder().registerTypeAdapter(ArrayList.class, new ControlMessagesAdapter()).create();
             if (myGame == null){
                 messages.add(ControlMessages.GAMEHASNTSTARTED);
                 v.forwardMsg(gsonForMessages.toJson(messages));
@@ -86,7 +87,9 @@ public class Controller {
                     v.forwardMsg(gsonForMessages.toJson(messages));
                     return;
                 }else if(result.equals(ActionStep.HALFOK)){
-                    v.forwardMsg(inputHandler.getNextSelection());
+                    //v.forwardMsg(inputHandler.getNextSelection());
+                    messages.addAll(inputHandler.getNextSelection());
+                    v.forwardMsg(gsonForMessages.toJson(messages));
                     return;
                 }else if(result.equals(ActionStep.OK)){
                     Gson gson = new GsonBuilder().registerTypeAdapter(Game.class, new GameAdapter()).create();
@@ -99,17 +102,27 @@ public class Controller {
                         updateAllViews(res);
                     }
 
-                    v.forwardMsg(ControlMessages.ACTIONCOMPLETED.getMessage());
+                    //v.forwardMsg(ControlMessages.ACTIONCOMPLETED.getMessage());
+                    messages.add(ControlMessages.ACTIONCOMPLETED);
+                    v.forwardMsg(gsonForMessages.toJson(messages));
+
+
                     if(myGame.getCurrentSchoolBoard().getNick().equals(userMap.get(v))){
-                        v.forwardMsg(inputHandler.getNextSelection());
+                        //v.forwardMsg(inputHandler.getNextSelection());
+                        messages.addAll(inputHandler.getNextSelection());
+                        v.forwardMsg(gsonForMessages.toJson(messages));
                     }else {
-                        v.forwardMsg("Your turn has ended"+ "\n");
+                        //v.forwardMsg("Your turn has ended"+ "\n");
+                        messages.add(ControlMessages.TURNENDED);
+                        v.forwardMsg(gsonForMessages.toJson(messages));
                         notifyNextPlayerOfSel();
                     }
                     return;
                 }
             }
-            v.forwardMsg(ControlMessages.INVALIDUSER.getMessage());
+            //v.forwardMsg(ControlMessages.INVALIDUSER.getMessage());
+            messages.add(ControlMessages.INVALIDUSER);
+            v.forwardMsg(gsonForMessages.toJson(messages));
         }
     }
 
@@ -125,7 +138,9 @@ public class Controller {
             Gson gson = new GsonBuilder().registerTypeAdapter(ArrayList.class, new ControlMessagesAdapter()).create();
             if(userMap.containsKey(v)) {
                 if (gameWasSet) {
-                    v.forwardMsg(ControlMessages.GAMEWASSET.getMessage());
+                    //v.forwardMsg(ControlMessages.GAMEWASSET.getMessage());
+                    messages.add(ControlMessages.GAMEWASSET);
+                    v.forwardMsg(gson.toJson(messages));
                     return;
                 }
 
@@ -143,6 +158,7 @@ public class Controller {
                     messages.add(ControlMessages.INVALIDUSER);
                     v.forwardMsg(gson.toJson(messages));
                 }
+
                 return;
             }
             //v.forwardMsg(ControlMessages.INVALIDUSER.getMessage());
@@ -164,20 +180,27 @@ public class Controller {
             ArrayList<ControlMessages> messages = new ArrayList<>();
             Gson gson = new GsonBuilder().registerTypeAdapter(ArrayList.class, new ControlMessagesAdapter()).create();
             if (userMap.containsKey(v)) {
-                v.forwardMsg(ControlMessages.ALREADYIN.getMessage());
+                //v.forwardMsg(ControlMessages.ALREADYIN.getMessage());
+                messages.add(ControlMessages.ALREADYIN);
+                v.forwardMsg(gson.toJson(messages));
                 return;
             }else if (creatingGame) {
-                v.forwardMsg(ControlMessages.GAMEISBEINGCREATED.getMessage());
+                //v.forwardMsg(ControlMessages.GAMEISBEINGCREATED.getMessage());
+                messages.add(ControlMessages.GAMEISBEINGCREATED);
+                v.forwardMsg(gson.toJson(messages));
                 return;
             }else if (acceptingUsers) {
                 if (userMap.containsValue(nick)) {
-                    v.forwardMsg(ControlMessages.RETRY.getMessage());
-
+                    //v.forwardMsg(ControlMessages.RETRY.getMessage());
+                    messages.add(ControlMessages.RETRY);
+                    v.forwardMsg(gson.toJson(messages));
                 } else {
-                    v.forwardMsg(ControlMessages.ASSIGNEDNICK.getMessage());
+                    //v.forwardMsg(ControlMessages.ASSIGNEDNICK.getMessage());
+                    messages.add(ControlMessages.ASSIGNEDNICK);
+                    v.forwardMsg(gson.toJson(messages));
                     NickInput toBeSet = new NickInput(nick);
-                    Gson gson = new GsonBuilder().registerTypeAdapter(NickInput.class, new NickInputAdapter()).create();
-                    String setNick = gson.toJson(toBeSet);
+                    Gson gsonNick = new GsonBuilder().registerTypeAdapter(NickInput.class, new NickInputAdapter()).create();
+                    String setNick = gsonNick.toJson(toBeSet);
                     v.forwardMsg(setNick);
                     bindView(v, nick);
                 }
@@ -227,6 +250,7 @@ public class Controller {
      */
     public void notifyNextPlayerOfSel(){
         for(VirtualView virtualView : userMap.keySet()){
+            ArrayList<ControlMessages> msgs = new ArrayList<>();
             if(userMap.get(virtualView).equals(myGame.getCurrentSchoolBoard().getNick())){
                 Gson gson = new GsonBuilder().registerTypeAdapter(ArrayList.class, new ControlMessagesAdapter()).create();
                 //virtualView.forwardMsg(gson.toJson(inputHandler.getNextSelection()));
@@ -241,7 +265,10 @@ public class Controller {
      */
     public void endGame(){
         System.out.println("Closing game");
-        updateAllViews("Game is closing because of a player disconnection");
+        Gson g = new GsonBuilder().registerTypeAdapter(ArrayList.class, new ControlMessagesAdapter()).create();
+        ArrayList<ControlMessages> msgs = new ArrayList<>();
+        msgs.add(ControlMessages.DISCONNECTION);
+        updateAllViews(g.toJson(msgs));
 
         myGame = null;
 
@@ -301,8 +328,11 @@ public class Controller {
     }
 
     public void updateViewsOfStatus(){
+        Gson g = new GsonBuilder().registerTypeAdapter(ArrayList.class, new ControlMessagesAdapter()).create();
         for(VirtualView v : virtualViews){
-            v.forwardMsg(getMatchStatusOfView(v).getMessage());
+            ArrayList<ControlMessages>msgs = new ArrayList<>();
+            msgs.add(getMatchStatusOfView(v));
+            v.forwardMsg(g.toJson(msgs));
         }
     }
 

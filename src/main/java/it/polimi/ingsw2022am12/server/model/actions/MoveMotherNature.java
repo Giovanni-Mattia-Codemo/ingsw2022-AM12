@@ -1,5 +1,6 @@
 package it.polimi.ingsw2022am12.server.model.actions;
 
+import it.polimi.ingsw2022am12.server.controller.ControlMessages;
 import it.polimi.ingsw2022am12.updateFlag.Flag;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlag;
 import it.polimi.ingsw2022am12.server.model.Game;
@@ -42,15 +43,15 @@ public class MoveMotherNature extends PossibleAction {
      * @return string message
      */
     @Override
-    public String getUserSelectionsMessage() {
-        String msg = "";
-        msg = msg.concat("To move mother nature: ");
+    public ArrayList<ControlMessages> getUserSelectionsMessage() {
+        ArrayList<ControlMessages> res = new ArrayList<>();
+        res.add(ControlMessages.MOVEMOTHERNATURE);
         if(!score.containsKey(0)){
-            msg = msg.concat(" select the island with mother nature.");
+            res.add(ControlMessages.MOVEMOTHERNATURE1);
         }else if(!score.containsKey(1)){
-            msg = msg.concat(" select the island where you want to move her.");
+            res.add(ControlMessages.MOVEMOTHERNATURE2);
         }
-        return msg;
+        return res;
     }
 
     /**

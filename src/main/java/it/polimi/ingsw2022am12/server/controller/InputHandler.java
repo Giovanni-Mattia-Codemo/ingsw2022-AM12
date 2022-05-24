@@ -32,11 +32,13 @@ public class InputHandler {
      * getNextSelection shows the user the actions he can perform and what he can select
      * @return String the message the InputHandler sends
      */
-    public String getNextSelection(){
-        String msg = "";
-        msg = msg.concat("Things you can input:" + "\n");
+    public ArrayList<ControlMessages> getNextSelection(){
+        ArrayList<ControlMessages> msg = new ArrayList<>();
+        //msg = msg.concat("Things you can input:" + "\n");
+
         for(PossibleAction a: actions){
-            msg = msg.concat("    "+ a.getUserSelectionsMessage()+ "\n");
+            //msg = msg.concat("    "+ a.getUserSelectionsMessage()+ "\n");
+            msg.addAll(a.getUserSelectionsMessage());
         }
         return msg;
     }

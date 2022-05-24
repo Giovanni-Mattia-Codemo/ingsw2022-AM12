@@ -1,5 +1,6 @@
 package it.polimi.ingsw2022am12.server.model.actions;
 
+import it.polimi.ingsw2022am12.server.controller.ControlMessages;
 import it.polimi.ingsw2022am12.server.model.Game;
 import it.polimi.ingsw2022am12.server.model.Mage;
 import it.polimi.ingsw2022am12.server.model.PossibleAction;
@@ -35,8 +36,10 @@ public class SelectMage extends PossibleAction {
      * @return string message
      */
     @Override
-    public String getUserSelectionsMessage() {
-        return "To select a mage pick one.";
+    public ArrayList<ControlMessages> getUserSelectionsMessage() {
+        ArrayList<ControlMessages> res = new ArrayList<>();
+        res.add(ControlMessages.SELECTMAGE);
+        return res;
     }
 
     /**

@@ -1,5 +1,6 @@
 package it.polimi.ingsw2022am12.server.model.actions;
 
+import it.polimi.ingsw2022am12.server.controller.ControlMessages;
 import it.polimi.ingsw2022am12.updateFlag.Flag;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlag;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlagSchool;
@@ -36,15 +37,15 @@ public class MoveFromEntranceToIsland extends PossibleAction {
      * @return string message
      */
     @Override
-    public String getUserSelectionsMessage() {
-        String msg = "";
-        msg = msg.concat("To move a student from the entrance to an island: ");
+    public ArrayList<ControlMessages> getUserSelectionsMessage() {
+        ArrayList<ControlMessages> res = new ArrayList<>();
+        res.add(ControlMessages.MOVEFROMENTRANCETOISLAND);
         if(!score.containsKey(0)){
-            msg = msg.concat(" select the student from the entrance.");
+            res.add(ControlMessages.BARDACTION1);
         }else if(!score.containsKey(1)){
-            msg = msg.concat(" select the chosen island.");
+            res.add(ControlMessages.MOVEFROMENTRANCETOISLAND2);
         }
-        return msg;
+        return res;
     }
 
     /**

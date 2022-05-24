@@ -1,5 +1,6 @@
 package it.polimi.ingsw2022am12.server.model.actions;
 
+import it.polimi.ingsw2022am12.server.controller.ControlMessages;
 import it.polimi.ingsw2022am12.server.model.*;
 import it.polimi.ingsw2022am12.server.model.characters.CharacterPrincess;
 
@@ -39,15 +40,15 @@ public class PrincessAction extends PossibleAction {
      * @return string message
      */
     @Override
-    public String getUserSelectionsMessage() {
-        String msg = "";
-        msg = msg.concat("To use the princess:");
+    public ArrayList<ControlMessages> getUserSelectionsMessage() {
+        ArrayList<ControlMessages> res = new ArrayList<>();
+        res.add(ControlMessages.PRINCESSACTION);
         if(!score.containsKey(0)){
-            msg = msg.concat(" select it's character card");
+            res.add(ControlMessages.CHARACTERCARD);
         }else if(!score.containsKey(1)){
-            msg = msg.concat(" select a color.");
+            res.add(ControlMessages.COLORSELECTION);
         }
-        return msg;
+        return res;
     }
 
     /**
