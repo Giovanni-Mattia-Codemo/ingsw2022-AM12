@@ -30,4 +30,12 @@ public class CLIView implements View {
     public void updateGameView(ClientGame game, UpdateFlag flag) {
         System.out.println(game.getBoardStringToView());
     }
+
+    @Override
+    public void viewControlMessages(ArrayList<ControlMessages> msgs) {
+        for(ControlMessages message : msgs){
+
+            System.out.println(message.getMessage());
+        }
+    }
 }

@@ -46,13 +46,13 @@ public class JesterAction extends PossibleAction {
         String msg = "";
         msg = msg.concat("To use the jester select:");
         if (!score.containsKey(0)) {
-            msg = msg.concat(" it's character card.");
+            messages.add(ControlMessages.CHARACTERCARD);
         }else if(!score.containsKey(1)){
-            msg = msg.concat(" a student on the card.");
+            messages.add(ControlMessages.JESTERACTION1);
         }else if(!score.containsKey(2)){
-            msg = msg.concat(" the student to swap in your entrance.");
+            messages.add(ControlMessages.JESTERACTION2);
         }
-        return msg;
+        return messages;
     }
 
     /**

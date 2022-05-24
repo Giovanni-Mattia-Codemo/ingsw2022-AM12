@@ -10,9 +10,9 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-public class NickInputWindow extends VBox {
+public class NickInputPane extends VBox {
 
-    public NickInputWindow(Client client){
+    public NickInputPane(Client client){
         super();
         this.setBackground(Background.fill(Color.LIGHTGRAY));
         Label nickInsert = new Label("Insert your nick for the game");

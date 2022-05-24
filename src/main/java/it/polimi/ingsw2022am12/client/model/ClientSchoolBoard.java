@@ -15,7 +15,7 @@ public class ClientSchoolBoard {
     private ArrayList<ClientAssistant> assistants;
     private int playedAssistant;
     private int towers;
-    private int Mage;
+    private int mage;
 
     /**
      * Default constructor of the ClientSchoolBoard class
@@ -35,7 +35,7 @@ public class ClientSchoolBoard {
      * @param mage associated to the SchoolBoard
      */
     public void setMage(int mage) {
-        Mage = mage;
+        this.mage = mage;
     }
 
     /**
@@ -120,7 +120,7 @@ public class ClientSchoolBoard {
 
     /**
      * Getter method for playedAssistant
-     * @preturn int playedAssistant of the SchoolBoard
+     * @return  int playedAssistant of the SchoolBoard
      */
     public int getPlayedAssistant() {
         return playedAssistant;
@@ -139,7 +139,7 @@ public class ClientSchoolBoard {
      * @return mage associated to the SchoolBoard
      */
     public int getMage() {
-        return Mage;
+        return mage;
     }
 
     /**
@@ -186,5 +186,6 @@ public class ClientSchoolBoard {
 
         playedAssistant = schoolBoard.getPlayedAssistant();
         towers = schoolBoard.getTowers();
+        mage = schoolBoard.getMage();
     }
 }

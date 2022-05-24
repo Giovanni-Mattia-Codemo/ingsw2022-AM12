@@ -1,8 +1,11 @@
 package it.polimi.ingsw2022am12.server.model.actions;
 
+import it.polimi.ingsw2022am12.server.controller.ControlMessages;
 import it.polimi.ingsw2022am12.server.model.CharacterCard;
 import it.polimi.ingsw2022am12.server.model.Game;
 import it.polimi.ingsw2022am12.server.model.PossibleAction;
+
+import java.util.ArrayList;
 
 /**
  * Class that defines the process of activation of a generic Character Card
@@ -31,8 +34,10 @@ public class ActivateCharacter extends PossibleAction {
      * @return string message
      */
     @Override
-    public String getUserSelectionsMessage() {
-        return "To activate a character select it. ";
+    public ArrayList<ControlMessages>  getUserSelectionsMessage() {
+        ArrayList<ControlMessages> messages = new ArrayList<>();
+        messages.add(ControlMessages.CHARACTERACTION);
+        return messages;
     }
 
     /**

@@ -3,6 +3,8 @@ package it.polimi.ingsw2022am12.server.virtualview;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import it.polimi.ingsw2022am12.DiskColor;
+import it.polimi.ingsw2022am12.communication.Ping;
+import it.polimi.ingsw2022am12.communication.PingAdapter;
 import it.polimi.ingsw2022am12.server.adapter.*;
 import it.polimi.ingsw2022am12.server.controller.Controller;
 import it.polimi.ingsw2022am12.server.model.*;
@@ -108,7 +110,9 @@ public class VirtualViewMessagesParser implements Runnable{
                         }
                         case "Ping" -> {
                             pingTimerTask.ping();
-                            virtualView.forwardMsg("Pong");
+                            //virtualView.forwardMsg("Pong");
+                            Gson pongG = new GsonBuilder().registerTypeAdapter(Ping.class, new PingAdapter()).create();
+                            virtualView.forwardMsg(pongG.toJson(new Ping()));
                         }
                         default -> virtualView.forwardMsg("Unrecognized input" + "\n");
                     }

@@ -1,5 +1,6 @@
 package it.polimi.ingsw2022am12.server.model.actions;
 
+import it.polimi.ingsw2022am12.server.controller.ControlMessages;
 import it.polimi.ingsw2022am12.server.model.*;
 import it.polimi.ingsw2022am12.server.model.characters.CharacterBard;
 
@@ -40,17 +41,17 @@ public class BardAction extends PossibleAction {
      * @return string message
      */
     @Override
-    public String getUserSelectionsMessage() {
-        String msg = "";
-        msg = msg.concat("To use the bard select:");
+    public ArrayList<ControlMessages> getUserSelectionsMessage() {
+        ArrayList<ControlMessages> messages = new ArrayList<>();
+        messages.add(ControlMessages.BARDACTION);
         if(!score.containsKey(0)){
-            msg = msg.concat(" it's character card");
+            messages.add(ControlMessages.CHARACTERCARD);
         }else if(!score.containsKey(1)){
-            msg = msg.concat(" a student from the entrance.");
+            messages.add(ControlMessages.BARDACTION1);
         }else if(!score.containsKey(2)){
-            msg = msg.concat(" the student to swap it with.");
+            messages.add(ControlMessages.BARDACTION2);
         }
-        return msg;
+        return messages;
     }
 
 

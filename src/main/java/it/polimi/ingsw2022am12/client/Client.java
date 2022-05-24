@@ -2,17 +2,16 @@ package it.polimi.ingsw2022am12.client;
 
 import it.polimi.ingsw2022am12.client.GUI.GUIView;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlag;
-import it.polimi.ingsw2022am12.client.CLI.CLIView;
+import it.polimi.ingsw2022am12.client.CLI.*;
 import it.polimi.ingsw2022am12.client.model.ClientGame;
-import javafx.application.Application;
 import javafx.application.Platform;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Timer;
-import java.util.concurrent.TimeUnit;
+
 /**
  * Client class represents the component which sends requests to the server, waiting for a response
  */
@@ -134,6 +133,7 @@ public class Client {
     }
 
     public void updateLastSavedGame(ClientGame newGame){
+        System.out.println("Updating last saved game");
         newClientGame = newGame;
     }
 
@@ -165,5 +165,9 @@ public class Client {
 
     public String getThisClientNick() {
         return thisClientNick;
+    }
+
+    public ArrayList<Integer> availableMages(){
+        return clientGame.getAvailableMages();
     }
 }

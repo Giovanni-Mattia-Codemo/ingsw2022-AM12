@@ -1,6 +1,7 @@
 package it.polimi.ingsw2022am12.client.GUI;
 
 import it.polimi.ingsw2022am12.client.Client;
+import it.polimi.ingsw2022am12.server.controller.ControlMessages;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlag;
 import it.polimi.ingsw2022am12.client.View;
 import it.polimi.ingsw2022am12.client.model.ClientGame;
@@ -9,22 +10,23 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import java.util.ArrayList;
-import java.util.concurrent.locks.Lock;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 public class GUIView implements View, Runnable{
 
     private ClientGame myGame;
     private Client client;
-    private Scene nickInputScene;
-    private Scene tryAgainLater;
-    private Scene tryAnother;
-    private Scene schoolBoardScene;
+    private Scene tryAgainLater, tryAnother;
+    private Scene schoolBoardScene, pickMageScene;
+    private Scene initialScene, nickInputScene, gameSettingsScene, waitingQueueScene, gameIsFullScene;
     private Stage primary;
     private String update;
-    private Lock lock;
+    boolean firstTime = true;
 
 
 
@@ -174,13 +176,17 @@ public class GUIView implements View, Runnable{
     public void run() {
 
         primary = new Stage();
-        nickInputScene = new Scene(new NickInputWindow(client), 800, 600);
+        primary.setTitle("Eryantis");
+        setInitialScene();
+        nickInputScene = new Scene(new NickInputPane(client), 400, 300);
+        gameSettingsScene = new Scene(new GameSettingsPane(client), 400, 300);
         primary.setResizable(true);
-        primary.setScene(nickInputScene);
-        primary.setMaximized(true);
+        primary.setScene(initialScene);
         primary.show();
         setTryAgain();
         setTryAnother();
+        setWaitingQueueScene();
+        setGameIsFullScene();
 
     }
 
@@ -188,10 +194,28 @@ public class GUIView implements View, Runnable{
     public void viewMessage(String message) {
             switch (message) {
                 case "Insert a Nick to enter the game": {
-                    update = message;
+                    try{
+                        TimeUnit.SECONDS.sleep(3);
+                    }catch (InterruptedException e){
+                        e.printStackTrace();
+                    }
+                    Platform.runLater(()->primary.setScene(nickInputScene));
+                    firstTime = false;
+                    break;
+                }
+                case "Insert the number of players and mode of the match: number of players between 2 and 4, followed by either true or false to be in the expert mode or not" :{
+                    Platform.runLater(()->primary.setScene(gameSettingsScene));
                     break;
                 }
                 case "Game format is being decided, wait":{
+                    if(firstTime){
+                        try{
+                            TimeUnit.SECONDS.sleep(3);
+                            firstTime = false;
+                        }catch (InterruptedException e){
+                            e.printStackTrace();
+                        }
+                    }
                     Platform.runLater(()->primary.setScene(tryAgainLater));
                     break;
                 }
@@ -203,8 +227,28 @@ public class GUIView implements View, Runnable{
                     System.out.println("Your nick has been set");
                     break;
                 }
+                case "Player connected, waiting for more":{
+                    Platform.runLater(()->primary.setScene(waitingQueueScene));
+                    break;
+                }
+                case "Select a mage":{
+                    System.out.println("In select mage");
+                    Platform.runLater(()->{
+                        setPickMageScene();
+                        primary.setScene(pickMageScene);});
+                    break;
+                }
+                case "Your match is starting":{
+                    //SchoolBoard setup logic
+                    System.out.println("Starting match");
+                    break;
+                }
+                case "Game is full":{
+                    Platform.runLater(()->primary.setScene(gameIsFullScene));
+                    break;
+                }
                 default:
-                    System.out.println("Not valid");
+                    System.out.println(message);
                     break;
             }
     }
@@ -220,6 +264,10 @@ public class GUIView implements View, Runnable{
        }
     }
 
+    @Override
+    public void viewControlMessages(ArrayList<ControlMessages> msg) {
+
+    }
 
     private void handleUpdates(){
         if(update!=null){
@@ -238,7 +286,7 @@ public class GUIView implements View, Runnable{
         });
         pane.getChildren().addAll(tryAnother, close);
         pane.setAlignment(Pos.CENTER);
-        tryAgainLater = new Scene(pane, 800, 600);
+        tryAgainLater = new Scene(pane, 400, 300);
     }
 
     private void setTryAnother(){
@@ -250,6 +298,56 @@ public class GUIView implements View, Runnable{
         });
         pane.getChildren().addAll(tryAnotherLabel, close);
         pane.setAlignment(Pos.CENTER);
-        tryAnother = new Scene(pane, 800, 600);
+        tryAnother = new Scene(pane, 400, 300);
     }
+
+    private void setInitialScene(){
+        BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false,false,true,true);
+        Image image = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/LOGO CRANIO CREATIONS_bianco.png")).toString());
+        Background background = new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, bSize));
+        GridPane pane = new GridPane();
+
+        pane.setBackground(background);
+        double h = image.getHeight()/2;
+        double w = image.getWidth()/2;
+
+        GridPane.setFillHeight(pane, true);
+        GridPane.setFillWidth(pane, true);
+        pane.setMinHeight(1);
+        pane.setMinWidth(1);
+        pane.setPrefSize(w, h);
+        pane.setMaxWidth(Double.POSITIVE_INFINITY);
+        pane.setMaxHeight(Double.POSITIVE_INFINITY);
+        pane.setAlignment(Pos.CENTER_LEFT);
+        initialScene = new Scene(pane);
+    }
+
+    private void setWaitingQueueScene(){
+        VBox pane = new VBox();
+        Label waitingQueueLabel = new Label("Waiting for other players to log in");
+        waitingQueueLabel.setAlignment(Pos.CENTER);
+        pane.getChildren().add(waitingQueueLabel);
+        pane.setAlignment(Pos.CENTER);
+        waitingQueueScene = new Scene(pane, 400, 300);
+    }
+
+    private void setGameIsFullScene(){
+        VBox pane = new VBox();
+        Label fullGame = new Label("The game you tried to log in is full, try again later");
+        fullGame.setAlignment(Pos.CENTER);
+        Button exit = new Button("EXIT");
+        exit.setOnAction(e->{
+            client.disconnected();
+            primary.close();
+        });
+        pane.getChildren().addAll(fullGame, exit);
+        pane.setAlignment(Pos.CENTER);
+        gameIsFullScene = new Scene(pane, 400, 300);
+    }
+
+    private void setPickMageScene(){
+        System.out.println("In pick mage");
+        pickMageScene = new Scene(new MageSelectionPane(client), 400, 300);
+    }
+
 }

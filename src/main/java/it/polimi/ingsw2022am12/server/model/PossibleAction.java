@@ -76,7 +76,7 @@ public abstract class PossibleAction {
 
     /**
      * getUserSelectionsMessage returns a message based on what the user wants to select
-     * @return string message
+     * @return ControlMessages message
      */
     public String getUserSelectionsMessage(){
         return null;

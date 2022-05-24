@@ -21,5 +21,5 @@ public interface View {
      * @param game the current state of the game
      * @param flag an update flag that signals the main changes
      */
-    public void updateGameView(ClientGame game, UpdateFlag flag);
+    void updateGameView(ClientGame game, UpdateFlag flag);
 }

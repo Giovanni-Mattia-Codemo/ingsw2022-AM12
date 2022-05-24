@@ -45,11 +45,11 @@ public class HagAction extends PossibleAction {
         String msg = "";
         msg = msg.concat("To use the Hag select:");
         if(!score.containsKey(0)){
-            msg = msg.concat(" it's character card");
+            messages.add(ControlMessages.CHARACTERCARD);
         }else if(!score.containsKey(1)) {
-            msg = msg.concat(" a color.");
+            messages.add(ControlMessages.COLORSELECTION);
         }
-        return msg;
+        return messages;
     }
 
     /**

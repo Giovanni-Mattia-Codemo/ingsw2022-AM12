@@ -6,7 +6,7 @@ import it.polimi.ingsw2022am12.updateFlag.UpdateFlag;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlagAdapterFactory;
 import it.polimi.ingsw2022am12.client.adapter.GameStateAdapter;
 import it.polimi.ingsw2022am12.client.model.ClientGame;
-
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Timer;

@@ -5,8 +5,4 @@ package it.polimi.ingsw2022am12.communication;
  */
 public class Ping {
 
-
-
-
-
 }

@@ -2,6 +2,7 @@ package it.polimi.ingsw2022am12.server.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import it.polimi.ingsw2022am12.ControlMessagesAdapter;
 import it.polimi.ingsw2022am12.NickInputAdapter;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlag;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlagAdapterFactory;
@@ -69,7 +70,8 @@ public class Controller {
         synchronized (lock){
 
             if (myGame == null){
-                v.forwardMsg(ControlMessages.GAMEHASNTSTARTED.getMessage());
+                messages.add(ControlMessages.GAMEHASNTSTARTED);
+                v.forwardMsg(gsonForMessages.toJson(messages));
                 return;
             }
 
@@ -77,8 +79,11 @@ public class Controller {
             if(myGame.getCurrentSchoolBoard().getNick().equals(userMap.get(v))){
                 ActionStep result = inputHandler.addSelection(s);
                 if (result.equals(ActionStep.NOTOK)){
-                    v.forwardMsg(ControlMessages.INVALIDSELECTION.getMessage());
-                    v.forwardMsg(inputHandler.getNextSelection());
+                    messages.add(ControlMessages.INVALIDSELECTION);
+                    //v.forwardMsg(ControlMessages.INVALIDSELECTION.getMessage());
+                    //v.forwardMsg(inputHandler.getNextSelection());
+                    messages.addAll(inputHandler.getNextSelection());
+                    v.forwardMsg(gsonForMessages.toJson(messages));
                     return;
                 }else if(result.equals(ActionStep.HALFOK)){
                     v.forwardMsg(inputHandler.getNextSelection());
@@ -116,6 +121,8 @@ public class Controller {
      */
     public void setGameMode(VirtualView v, int i, boolean b){
         synchronized (lock){
+            ArrayList<ControlMessages> messages = new ArrayList<>();
+            Gson gson = new GsonBuilder().registerTypeAdapter(ArrayList.class, new ControlMessagesAdapter()).create();
             if(userMap.containsKey(v)) {
                 if (gameWasSet) {
                     v.forwardMsg(ControlMessages.GAMEWASSET.getMessage());
@@ -127,14 +134,20 @@ public class Controller {
                     numOfPlayers = i;
                     creatingGame = false;
                     gameWasSet = true;
-                    v.forwardMsg(ControlMessages.ACCEPTED.getMessage());
+                    //v.forwardMsg(ControlMessages.ACCEPTED.getMessage());
+                    messages.add(ControlMessages.ACCEPTED);
+                    v.forwardMsg(gson.toJson(messages));
                     updateViewsOfStatus();
                 } else {
-                    v.forwardMsg(ControlMessages.INVALIDVALUES.getMessage());
+                    //v.forwardMsg(ControlMessages.INVALIDVALUES.getMessage());
+                    messages.add(ControlMessages.INVALIDUSER);
+                    v.forwardMsg(gson.toJson(messages));
                 }
                 return;
             }
-            v.forwardMsg(ControlMessages.INVALIDUSER.getMessage());
+            //v.forwardMsg(ControlMessages.INVALIDUSER.getMessage());
+            messages.add(ControlMessages.INVALIDUSER);
+            v.forwardMsg(gson.toJson(messages));
         }
 
 
@@ -148,6 +161,8 @@ public class Controller {
      */
     public void selectUsername(String nick, VirtualView v){
         synchronized (lock) {
+            ArrayList<ControlMessages> messages = new ArrayList<>();
+            Gson gson = new GsonBuilder().registerTypeAdapter(ArrayList.class, new ControlMessagesAdapter()).create();
             if (userMap.containsKey(v)) {
                 v.forwardMsg(ControlMessages.ALREADYIN.getMessage());
                 return;
@@ -166,11 +181,13 @@ public class Controller {
                     v.forwardMsg(setNick);
                     bindView(v, nick);
                 }
+
                 return;
 
             }
-            v.forwardMsg(ControlMessages.GAMEISFULL.getMessage());
-
+            //v.forwardMsg(ControlMessages.GAMEISFULL.getMessage());
+            messages.add(ControlMessages.GAMEISFULL);
+            v.forwardMsg(gson.toJson(messages));
         }
     }
 
@@ -211,7 +228,10 @@ public class Controller {
     public void notifyNextPlayerOfSel(){
         for(VirtualView virtualView : userMap.keySet()){
             if(userMap.get(virtualView).equals(myGame.getCurrentSchoolBoard().getNick())){
-                virtualView.forwardMsg(inputHandler.getNextSelection());
+                Gson gson = new GsonBuilder().registerTypeAdapter(ArrayList.class, new ControlMessagesAdapter()).create();
+                //virtualView.forwardMsg(gson.toJson(inputHandler.getNextSelection()));
+                msgs.addAll(inputHandler.getNextSelection());
+                virtualView.forwardMsg(gson.toJson(msgs));
             }
         }
     }

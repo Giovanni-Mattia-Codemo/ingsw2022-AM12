@@ -19,7 +19,40 @@ public enum ControlMessages {
     GAMEHASNTSTARTED(12, "The game isn't ready yet"),
     INVALIDSELECTION(13, "Invalid selection"),
     ACTIONCOMPLETED(14, "Action completed successfully"),
-    ASSIGNEDNICK(15, "Your nick has been set");
+    ASSIGNEDNICK(15, "Your nick has been set"),
+    SELECTMAGE(16, "Select a mage"),
+    CHARACTERACTION(17, "To activate a character select it"),
+    BARDACTION(18, "To use the bard select:"),
+    CHARACTERCARD(19, " it's character card"),
+    BARDACTION1(20, " a student from the entrance."),
+    BARDACTION2(21, " the student to swap it with."),
+    DRAWFROMCLOUD(22, "To draw from a cloud select it."),
+    HAGACTION(23, "To use the Hag select:"),
+    COLORSELECTION(24, " a color."),
+    HERALDACTION(25, "To use the herald select:"),
+    HERALDACTION1(26, " an island to conquer."),
+    HERBALISTACTION(27, "To use the herbalist select:"),
+    HERBALISTACTION1(28, " select an available no entry token."),
+    HERBALISTACTION2(29, " select an island to place it on."),
+    JESTERACTION(30, "To use the jester select:"),
+    JESTERACTION1(31, " a student on the card."),
+    JESTERACTION2(32, " the student to swap in your entrance."),
+    MERCHANTACTION(33, "To use the merchant select: "),
+    MONKACTION(34, "To use the monk select:"),
+    MONKACTION1(35, " select the island to place it on."),
+    MOVEFROMENTRANCETODININGROOM(36, "To move a student from the entrance to a dining room select: "),
+    DININGROOM(37, " select the dining rooms."),
+    MOVEFROMENTRANCETOISLAND(38, "To move a student from the entrance to an island select: "),
+    MOVEFROMENTRANCETOISLAND2(39, " select the chosen island."),
+    MOVEMOTHERNATURE(40, "To move mother nature select: "),
+    MOVEMOTHERNATURE1(41, "the island with mother nature."),
+    MOVEMOTHERNATURE2(42, " select the island where you want to move her."),
+    PLAYASSISTANT(43, "Select an assistant"),
+    PRINCESSACTION(44, "To use the princess:"),
+    TURNENDED(45, "Your turn has ended"+ "\n"),
+    DISCONNECTION(46, "Game is closing because of a player disconnection");
+
+
 
     private final int value;
     private final String message;

@@ -38,15 +38,15 @@ public class HeraldAction extends PossibleAction {
      * @return string message
      */
     @Override
-    public String getUserSelectionsMessage() {
-        String msg = "";
-        msg = msg.concat("To use the herald:");
+    public ArrayList<ControlMessages> getUserSelectionsMessage() {
+        ArrayList<ControlMessages> messages = new ArrayList<>();
+        messages.add(ControlMessages.HERALDACTION);
         if(!score.containsKey(0)){
-            msg = msg.concat(" select the herald card.");
+            messages.add(ControlMessages.CHARACTERCARD);
         }else if(!score.containsKey(1)){
-            msg = msg.concat(" select an island to conquer.");
+            messages.add(ControlMessages.HERALDACTION1);
         }
-        return msg;
+        return messages;
     }
 
     /**

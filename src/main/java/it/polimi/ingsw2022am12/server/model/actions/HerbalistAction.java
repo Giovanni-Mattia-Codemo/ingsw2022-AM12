@@ -45,13 +45,13 @@ public class HerbalistAction extends PossibleAction {
         String msg = "";
         msg = msg.concat("To use the herbalist:");
         if (!score.containsKey(0)) {
-            msg = msg.concat(" it's character card.");
+            messages.add(ControlMessages.CHARACTERCARD);
         }else if(!score.containsKey(1)){
-            msg = msg.concat(" select an available no entry token.");
+            messages.add(ControlMessages.HERBALISTACTION1);
         }else if(!score.containsKey(2)){
-            msg = msg.concat(" select an island to place it on.");
+            messages.add(ControlMessages.HERBALISTACTION2);
         }
-        return msg;
+        return messages;
     }
 
     /**

@@ -301,6 +301,20 @@ public class ClientGame {
         return isLastRound;
     }
 
+    public ArrayList<Integer> getAvailableMages(){
+        ArrayList<Integer> availableMages = new ArrayList<>();
+        availableMages.add(0);
+        availableMages.add(1);
+        availableMages.add(2);
+        availableMages.add(3);
+        for(ClientSchoolBoard s:schoolBoards){
+            if(s.getMage()!=-1){
+                availableMages.removeIf(a->s.getMage()== a);
+            }
+        }
+        return availableMages;
+    }
+
     /**
      * getBoardStringToView uses the current values of the Game's attributes, and writes them all in a string
      *
