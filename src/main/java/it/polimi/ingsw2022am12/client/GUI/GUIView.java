@@ -55,7 +55,6 @@ public class GUIView implements View, Runnable{
     /*
     @Override
     public void start(Stage stage) throws IOException {
-        System.out.println("lanimaaa");
 
         System.out.println(activeScene);
 
@@ -122,53 +121,7 @@ public class GUIView implements View, Runnable{
         //INITIAL ISLAND SCENE
 
         /*
-        CircularPane islandLayout = new CircularPane();
-        String resource = null;
-        for(int i = 0; i < 11; i++) {
-            Button islandButton = new Button();
 
-            setMinWidth(1.0);
-            setMinHeight(1.0);
-            setMaxHeight(Double.MAX_VALUE);
-            setMaxWidth(Double.MAX_VALUE);
-            setBackground(Background.EMPTY);
-
-            switch(i)
-            { case 0 -> resource = Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/island1.png")).toString();
-              case 1 -> resource = Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/island2.png")).toString();
-              case 2 -> resource = Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/island3.png")).toString();
-              case 3 -> resource = Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/island1.png")).toString();
-              case 4 -> resource = Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/island2.png")).toString();
-              case 5 -> resource = Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/island3.png")).toString();
-              case 6 -> resource = Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/island1.png")).toString();
-              case 7 -> resource = Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/island2.png")).toString();
-              case 8 -> resource = Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/island3.png")).toString();
-              case 9 -> resource = Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/island1.png")).toString();
-              case 10 -> resource = Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/island2.png")).toString();
-              case 11 -> resource = Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/island3.png")).toString();
-              default -> {
-            }
-            }
-
-            if(resource!=null){
-            Image islandImage = new Image(resource);
-
-            ImageView img = new ImageView(islandImage);
-            setGraphic(img);
-            img.fitHeightProperty().bind(heightProperty());
-            img.fitWidthProperty().bind(widthProperty());
-
-            islandLayout.getChildren().add(islandButton);
-        }
-
-        Button changeScene = new Button("Back to SchoolBoard");
-        changeScene.setOnAction (e-> stage.setScene(scene));
-
-        Vbox vbox = new VBox();
-        vbox.getChildren().add(islandLayout, changeScene);
-
-
-        Scene islandScene = new Scene(vBox);
 
     }
 */

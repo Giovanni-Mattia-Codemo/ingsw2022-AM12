@@ -1,6 +1,5 @@
 package it.polimi.ingsw2022am12.client.GUI;
 
-import it.polimi.ingsw2022am12.DiskColor;
 import it.polimi.ingsw2022am12.client.Client;
 import it.polimi.ingsw2022am12.client.ClientInputHandler;
 import it.polimi.ingsw2022am12.client.model.ClientGame;
@@ -11,12 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-
-import java.security.Key;
-import java.security.KeyPair;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 public class SchoolBoardPane extends GridPane{
@@ -42,13 +36,6 @@ public class SchoolBoardPane extends GridPane{
     private GridPane greenRoom;
     private GridPane yellowRoom;
     private GridPane pinkRoom;
-    private Button redDining;
-    private Button blueDining;
-    private Button yellowDining;
-    private Button greenDining;
-    private Button pinkDining;
-    private int schoolColor;
-    private int mageColor;
 
     public SchoolBoardPane(String name,Client client){
         super();
@@ -109,11 +96,6 @@ public class SchoolBoardPane extends GridPane{
 
         ArrayList<ClientStudent> entranceStudents = new ArrayList<>(myGame.getSchoolBoardByNick(name).getEntrance().getStudents()) ;
         fillEntrance(entranceStudents);
-
-
-
-
-
 
 
         grid.hgapProperty().bind(this.widthProperty().divide(65));

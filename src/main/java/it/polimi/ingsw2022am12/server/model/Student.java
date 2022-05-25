@@ -24,9 +24,7 @@ public class Student extends PlaceableObject implements Selectable {
      * @param color of the student
      */
     public Student(DiskColor color){
-
         this.color = color;
-
     }
 
     /**

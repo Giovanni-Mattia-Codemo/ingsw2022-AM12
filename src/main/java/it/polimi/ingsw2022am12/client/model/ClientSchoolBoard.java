@@ -183,7 +183,6 @@ public class ClientSchoolBoard {
             }
         }
         assistants.removeAll(temp);
-
         playedAssistant = schoolBoard.getPlayedAssistant();
         towers = schoolBoard.getTowers();
         mage = schoolBoard.getMage();
