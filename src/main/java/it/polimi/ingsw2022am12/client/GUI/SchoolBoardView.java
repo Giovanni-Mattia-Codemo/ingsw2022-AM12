@@ -1,6 +1,8 @@
 package it.polimi.ingsw2022am12.client.GUI;
 
+import it.polimi.ingsw2022am12.client.Client;
 import it.polimi.ingsw2022am12.client.model.ClientGame;
+import it.polimi.ingsw2022am12.client.model.ClientSchoolBoard;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -14,23 +16,28 @@ public class SchoolBoardView extends ScrollPane{
 
     private ArrayList<SchoolBoardContainer> schools;
     private ClientGame myGame;
+    private Client client;
 
-    public SchoolBoardView(ClientGame myGame){
+    public SchoolBoardView(Client client){
         super();
+        this.myGame = client.getClientGame();
+        this.client = client;
         schools= new ArrayList<>();
         double schoolRatio = 0.4337708831;
         GridPane box = new GridPane();
+        ArrayList<ClientSchoolBoard>gameSchools= myGame.getSchoolBoards();
 
 
-        for(int i=0; i<4;i++){
 
+        for(int i=0; i<gameSchools.size();i++){
+            ClientSchoolBoard thisSchool = gameSchools.get(i);
             Label name = new Label();
             name.setMinSize(1.0,1.0);
             name.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-            name.setText("Wario"+i);
+            name.setText(thisSchool.getNick());
             box.addRow(i*2, name);
 
-            SchoolBoardContainer schoolBoard = new SchoolBoardContainer(myGame);
+            SchoolBoardContainer schoolBoard = new SchoolBoardContainer(thisSchool.getNick(),client);
             schools.add(schoolBoard);
 
             box.addRow((i*2)+1, schoolBoard);
@@ -44,6 +51,13 @@ public class SchoolBoardView extends ScrollPane{
         box.setAlignment(Pos.CENTER);
         setContent(box);
 
+    }
+    public void refresh(){
+        for (SchoolBoardContainer s:schools
+             ) {
+            s.refresh();
+
+        }
     }
 
 }

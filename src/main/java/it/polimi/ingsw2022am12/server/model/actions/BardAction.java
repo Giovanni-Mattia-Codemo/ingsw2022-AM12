@@ -31,6 +31,8 @@ public class BardAction extends PossibleAction {
         ArrayList<Selectable> character = new ArrayList<>();
         character.add(game.getActiveCharacterCard());
 
+
+
         selectables.put(0, character);
         selectables.put(1, tmp);
         selectables.put(2, game.getCurrentSchoolBoard().getDiningRoom().getStudentsAsSelectables());

@@ -45,7 +45,7 @@ public class ClientInputHandler {
                 client.forwardJson(result);
             }
             case "Student" -> {
-                if(tokens.length==1||tokens[1].equals("")){
+                if(tokens.length==1||tokens[1].equals("")||tokens.length == 2||tokens[2].equals("")){
                     System.out.println("Message incomplete, retry");
                     break;
                 }
@@ -56,13 +56,33 @@ public class ClientInputHandler {
                     System.out.println("Not a color, retry");
                     break;
                 }
+                int id = -1;
                 String name = client.getThisClientNick();
-                int id = client.getClientGame().getSchoolBoardByNick(name).getEntrance().getID();
+                if(tokens[2].equals("Entrance")){
+                    id = client.getClientGame().getSchoolBoardByNick(name).getEntrance().getID();
+
+                }else if(tokens[2].equals("DiningRoom")){
+                    id = client.getClientGame().getSchoolBoardByNick(name).getDiningRooms().getID();
+                }else{
+
+                    try{
+                        id = Integer.valueOf(tokens[2]);
+                    }catch(Exception e){
+                        System.out.println("Not a number, retry");
+                        break;
+                    }
+
+                }
+
+
+
                 ClientStudent clientStudent = new ClientStudent(color, id);
                 gson = new GsonBuilder().registerTypeAdapter(ClientStudent.class, new ClientStudentAdapter()).create();
                 result = gson.toJson(clientStudent);
                 client.forwardJson(result);
             }
+
+
             case "Assistant" -> {
                 if(tokens.length==1||tokens[1].equals("")){
                     System.out.println("Message incomplete, retry");

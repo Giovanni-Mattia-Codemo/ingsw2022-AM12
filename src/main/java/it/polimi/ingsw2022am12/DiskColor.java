@@ -4,11 +4,11 @@ package it.polimi.ingsw2022am12;
  * Class DiskColor contains the enumeration of the possible colors of the Students and Professors
  */
 public enum DiskColor {
-    RED(0),
-    YELLOW(1),
-    BLUE(2),
+    RED(1),
+    YELLOW(2),
+    BLUE(4),
     PINK(3),
-    GREEN(4);
+    GREEN(0);
 
     private final int value;
 
@@ -32,11 +32,11 @@ public enum DiskColor {
 
     public String getColor(int i){
         return switch(i){
-            case 0 -> "RED";
-            case 1 -> "YELLOW";
-            case 2 -> "BLUE";
+            case 1 -> "RED";
+            case 2 -> "YELLOW";
+            case 4 -> "BLUE";
             case 3 -> "PINK";
-            case 4 -> "GREEN";
+            case 0 -> "GREEN";
             default -> null;
         };
     }

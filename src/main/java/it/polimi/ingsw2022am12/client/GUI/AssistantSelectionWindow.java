@@ -1,5 +1,8 @@
 package it.polimi.ingsw2022am12.client.GUI;
 
+import it.polimi.ingsw2022am12.client.Client;
+import it.polimi.ingsw2022am12.client.ClientInputHandler;
+import it.polimi.ingsw2022am12.client.model.ClientAssistant;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -8,12 +11,14 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.stage.Modality;
 import javafx.scene.image.Image;
+
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class AssistantSelectionWindow implements Window {
 
     @Override
-    public void displayScene() {
+    public void displayScene(Client client, String nick) {
         Stage window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);
@@ -29,12 +34,13 @@ public class AssistantSelectionWindow implements Window {
 
 
         ToggleGroup assistants = new ToggleGroup();
-        int numOfAssistants = 10;
-        for(int i = 1; i<=numOfAssistants; i++){
+
+        ArrayList<ClientAssistant>assistantList = client.getClientGame().getSchoolBoardByNick(nick).getAssistants();
+        for(ClientAssistant s : assistantList){
             ToggleButton assistantButton = new ToggleButton();
             Image assistant = null;
 
-            switch (i){
+            switch (s.getTurnPower()){
                 case 1->assistant = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/Assistente (1).png")).toString());
                 case 2->assistant = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/Assistente (2).png")).toString());
                 case 3->assistant = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/Assistente (3).png")).toString());
@@ -57,10 +63,10 @@ public class AssistantSelectionWindow implements Window {
             assistantButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
             assistantButton.setToggleGroup(assistants);
-            assistantButton.getProperties().put ("id", i);
+            assistantButton.getProperties().put ("id", s.getTurnPower());
             assistantsLayout.getChildren().add(assistantButton);
             assistantButton.prefHeightProperty().bind(assistantButton.widthProperty().multiply(1.44));
-            assistantButton.prefWidthProperty().bind(assistantsLayout.widthProperty().divide(numOfAssistants));
+            assistantButton.prefWidthProperty().bind(assistantsLayout.widthProperty().divide(assistantList.size()));
 
             HBox.setHgrow(assistantButton, Priority.ALWAYS);
 
@@ -71,7 +77,9 @@ public class AssistantSelectionWindow implements Window {
 
         Button selection = new Button("select");
         selection.setOnAction(e-> {if(assistants.getSelectedToggle()!=null){
-                    System.out.println("Assistant "+assistants.getSelectedToggle().getProperties().get("id"));}
+                    ClientInputHandler.handle("Assistant "+assistants.getSelectedToggle().getProperties().get("id"), client);
+                    window.close();
+        }
             else System.out.println("Null value");
         });//clientInputHandler.handle("Assistant "+assistants.getSelectedToggle().getProperties().get("id")));
 

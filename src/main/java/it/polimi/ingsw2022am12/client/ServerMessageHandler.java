@@ -81,6 +81,7 @@ public class ServerMessageHandler implements Runnable {
                     gson = new GsonBuilder().registerTypeAdapter(ClientGame.class, new GameStateAdapter()).create();
                     ClientGame tmp = gson.fromJson(res, ClientGame.class);
                     client.updateLastSavedGame(tmp);
+                    System.out.println("Got a game");
                     //client.updateGameState(new UpdateFlag(Flag.FULLGAME));
                     break;
 
@@ -88,6 +89,7 @@ public class ServerMessageHandler implements Runnable {
                     res = gson.toJson(map);
                     gson = new GsonBuilder().registerTypeAdapterFactory(new UpdateFlagAdapterFactory()).create();
                     UpdateFlag flag = gson.fromJson(res, UpdateFlag.class);
+                    System.out.println("updating a game");
                     client.updateGameState(flag);
                     break;
 

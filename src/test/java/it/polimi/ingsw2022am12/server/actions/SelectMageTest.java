@@ -1,5 +1,6 @@
 package it.polimi.ingsw2022am12.server.actions;
 
+import it.polimi.ingsw2022am12.server.controller.ControlMessages;
 import it.polimi.ingsw2022am12.server.model.Game;
 import it.polimi.ingsw2022am12.server.model.Mage;
 import it.polimi.ingsw2022am12.server.model.Selectable;
@@ -29,7 +30,7 @@ public class SelectMageTest {
         nicks.add("Nick2");
         Game testGame = new Game(nicks, false);
         testGame.setUp();
-        Assertions.assertEquals("To select a mage pick one.",testMove.getUserSelectionsMessage());
+        Assertions.assertEquals(ControlMessages.SELECTMAGE,testMove.getUserSelectionsMessage().get(0));
 
         ArrayList<Selectable> input = new ArrayList<>();
         Selectable mage = testGame.getAvailableMages().get(0);

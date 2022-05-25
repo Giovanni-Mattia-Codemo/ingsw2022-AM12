@@ -23,6 +23,7 @@ public class GUIView implements View, Runnable{
     private Client client;
     private Scene tryAgainLater, tryAnother;
     private Scene schoolBoardScene, pickMageScene;
+    private SchoolBoardView mySchools;
     private Scene initialScene, nickInputScene, gameSettingsScene, waitingQueueScene, gameIsFullScene;
     private Stage primary;
     private String update;
@@ -69,7 +70,8 @@ public class GUIView implements View, Runnable{
         /*
               Button checkIsland = new Button("Go to Islands");
               checkIsland.SetOnAction(e-> stage.setScene(islandScene);
-
+        */
+    /*
         box.getChildren().addAll(schools, state);
 
         Scene scene = new Scene(box);
@@ -260,22 +262,95 @@ public class GUIView implements View, Runnable{
        if(myGame == null){
            myGame = game;
        }else{
-
+            switch (flag.getFlag()){
+                case FULLGAME -> Platform.runLater(()->refreshAll());
+                case SCHOOL -> Platform.runLater(()->refreshAll());
+                default -> Platform.runLater(()->refreshAll());
+            }
        }
+    }
+
+    public void refreshAll(){
+        mySchools.refresh();
     }
 
     @Override
     public void viewControlMessages(ArrayList<ControlMessages> msg) {
+        for(ControlMessages message: msg) {
+            switch (message) {
+                case REQUESTINGNICK: {
+                    try {
+                        TimeUnit.SECONDS.sleep(3);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    Platform.runLater(() -> primary.setScene(nickInputScene));
+                    firstTime = false;
+                    break;
+                }
+                case INSERTMODE: {
+                    Platform.runLater(() -> primary.setScene(gameSettingsScene));
+                    break;
+                }
+                case GAMEISBEINGCREATED: {
+                    if (firstTime) {
+                        try {
+                            TimeUnit.SECONDS.sleep(3);
+                            firstTime = false;
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    Platform.runLater(() -> primary.setScene(tryAgainLater));
+                    break;
+                }
+                case RETRY: {
+                    Platform.runLater(() -> primary.setScene(tryAnother));
+                    break;
+                }
+                case ASSIGNEDNICK: {
+                    System.out.println("Your nick has been set");
+                    break;
+                }
+                case WAITINGFORPLAYERS: {
+                    Platform.runLater(() -> primary.setScene(waitingQueueScene));
+                    break;
+                }
+                case SELECTMAGE: {
+                    System.out.println("In select mage");
+                    Platform.runLater(() -> {
+                        setPickMageScene();
+                        primary.setScene(pickMageScene);
+                    });
+                    break;
+                }
+                case MATCHMAKINGCOMPLETE: {
+                    //SchoolBoard setup logic
+                    Platform.runLater(()-> {
+                                setSchoolScene();
+                                //setIslandScene();
+                            });
 
-    }
 
-    private void handleUpdates(){
-        if(update!=null){
-            System.out.println("my update:"+ update);
-            update = null;
-            primary.setScene(schoolBoardScene);
+                    System.out.println("Starting match");
+                    break;
+                }
+                case GAMEISFULL: {
+                    Platform.runLater(() -> primary.setScene(gameIsFullScene));
+                    break;
+                }
+                case PLAYASSISTANT:{
+                    //Platform.runLater(()->primary.setScene(schoolBoardScene));
+                }
+
+                default:
+                    System.out.println(message.getMessage());
+                    break;
+            }
         }
     }
+
+
 
     private void setTryAgain(){
         VBox pane = new VBox();
@@ -287,6 +362,28 @@ public class GUIView implements View, Runnable{
         pane.getChildren().addAll(tryAnother, close);
         pane.setAlignment(Pos.CENTER);
         tryAgainLater = new Scene(pane, 400, 300);
+    }
+
+    private void setIslandScene(){
+
+    }
+
+    private void setSchoolScene(){
+        SchoolBoardView schools = new SchoolBoardView(client);
+        mySchools = schools;
+        HBox box = new HBox();
+        GameStateView state = new GameStateView();
+        /*
+              Button checkIsland = new Button("Go to Islands");
+              checkIsland.SetOnAction(e-> stage.setScene(islandScene);
+        */
+
+        box.getChildren().addAll(schools, state);
+        state.prefWidthProperty().bind(box.widthProperty().multiply(0.2));
+        schools.prefWidthProperty().bind(box.widthProperty().multiply(0.8));
+        HBox.setHgrow(state, Priority.NEVER);
+        HBox.setHgrow(schools, Priority.NEVER);
+        schoolBoardScene = new Scene(box);
     }
 
     private void setTryAnother(){
@@ -347,7 +444,11 @@ public class GUIView implements View, Runnable{
 
     private void setPickMageScene(){
         System.out.println("In pick mage");
-        pickMageScene = new Scene(new MageSelectionPane(client), 400, 300);
+        pickMageScene = new Scene(new MageSelectionPane(client, this), 400, 300);
+    }
+
+    public void enterGameScene(){
+        primary.setScene(schoolBoardScene);
     }
 
 }

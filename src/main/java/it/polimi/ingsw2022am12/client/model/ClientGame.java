@@ -1,6 +1,7 @@
 package it.polimi.ingsw2022am12.client.model;
 
 import it.polimi.ingsw2022am12.*;
+import it.polimi.ingsw2022am12.server.model.SchoolBoard;
 import it.polimi.ingsw2022am12.updateFlag.Flag;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlag;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlagCharacter;
@@ -293,12 +294,20 @@ public class ClientGame {
         return professors;
     }
 
+    public ArrayList<ClientSchoolBoard> getSchoolBoards(){
+        return schoolBoards;
+    }
+
     /**
      * Getter method for isLastRound
      * @return boolean isLastRound
      */
     public boolean isLastRound() {
         return isLastRound;
+    }
+
+    public ArrayList<ClientTeam> getTeams() {
+        return teams;
     }
 
     public ArrayList<Integer> getAvailableMages(){
@@ -313,6 +322,10 @@ public class ClientGame {
             }
         }
         return availableMages;
+    }
+
+    public boolean isCharacterMode() {
+        return mode;
     }
 
     /**

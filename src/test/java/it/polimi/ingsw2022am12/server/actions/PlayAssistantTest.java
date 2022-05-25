@@ -1,5 +1,6 @@
 package it.polimi.ingsw2022am12.server.actions;
 
+import it.polimi.ingsw2022am12.server.controller.ControlMessages;
 import it.polimi.ingsw2022am12.server.model.Assistant;
 import it.polimi.ingsw2022am12.server.model.Game;
 import it.polimi.ingsw2022am12.server.model.Selectable;
@@ -28,7 +29,7 @@ public class PlayAssistantTest {
         nicks.add("Nick2");
         Game testGame = new Game(nicks, false);
         testGame.setUp();
-        Assertions.assertEquals("To play an assistant select one.",testMove.getUserSelectionsMessage());
+        Assertions.assertEquals(ControlMessages.PLAYASSISTANT,testMove.getUserSelectionsMessage().get(0));
 
         ArrayList<Selectable> input = new ArrayList<>();
         Selectable assistantToPlay = testGame.getCurrentSchoolBoard().getPlayableAssistants().get(0);

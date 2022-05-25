@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import it.polimi.ingsw2022am12.ControlMessagesAdapter;
 import it.polimi.ingsw2022am12.NickInputAdapter;
+import it.polimi.ingsw2022am12.updateFlag.Flag;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlag;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlagAdapterFactory;
 import it.polimi.ingsw2022am12.NickInput;
@@ -152,6 +153,7 @@ public class Controller {
                     //v.forwardMsg(ControlMessages.ACCEPTED.getMessage());
                     messages.add(ControlMessages.ACCEPTED);
                     v.forwardMsg(gson.toJson(messages));
+
                     updateViewsOfStatus();
                 } else {
                     //v.forwardMsg(ControlMessages.INVALIDVALUES.getMessage());
@@ -236,6 +238,14 @@ public class Controller {
             myGame.setUp();
             System.out.println("Game is up");
             inputHandler = new InputHandler(myGame);
+            Gson gson = new GsonBuilder().registerTypeAdapter(Game.class, new GameAdapter()).create();
+            String gameState = gson.toJson(myGame);
+            updateAllViews(gameState);
+            gson = new GsonBuilder().registerTypeAdapterFactory(new UpdateFlagAdapterFactory()).create();
+                UpdateFlag f = new UpdateFlag(Flag.FULLGAME);
+                String res = gson.toJson(f);
+                updateAllViews(res);
+
             updateViewsOfStatus();
             notifyNextPlayerOfSel();
             return;
