@@ -15,8 +15,18 @@ import javafx.scene.image.Image;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * AssistantSelectionWindow is the class that creates the window through which we display a scene for the selection of
+ * an Assistant
+ */
 public class AssistantSelectionWindow implements Window {
 
+    /**
+     * displayScene method creates the new window and the new scene for the assistant's selection
+     *
+     * @param client the client that needs the window to open
+     * @param nick nickname of the player
+     */
     @Override
     public void displayScene(Client client, String nick) {
         Stage window = new Stage();
@@ -92,11 +102,19 @@ public class AssistantSelectionWindow implements Window {
 
     }
 
+    /**
+     * closeProgram is the method associated to the "close window" button
+     *
+     * @param window the stage I want to close
+     */
     private void closeProgram(Stage window) {
         window.close();
     }
 
 
+    /**
+     * displayConfirmScene creates a popup to confirm the selection of the Assistant
+     */
     @Override
     public void displayConfirmScene() {
         Stage window = new Stage();
@@ -128,6 +146,9 @@ public class AssistantSelectionWindow implements Window {
 
     }
 
+    /**
+     * closeAfterSelection method keeps the game going after the selection of an Available assistant
+     */
     @Override
     public void closeAfterSelection() {
 

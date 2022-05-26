@@ -5,8 +5,14 @@ import javafx.scene.Node;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 
+/**
+ * CircularPane defines a custom type of Pane that is used to display the islands in the GUI View
+ */
 public class CircularPane extends Pane {
 
+    /**
+     * layoutChildren defines mathematically the position of children inside the layout
+     */
     @Override
     protected void layoutChildren() {
 

@@ -11,8 +11,14 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 
+/**
+ * IslandPane creates the layout to visualize the islands in circle, being a child of the CircularPane class
+ */
 public class IslandPane extends CircularPane{
 
+    /**
+     * Constructor of the IslandPane class
+     */
     public IslandPane() {
         super();
         String resource = null;
@@ -63,6 +69,11 @@ public class IslandPane extends CircularPane{
         }
     }
 
+    /**
+     * Used to test how the islands will appear on the table
+     *
+     * @param args parameters from command line
+     */
     public static void main(String[] args) {
         Platform.startup(()->{
             Stage stage = new Stage();
