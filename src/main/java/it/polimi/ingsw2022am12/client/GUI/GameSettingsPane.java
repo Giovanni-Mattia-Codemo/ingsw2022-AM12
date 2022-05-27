@@ -10,9 +10,17 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
-
+/**
+ * GameSettingsPane creates a special window that appears at the beginning of the Game, and allows the first connected player
+ * to select the settings of the match
+ */
 public class GameSettingsPane extends VBox {
 
+    /**
+     * Constructor method of GameSettingsPane
+     *
+     * @param client the chosen client (client of the first player)
+     */
     public GameSettingsPane(Client client){
         super();
         Label playersNumLabel = new Label("Enter the number of players for the match (2-4)");
