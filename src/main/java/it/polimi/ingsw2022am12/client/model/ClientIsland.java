@@ -1,5 +1,7 @@
 package it.polimi.ingsw2022am12.client.model;
 
+import it.polimi.ingsw2022am12.DiskColor;
+
 /**
  * ClientIsland represents an Island tile from the client's side
  */
@@ -58,6 +60,10 @@ public class ClientIsland {
      */
     public ClientStudentCollection getStudents() {
         return students;
+    }
+
+    public int getIslandStudentsOfColor(DiskColor color){
+        return students.getByColor(color);
     }
 
     /**

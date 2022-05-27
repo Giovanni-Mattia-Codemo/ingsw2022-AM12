@@ -45,4 +45,5 @@ public class GameSettingsPane extends VBox {
         setAlignment(Pos.CENTER);
         getChildren().addAll(playersNumLabel,playersNum,modalityLabel, modality, submit);
     }
+
 }

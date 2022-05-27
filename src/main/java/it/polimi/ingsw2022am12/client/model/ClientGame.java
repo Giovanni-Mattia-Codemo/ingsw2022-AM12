@@ -193,6 +193,10 @@ public class ClientGame {
         return  null;
     }
 
+    public ArrayList<ClientIsland> getIslands() {
+        return islands;
+    }
+
     /**
      * Method that iterates on the array list of ClientIslands and returns an island if the ids match, else returns
      * null, if it can't find a match

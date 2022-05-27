@@ -575,10 +575,6 @@ public class SchoolBoardPane extends GridPane{
 
                 }
 
-
-
-
-
             StudentButton student = null;
             ClientStudent realStudent = null;
             for (ClientStudent s : diningStudents) {

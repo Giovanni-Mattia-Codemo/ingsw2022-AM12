@@ -85,6 +85,10 @@ public class ClientStudentCollection {
         return stringStudents;
     }
 
+    public int getByColor(DiskColor color){
+        return (int) this.students.stream().filter(x->x.getColor()==color).count();
+    }
+
     /**
      * updateFromCollection updates a current collection using the data from a new one
      *

@@ -81,11 +81,7 @@ public class StudentButton extends Button{
 
     public void refresh(){
         setStudentColor(myStudent.getColor());
-        if (color == null){
-            setDisabled(true);
-        }else{
-            setDisabled(false);
-        }
+        setDisabled(color == null);
     }
 
 }

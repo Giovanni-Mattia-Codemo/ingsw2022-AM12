@@ -4,11 +4,13 @@ package it.polimi.ingsw2022am12;
  * Class DiskColor contains the enumeration of the possible colors of the Students and Professors
  */
 public enum DiskColor {
+    GREEN(0),
     RED(1),
     YELLOW(2),
-    BLUE(4),
     PINK(3),
-    GREEN(0);
+    BLUE(4);
+
+
 
     private final int value;
 

@@ -22,12 +22,13 @@ public class GUIView implements View, Runnable{
     private ClientGame myGame;
     private Client client;
     private Scene tryAgainLater, tryAnother;
-    private Scene schoolBoardScene, pickMageScene;
+    private Scene schoolBoardScene, islandScene, pickMageScene;
     private SchoolBoardView mySchools;
     private Scene initialScene, nickInputScene, gameSettingsScene, waitingQueueScene, gameIsFullScene;
     private Stage primary;
     private String update;
     boolean firstTime = true;
+    private IslandListPane myIslands;
 
 
 
@@ -50,82 +51,6 @@ public class GUIView implements View, Runnable{
 
         this.client = client;
     }
-
-
-    /*
-    @Override
-    public void start(Stage stage) throws IOException {
-
-        System.out.println(activeScene);
-
-        stage.setScene(activeScene);
-        this.stage = stage;
-        stage.show();
-        System.out.println(activeScene);
-        /*
-        SchoolBoardView schools = new SchoolBoardView(myGame);
-        HBox box = new HBox();
-        GameStateView state = new GameStateView();
-        /*
-              Button checkIsland = new Button("Go to Islands");
-              checkIsland.SetOnAction(e-> stage.setScene(islandScene);
-        */
-    /*
-        box.getChildren().addAll(schools, state);
-
-        Scene scene = new Scene(box);
-        stage.setScene(scene);
-
-        stage.setResizable(true);
-        stage.show();
-
-
-
-        schools= new ArrayList<>();
-        double schoolRatio = 0.4337708831;
-        GridPane box = new GridPane();
-        ScrollPane scroll = new ScrollPane(box);
-        Scene scene = new Scene(scroll, 800, 600);
-
-        for(int i=0; i<4;i++){
-
-            Label name = new Label();
-            name.setMinSize(1.0,1.0);
-            name.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-            name.setText("Wario"+i);
-            box.addRow(i*2, name);
-
-            SchoolBoardContainer schoolBoard = new SchoolBoardContainer();
-            schools.add(schoolBoard);
-
-            box.addRow((i*2)+1, schoolBoard);
-
-            schoolBoard.prefWidthProperty().bind(Bindings.min(scroll.widthProperty(),scroll.heightProperty().divide(schoolRatio)));
-
-            schoolBoard.prefHeightProperty().bind(Bindings.min(scroll.widthProperty().multiply(schoolRatio),scroll.heightProperty()));
-
-        }
-
-        box.setGridLinesVisible(true);
-        box.setAlignment(Pos.CENTER);
-
-
-        stage.setMinWidth(0);
-        stage.setScene(scene);
-
-        stage.setResizable(true);
-        stage.show();
-         */
-
-
-        //INITIAL ISLAND SCENE
-
-        /*
-
-
-    }
-*/
-
 
     @Override
     public void run() {
@@ -225,6 +150,7 @@ public class GUIView implements View, Runnable{
 
     public void refreshAll(){
         mySchools.refresh();
+        myIslands.refresh();
     }
 
     @Override
@@ -281,7 +207,6 @@ public class GUIView implements View, Runnable{
                     //SchoolBoard setup logic
                     Platform.runLater(()-> {
                                 setSchoolScene();
-                                //setIslandScene();
                             });
 
 
@@ -294,6 +219,7 @@ public class GUIView implements View, Runnable{
                 }
                 case PLAYASSISTANT:{
                     //Platform.runLater(()->primary.setScene(schoolBoardScene));
+
                 }
 
                 default:
@@ -318,10 +244,14 @@ public class GUIView implements View, Runnable{
     }
 
     private void setIslandScene(){
-
+        myIslands = new IslandListPane(client);
+        islandScene = new Scene(myIslands, 800, 600);
+        myIslands.maxHeightProperty().bind(islandScene.heightProperty());
+        myIslands.maxWidthProperty().bind(islandScene.widthProperty());
     }
 
     private void setSchoolScene(){
+        setIslandScene();
         SchoolBoardView schools = new SchoolBoardView(client);
         mySchools = schools;
         HBox box = new HBox();
@@ -330,7 +260,11 @@ public class GUIView implements View, Runnable{
               Button checkIsland = new Button("Go to Islands");
               checkIsland.SetOnAction(e-> stage.setScene(islandScene);
         */
-
+        state.getToIslands().setOnAction(e->{
+            Platform.runLater(()-> {
+                primary.setScene(islandScene);
+            });
+        });
         box.getChildren().addAll(schools, state);
         state.prefWidthProperty().bind(box.widthProperty().multiply(0.2));
         schools.prefWidthProperty().bind(box.widthProperty().multiply(0.8));

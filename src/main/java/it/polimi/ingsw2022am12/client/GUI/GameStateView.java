@@ -1,5 +1,6 @@
 package it.polimi.ingsw2022am12.client.GUI;
 
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -14,6 +15,7 @@ public class GameStateView extends Pane {
     private final Label round;
     private final Label turn;
     private final Label turnOrder;
+    private Button toIslands;
 
     /**
      * Constructor method of GameStateView
@@ -27,9 +29,13 @@ public class GameStateView extends Pane {
         turn.setText("Turn 0");
         turnOrder = new Label();
         turnOrder.setText("Not yet defined");
-
-        box.getChildren().addAll(round, turn, turnOrder);
+        toIslands = new Button("To islands");
+        box.getChildren().addAll(round, turn, turnOrder, toIslands);
         getChildren().add(box);
+    }
+
+    public Button getToIslands() {
+        return toIslands;
     }
 
     /**
@@ -61,6 +67,5 @@ public class GameStateView extends Pane {
             text = text.concat(s+"\t");
         }
         this.turnOrder.setText("The player order for this round is: "+text);
-
     }
 }

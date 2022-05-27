@@ -170,7 +170,7 @@ public class IslandTileList {
     /**
      * Method updateIslandIDs sets new IDs for my islands
      */
-    public void updateIslandIDs(){
+    private void updateIslandIDs(){
         for(IslandTileSet i: islands){
             i.setID(islands.indexOf(i));
         }
