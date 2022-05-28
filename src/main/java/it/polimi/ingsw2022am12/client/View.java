@@ -11,14 +11,6 @@ import java.util.ArrayList;
  */
 public interface View {
 
-    /**
-     * viewMessage visualizes a message on a certain view
-     *
-     * @param message the message I want to visualise
-     */
-    void viewMessage(String message);
-
-
     void viewControlMessages(ArrayList<ControlMessages> msg);
 
     /**

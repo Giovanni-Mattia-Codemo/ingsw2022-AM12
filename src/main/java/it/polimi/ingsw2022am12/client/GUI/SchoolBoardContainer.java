@@ -1,7 +1,6 @@
 package it.polimi.ingsw2022am12.client.GUI;
 
 import it.polimi.ingsw2022am12.client.Client;
-import it.polimi.ingsw2022am12.client.model.ClientGame;
 import javafx.beans.binding.Bindings;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -9,18 +8,18 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
+import java.util.Objects;
+
 public class SchoolBoardContainer extends GridPane {
-    private String nick;
-    private Client client;
-    private Button deck;
-    private ClientGame myGame;
-    private SchoolBoardPane school;
-    private GridPane assistantPanel;
-    private Button lastPlayedAssistant;
+    private final String nick;
+    private final Client client;
+    private final Button deck;
+    private final SchoolBoardPane school;
+    private final Button lastPlayedAssistant;
+    boolean mageIsUpToDate = false;
 
     public SchoolBoardContainer(String nick, Client client){
         super();
-        myGame= client.getClientGame();
         this.client = client;
         this.nick = nick;
         this.setBackground(Background.fill(Color.BLUE));
@@ -49,9 +48,7 @@ public class SchoolBoardContainer extends GridPane {
         addColumn(0,school);
 
 
-
-
-        assistantPanel = new GridPane();
+        GridPane assistantPanel = new GridPane();
 
         RowConstraints temp1 = new RowConstraints();
         temp1.setVgrow(Priority.ALWAYS);
@@ -99,10 +96,6 @@ public class SchoolBoardContainer extends GridPane {
         assistantPanel.getColumnConstraints().add(temp);
 
 
-        assistantPanel.setGridLinesVisible(true);
-
-
-
         lastPlayedAssistant = new Button();
         lastPlayedAssistant.setVisible(false);
         lastPlayedAssistant.setMinSize(1.0, 1.0);
@@ -121,70 +114,66 @@ public class SchoolBoardContainer extends GridPane {
         deck.setMinSize(1.0,1.0);
         deck.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
-        if(client.getThisClientNick().equals(nick)){
-            deck.setOnAction(e->new AssistantSelectionWindow().displayScene(client, nick));
-        }
         updateMage();
         assistantPanel.add(deck, 1,2);
 
 
-        addColumn(1,assistantPanel);
+        addColumn(1, assistantPanel);
 
         school.prefWidthProperty().bind(Bindings.min(this.widthProperty(),this.heightProperty().divide(schoolRatio)));
 
         school.prefHeightProperty().bind(Bindings.min(this.widthProperty().multiply(schoolRatio),this.heightProperty()));
     }
 
-    public void updateGame(ClientGame clientGame){
-        this.myGame = clientGame;
-    }
-
     public void refresh() {
         school.refresh();
         updatePlayedAssistant();
-        updateMage();
+        if(!mageIsUpToDate){
+            updateMage();
+        }
     }
 
     private void updateMage(){
 
         Image back = null;
-        int mageNumber = myGame.getSchoolBoardByNick(nick).getMage();
+        int mageNumber = client.getClientGame().getSchoolBoardByNick(nick).getMage();
         switch (mageNumber){
-            case 0->back = new Image(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/CarteTOT_back_1@3x.png").toString());
-            case 1->back = new Image(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/CarteTOT_back_11@3x.png").toString());
-            case 2->back = new Image(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/CarteTOT_back_21@3x.png").toString());
-            case 3->back = new Image(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/CarteTOT_back_31@3x.png").toString());
-            default -> {}
+            case 0->back = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/CarteTOT_back_1@3x.png")).toString());
+            case 1->back = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/CarteTOT_back_11@3x.png")).toString());
+            case 2->back = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/CarteTOT_back_21@3x.png")).toString());
+            case 3->back = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/CarteTOT_back_31@3x.png")).toString());
+            default -> {return;}
         }
         ImageView backView = new ImageView(back);
         backView.fitHeightProperty().bind(deck.heightProperty());
         backView.fitWidthProperty().bind(deck.widthProperty());
         deck.setGraphic(backView);
+        mageIsUpToDate = true;
     }
 
     private void updatePlayedAssistant(){
         Image assistant = null;
 
-        int assistantNumber = myGame.getSchoolBoardByNick(nick).getPlayedAssistant();
+        int assistantNumber = client.getClientGame().getSchoolBoardByNick(nick).getPlayedAssistant();
 
         switch (assistantNumber) {
-            case 1 -> assistant = new Image(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/Assistente (1).png").toString());
-            case 2 -> assistant = new Image(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/Assistente (2).png").toString());
-            case 3 -> assistant = new Image(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/Assistente (3).png").toString());
-            case 4 -> assistant = new Image(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/Assistente (4).png").toString());
-            case 5 -> assistant = new Image(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/Assistente (5).png").toString());
-            case 6 -> assistant = new Image(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/Assistente (6).png").toString());
-            case 7 -> assistant = new Image(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/Assistente (7).png").toString());
-            case 8 -> assistant = new Image(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/Assistente (8).png").toString());
-            case 9 -> assistant = new Image(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/Assistente (9).png").toString());
-            case 10 -> assistant = new Image(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/Assistente (10).png").toString());
+            case 1 -> assistant = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/Assistente (1).png")).toString());
+            case 2 -> assistant = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/Assistente (2).png")).toString());
+            case 3 -> assistant = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/Assistente (3).png")).toString());
+            case 4 -> assistant = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/Assistente (4).png")).toString());
+            case 5 -> assistant = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/Assistente (5).png")).toString());
+            case 6 -> assistant = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/Assistente (6).png")).toString());
+            case 7 -> assistant = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/Assistente (7).png")).toString());
+            case 8 -> assistant = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/Assistente (8).png")).toString());
+            case 9 -> assistant = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/Assistente (9).png")).toString());
+            case 10 -> assistant = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/Assistente (10).png")).toString());
             default -> {
             }
         }
         if (assistant != null) {
             ImageView assistantView = new ImageView(assistant);
-            lastPlayedAssistant.setGraphic(assistantView);
             lastPlayedAssistant.setVisible(true);
+            lastPlayedAssistant.setGraphic(assistantView);
             assistantView.fitHeightProperty().bind(lastPlayedAssistant.heightProperty());
             assistantView.fitWidthProperty().bind(lastPlayedAssistant.widthProperty());
 

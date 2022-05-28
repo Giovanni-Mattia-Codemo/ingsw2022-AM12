@@ -101,15 +101,6 @@ public class Client {
         timer.schedule(pingTimerTask, 3000, 3000);
     }
 
-    /**
-     * showServerMessage prints the message from the server, then flushes the output
-     *
-     * @param message from the server
-     */
-    public void showServerMessage(String message){
-        view.viewMessage(message);
-    }
-
     public void controlMessageToView(ArrayList<ControlMessages> msg){
         view.viewControlMessages(msg);
     }
@@ -138,7 +129,6 @@ public class Client {
     }
 
     public void updateLastSavedGame(ClientGame newGame){
-        System.out.println("Updating last saved game");
         newClientGame = newGame;
     }
 

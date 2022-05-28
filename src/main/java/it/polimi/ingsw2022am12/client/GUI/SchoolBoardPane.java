@@ -56,7 +56,7 @@ public class SchoolBoardPane extends GridPane{
         Double borderRowPerc = 5.0;
 
         grid = new GridPane();
-        grid.setGridLinesVisible(true);
+        //grid.setGridLinesVisible(true);
         RowConstraints temp = new RowConstraints();
         temp.setVgrow(Priority.ALWAYS);
         temp.setFillHeight(true);
@@ -187,7 +187,7 @@ public class SchoolBoardPane extends GridPane{
             students.setMinSize(1.0, 1.0);
             room.setMinSize(1.0, 1.0);
 
-            students.setGridLinesVisible(true);
+            //students.setGridLinesVisible(true);
         /*
             roomButton.setBackground(Background.EMPTY);
             roomButton.setOnAction(e-> System.out.println("ROOM BUTTON"));
@@ -228,7 +228,7 @@ public class SchoolBoardPane extends GridPane{
 
         diningRoom.hgapProperty().bind(this.widthProperty().divide(250));
         diningRoom.vgapProperty().bind(this.heightProperty().divide(16));
-        diningRoom.setGridLinesVisible(true);
+        //diningRoom.setGridLinesVisible(true);
         diningRoom.setMinSize(1,1);
         diningRoom.prefHeightProperty().bind(this.heightProperty());
         diningRoom.prefWidthProperty().bind(this.widthProperty().multiply(0.55));
@@ -288,7 +288,7 @@ public class SchoolBoardPane extends GridPane{
 
         professors.hgapProperty().bind(this.widthProperty().divide(200));
         professors.vgapProperty().bind(this.heightProperty().divide(16));
-        professors.setGridLinesVisible(true);
+        //professors.setGridLinesVisible(true);
         professors.setMinSize(1.0,1.0);
         professors.prefHeightProperty().bind(this.heightProperty());
         professors.prefWidthProperty().bind(this.widthProperty().multiply(0.07));
@@ -342,7 +342,7 @@ public class SchoolBoardPane extends GridPane{
 
         towers.hgapProperty().bind(this.widthProperty().divide(55));
         towers.vgapProperty().bind(this.heightProperty().divide(28));
-        towers.setGridLinesVisible(true);
+        //towers.setGridLinesVisible(true);
 
         towers.setMinSize(1,1);
         towers.prefHeightProperty().bind(this.heightProperty());
@@ -357,7 +357,7 @@ public class SchoolBoardPane extends GridPane{
         Background background = new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, bSize));
         this.setBackground(background);
 
-        this.setGridLinesVisible(true);
+        //this.setGridLinesVisible(true);
         GridPane.setFillHeight(this, true);
         GridPane.setFillWidth(this, true);
         double h = image.getHeight()/5;
@@ -376,6 +376,7 @@ public class SchoolBoardPane extends GridPane{
     public void refresh(){
 
         fillEntrance(myGame.getSchoolBoardByNick(name).getEntrance().getStudents());
+        System.out.println(myGame.getSchoolBoardByNick(name).getEntrance().getStudents().size());
 
         for (StudentButton b:entrance
              ) {
@@ -385,14 +386,15 @@ public class SchoolBoardPane extends GridPane{
         fillDiningRoom();
 
         fillTowers();
+
         for(int i=0; i<5; i++){
             ArrayList<StudentButton> studentButtons = null;
             switch (i+1){
                 case 1->{ studentButtons = greenDiningStudents;  }
-                case 2->{studentButtons =  redDiningStudents; }
+                case 2->{ studentButtons =  redDiningStudents; }
                 case 3->{ studentButtons = yellowDiningStudents;  }
                 case 4->{ studentButtons =  pinkDiningStudents ;}
-                case 5-> {studentButtons = blueDiningStudents  ;}
+                case 5->{ studentButtons = blueDiningStudents  ;}
             }
             for(StudentButton s: studentButtons){
                 s.refresh();
@@ -441,7 +443,8 @@ public class SchoolBoardPane extends GridPane{
                     }
                 }
                 if(found!=null){
-                    professors.getChildren().remove(1,i+1);
+                    //professors.getChildren().remove(1,i+1); //?
+                    professors.getChildren().remove(found);
                     professorButtons.remove(found);
                 }
             }

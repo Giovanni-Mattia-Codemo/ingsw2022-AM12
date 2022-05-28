@@ -15,16 +15,6 @@ import java.util.ArrayList;
 public class CLIView implements View {
 
     /**
-     * viewMessage visualizes particular messages in the command line of the client
-     *
-     * @param message the message that must be shown to the client
-     */
-    @Override
-    public void viewMessage(String message) {
-        System.out.println(message);
-    }
-
-    /**
      * updateGameView prints a string that visualizes the changes in the current game state
      *
      * @param game the state of the current game
@@ -38,7 +28,6 @@ public class CLIView implements View {
     @Override
     public void viewControlMessages(ArrayList<ControlMessages> msgs) {
         for(ControlMessages message : msgs){
-
             System.out.println(message.getMessage());
         }
     }

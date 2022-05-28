@@ -9,7 +9,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
@@ -36,10 +35,10 @@ public class MageSelectionPane extends VBox {
             Image mage = null;
 
             switch (i){
-                case 0->mage = new Image(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/CarteTOT_back_1@3x.png").toString());
-                case 1->mage = new Image(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/CarteTOT_back_11@3x.png").toString());
-                case 2->mage = new Image(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/CarteTOT_back_21@3x.png").toString());
-                case 3->mage = new Image(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/CarteTOT_back_31@3x.png").toString());
+                case 0->mage = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/CarteTOT_back_1@3x.png")).toString());
+                case 1->mage = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/CarteTOT_back_11@3x.png")).toString());
+                case 2->mage = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/CarteTOT_back_21@3x.png")).toString());
+                case 3->mage = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/CarteTOT_back_31@3x.png")).toString());
                 default -> {}
             }
             ImageView mageView = new ImageView(mage);
@@ -66,11 +65,12 @@ public class MageSelectionPane extends VBox {
         select.setOnAction(e->{
             if(mages.getSelectedToggle()!=null){
                 ClientInputHandler.handle("Mage "+mages.getSelectedToggle().getProperties().get("id"), myClient);
-                guiView.enterGameScene();
+                guiView.  enterGameScene();
             }
         });
 
         getChildren().addAll(selectMage, mageLayout, select);
+        setAlignment(Pos.CENTER);
 
     }
 }

@@ -810,10 +810,10 @@ public class Game{
     }
 
     public ArrayList<Assistant> getPlayableAssistants(){
-        ArrayList<Assistant> playable = new ArrayList<>(getCurrentSchoolBoard().getPlayableAssistants());
+        ArrayList<Assistant> playable = new ArrayList<>(getCurrentSchoolBoard().getRemainingAssistants());
         ArrayList<Assistant> toRemove = new ArrayList<>();
-        for(int i=0; i<getCurrentSchoolBoard().getPlayableAssistants().size(); i++){
-            Assistant tmp = getCurrentSchoolBoard().getPlayableAssistants().get(i);
+        for(int i = 0; i<getCurrentSchoolBoard().getRemainingAssistants().size(); i++){
+            Assistant tmp = getCurrentSchoolBoard().getRemainingAssistants().get(i);
             if(!isAssistantPlayable(tmp.getTurnPower())){
                 toRemove.add(tmp);
             }
@@ -835,9 +835,9 @@ public class Game{
         cardWasPlayed = wasCardPlayed(assistantPower);
 
         if(cardWasPlayed){
-            for(int i=0; i<getCurrentSchoolBoard().getPlayableAssistants().size(); i++){
+            for(int i = 0; i<getCurrentSchoolBoard().getRemainingAssistants().size(); i++){
 
-                int currentCardPower = getCurrentSchoolBoard().getPlayableAssistants().get(i).getTurnPower();
+                int currentCardPower = getCurrentSchoolBoard().getRemainingAssistants().get(i).getTurnPower();
 
 
                 if(!wasCardPlayed(currentCardPower)){
@@ -1027,14 +1027,6 @@ public class Game{
             }
         }
 
-    }
-
-    /**
-     * getStateMsg returns a state message
-     * @return JsonElement null
-     */
-    public JsonElement getStateMsg(){
-        return null;
     }
 
 }

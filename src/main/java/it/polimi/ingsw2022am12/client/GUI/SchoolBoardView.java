@@ -5,7 +5,6 @@ import it.polimi.ingsw2022am12.client.model.ClientGame;
 import it.polimi.ingsw2022am12.client.model.ClientSchoolBoard;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
@@ -26,7 +25,6 @@ public class SchoolBoardView extends ScrollPane{
         double schoolRatio = 0.4337708831;
         GridPane box = new GridPane();
         ArrayList<ClientSchoolBoard>gameSchools= myGame.getSchoolBoards();
-
 
 
         for(int i=0; i<gameSchools.size();i++){

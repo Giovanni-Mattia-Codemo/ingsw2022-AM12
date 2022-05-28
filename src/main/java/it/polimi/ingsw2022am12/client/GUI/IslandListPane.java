@@ -35,7 +35,10 @@ public class IslandListPane extends CircularPane{
 
     public void refresh(){
         ArrayList<IslandPane> temp = new ArrayList<>(islandStacks);
+        System.out.println("ClientIsland size"+ client.getClientGame().getIslands().size());
+        System.out.println("GUI islands "+temp.size());
         for (ClientIsland clientIsland : client.getClientGame().getIslands()) {
+
             for(IslandPane i : islandStacks){
                 if(clientIsland.getID()==i.getIslandId()){
                     i.refresh(clientIsland.getID());
@@ -44,9 +47,15 @@ public class IslandListPane extends CircularPane{
             }
         }
         for(IslandPane i : temp){
+            System.out.println("Removing");
             getChildren().remove(i);
+            System.out.println(getChildren().size());
+            islandStacks.remove(i);
         }
     }
 
+    public ArrayList<IslandPane> getIslandStacks() {
+        return islandStacks;
+    }
 }
 

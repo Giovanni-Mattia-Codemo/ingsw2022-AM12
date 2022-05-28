@@ -27,25 +27,6 @@ public class IslandTileList {
         motherNature = islands.get(index);
     }
 
- /*
-    public void printIslands(){
-        System.out.println("Islands: ");
-        for(IslandTileSet is : islands){
-            System.out.println("\n island of index "+is.getID()+": ");
-            Team owner = is.getOwningTeam();
-            if(owner!= null){
-                System.out.println("    Owner: "+ is.getOwningTeam().getTeamName());
-            }
-
-            System.out.println("    Towers: "+ is.getTowers().size());
-            System.out.print("    Students: ");
-            is.getStudentCollection().printStudents();
-        }
-    }
-
- */
-
-
     /**
      * getIslandsAsSelectable returns an array of islands as Selectable objects
      *
@@ -119,7 +100,7 @@ public class IslandTileList {
             }
 
             islands.remove(left);
-        updateIslandIDs();
+            updateIslandIDs();
     }
 
     /**

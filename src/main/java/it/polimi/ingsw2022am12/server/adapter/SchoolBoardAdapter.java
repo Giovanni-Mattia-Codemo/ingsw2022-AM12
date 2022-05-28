@@ -8,7 +8,6 @@ import com.google.gson.stream.JsonWriter;
 import it.polimi.ingsw2022am12.server.model.Assistant;
 import it.polimi.ingsw2022am12.server.model.SchoolBoard;
 import it.polimi.ingsw2022am12.server.model.StudentDiskCollection;
-
 import java.io.IOException;
 
 /**
@@ -53,7 +52,7 @@ public class SchoolBoardAdapter extends TypeAdapter<SchoolBoard> {
         jsonWriter.name("Assistants");
         build.registerTypeAdapter(Assistant.class, new AssistantAdapter());
         embedded = build.create();
-        embedded.toJson(embedded.toJsonTree(schoolBoard.getPlayableAssistants()), jsonWriter);
+        embedded.toJson(embedded.toJsonTree(schoolBoard.getRemainingAssistants()), jsonWriter);
 
         jsonWriter.endObject();
     }

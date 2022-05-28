@@ -68,54 +68,45 @@ public class ServerMessageHandler implements Runnable {
      * @param client the client that is receiving the message
      */
     private void handle(String message, Client client){
+        Gson gson = new Gson();
+        Map map = gson.fromJson(message, Map.class);
+        String tag = (String) map.get("tag");
+        map.remove("tag");
+        String res = null;
+        switch (tag){
+            case "GameState":
+                res = gson.toJson(map);
+                gson = new GsonBuilder().registerTypeAdapter(ClientGame.class, new GameStateAdapter()).create();
+                ClientGame tmp = gson.fromJson(res, ClientGame.class);
+                client.updateLastSavedGame(tmp);
+                break;
 
-        if(message.startsWith("{")){
-            Gson gson = new Gson();
-            Map map = gson.fromJson(message, Map.class);
-            String tag = (String) map.get("tag");
-            map.remove("tag");
-            String res = null;
-            switch (tag){
-                case "GameState":
-                    res = gson.toJson(map);
-                    gson = new GsonBuilder().registerTypeAdapter(ClientGame.class, new GameStateAdapter()).create();
-                    ClientGame tmp = gson.fromJson(res, ClientGame.class);
-                    client.updateLastSavedGame(tmp);
-                    System.out.println("Got a game");
-                    //client.updateGameState(new UpdateFlag(Flag.FULLGAME));
-                    break;
+            case "UpdateFlag":
+                res = gson.toJson(map);
+                gson = new GsonBuilder().registerTypeAdapterFactory(new UpdateFlagAdapterFactory()).create();
+                UpdateFlag flag = gson.fromJson(res, UpdateFlag.class);
+                client.updateGameState(flag);
+                break;
 
-                case "UpdateFlag":
-                    res = gson.toJson(map);
-                    gson = new GsonBuilder().registerTypeAdapterFactory(new UpdateFlagAdapterFactory()).create();
-                    UpdateFlag flag = gson.fromJson(res, UpdateFlag.class);
-                    System.out.println("updating a game");
-                    client.updateGameState(flag);
-                    break;
+            case "Nick":
+                String nick = (String) map.get("nick");
+                client.setThisClientNick(nick);
+                break;
 
-                case "Nick":
-                    String nick = (String) map.get("nick");
-                    client.setThisClientNick(nick);
-                    break;
+            case "ControlMessages":
+                res = gson.toJson(map);
+                gson = new GsonBuilder().registerTypeAdapter(ArrayList.class, new ControlMessagesAdapter()).create();
+                ArrayList<ControlMessages> msg = gson.fromJson(res, ArrayList.class );
+                client.controlMessageToView(msg);
+                break;
 
+            case "Ping":
+                pong.pong();
+                break;
 
-                case "ControlMessages":
-                    res = gson.toJson(map);
-                    System.out.println(res);
-                    gson = new GsonBuilder().registerTypeAdapter(ArrayList.class, new ControlMessagesAdapter()).create();
-                    ArrayList<ControlMessages> msg = gson.fromJson(res, ArrayList.class );
-                    client.controlMessageToView(msg);
-                    break;
-
-                case "Ping":
-                    pong.pong();
-                    break;
-
-                default:
-                    System.out.println("Weird message from server");
-                    break;
-            }
-
+            default:
+                System.out.println("Weird message from server");
+                break;
         }
 
     }

@@ -32,14 +32,14 @@ public class PlayAssistantTest {
         Assertions.assertEquals(ControlMessages.PLAYASSISTANT,testMove.getUserSelectionsMessage().get(0));
 
         ArrayList<Selectable> input = new ArrayList<>();
-        Selectable assistantToPlay = testGame.getCurrentSchoolBoard().getPlayableAssistants().get(0);
+        Selectable assistantToPlay = testGame.getCurrentSchoolBoard().getRemainingAssistants().get(0);
         input.add(assistantToPlay);
         testMove.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.OK, testMove.checkInputValidity(input, testGame));
-        int playableAssistantsBefore = testGame.getCurrentSchoolBoard().getPlayableAssistants().size();
+        int playableAssistantsBefore = testGame.getCurrentSchoolBoard().getRemainingAssistants().size();
 
         testMove.useAction(testGame);
-        int playableAssistantsAfter = testGame.getTurnOrder().get(0).getPlayableAssistants().size();
+        int playableAssistantsAfter = testGame.getTurnOrder().get(0).getRemainingAssistants().size();
 
         Assertions.assertEquals("Nick2", testGame.getCurrentSchoolBoard().getNick());
         Assertions.assertEquals(playableAssistantsBefore-1, playableAssistantsAfter);

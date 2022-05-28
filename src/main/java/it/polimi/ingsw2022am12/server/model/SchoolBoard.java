@@ -20,7 +20,6 @@ public class SchoolBoard{
     private final ArrayList<Assistant> assistants;
     private Assistant lastPlayedAssistant;
 
-
     /**
      * Constructor method of SchoolBoard class
      */
@@ -280,8 +279,6 @@ public class SchoolBoard{
         assistants.remove(tmp);
     }
 
-
-
     /**
      * Method getFirstStudentOfColor returns the first Student of a specific color contained in the list of students
      *
@@ -296,7 +293,7 @@ public class SchoolBoard{
      * Method  getPlayableAssistants returns a list of the assistants present in the SchoolBoard
      * @return ArrayList<Assistant> containing the same assistants as the SchoolBoard's assistants
      */
-    public ArrayList<Assistant> getPlayableAssistants(){
+    public ArrayList<Assistant> getRemainingAssistants(){
         return new ArrayList<>(assistants);
     }
 

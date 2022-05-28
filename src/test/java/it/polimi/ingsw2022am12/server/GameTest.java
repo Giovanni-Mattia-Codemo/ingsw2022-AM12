@@ -221,7 +221,7 @@ public class GameTest {
         //Entering PlanningStrategy
 
         SchoolBoard schoolBoard1 = testGame.getCurrentSchoolBoard();
-        ArrayList<Assistant> playableAssistants = schoolBoard1.getPlayableAssistants();
+        ArrayList<Assistant> playableAssistants = schoolBoard1.getRemainingAssistants();
         int assistantPower = playableAssistants.get(7).getTurnPower();
         testGame.playAssistant(assistantPower);
         testGame.getCurrentStrategy().getValidActions(testGame);

@@ -106,6 +106,7 @@ public class Controller {
                     //v.forwardMsg(ControlMessages.ACTIONCOMPLETED.getMessage());
                     messages.add(ControlMessages.ACTIONCOMPLETED);
                     v.forwardMsg(gsonForMessages.toJson(messages));
+                    messages.remove(ControlMessages.ACTIONCOMPLETED);
 
 
                     if(myGame.getCurrentSchoolBoard().getNick().equals(userMap.get(v))){
@@ -206,7 +207,6 @@ public class Controller {
                     v.forwardMsg(setNick);
                     bindView(v, nick);
                 }
-
                 return;
 
             }
@@ -241,10 +241,11 @@ public class Controller {
             Gson gson = new GsonBuilder().registerTypeAdapter(Game.class, new GameAdapter()).create();
             String gameState = gson.toJson(myGame);
             updateAllViews(gameState);
+
             gson = new GsonBuilder().registerTypeAdapterFactory(new UpdateFlagAdapterFactory()).create();
-                UpdateFlag f = new UpdateFlag(Flag.FULLGAME);
-                String res = gson.toJson(f);
-                updateAllViews(res);
+            UpdateFlag f = new UpdateFlag(Flag.FULLGAME);
+            String res = gson.toJson(f);
+            updateAllViews(res);
 
             updateViewsOfStatus();
             notifyNextPlayerOfSel();

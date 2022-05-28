@@ -26,14 +26,9 @@ public class GUIView implements View, Runnable{
     private SchoolBoardView mySchools;
     private Scene initialScene, nickInputScene, gameSettingsScene, waitingQueueScene, gameIsFullScene;
     private Stage primary;
-    private String update;
+    private IslandView islandView;
     boolean firstTime = true;
-    private IslandListPane myIslands;
-
-
-
-
-    private ArrayList<SchoolBoardContainer> schools;
+    boolean afterFirstUpdate = false;
 
     /**
      * Default constructor
@@ -71,86 +66,24 @@ public class GUIView implements View, Runnable{
     }
 
     @Override
-    public void viewMessage(String message) {
-            switch (message) {
-                case "Insert a Nick to enter the game": {
-                    try{
-                        TimeUnit.SECONDS.sleep(3);
-                    }catch (InterruptedException e){
-                        e.printStackTrace();
-                    }
-                    Platform.runLater(()->primary.setScene(nickInputScene));
-                    firstTime = false;
-                    break;
-                }
-                case "Insert the number of players and mode of the match: number of players between 2 and 4, followed by either true or false to be in the expert mode or not" :{
-                    Platform.runLater(()->primary.setScene(gameSettingsScene));
-                    break;
-                }
-                case "Game format is being decided, wait":{
-                    if(firstTime){
-                        try{
-                            TimeUnit.SECONDS.sleep(3);
-                            firstTime = false;
-                        }catch (InterruptedException e){
-                            e.printStackTrace();
-                        }
-                    }
-                    Platform.runLater(()->primary.setScene(tryAgainLater));
-                    break;
-                }
-                case "Try another": {
-                    Platform.runLater(()->primary.setScene(tryAnother));
-                    break;
-                }
-                case "Your nick has been set": {
-                    System.out.println("Your nick has been set");
-                    break;
-                }
-                case "Player connected, waiting for more":{
-                    Platform.runLater(()->primary.setScene(waitingQueueScene));
-                    break;
-                }
-                case "Select a mage":{
-                    System.out.println("In select mage");
-                    Platform.runLater(()->{
-                        setPickMageScene();
-                        primary.setScene(pickMageScene);});
-                    break;
-                }
-                case "Your match is starting":{
-                    //SchoolBoard setup logic
-                    System.out.println("Starting match");
-                    break;
-                }
-                case "Game is full":{
-                    Platform.runLater(()->primary.setScene(gameIsFullScene));
-                    break;
-                }
-                default:
-                    System.out.println(message);
-                    break;
-            }
-    }
-
-
-
-    @Override
     public void updateGameView(ClientGame game, UpdateFlag flag) {
-       if(myGame == null){
-           myGame = game;
-       }else{
-            switch (flag.getFlag()){
-                case FULLGAME -> Platform.runLater(()->refreshAll());
-                case SCHOOL -> Platform.runLater(()->refreshAll());
-                default -> Platform.runLater(()->refreshAll());
-            }
-       }
+
+        switch (flag.getFlag()){
+            case FULLGAME -> Platform.runLater(this::refreshAll);
+            case SCHOOL -> Platform.runLater(this::refreshAll);
+            default -> Platform.runLater(this::refreshAll);
+        }
+
     }
 
     public void refreshAll(){
-        mySchools.refresh();
-        myIslands.refresh();
+        if(afterFirstUpdate) {
+            mySchools.refresh();
+            islandView.refresh();
+
+        }else{
+            afterFirstUpdate = true;
+        }
     }
 
     @Override
@@ -218,8 +151,7 @@ public class GUIView implements View, Runnable{
                     break;
                 }
                 case PLAYASSISTANT:{
-                    //Platform.runLater(()->primary.setScene(schoolBoardScene));
-
+                    Platform.runLater(()->new AssistantSelectionWindow().displayScene(client));
                 }
 
                 default:
@@ -244,10 +176,13 @@ public class GUIView implements View, Runnable{
     }
 
     private void setIslandScene(){
-        myIslands = new IslandListPane(client);
-        islandScene = new Scene(myIslands, 800, 600);
-        myIslands.maxHeightProperty().bind(islandScene.heightProperty());
-        myIslands.maxWidthProperty().bind(islandScene.widthProperty());
+        islandView = new IslandView(client);
+        islandView.getSwitcher().setOnAction(e->{
+            Platform.runLater(()-> {
+                primary.setScene(schoolBoardScene);
+            });
+        });
+        islandScene = new Scene(islandView, 800, 600);
     }
 
     private void setSchoolScene(){
@@ -256,10 +191,7 @@ public class GUIView implements View, Runnable{
         mySchools = schools;
         HBox box = new HBox();
         GameStateView state = new GameStateView();
-        /*
-              Button checkIsland = new Button("Go to Islands");
-              checkIsland.SetOnAction(e-> stage.setScene(islandScene);
-        */
+
         state.getToIslands().setOnAction(e->{
             Platform.runLater(()-> {
                 primary.setScene(islandScene);

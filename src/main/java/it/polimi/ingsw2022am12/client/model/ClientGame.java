@@ -1,6 +1,7 @@
 package it.polimi.ingsw2022am12.client.model;
 
 import it.polimi.ingsw2022am12.*;
+import it.polimi.ingsw2022am12.server.model.Assistant;
 import it.polimi.ingsw2022am12.server.model.SchoolBoard;
 import it.polimi.ingsw2022am12.updateFlag.Flag;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlag;
@@ -216,6 +217,10 @@ public class ClientGame {
         return null;
     }
 
+    public ArrayList<ClientStudentCollection> getClouds() {
+        return clouds;
+    }
+
     /**
      * Getter method for turn
      * @return int turn
@@ -312,6 +317,15 @@ public class ClientGame {
 
     public ArrayList<ClientTeam> getTeams() {
         return teams;
+    }
+
+    public ClientTeam getTeamByNick(String nick){
+        for(ClientTeam team : teams){
+            if(team.getPlayer1().equals(nick)||team.getPlayer2().equals(nick)){
+                return team;
+            }
+        }
+        return null;
     }
 
     public ArrayList<Integer> getAvailableMages(){
@@ -429,8 +443,6 @@ public class ClientGame {
         activeCharacter = newGame.getActiveCharacter();
         isLastRound = newGame.isLastRound();
 
-
-
         switch (myFlag.getFlag()){
             case FULLGAME:
 
@@ -459,19 +471,17 @@ public class ClientGame {
                 break;
 
             case ISLANDS:
-                for (ClientIsland i:islands
-                     ) {
-
+                ArrayList<ClientIsland> toRemove = new ArrayList<>();
+                for (ClientIsland i:islands){
                     ClientIsland tmp = newGame.getIslandByID(i.getID());
                     if(tmp != null){
                         i.updateFromIsland(tmp);
                     }else{
-                        islands.remove(i);
+                        toRemove.add(i);
                     }
 
-
                 }
-
+                islands.removeAll(toRemove);
                 break;
             case CHARACTERS:
                 String nameToCheck = ((UpdateFlagCharacter)myFlag).getNick();
@@ -482,6 +492,56 @@ public class ClientGame {
             default:
                 break;
         }
+    }
+
+    public ArrayList<ClientAssistant> getPlayableAssistants(){
+        ArrayList<ClientAssistant> playable = new ArrayList<>(getSchoolBoardByNick(orderedNicks.get(0)).getAssistants());
+        ArrayList<ClientAssistant> toRemove = new ArrayList<>();
+        for(int i = 0; i<getSchoolBoardByNick(orderedNicks.get(0)).getAssistants().size(); i++){
+            ClientAssistant tmp = getSchoolBoardByNick(orderedNicks.get(0)).getAssistants().get(i);
+            if(!isAssistantPlayable(tmp.getTurnPower())){
+                toRemove.add(tmp);
+            }
+        }
+        playable.removeAll(toRemove);
+        return playable;
+    }
+
+    /**
+     * Method isAssistantPlayable allows me to know if I can play the Assistant of my choice
+     *
+     * @param assistantPower the power of my chosen assistantCard
+     * @return true if the assistant is playable, false otherwise
+     */
+    private boolean isAssistantPlayable(int assistantPower){
+        boolean cardWasPlayed;
+        boolean noOtherPlayableAssistants = true;
+
+        cardWasPlayed = wasCardPlayed(assistantPower);
+
+        if(cardWasPlayed){
+            for(int i = 0; i<getSchoolBoardByNick(orderedNicks.get(turn)).getAssistants().size(); i++){
+
+                int currentCardPower = getSchoolBoardByNick(orderedNicks.get(turn)).getAssistants().get(i).getTurnPower();
+
+                if(!wasCardPlayed(currentCardPower)){
+                    noOtherPlayableAssistants=false;
+                    break;
+                }
+            }
+        }else return true;
+
+        return noOtherPlayableAssistants;
+    }
+
+
+    private boolean wasCardPlayed(int turnPower){
+        for(int j=0; j<turn; j++){
+            int toCheck = getSchoolBoardByNick(orderedNicks.get(j)).getPlayedAssistant();
+            if(toCheck==turnPower){
+                return true;
+            }
+        }return false;
     }
 
 }
