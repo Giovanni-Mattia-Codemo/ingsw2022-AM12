@@ -3,6 +3,7 @@ package it.polimi.ingsw2022am12.client.GUI;
 import it.polimi.ingsw2022am12.DiskColor;
 import it.polimi.ingsw2022am12.client.Client;
 import it.polimi.ingsw2022am12.client.ClientInputHandler;
+import it.polimi.ingsw2022am12.client.model.NoEntryImage;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -21,6 +22,7 @@ public class IslandPane extends StackPane {
     private final Label numOfTowers;
     private final Button towerButton;
     private final Button motherNature;
+    private final Label numOfNoEntries;
 
     public IslandPane(int id, Client client) {
         super();
@@ -28,6 +30,7 @@ public class IslandPane extends StackPane {
         studentNumberLabels = new ArrayList<>();
         this.client = client;
         towerButton = new Button();
+        numOfNoEntries = new Label();
         numOfTowers = new Label();
         islandImageView = new ImageView();
         GridPane island = new GridPane();
@@ -38,18 +41,6 @@ public class IslandPane extends StackPane {
         setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
         Button islandButton = new Button();
-        /*
-        String resource = null;
-        switch (id) {
-            case 0, 3, 6, 9 -> resource = Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/island1.png")).toString();
-            case 1, 4, 7, 10 -> resource = Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/island2.png")).toString();
-            case 2, 5, 8, 11 -> resource = Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/island3.png")).toString();
-            default -> {
-            }
-        }
-        if (resource != null) {
-
-         */
         islandButton.setMinWidth(1.0);
         islandButton.setMinHeight(1.0);
         islandButton.setMaxHeight(Double.MAX_VALUE);
@@ -131,8 +122,24 @@ public class IslandPane extends StackPane {
         motherNature.prefHeightProperty().bind(motherNature.widthProperty());
         box.getChildren().add(motherNature);
         island.add(box, 0, 3);
-        motherNature.prefHeightProperty().bind(motherNature.widthProperty());
         motherNature.prefWidthProperty().bind(box.widthProperty());
+
+        if(client.getClientGame().getCharacterByName("CHARACTER_HERBALIST")!=null){
+            NoEntryImage noEntryButton = new NoEntryImage();
+            noEntryButton.setBackground(Background.EMPTY);
+            box = new HBox();
+            box.setMinSize(1.0, 1.0);
+            box.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+
+            noEntryButton.setMinSize(1.0, 1.0);
+            noEntryButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+            box.getChildren().add(noEntryButton);
+
+            box.getChildren().add(numOfNoEntries);
+
+            noEntryButton.prefWidthProperty().bind(box.widthProperty().divide(5));
+            island.add(box, 1, 3);
+        }
 
         getChildren().add(island);
         setAlignment(island, Pos.CENTER);
@@ -170,6 +177,9 @@ public class IslandPane extends StackPane {
             img.fitWidthProperty().bind(towerButton.widthProperty());
             towerButton.setGraphic(img);
             numOfTowers.setText("x" + client.getClientGame().getIslandByID(id).getNumber());
+        }
+        if(client.getClientGame().getCharacterByName("CHARACTER_HERBALIST")!=null){
+            numOfNoEntries.setText("x" + client.getClientGame().getIslandByID(islandId).getNumOfNoEntries());
         }
         Image resource;
         switch(client.getClientGame().getIslandByID(id).getNumber()){

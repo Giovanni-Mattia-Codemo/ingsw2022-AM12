@@ -41,6 +41,10 @@ public class IslandTileSetAdapter extends TypeAdapter<IslandTileSet> {
         if(islandTileSet.getOwningTeam()==null){
             jsonWriter.value("null");
         }else jsonWriter.value(islandTileSet.getOwningTeam().getSchoolBoardWithTowers().getNick());
+        jsonWriter.name("NumOfNoEntries");
+        if(islandTileSet.getNoEntries()==null){
+            jsonWriter.value("null");
+        }else jsonWriter.value(islandTileSet.getNoEntries().size());
         jsonWriter.endObject();
     }
 

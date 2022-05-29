@@ -19,6 +19,7 @@ public class StudentButton extends Button{
     private DiskColor color;
     private Client client;
     private ClientStudent myStudent;
+
     /**
      * Constructor method of StudentButton class
      * @param  student the color of my student

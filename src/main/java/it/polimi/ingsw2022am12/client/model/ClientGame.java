@@ -1,8 +1,6 @@
 package it.polimi.ingsw2022am12.client.model;
 
 import it.polimi.ingsw2022am12.*;
-import it.polimi.ingsw2022am12.server.model.Assistant;
-import it.polimi.ingsw2022am12.server.model.SchoolBoard;
 import it.polimi.ingsw2022am12.updateFlag.Flag;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlag;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlagCharacter;
@@ -285,6 +283,10 @@ public class ClientGame {
 
         }
         return  null;
+    }
+
+    public ArrayList<ClientCharacter> getCharacters() {
+        return characters;
     }
 
     /**

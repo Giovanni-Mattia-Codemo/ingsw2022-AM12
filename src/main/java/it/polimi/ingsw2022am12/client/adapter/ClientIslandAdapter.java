@@ -70,6 +70,10 @@ public class ClientIslandAdapter extends TypeAdapter<ClientIsland> {
                 reader.peek();
                 island.setConqueror(reader.nextString());
             }
+            if("NumOfNoEntries".equals(fieldName)){
+                reader.peek();
+                island.setNumOfNoEntries(reader.nextInt());
+            }
 
         }
         reader.endObject();

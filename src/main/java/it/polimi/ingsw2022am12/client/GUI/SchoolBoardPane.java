@@ -376,7 +376,6 @@ public class SchoolBoardPane extends GridPane{
     public void refresh(){
 
         fillEntrance(myGame.getSchoolBoardByNick(name).getEntrance().getStudents());
-        System.out.println(myGame.getSchoolBoardByNick(name).getEntrance().getStudents().size());
 
         for (StudentButton b:entrance
              ) {

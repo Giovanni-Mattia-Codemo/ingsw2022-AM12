@@ -11,12 +11,14 @@ public class IslandView extends ScrollPane {
     private final IslandListPane islandList;
     private final CloudListPane cloudList;
     private final Button switcher;
+    private final CharacterListPane characters;
 
     public IslandView(Client client){
         super();
 
         islandList = new IslandListPane(client);
         cloudList = new CloudListPane(client);
+        characters = new CharacterListPane(client);
         switcher = new Button("To school board");
 
         VBox box = new VBox();
@@ -25,6 +27,7 @@ public class IslandView extends ScrollPane {
 
         box.getChildren().add(cloudList);
         box.getChildren().add(islandList);
+        box.getChildren().add(characters);
         box.getChildren().add(switcher);
 
         cloudList.maxHeightProperty().bind(this.heightProperty());
@@ -32,6 +35,9 @@ public class IslandView extends ScrollPane {
 
         islandList.maxHeightProperty().bind(this.heightProperty());
         islandList.maxWidthProperty().bind(this.widthProperty());
+
+        characters.maxHeightProperty().bind(this.heightProperty());
+        characters.maxWidthProperty().bind(this.widthProperty());
 
         box.setAlignment(Pos.CENTER);
         setContent(box);
@@ -41,6 +47,7 @@ public class IslandView extends ScrollPane {
     public void refresh(){
         islandList.refresh();
         cloudList.refresh();
+        characters.refresh();
     }
 
     public Button getSwitcher() {

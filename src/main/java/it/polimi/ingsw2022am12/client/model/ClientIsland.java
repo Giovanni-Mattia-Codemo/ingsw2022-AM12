@@ -10,6 +10,7 @@ public class ClientIsland {
     private int number;
     private ClientStudentCollection students;
     private String conqueror;
+    private int numOfNoEntries;
 
     /**
      * Default constructor for the ClientIsland class
@@ -33,6 +34,14 @@ public class ClientIsland {
      */
     public int getID() {
         return ID;
+    }
+
+    public int getNumOfNoEntries() {
+        return numOfNoEntries;
+    }
+
+    public void setNumOfNoEntries(int numOfNoEntries) {
+        this.numOfNoEntries = numOfNoEntries;
     }
 
     /**
