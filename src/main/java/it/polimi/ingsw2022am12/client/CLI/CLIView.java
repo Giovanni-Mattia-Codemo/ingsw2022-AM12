@@ -25,6 +25,10 @@ public class CLIView implements View {
         System.out.println(game.getBoardStringToView());
     }
 
+    /**
+     * viewControlMessages shows a list of messages in the CLI
+     * @param msgs the list of messages I want to show
+     */
     @Override
     public void viewControlMessages(ArrayList<ControlMessages> msgs) {
         for(ControlMessages message : msgs){

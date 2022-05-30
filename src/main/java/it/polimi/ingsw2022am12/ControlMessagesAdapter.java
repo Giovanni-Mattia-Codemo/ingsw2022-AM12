@@ -11,10 +11,21 @@ import it.polimi.ingsw2022am12.server.controller.ControlMessages;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Class used to simplify the handling of a certain event.
+ * In this case,it helps to handle more objects of the type ControlMessages, as a list of messages.
+ */
 public class ControlMessagesAdapter extends TypeAdapter<ArrayList<ControlMessages>> {
 
     Gson embedded = new Gson();
 
+    /**
+     * Method "read" reads a JSON encoded ArrayList of ControlMessages as a stream of tokens
+     *
+     * @param jsonReader the reader which will receive my JSON data
+     * @return ArrayList<ControlMessages> the list of ControlMessages created from the JSON values
+     * @throws IOException if there is a problem with my input
+     */
     @Override
     public ArrayList<ControlMessages> read(JsonReader jsonReader) throws IOException {
         jsonReader.beginObject();
@@ -40,6 +51,13 @@ public class ControlMessagesAdapter extends TypeAdapter<ArrayList<ControlMessage
         return messages;
     }
 
+    /**
+     * Method write receives an object of type ArrayList<ControlMessages> and serializes it in the JSON format
+     *
+     * @param jsonWriter the writer which will generate my JSON data
+     * @param controlMessages the list of ControlMessages I want to serialize
+     * @throws IOException if there is a problem with my input
+     */
     @Override
     public void write(JsonWriter jsonWriter, ArrayList<ControlMessages> controlMessages) throws IOException {
         jsonWriter.beginObject();

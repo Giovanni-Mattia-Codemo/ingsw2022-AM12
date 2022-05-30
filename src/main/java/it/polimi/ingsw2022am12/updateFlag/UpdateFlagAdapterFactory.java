@@ -12,8 +12,9 @@ import java.io.IOException;
 import java.util.Objects;
 
 
-
-
+/**
+ * UpdateFlagAdapterFactory class builds a custom adapter for each updateFlag, using a Factory design pattern
+ */
 
 public class UpdateFlagAdapterFactory implements TypeAdapterFactory {
 
@@ -37,10 +38,10 @@ public class UpdateFlagAdapterFactory implements TypeAdapterFactory {
    //     private final TypeAdapter<UpdateFlag> customTypeAdapter = new  TypeAdapter<>{
 
         /**
-         * Method write receives an object of type CharacterCard and serializes it in the JSON format
+         * Method write receives an object of type UpdateFlag and serializes it in the JSON format
          *
          * @param jsonWriter the writer which will generate my JSON data
-         * @param flag to be serialized
+         * @param flag UpdateFlag to be serialized
          * @throws IOException if there is a problem with my input
          */
         @Override

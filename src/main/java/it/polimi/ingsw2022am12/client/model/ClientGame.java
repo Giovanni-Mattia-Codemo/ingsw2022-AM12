@@ -344,6 +344,11 @@ public class ClientGame {
         return availableMages;
     }
 
+    /**
+     * isCharacterMode returns true if the game is in ExpertMode, else it returns false
+     *
+     * @return true if the mode is set on Expert
+     */
     public boolean isCharacterMode() {
         return mode;
     }
@@ -496,6 +501,10 @@ public class ClientGame {
         }
     }
 
+    /**
+     * getPlayableAssistants method returns the list of available Assistant cards
+     * @return list of playableAssistants
+     */
     public ArrayList<ClientAssistant> getPlayableAssistants(){
         ArrayList<ClientAssistant> playable = new ArrayList<>(getSchoolBoardByNick(orderedNicks.get(turn)).getAssistants());
         ArrayList<ClientAssistant> toRemove = new ArrayList<>();
@@ -537,6 +546,12 @@ public class ClientGame {
     }
 
 
+    /**
+     * wasCardPlayed returns true if the Assistant card was already played, else false
+     *
+     * @param turnPower the turnPower of the assistant I want to check
+     * @return true if the card was played
+     */
     private boolean wasCardPlayed(int turnPower){
         for(int j=0; j<turn; j++){
             int toCheck = getSchoolBoardByNick(orderedNicks.get(j)).getPlayedAssistant();

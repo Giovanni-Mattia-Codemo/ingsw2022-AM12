@@ -5,7 +5,7 @@ import it.polimi.ingsw2022am12.server.model.SchoolBoard;
 import java.util.ArrayList;
 
 /**
- * Class Team defines the teams playing
+ * Class Team defines the teams playing the game
  */
 public class Team {
 

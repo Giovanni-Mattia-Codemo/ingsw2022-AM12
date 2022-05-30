@@ -32,6 +32,12 @@ public enum DiskColor {
         return value;
     }
 
+    /**
+     * Method getColor associates a string to the int value of each color of the enum
+     *
+     * @param i value index of the color
+     * @return string name of the color
+     */
     public String getColor(int i){
         return switch(i){
             case 1 -> "RED";

@@ -106,8 +106,13 @@ public abstract class PossibleAction {
     public void useAction(Game game){
 
     }
-    
-    
+
+    /**
+     * getUpdates method gets a FULLGAME update
+     *
+     * @param game the instance of my game
+     * @return the list of UpdateFlags
+     */
     public ArrayList<UpdateFlag> getUpdates(Game game){
         ArrayList<UpdateFlag> result = new ArrayList<>();
         result.add(new UpdateFlag(Flag.FULLGAME));

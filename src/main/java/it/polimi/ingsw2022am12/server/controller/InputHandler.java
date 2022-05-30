@@ -121,10 +121,18 @@ public class InputHandler {
         return ActionStep.NOTOK;
     }
 
+    /**
+     * Setter method for updates
+     * @param updates the updates I need to set
+     */
     private void setUpdate(ArrayList<UpdateFlag> updates){
         this.updates = updates;
     }
 
+    /**
+     * Getter method for updates
+     * @return  updates the updates I need to get
+     */
     public ArrayList<UpdateFlag> getUpdates() {
         return updates;
     }

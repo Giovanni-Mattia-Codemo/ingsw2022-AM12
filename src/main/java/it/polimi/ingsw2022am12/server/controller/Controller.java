@@ -312,6 +312,13 @@ public class Controller {
         }
     }
 
+    /**
+     * getMatchStatusOfView returns a particular type of ControlMessages, based on the state of the game(marked with
+     * boolean values)
+     *
+     * @param v the VirtualView
+     * @return a controlMessage
+     */
     public ControlMessages getMatchStatusOfView(VirtualView v){
         if(userMap.containsKey(v)){
             if(creatingGame){
@@ -333,11 +340,19 @@ public class Controller {
         }
     }
 
+    /**
+     * addViewMethod adds a VirtualView to the Server
+     *
+     * @param v the VirtualView I want to add
+     */
     public void addView(VirtualView v){
         System.out.println("adding a view to server");
         virtualViews.add(v);
     }
 
+    /**
+     *
+     */
     public void updateViewsOfStatus(){
         Gson g = new GsonBuilder().registerTypeAdapter(ArrayList.class, new ControlMessagesAdapter()).create();
         for(VirtualView v : virtualViews){

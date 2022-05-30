@@ -58,6 +58,12 @@ public class MoveFromEntranceToIsland extends PossibleAction {
         game.moveStudentFromEntranceToIsland(((Student)score.get(0)).getColor(), ((IslandTileSet)score.get(1)).getID());
     }
 
+    /**
+     * getUpdates receives an UpdateFlag for the SchoolBoards and the Islands
+     *
+     * @param game the instance of my game
+     * @return the list of updateFlags
+     */
     @Override
     public ArrayList<UpdateFlag> getUpdates(Game game) {
         ArrayList<UpdateFlag> updates = new ArrayList();

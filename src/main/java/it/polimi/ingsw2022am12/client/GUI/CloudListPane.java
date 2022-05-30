@@ -7,11 +7,19 @@ import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
+/**
+ * CloudListPane is the graphical component that shows the various clouds on screen
+ */
 public class CloudListPane extends CircularPane {
 
     private final Client client;
     private final ArrayList<CloudPane> clouds;
 
+    /**
+     * Constructor method for CloudListPane class
+     * 
+     * @param client the client visualizing the clouds' list
+     */
     public CloudListPane(Client client){
         super();
         this.client = client;
@@ -34,6 +42,9 @@ public class CloudListPane extends CircularPane {
 
     }
 
+    /**
+     * refresh resets all the graphics for the objects placed on the various clouds in the list
+     */
     public void refresh(){
         for(ClientStudentCollection i : client.getClientGame().getClouds()){
             for(CloudPane pane : clouds){

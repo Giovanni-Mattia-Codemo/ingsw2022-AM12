@@ -16,6 +16,11 @@ public class CharacterListPane extends HBox {
 
     private final ArrayList<CharacterPane> characters;
 
+    /**
+     * Constructor method of CharacterListPane
+     *
+     * @param client the client visualizing the Characters' list
+     */
     public CharacterListPane(Client client){
         super();
         double ratio = 3.0/2;
@@ -33,6 +38,9 @@ public class CharacterListPane extends HBox {
         }
     }
 
+    /**
+     * refresh resets all the graphics for the objects placed on the various characters in the list
+     */
     public void refresh(){
         for(CharacterPane p:characters){
             p.refresh();

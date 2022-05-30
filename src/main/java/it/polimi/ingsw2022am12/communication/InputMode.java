@@ -9,6 +9,11 @@ public class InputMode {
     private int number = 2;
     private boolean mode = true;
 
+    /**
+     * Constructor method of InputMode class
+     * @param b modality, true if Expert Mode
+     * @param n  number of players
+     */
     public InputMode(int n, boolean b){
         number =n;
         mode = b;

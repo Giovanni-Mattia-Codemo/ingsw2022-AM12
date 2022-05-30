@@ -63,7 +63,13 @@ public class MoveMotherNature extends PossibleAction {
     public void useAction(Game game) {
         game.moveMotherNature(((IslandTileSet)score.get(1)).getID());
     }
-    
+
+    /**
+     * getUpdates receives an ISLANDS UpdateFlag
+     *
+     * @param game the instance of my game
+     * @return the list of Updates
+     */
     @Override
     public ArrayList<UpdateFlag> getUpdates(Game game){
         ArrayList<UpdateFlag> update = new ArrayList<>();

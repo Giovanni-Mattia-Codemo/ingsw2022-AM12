@@ -13,6 +13,9 @@ import javafx.scene.layout.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * CharacterPane class is the graphic component thatrepresents the Character card
+ */
 public class CharacterPane extends StackPane {
 
     private final String characterName;
@@ -22,6 +25,12 @@ public class CharacterPane extends StackPane {
     private final ArrayList<StudentButton> students;
     private final ArrayList<NoEntryImage> noEntryImages;
 
+    /**
+     * Constructor method for CharacterPane class
+     *
+     * @param name of the character
+     * @param client that uses the card
+     */
     public CharacterPane(String name, Client client){
         super();
         this.characterName = name;
@@ -163,6 +172,9 @@ public class CharacterPane extends StackPane {
         //setAlignment(grid, Pos.BOTTOM_CENTER);
     }
 
+    /**
+     * refresh resets all the graphics for the objects placed on the character
+     */
     public void refresh(){
         if(client.getClientGame().getCharacterByName(characterName).isHasCoin()){
             coin.setVisible(true);
@@ -187,6 +199,11 @@ public class CharacterPane extends StackPane {
 
     }
 
+    /**
+     * fillStudents fills with students the cells of the character's grid that are reserved for the students
+     *
+     * @param newStudents
+     */
     private void fillStudents(ArrayList<ClientStudent> newStudents){
         int difference = newStudents.size()-students.size();
         for(int i=0; i<difference; i++){
@@ -207,6 +224,11 @@ public class CharacterPane extends StackPane {
 
     }
 
+    /**
+     * fillNoEntries fills with noEntries the cells of the character's grid that are reserved for the noEntries
+     *
+     * @param noEntries number of noEntries needed
+     */
     private void fillNoEntries(int noEntries){
         int difference = noEntries - noEntryImages.size();
         if(difference>0){

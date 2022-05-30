@@ -50,6 +50,11 @@ public class StudentDiskCollection implements Position, Selectable {
         return new ArrayList<>(students);
     }
 
+    /**
+     * Method getStudentsAsSelectables returns a list of Students as a list of Selectable objects
+     *
+     * @return ArrayList students
+     */
     public ArrayList<Selectable> getStudentsAsSelectables(){
         return new ArrayList<>(students);
     }
@@ -77,7 +82,7 @@ public class StudentDiskCollection implements Position, Selectable {
     /**
      * Method amount returns the number of Student contained in the class's list
      *
-     * @return int
+     * @return int amount of students in the collection
      */
     public int amount(){
        return (this.students.size());

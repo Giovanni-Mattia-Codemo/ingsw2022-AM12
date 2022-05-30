@@ -11,6 +11,11 @@ import java.util.ArrayList;
  */
 public interface View {
 
+    /**
+     * viewControlMessages visualizes messages on the View
+     *
+     * @param msg the list of ControlMessages
+     */
     void viewControlMessages(ArrayList<ControlMessages> msg);
 
     /**

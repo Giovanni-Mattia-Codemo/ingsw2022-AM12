@@ -28,6 +28,10 @@ public class NoEntryCollection implements Position {
         noEntries = null;
     }
 
+    /**
+     * Getter method for myId
+     * @return int value of myId
+     */
     public int getMyId() {
         return myId;
     }

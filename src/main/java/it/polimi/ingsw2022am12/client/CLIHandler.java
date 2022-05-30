@@ -2,6 +2,9 @@ package it.polimi.ingsw2022am12.client;
 
 import java.util.Scanner;
 
+/**
+ * CLIHandler class represents the component that handles inputs arriving to the client
+ */
 public class CLIHandler implements Runnable{
 
     private final Scanner in;

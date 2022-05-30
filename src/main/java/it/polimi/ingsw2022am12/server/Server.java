@@ -34,7 +34,7 @@ public class Server {
     }
 
     /**
-     * The method that starts the server
+     * The method that starts the server's thread
      */
     public void startServer(){
 
