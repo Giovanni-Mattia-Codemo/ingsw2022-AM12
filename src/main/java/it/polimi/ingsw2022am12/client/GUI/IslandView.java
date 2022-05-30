@@ -30,14 +30,16 @@ public class IslandView extends ScrollPane {
         box.getChildren().add(characters);
         box.getChildren().add(switcher);
 
-        cloudList.maxHeightProperty().bind(this.heightProperty());
+        cloudList.maxHeightProperty().bind(this.widthProperty().multiply(0.4));
         cloudList.maxWidthProperty().bind(this.widthProperty());
 
-        islandList.maxHeightProperty().bind(this.heightProperty());
+        islandList.maxHeightProperty().bind(this.widthProperty());
         islandList.maxWidthProperty().bind(this.widthProperty());
 
-        characters.maxHeightProperty().bind(this.heightProperty());
-        characters.maxWidthProperty().bind(this.widthProperty());
+        characters.prefHeightProperty().bind(this.widthProperty().multiply(3.0/2.0).multiply(0.33));
+        characters.prefWidthProperty().bind(this.widthProperty());
+
+
 
         box.setAlignment(Pos.CENTER);
         setContent(box);

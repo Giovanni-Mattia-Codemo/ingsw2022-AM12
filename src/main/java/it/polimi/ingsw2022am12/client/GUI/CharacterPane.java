@@ -28,7 +28,11 @@ public class CharacterPane extends StackPane {
         this.client = client;
         this.students = new ArrayList<>();
         this.noEntryImages = new ArrayList<>();
+        VBox anchor = new VBox();
+        anchor.setPickOnBounds(false);
+        anchor.setAlignment(Pos.CENTER);
         grid = new GridPane();
+
         setMinSize(1.0, 1.0);
         setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
@@ -70,6 +74,14 @@ public class CharacterPane extends StackPane {
 
         grid.setMinSize(1.0, 1.0);
         grid.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+
+        /*
+        RowConstraints temp1 = new RowConstraints();
+        temp1.setVgrow(Priority.NEVER);
+        temp1.setFillHeight(true);
+
+        temp1.setPercentHeight(8);
+        grid.getRowConstraints().add(temp1);*/
 
         coin = new Button();
         ImageView coinImg = new ImageView(new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/coin_sprite.png")).toString()));
@@ -118,6 +130,7 @@ public class CharacterPane extends StackPane {
 
         if(client.getClientGame().getCharacterByName(characterName).getStudents()!=null){
             int numOfStudents = client.getClientGame().getCharacterByName(characterName).getStudents().getStudents().size();
+
             for(int i=0; i<numOfStudents; i++){
                 ClientStudent student = client.getClientGame().getCharacterByName(characterName).getStudents().getStudents().get(i);
                 StudentButton studentButton = new StudentButton(student, client);
@@ -134,8 +147,8 @@ public class CharacterPane extends StackPane {
 
         }
 
-        getChildren().add(grid);
-        grid.prefHeightProperty().bind(this.heightProperty());
+        //getChildren().add(grid);
+        grid.prefHeightProperty().bind(heightProperty().multiply(0.5));
         grid.prefWidthProperty().bind(this.widthProperty());
         grid.setAlignment(Pos.BOTTOM_CENTER);
         grid.setPickOnBounds(false);

@@ -25,8 +25,8 @@ public class IslandListPane extends CircularPane{
         for (ClientIsland clientIsland : client.getClientGame().getIslands()) {
             IslandPane island = new IslandPane(clientIsland.getID(), client);
             int ratio = 3;
-            island.maxHeightProperty().bind(this.heightProperty().multiply(0.1).multiply(ratio));
-            island.maxWidthProperty().bind(this.widthProperty().multiply(0.1).multiply(ratio));
+            island.maxHeightProperty().bind(this.heightProperty().multiply(0.05).multiply(ratio));
+            island.maxWidthProperty().bind(this.widthProperty().multiply(0.05).multiply(ratio));
             islandStacks.add(island);
             getChildren().add(island);
         }

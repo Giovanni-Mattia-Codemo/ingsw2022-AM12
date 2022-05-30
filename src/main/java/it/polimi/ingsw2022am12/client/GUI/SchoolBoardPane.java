@@ -8,6 +8,7 @@ import it.polimi.ingsw2022am12.client.model.ClientTeam;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -20,10 +21,11 @@ public class SchoolBoardPane extends GridPane{
     private final ClientGame myGame;
     private final Client client;
 
-    private GridPane towers;
-    private GridPane grid;
-    private GridPane diningRoom;
-    private GridPane professors;
+    private StackPane coin;
+    private Image towerImage;
+    private final GridPane towers;
+    private final GridPane grid;
+    private final GridPane professors;
     private final ArrayList<StudentButton> entrance;
     private final ArrayList<StudentButton> redDiningStudents;
     private final ArrayList<StudentButton> yellowDiningStudents;
@@ -511,23 +513,47 @@ public class SchoolBoardPane extends GridPane{
 
 
     private void fillTowers(){
+
+
+
         int towersTotal = myGame.getSchoolBoardByNick(name).getTowers();
         towers.getChildren().removeAll();
-        ArrayList<ClientTeam> teams = myGame.getTeams();
-        int col = 0;
-        for(ClientTeam t: teams){
-            if(t.getPlayer1().equals(name)||t.getPlayer2().equals(name)){
-                col = teams.indexOf(t);
+
+        if(towerImage == null) {
+            ArrayList<ClientTeam> teams = myGame.getTeams();
+            int col = 0;
+            for (ClientTeam t : teams) {
+                if (t.getPlayer1().equals(name) || t.getPlayer2().equals(name)) {
+                    col = teams.indexOf(t);
+                }
+            }
+
+            switch (col) {
+                case 0 -> towerImage = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/white_tower.png")).toString());
+                case 1 -> towerImage = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/grey_tower.png")).toString());
+                case 2 -> towerImage = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/black_tower.png")).toString());
+                default -> {
+                }
             }
         }
 
         for(int i= 0; i<4;i++){
-            if(towersTotal==0){
-                break;
-            }
+
+
             for(int j = 0; j<2; j++){
-                if(towersTotal == 0){
-                    break;
+
+
+
+                if(getNodeByCoordinate(i+1, j+1)==null){
+                    Button tower = new Button();
+                    tower.setMinSize(1.0,1.0);
+                    tower.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+                    towers.add(tower, j+1 , i+1);
+                    tower.setBackground(Background.EMPTY);
+                    ImageView img = new ImageView(towerImage);
+                    img.fitHeightProperty().bind(tower.heightProperty());
+                    img.fitWidthProperty().bind(tower.widthProperty());
+                    tower.setGraphic(img);
                 }
 
                 Button tower = (Button) getNodeByCoordinate(i+1, j+1);

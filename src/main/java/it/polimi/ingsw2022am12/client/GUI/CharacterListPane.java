@@ -18,6 +18,7 @@ public class CharacterListPane extends HBox {
 
     public CharacterListPane(Client client){
         super();
+        double ratio = 3.0/2;
         this.characters = new ArrayList<>();
         setMinSize(1.0, 1.0);
         setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);

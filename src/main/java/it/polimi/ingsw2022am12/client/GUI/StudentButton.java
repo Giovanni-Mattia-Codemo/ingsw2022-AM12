@@ -22,6 +22,8 @@ public class StudentButton extends Button{
     private DiskColor color;
     private Client client;
     private ClientStudent myStudent;
+    private static HashMap<DiskColor, Image> images;
+    private ImageView myView;
 
     /**
      * Constructor method of StudentButton class
@@ -30,6 +32,25 @@ public class StudentButton extends Button{
     public StudentButton(ClientStudent student, Client client){
 
         super();
+        if(images==null) {
+            System.out.println("Creating images");
+            images = new HashMap<>();
+            for (DiskColor d:DiskColor.values()){
+
+                Image resource = null;
+                switch (d) {
+                    case RED -> resource = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/student_red.png")).toString()) ;
+                    case BLUE -> resource = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/student_blue.png")).toString()) ;
+                    case PINK -> resource = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/student_pink.png")).toString());
+                    case YELLOW -> resource = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/student_yellow.png")).toString());
+                    case GREEN -> resource = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/student_green.png")).toString());
+                    default -> {
+                    }
+                }
+                images.put(d, resource);
+            }
+
+        }
         myStudent = student;
         this.client = client;
         setMinWidth(1.0);
@@ -54,7 +75,6 @@ public class StudentButton extends Button{
      */
     private void setStudentColor(DiskColor color){
         this.color = color;
-        String resource = null;
         if(color!=null){
         Image resource = images.get(color);
         if(myView==null){
