@@ -497,10 +497,10 @@ public class ClientGame {
     }
 
     public ArrayList<ClientAssistant> getPlayableAssistants(){
-        ArrayList<ClientAssistant> playable = new ArrayList<>(getSchoolBoardByNick(orderedNicks.get(0)).getAssistants());
+        ArrayList<ClientAssistant> playable = new ArrayList<>(getSchoolBoardByNick(orderedNicks.get(turn)).getAssistants());
         ArrayList<ClientAssistant> toRemove = new ArrayList<>();
-        for(int i = 0; i<getSchoolBoardByNick(orderedNicks.get(0)).getAssistants().size(); i++){
-            ClientAssistant tmp = getSchoolBoardByNick(orderedNicks.get(0)).getAssistants().get(i);
+        for(int i = 0; i<getSchoolBoardByNick(orderedNicks.get(turn)).getAssistants().size(); i++){
+            ClientAssistant tmp = getSchoolBoardByNick(orderedNicks.get(turn)).getAssistants().get(i);
             if(!isAssistantPlayable(tmp.getTurnPower())){
                 toRemove.add(tmp);
             }

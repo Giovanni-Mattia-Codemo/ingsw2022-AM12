@@ -9,11 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-
+import javafx.scene.layout.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -36,14 +32,17 @@ public class CharacterPane extends StackPane {
         setMinSize(1.0, 1.0);
         setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
-        Button characterButton = new Button("Activate");
+        Button characterButton = new Button();
         characterButton.setAlignment(Pos.CENTER);
         characterButton.setMinWidth(1.0);
         characterButton.setMinHeight(1.0);
         characterButton.setMaxHeight(Double.MAX_VALUE);
         characterButton.setMaxWidth(Double.MAX_VALUE);
-        characterButton.setBackground(Background.fill(Color.WHEAT));
+        characterButton.setBackground(Background.EMPTY);
         characterButton.setOnAction(e -> ClientInputHandler.handle("Character "+characterName, client));
+        characterButton.prefHeightProperty().bind(characterButton.heightProperty());
+        characterButton.prefWidthProperty().bind(characterButton.widthProperty());
+
 
         Image characterImg = null;
         switch (characterName){
@@ -51,6 +50,7 @@ public class CharacterPane extends StackPane {
             case "CHARACTER_BEGGAR" -> characterImg = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/CarteTOT_front3.jpg")).toString());
             case "CHARACTER_PRINCESS" -> characterImg = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/CarteTOT_front10.jpg")).toString());
             case "CHARACTER_HERBALIST" -> characterImg = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/CarteTOT_front4.jpg")).toString());
+            case "CHARACTER_HERALD" -> characterImg = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/CarteTOT_front2.jpg")).toString());
             case "CHARACTER_BARD" -> characterImg = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/CarteTOT_front9.jpg")).toString());
             case "CHARACTER_HAG" -> characterImg = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/CarteTOT_front11.jpg")).toString());
             case "CHARACTER_HOST" -> characterImg = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/CarteTOT_front12.jpg")).toString());
@@ -61,11 +61,12 @@ public class CharacterPane extends StackPane {
             default -> {}
         }
         ImageView characterImgView = new ImageView(characterImg);
-        characterImgView.setPreserveRatio(true);
         characterImgView.fitWidthProperty().bind(this.widthProperty());
         characterImgView.fitHeightProperty().bind(this.heightProperty());
 
         getChildren().add(characterImgView);
+        getChildren().add(characterButton);
+        getChildren().add(anchor);
 
         grid.setMinSize(1.0, 1.0);
         grid.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
@@ -81,13 +82,20 @@ public class CharacterPane extends StackPane {
         coin.setMaxHeight(Double.MAX_VALUE);
         coin.setMaxWidth(Double.MAX_VALUE);
         coin.setBackground(Background.EMPTY);
-        coin.prefHeightProperty().bind(coin.widthProperty());
-        coin.prefWidthProperty().bind(grid.widthProperty().divide(5));
-        grid.add(coin, 0, 0);
+        coin.prefHeightProperty().bind(heightProperty().multiply(0.1));
+        coin.prefWidthProperty().bind(coin.heightProperty());
+        //grid.add(coin, 0, 0);
+        anchor.getChildren().add(coin);
+        anchor.setFillWidth(false);
+        VBox.setVgrow(coin, Priority.NEVER);
+        Pane blank = new Pane();
+        blank.setPickOnBounds(false);
+        blank.prefHeightProperty().bind(heightProperty().multiply(0.4));
+        anchor.getChildren().add(blank);
+        VBox.setVgrow(blank, Priority.NEVER);
 
-        characterButton.prefHeightProperty().bind(characterButton.widthProperty());
-        characterButton.prefWidthProperty().bind(grid.widthProperty().divide(5));
-        grid.add(characterButton, 1, 0);
+
+
 
         if(client.getClientGame().getCharacterByName(characterName).isHasCoin()){
             coin.setVisible(true);
@@ -97,8 +105,13 @@ public class CharacterPane extends StackPane {
         if(numOfNoEntries!=0){
             for(int i=0; i<numOfNoEntries; i++){
                 NoEntryImage noEntry = new NoEntryImage();
-                grid.add(noEntry, i%2, 1+i/2);
-                noEntry.prefWidthProperty().bind(grid.widthProperty().divide(5));
+                grid.add(noEntry, i%2, i/2);
+                GridPane.setVgrow(noEntry, Priority.NEVER);
+                GridPane.setHgrow(noEntry, Priority.NEVER);
+                GridPane.setFillWidth(noEntry, false);
+                GridPane.setFillHeight(noEntry, false);
+                noEntry.prefWidthProperty().bind(widthProperty().multiply(0.25));
+                noEntry.prefHeightProperty().bind(noEntry.widthProperty());
                 noEntryImages.add(noEntry);
             }
         }
@@ -108,9 +121,14 @@ public class CharacterPane extends StackPane {
             for(int i=0; i<numOfStudents; i++){
                 ClientStudent student = client.getClientGame().getCharacterByName(characterName).getStudents().getStudents().get(i);
                 StudentButton studentButton = new StudentButton(student, client);
-                grid.add(studentButton, i%2, 1+i/2);
+                grid.add(studentButton, i%2, i/2);
+                GridPane.setVgrow(studentButton, Priority.NEVER);
+                GridPane.setHgrow(studentButton, Priority.NEVER);
+                GridPane.setFillWidth(studentButton, false);
+                GridPane.setFillHeight(studentButton, false);
+
                 studentButton.prefHeightProperty().bind(studentButton.widthProperty());
-                studentButton.prefWidthProperty().bind(grid.widthProperty().divide(5));
+                studentButton.prefWidthProperty().bind(widthProperty().multiply(0.25));
                 students.add(studentButton);
             }
 
@@ -119,9 +137,17 @@ public class CharacterPane extends StackPane {
         getChildren().add(grid);
         grid.prefHeightProperty().bind(this.heightProperty());
         grid.prefWidthProperty().bind(this.widthProperty());
-        grid.setAlignment(Pos.CENTER);
+        grid.setAlignment(Pos.BOTTOM_CENTER);
+        grid.setPickOnBounds(false);
+        anchor.prefHeightProperty().bind(heightProperty());
+        anchor.prefWidthProperty().bind(widthProperty());
+        anchor.setMinSize(1.0,1.0);
+        anchor.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        anchor.getChildren().add(grid);
+        VBox.setVgrow(grid, Priority.NEVER);
 
-        setAlignment(grid, Pos.CENTER);
+        //AnchorPane.setBottomAnchor(grid, 0.0);
+        //setAlignment(grid, Pos.BOTTOM_CENTER);
     }
 
     public void refresh(){
@@ -152,10 +178,16 @@ public class CharacterPane extends StackPane {
         int difference = newStudents.size()-students.size();
         for(int i=0; i<difference; i++){
             for(int j=0; j<6; j++){
-                if(getNodeByCoordinate((j/2)+1, j%2)==null){
+                if(getNodeByCoordinate((j/2), j%2)==null){
                     ClientStudent std = newStudents.get(newStudents.size()-i-1);
                     StudentButton stdButton = new StudentButton(std, client);
-                    grid.add(stdButton, j%2,(j/2)+1);
+                    GridPane.setVgrow(stdButton, Priority.NEVER);
+                    GridPane.setHgrow(stdButton, Priority.NEVER);
+                    GridPane.setFillWidth(stdButton, false);
+                    GridPane.setFillHeight(stdButton, false);
+                    stdButton.prefHeightProperty().bind(stdButton.widthProperty());
+                    stdButton.prefWidthProperty().bind(widthProperty().multiply(0.25));
+                    grid.add(stdButton, j%2,(j/2));
                 }
             }
         }
@@ -167,9 +199,15 @@ public class CharacterPane extends StackPane {
         if(difference>0){
             for(int i=0; i<difference; i++){
                 for(int j=0; j<4; j++){
-                    if(getNodeByCoordinate((j/2)+1, j%2)==null){
+                    if(getNodeByCoordinate((j/2), j%2)==null){
                         NoEntryImage noEntry = new NoEntryImage();
-                        grid.add(noEntry, j%2,(j/2)+1);
+                        grid.add(noEntry, j%2,(j/2));
+                        GridPane.setVgrow(noEntry, Priority.NEVER);
+                        GridPane.setHgrow(noEntry, Priority.NEVER);
+                        GridPane.setFillWidth(noEntry, false);
+                        GridPane.setFillHeight(noEntry, false);
+                        noEntry.prefWidthProperty().bind(widthProperty().multiply(0.25));
+                        noEntry.prefHeightProperty().bind(noEntry.widthProperty());
                         noEntryImages.add(noEntry);
                     }
                 }
@@ -177,11 +215,17 @@ public class CharacterPane extends StackPane {
         }
     }
 
-
-
-    Node getNodeByCoordinate(int row, int column) {
+    /**
+     * getNodeByCoordinates iterates on the children of the GridPane, and then returns the node located in the chosen
+     * coordinates
+     *
+     * @param row index of the row of the grid
+     * @param column index of the column of the grid
+     * @return the Node in those coordinates
+     */
+    private Node getNodeByCoordinate(int row, int column) {
         for (Node node : grid.getChildren()) {
-            if(GridPane.getColumnIndex(node) == row && GridPane.getColumnIndex(node) == column){
+            if(GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column){
                 return node;
             }
         }

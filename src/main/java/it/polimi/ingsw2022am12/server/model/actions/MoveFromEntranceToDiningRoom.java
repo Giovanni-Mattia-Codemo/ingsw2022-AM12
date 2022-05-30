@@ -63,7 +63,12 @@ public class MoveFromEntranceToDiningRoom extends PossibleAction {
 
     }
 
-
+    /**
+     * getUpdates receives an UpdateFlag for the SchoolBoards
+     *
+     * @param game the instance of my game
+     * @return the list of updateFlags
+     */
     @Override
     public ArrayList<UpdateFlag> getUpdates(Game game) {
         ArrayList<UpdateFlag> updates = new ArrayList();

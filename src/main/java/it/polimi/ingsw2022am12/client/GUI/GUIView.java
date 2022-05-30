@@ -19,7 +19,6 @@ import java.util.concurrent.TimeUnit;
 
 public class GUIView implements View, Runnable{
 
-    private ClientGame myGame;
     private Client client;
     private Scene tryAgainLater, tryAnother;
     private Scene schoolBoardScene, islandScene, pickMageScene;

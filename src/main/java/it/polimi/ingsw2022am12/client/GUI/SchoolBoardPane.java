@@ -6,6 +6,7 @@ import it.polimi.ingsw2022am12.client.model.ClientGame;
 import it.polimi.ingsw2022am12.client.model.ClientStudent;
 import it.polimi.ingsw2022am12.client.model.ClientTeam;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,9 +16,9 @@ import java.util.Objects;
 
 public class SchoolBoardPane extends GridPane{
 
-    private String name;
-    private ClientGame myGame;
-    private Client client;
+    private final String name;
+    private final ClientGame myGame;
+    private final Client client;
 
     private GridPane towers;
     private GridPane grid;
@@ -30,7 +31,6 @@ public class SchoolBoardPane extends GridPane{
     private final ArrayList<StudentButton> pinkDiningStudents;
     private final ArrayList<StudentButton> greenDiningStudents;
     private final ArrayList<Button> professorButtons;
-    private final ArrayList<Button> towerButtons;
     private GridPane redRoom;
     private GridPane blueRoom;
     private GridPane greenRoom;
@@ -49,11 +49,6 @@ public class SchoolBoardPane extends GridPane{
         blueDiningStudents = new ArrayList<>();
         yellowDiningStudents = new ArrayList<>();
         pinkDiningStudents = new ArrayList<>();
-        towerButtons = new ArrayList<>();
-
-        //stuff to make the entrance grid inside the schoolBoard
-        Double rowHeighPerc = 14.0;
-        Double borderRowPerc = 5.0;
 
         grid = new GridPane();
         //grid.setGridLinesVisible(true);
@@ -118,8 +113,7 @@ public class SchoolBoardPane extends GridPane{
         diningRoomButton.setOnAction(e-> ClientInputHandler.handle("DiningRoom", client));
 
 
-
-        diningRoom = new GridPane();
+        GridPane diningRoom = new GridPane();
         diningRoom.setPickOnBounds(false);
 
         stackRoom.getChildren().addAll(diningRoomButton, diningRoom);
@@ -176,25 +170,12 @@ public class SchoolBoardPane extends GridPane{
                 case 5-> blueRoom = students;
             }
 
-            /*
-            Button roomButton = new Button();
-            roomButton.setMinSize(1.0, 1.0);
-
-             */
 
             students.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
             students.setMinSize(1.0, 1.0);
             room.setMinSize(1.0, 1.0);
 
-            //students.setGridLinesVisible(true);
-        /*
-            roomButton.setBackground(Background.EMPTY);
-            roomButton.setOnAction(e-> System.out.println("ROOM BUTTON"));
-            roomButton.prefHeightProperty().bind(room.heightProperty());
-            roomButton.prefWidthProperty().bind(room.widthProperty());
-
-         */
             room.setAlignment(Pos.CENTER_LEFT);
             room.getChildren().addAll(students);
             room.prefHeightProperty().bind(diningRoom.getRowConstraints().get(i+1).prefHeightProperty());
@@ -373,6 +354,7 @@ public class SchoolBoardPane extends GridPane{
         refresh();
 
     }
+
     public void refresh(){
 
         fillEntrance(myGame.getSchoolBoardByNick(name).getEntrance().getStudents());
@@ -383,7 +365,6 @@ public class SchoolBoardPane extends GridPane{
         }
 
         fillDiningRoom();
-
         fillTowers();
 
         for(int i=0; i<5; i++){
@@ -399,8 +380,6 @@ public class SchoolBoardPane extends GridPane{
                 s.refresh();
             }
         }
-
-
 
         for (int i=0;i<5;i++){
             if(myGame.getProfessors()[i].equals(name)){
@@ -442,15 +421,35 @@ public class SchoolBoardPane extends GridPane{
                     }
                 }
                 if(found!=null){
-                    //professors.getChildren().remove(1,i+1); //?
                     professors.getChildren().remove(found);
                     professorButtons.remove(found);
                 }
             }
         }
+        updateCoins();
+    }
 
+    public void updateCoins(){
+        if(coin == null){
+            coin = new StackPane();
+            coin.setMinSize(1.0, 1.0);
+            coin.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+            ImageView coinImage = new ImageView(new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/coin_sprite.png")).toString()));
+            coinImage.fitHeightProperty().bind(coin.heightProperty());
+            coinImage.fitWidthProperty().bind(coin.widthProperty());
+            coinImage.setPreserveRatio(true);
+            Label number = new Label();
+            number.setAlignment(Pos.CENTER);
+            number.setMinSize(1.0, 1.0);
+            number.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+            number.prefHeightProperty().bind(coin.heightProperty());
+            number.prefWidthProperty().bind(coin.widthProperty());
+            coin.getChildren().addAll(coinImage, number);
+            coin.setAlignment(Pos.CENTER);
+            grid.add(coin, 1, 1);
 
-
+        }
+        ((Label)coin.getChildren().get(1)).setText(""+client.getClientGame().getSchoolBoardByNick(client.getThisClientNick()).getCoins());
 
     }
 
@@ -530,25 +529,10 @@ public class SchoolBoardPane extends GridPane{
                 if(towersTotal == 0){
                     break;
                 }
-                Button tower = new Button();
-                Image towerImage = null;
 
-                switch (col){
-                    case 0-> towerImage = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/white_tower.png")).toString());
-                    case 1-> towerImage = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/grey_tower.png")).toString());
-                    case 2-> towerImage = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/black_tower.png")).toString());
-                    default -> {}
-                }
-                tower.setBackground(Background.EMPTY);
-                ImageView img = new ImageView(towerImage);
-                img.fitHeightProperty().bind(tower.heightProperty());
-                img.fitWidthProperty().bind(tower.widthProperty());
-                tower.setGraphic(img);
+                Button tower = (Button) getNodeByCoordinate(i+1, j+1);
+                tower.setVisible(towersTotal > 0);
 
-                tower.setMinSize(1.0,1.0);
-                tower.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-                towers.add(tower, j+1 , i+1);
-                towerButtons.add(tower);
                 towersTotal--;
             }
         }
@@ -622,5 +606,14 @@ public class SchoolBoardPane extends GridPane{
             }
         }}
     }
+    }
+
+    private Node getNodeByCoordinate(int row, int column) {
+        for (Node node : towers.getChildren()) {
+            if(GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column){
+                return node;
+            }
+        }
+        return null;
     }
 }

@@ -7,8 +7,11 @@ import it.polimi.ingsw2022am12.client.model.ClientStudent;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Background;
-
+import javafx.scene.paint.Color;
+import java.util.HashMap;
 import java.util.Objects;
 
 /**
@@ -53,27 +56,22 @@ public class StudentButton extends Button{
         this.color = color;
         String resource = null;
         if(color!=null){
-            switch (color) {
-                case RED -> resource = Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/student_red.png")).toString();
-                case BLUE -> resource = Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/student_blue.png")).toString();
-                case PINK -> resource = Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/student_pink.png")).toString();
-                case YELLOW -> resource = Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/student_yellow.png")).toString();
-                case GREEN -> resource = Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/student_green.png")).toString();
-                default -> {
-                }
-            }
-        }
+        Image resource = images.get(color);
+        if(myView==null){
 
-        if(resource!=null){
-            Image image = new Image(resource);
-
-            ImageView img = new ImageView(image);
-            setGraphic(img);
-            img.fitHeightProperty().bind(heightProperty());
-            img.fitWidthProperty().bind(widthProperty());
-            setVisible(true);
+            myView = new ImageView(resource);
+            setGraphic(myView);
+            myView.fitHeightProperty().bind(heightProperty());
+            myView.fitWidthProperty().bind(widthProperty());
 
         }else{
+
+            myView.setImage(resource);
+        }
+            setVisible(true);
+        }
+        else{
+
             setVisible(false);
         }
         setOnAction(e-> ClientInputHandler.handle("Student "+myStudent.getColor()+" "+myStudent.getID(),client));

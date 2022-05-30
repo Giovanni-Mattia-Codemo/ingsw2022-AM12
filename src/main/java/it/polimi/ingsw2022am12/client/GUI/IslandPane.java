@@ -48,7 +48,7 @@ public class IslandPane extends StackPane {
         islandButton.setBackground(Background.EMPTY);
         islandButton.setOnAction(e -> ClientInputHandler.handle("Island " + islandId, client));
         getChildren().add(islandImageView);
-        islandImageView.setPreserveRatio(true);
+        islandImageView.setPreserveRatio(false);
         islandImageView.fitWidthProperty().bind(widthProperty());
         islandImageView.fitHeightProperty().bind(heightProperty());
 
@@ -80,31 +80,46 @@ public class IslandPane extends StackPane {
             studentImg.setMaxHeight(Double.MAX_VALUE);
             studentImg.setMaxWidth(Double.MAX_VALUE);
             studentImg.setBackground(Background.EMPTY);
-            studentImg.prefHeightProperty().bind(studentImg.widthProperty());
-            studentImg.prefWidthProperty().bind(box.widthProperty().divide(5));
+            studentImg.prefHeightProperty().bind(box.heightProperty());
+            studentImg.prefWidthProperty().bind(studentImg.heightProperty());
 
+            HBox.setHgrow(studentImg, Priority.NEVER);
             box.getChildren().add(studentImg);
             Label number = new Label();
+            number.prefHeightProperty().bind(box.heightProperty());
+            number.prefWidthProperty().bind(number.heightProperty());
             studentNumberLabels.add(number);
             box.getChildren().add(number);
             island.add(box, i % 2, i / 2);
+
+            box.prefHeightProperty().bind(heightProperty().multiply(0.25));
+            box.prefWidthProperty().bind(widthProperty().multiply(0.5));
+
         }
 
         towerButton.setBackground(Background.EMPTY);
         box = new HBox();
+        box.prefHeightProperty().bind(heightProperty().multiply(0.25));
+        box.prefWidthProperty().bind(widthProperty().multiply(0.5));
         box.setMinSize(1.0, 1.0);
         box.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
+        HBox.setHgrow(towerButton, Priority.NEVER);
         towerButton.setMinSize(1.0, 1.0);
         towerButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+
+        towerButton.prefHeightProperty().bind(box.heightProperty());
+        towerButton.prefWidthProperty().bind(towerButton.heightProperty());
         box.getChildren().add(towerButton);
 
         box.getChildren().add(numOfTowers);
-        towerButton.prefHeightProperty().bind(towerButton.widthProperty());
-        towerButton.prefWidthProperty().bind(box.widthProperty().divide(5));
+        numOfTowers.prefHeightProperty().bind(box.heightProperty());
+        numOfTowers.prefWidthProperty().bind(numOfTowers.heightProperty());
         island.add(box, 1, 2);
 
         box = new HBox();
+        box.prefHeightProperty().bind(heightProperty().multiply(0.25));
+        box.prefWidthProperty().bind(widthProperty().multiply(0.5));
         box.setMinSize(1.0, 1.0);
         box.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         motherNature = new Button();
@@ -119,15 +134,19 @@ public class IslandPane extends StackPane {
         motherNature.setMaxHeight(Double.MAX_VALUE);
         motherNature.setMaxWidth(Double.MAX_VALUE);
         motherNature.setBackground(Background.EMPTY);
-        motherNature.prefHeightProperty().bind(motherNature.widthProperty());
+        motherNature.prefHeightProperty().bind(box.heightProperty());
+        motherNature.prefWidthProperty().bind(motherNature.heightProperty());
+
         box.getChildren().add(motherNature);
         island.add(box, 0, 3);
-        motherNature.prefWidthProperty().bind(box.widthProperty());
+
 
         if(client.getClientGame().getCharacterByName("CHARACTER_HERBALIST")!=null){
             NoEntryImage noEntryButton = new NoEntryImage();
             noEntryButton.setBackground(Background.EMPTY);
             box = new HBox();
+            box.prefHeightProperty().bind(heightProperty().multiply(0.25));
+            box.prefWidthProperty().bind(widthProperty().multiply(0.5));
             box.setMinSize(1.0, 1.0);
             box.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
@@ -136,17 +155,21 @@ public class IslandPane extends StackPane {
             box.getChildren().add(noEntryButton);
 
             box.getChildren().add(numOfNoEntries);
+            numOfNoEntries.prefHeightProperty().bind(box.heightProperty());
+            numOfNoEntries.prefWidthProperty().bind(numOfNoEntries.heightProperty());
 
             noEntryButton.prefWidthProperty().bind(box.widthProperty().divide(5));
             island.add(box, 1, 3);
+            noEntryButton.prefHeightProperty().bind(box.heightProperty());
+            noEntryButton.prefWidthProperty().bind(noEntryButton.heightProperty());
         }
 
         getChildren().add(island);
         setAlignment(island, Pos.CENTER);
         getChildren().add(islandButton);
 
-        island.prefHeightProperty().bind(this.heightProperty());
-        island.prefWidthProperty().bind(this.widthProperty());
+        island.maxHeightProperty().bind(this.heightProperty().multiply(0.5));
+        island.maxWidthProperty().bind(this.widthProperty().multiply(0.5));
         island.setAlignment(Pos.CENTER);
 
         refresh(islandId);

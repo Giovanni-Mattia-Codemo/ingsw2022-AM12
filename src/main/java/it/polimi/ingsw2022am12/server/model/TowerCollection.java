@@ -6,6 +6,7 @@ import java.util.ArrayList;
  * Class TowerCollection defines a collection of type Tower
  */
 public class TowerCollection implements Position {
+
     private final ArrayList<Tower> towers;
 
     /**

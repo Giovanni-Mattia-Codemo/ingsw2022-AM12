@@ -23,7 +23,6 @@ public class SchoolBoardContainer extends GridPane {
         this.client = client;
         this.nick = nick;
         this.setBackground(Background.fill(Color.BLUE));
-        this.setGridLinesVisible(true);
         double schoolRatio = 0.4337708831;
         //super grid constraints
         ColumnConstraints cc = new ColumnConstraints();
@@ -170,12 +169,21 @@ public class SchoolBoardContainer extends GridPane {
             default -> {
             }
         }
-        if (assistant != null) {
-            ImageView assistantView = new ImageView(assistant);
-            lastPlayedAssistant.setVisible(true);
-            lastPlayedAssistant.setGraphic(assistantView);
-            assistantView.fitHeightProperty().bind(lastPlayedAssistant.heightProperty());
-            assistantView.fitWidthProperty().bind(lastPlayedAssistant.widthProperty());
+
+
+        if (assistantNumber != 0) {
+            assistant = assistantImages.get(assistantNumber);
+            if(assistantView ==null){
+                assistantView = new ImageView(assistant);
+                lastPlayedAssistant.setGraphic(assistantView);
+                lastPlayedAssistant.setVisible(true);
+                assistantView.fitHeightProperty().bind(lastPlayedAssistant.heightProperty());
+                assistantView.fitWidthProperty().bind(lastPlayedAssistant.widthProperty());
+            }else{
+                assistantView.setImage(assistant);
+            }
+
+
 
         }
     }

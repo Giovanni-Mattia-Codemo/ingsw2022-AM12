@@ -17,7 +17,7 @@ public class Tower extends PlaceableObject {
      */
     public Tower(Team team){
         this.team = team;
-    }  //Constructor method
+    }
 
     /**
      * Method getTeam returns the owning team of the tower

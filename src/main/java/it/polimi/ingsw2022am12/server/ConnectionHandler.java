@@ -35,7 +35,8 @@ public class ConnectionHandler implements Runnable{
     }
 
     /**
-     * 
+     * method run connects to the server socket and creates a virtualView, to interact with it through messages (it can
+     * be considered as an interface for the server)
      */
     @Override
     public void run() {

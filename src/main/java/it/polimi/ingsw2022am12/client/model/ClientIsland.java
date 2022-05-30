@@ -36,10 +36,20 @@ public class ClientIsland {
         return ID;
     }
 
+    /**
+     * Getter method for numOfNoEntries
+     *
+     * @return int number of no entries
+     */
     public int getNumOfNoEntries() {
         return numOfNoEntries;
     }
 
+    /**
+     * Setter method for numOfNoEntries
+     *
+     * @param numOfNoEntries number of no entries
+     */
     public void setNumOfNoEntries(int numOfNoEntries) {
         this.numOfNoEntries = numOfNoEntries;
     }
@@ -71,6 +81,12 @@ public class ClientIsland {
         return students;
     }
 
+    /**
+     * Returns the number of students of a certain color
+     *
+     * @param color the chosen color
+     * @return int number of students of color
+     */
     public int getIslandStudentsOfColor(DiskColor color){
         return students.getByColor(color);
     }

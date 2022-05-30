@@ -67,7 +67,7 @@ public class MoveMotherNature extends PossibleAction {
     @Override
     public ArrayList<UpdateFlag> getUpdates(Game game){
         ArrayList<UpdateFlag> update = new ArrayList<>();
-        update.add(new UpdateFlag(Flag.ISLANDS));
+        update.add(new UpdateFlag(Flag.FULLGAME));
         return update;
     }
 }
