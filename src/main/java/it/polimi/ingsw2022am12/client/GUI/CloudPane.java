@@ -75,8 +75,9 @@ public class CloudPane extends StackPane {
             studentImg.setMaxWidth(Double.MAX_VALUE);
             studentImg.setBackground(Background.EMPTY);
             studentImg.prefHeightProperty().bind(studentImg.widthProperty());
-            studentImg.prefWidthProperty().bind(box.widthProperty().divide(5));
-
+            studentImg.prefWidthProperty().bind(box.heightProperty());
+            box.setFillHeight(false);
+            HBox.setHgrow(studentImg,Priority.NEVER);
             box.getChildren().add(studentImg);
             Label number = new Label("x" + client.getClientGame().getCloudByID(cloudId).getByColor(c));
             studentNumberLabels.add(number);
@@ -88,8 +89,8 @@ public class CloudPane extends StackPane {
         getChildren().add(cloudButton);
         setAlignment(cloud, Pos.CENTER);
 
-        cloud.prefHeightProperty().bind(this.heightProperty());
-        cloud.prefWidthProperty().bind(this.widthProperty());
+        cloud.maxHeightProperty().bind(this.heightProperty());
+        cloud.maxWidthProperty().bind(this.widthProperty());
         cloud.setAlignment(Pos.CENTER);
 
     }

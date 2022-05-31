@@ -439,7 +439,7 @@ public class SchoolBoardPane extends GridPane{
             ImageView coinImage = new ImageView(new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/coin_sprite.png")).toString()));
             coinImage.fitHeightProperty().bind(coin.heightProperty());
             coinImage.fitWidthProperty().bind(coin.widthProperty());
-            coinImage.setPreserveRatio(true);
+            //coinImage.setPreserveRatio(true);
             Label number = new Label();
             number.setAlignment(Pos.CENTER);
             number.setMinSize(1.0, 1.0);

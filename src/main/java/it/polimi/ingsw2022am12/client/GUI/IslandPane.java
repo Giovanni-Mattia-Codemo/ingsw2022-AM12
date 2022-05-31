@@ -59,6 +59,8 @@ public class IslandPane extends StackPane {
         for (DiskColor c : DiskColor.values()) {
             int i = c.getValue();
             box = new HBox();
+            box.setFillHeight(false);
+
             box.setMinSize(1.0, 1.0);
             box.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
             Button studentImg = new Button();
@@ -87,9 +89,12 @@ public class IslandPane extends StackPane {
             HBox.setHgrow(studentImg, Priority.NEVER);
             box.getChildren().add(studentImg);
             Label number = new Label();
+            number.setMinSize(1.0,1.0);
+            number.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
             number.prefHeightProperty().bind(box.heightProperty());
             number.prefWidthProperty().bind(number.heightProperty());
             studentNumberLabels.add(number);
+            HBox.setHgrow(number, Priority.NEVER);
             box.getChildren().add(number);
             island.add(box, i % 2, i / 2);
 
@@ -100,6 +105,7 @@ public class IslandPane extends StackPane {
 
         towerButton.setBackground(Background.EMPTY);
         box = new HBox();
+        box.setFillHeight(false);
         box.prefHeightProperty().bind(heightProperty().multiply(0.25));
         box.prefWidthProperty().bind(widthProperty().multiply(0.5));
         box.setMinSize(1.0, 1.0);
@@ -116,6 +122,9 @@ public class IslandPane extends StackPane {
         box.getChildren().add(numOfTowers);
         numOfTowers.prefHeightProperty().bind(box.heightProperty());
         numOfTowers.prefWidthProperty().bind(numOfTowers.heightProperty());
+        numOfTowers.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        numOfTowers.setMinSize(1.0, 1.0);
+        HBox.setHgrow(numOfTowers, Priority.NEVER);
         island.add(box, 1, 2);
 
         box = new HBox();
@@ -150,15 +159,17 @@ public class IslandPane extends StackPane {
             box.prefWidthProperty().bind(widthProperty().multiply(0.5));
             box.setMinSize(1.0, 1.0);
             box.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-
+            box.setFillHeight(false);
             noEntryButton.setMinSize(1.0, 1.0);
             noEntryButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
             box.getChildren().add(noEntryButton);
-
+            HBox.setHgrow(noEntryButton, Priority.NEVER);
             box.getChildren().add(numOfNoEntries);
             numOfNoEntries.prefHeightProperty().bind(box.heightProperty());
             numOfNoEntries.prefWidthProperty().bind(numOfNoEntries.heightProperty());
-
+            numOfNoEntries.setMinSize(1.0, 1.0);
+            numOfNoEntries.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+            HBox.setHgrow(numOfNoEntries, Priority.NEVER);
             noEntryButton.prefWidthProperty().bind(box.widthProperty().divide(5));
             island.add(box, 1, 3);
             noEntryButton.prefHeightProperty().bind(box.heightProperty());
