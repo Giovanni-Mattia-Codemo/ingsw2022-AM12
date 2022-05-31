@@ -68,7 +68,8 @@ public class Game{
     }
 
     /**
-     * Method assignTeams assigns to each schoolBoard in turnOrder a team
+     * Method assignTeams assigns to each schoolBoard (player) in the turnOrder array a team (We have no teams for 2 and 3
+     * players, but we have two teams for four players)
      */
     public void assignTeams(){
         if(numOfPlayers==2){
@@ -101,7 +102,7 @@ public class Game{
     }
 
     /**
-     *Method setup is used to set all the initial values of the attributes of the game
+     * Method setup is used to set all the initial values of the attributes of the game
      */
     public void setUp() {
 
@@ -114,7 +115,7 @@ public class Game{
 
         for (DiskColor c: DiskColor.values()){
             for (int i = 0; i < numOfStudentsOfEachColorToPutInBagForSetup; i++) {
-                Student temporaryStudent =new Student(c);
+                Student temporaryStudent = new Student(c);
                 bag.insertElement(temporaryStudent);
             }
         }
@@ -161,7 +162,9 @@ public class Game{
 
     /**
      * Method setUpForExpertMode is used to set all the initial values of the attributes of the game, when the expertMode
-     * is selected
+     * is selected; it sets up twenty free coins, then assigns one of them, getting them from the bunch, to each player,
+     * then it initializes the three characters that can be used for the rest of the game, choosing them randomly from the
+     * deck of twelve characters
      */
     private void setUpForExpertMode(){
         for (int i=0; i<coinsTOTAL; i++){
@@ -195,16 +198,16 @@ public class Game{
     }
 
     /**
-     * getCurrentStrategy returns the current phase strategy
+     * getCurrentStrategy returns the current phase
      *
-     * @return the current strategy used in the game
+     * @return the current phase in which my game is
      */
     public PhaseStrategy getCurrentStrategy(){
         return  currentStrategy;
     }
 
     /**
-     * Method only used for testing
+     * Method only used for testing, returns the coins from the bunch, which are not owned by any player
      *
      * @return CoinCollection
      */
@@ -238,7 +241,7 @@ public class Game{
     }
 
     /**
-     * Method only used for testing
+     * Method only used for testing, it forces the character in input to Active
      *
      * @param characterName to be set active
      */
@@ -348,9 +351,10 @@ public class Game{
     }
 
     /**
-     * checkIfIslandDrawableByID returns true if the cloud is drawable
+     * checkIfIslandDrawableByID returns true if the cloud is drawable (meaning it has not been selected already)
+     *
      * @param ID of the cloud
-     * @return boolaen value
+     * @return boolean value true if the cloud can be selected, false otherwise
      */
     public boolean checkIfCloudDrawableByID(int ID){
         for (int i= 0; i<numOfPlayers; i++){
@@ -364,7 +368,7 @@ public class Game{
     /**
      * Getter method for round
      *
-     * @return int number of round
+     * @return int number of the round
      */
     public int getRound() {
         return round;
@@ -373,18 +377,17 @@ public class Game{
     /**
      * Getter method for turn
      *
-     * @return int number of turn
+     * @return int number of the turn
      */
     public int getTurn() {
         return turn;
     }
 
     /**
-     * Method getSelectableClouds returns a boolean that says if a selected cloud is empty or not;
-     * it checks all the clouds in the "clouds array", if the island is not empty already,
-     * meaning that somebody already chose it, it can be selected
+     * Method getDrawableClouds returns an arrayList of clouds; it checks all the clouds in the "clouds array" and if
+     * the cloud is not empty already, meaning that somebody already chose it, it can be selected
      *
-     * @return true if the cloud is not empty, false otherwise
+     * @return the list of clouds that are not empty and can be selected
      */
     public ArrayList<Selectable> getDrawableClouds(){
 
@@ -398,7 +401,7 @@ public class Game{
     }
 
     /**
-     * Method getCurrentSchoolBoard returns the reference to the schoolBoard of the current turn player
+     * Method getCurrentSchoolBoard returns the reference to the schoolBoard of the current player
      *
      * @return SchoolBoard
      */
@@ -428,6 +431,7 @@ public class Game{
     }
 
     /**
+     * Method getAvailableCharacters returns a list of available charcter cards
      *
      * @return a list of available CharacterCards
      */
@@ -454,35 +458,42 @@ public class Game{
     }
 
     /**
-     * Method moveStudentFromCardToRoom defines how I can move a student from a card to an island
+     * Method moveStudentFromCardToRoom defines how I can move a student from a card to an island; the card in question is
+     * the Monk card, the only character whose ability allows us to move a student from the card to an island
      *
      * @param color of the student
      * @param islandID of the island where I want to put the student
      */
     public void moveStudentFromCardToIsland(DiskColor color, int islandID){
         StudentDiskCollection monkStudents = ((CharacterMonk)getActiveCharacterCard()).getStudents();
-        if(monkStudents.getFirstStudentOfColor(color).isPresent()){
+
+        if(monkStudents.getFirstStudentOfColor(color).isPresent()){ //checks if the collection of students on the monk isn't empty
+
             Student tmp = monkStudents.getFirstStudentOfColor(color).get();
-            monkStudents.removeElement(tmp);
-            islandList.getByIndex(islandID).insertStudent(tmp);
+            monkStudents.removeElement(tmp);   //removes the first student of the collection placed on the monk
+            islandList.getByIndex(islandID).insertStudent(tmp);   //inserts such student on the chosen island
+
         }
     }
 
     /**
-     * Method moveStudentFromCardToRoom defines how I can move a student from a card to the Dining Room
+     * Method moveStudentFromCardToRoom defines how I can move a student from a card to the Dining Room, the only card
+     * that allows me to move a student from itself to the dining room is the Princess crd
      *
      * @param color of the student
      */
     public void moveStudentFromCardToRoom(DiskColor color){
 
-        StudentDiskCollection tmp = ((CharacterPrincess)getActiveCharacterCard()).getStudents();
-        if(tmp.getFirstStudentOfColor(color).isPresent()){
-            Student temp = tmp.getFirstStudentOfColor(color).get();
-            tmp.removeElement(temp);
-            getCurrentSchoolBoard().insertToDiningRoom(temp);
+        StudentDiskCollection princessStudents = ((CharacterPrincess)getActiveCharacterCard()).getStudents();
+
+        if(princessStudents.getFirstStudentOfColor(color).isPresent()){ //checks if the collection of students on the princess isn't empty
+
+            Student temp = princessStudents.getFirstStudentOfColor(color).get();
+            princessStudents.removeElement(temp);  //removes the first student of the collection placed on the princess
+            getCurrentSchoolBoard().insertToDiningRoom(temp);   //inserts such student in the diningRoom
 
             if((getCurrentSchoolBoard().getStudentsInRoomByColor(temp.getColor())%3)==0){
-                collectCoin();
+                collectCoin();           //collects a coin for each three students placed in a table in the dining room
             }
         }
     }
@@ -494,33 +505,34 @@ public class Game{
      * @param index of the island to check
      */
     public void conquerIsland(int index){
+
         IslandTileSet islandToConquer = islandList.getByIndex(index);
 
         if(islandToConquer.getNoEntries().size()!=0){
-                islandToConquer.giveBackNoEntry();
+                islandToConquer.giveBackNoEntry();  //island is not accessible for this turn because it has a noEntry on it, but it can be conquered the next turn
         }else {
 
             int[] scores= new int[teams.size()];
             Team team;
             SchoolBoard temporarySchoolBoard;
-            for (DiskColor c: DiskColor.values()) {
+            for (DiskColor c: DiskColor.values()) {  //this for iterates on each professor of each color
                 temporarySchoolBoard = professors[c.getValue()];
-                if(getActiveCharacterCard()!=null&&getActiveCharacterName()==CharacterName.CHARACTER_MERCHANT&&c==((CharacterMerchant)getActiveCharacterCard()).getColor()){
-                    continue;
+                if(getActiveCharacterCard()!=null && getActiveCharacterName()==CharacterName.CHARACTER_MERCHANT && c==((CharacterMerchant)getActiveCharacterCard()).getColor()){
+                    continue;   //it proceeds to calculate the scores of each player only if the Merchant card hasn't been activated, since the Merchant can inhibit a selected color when we calculate our influence
                 }
                 if(temporarySchoolBoard != null){
                     for (Team t :teams ) {
-                        if(t.getSchoolBoards().contains(temporarySchoolBoard)){
-                            scores[teams.indexOf(t)]+= islandToConquer.getIslandsStudentsOfColor(c);
+                        if(t.getSchoolBoards().contains(temporarySchoolBoard)){ //only if my schoolBoard contains a professor of a certain color, I can calculate my score for said color
+                            scores[teams.indexOf(t)]+= islandToConquer.getIslandsStudentsOfColor(c);   //the score of a color is given by the number of students of said color
                         }
                     }
                 }
             }
             Team owner = islandToConquer.getOwningTeam();
-            if(owner!= null&&!(getActiveCharacterCard()!=null&&getActiveCharacterName()==CharacterName.CHARACTER_CENTAUR)){
+            if(owner!= null&&!(getActiveCharacterCard()!=null&&getActiveCharacterName()==CharacterName.CHARACTER_CENTAUR)){ //if I already own (I placed a tower) on an island, I must add +1 score to my influence for each tower, unless the Centaur is active
                 scores[teams.indexOf(owner)]+=islandToConquer.getNumOfIslandsInThisSet();
             }
-            if(getActiveCharacterCard()!=null&&getActiveCharacterName()==CharacterName.CHARACTER_KNIGHT){
+            if(getActiveCharacterCard()!=null&&getActiveCharacterName()==CharacterName.CHARACTER_KNIGHT){ //the knights adds +2 to the score of my influence
                 for(Team t: teams){
                     if (t.getSchoolBoards().contains(getCurrentSchoolBoard())){
                         scores[teams.indexOf(t)]+=2;
@@ -530,25 +542,25 @@ public class Game{
             }
             int winnerId = 0;
             boolean tie = false;
-            for(int i=1; i<scores.length; i++){
+            for(int i=1; i<scores.length; i++){    //this for calculates the person with the highest influence score
                 if (scores[i]>scores[winnerId]){
                     winnerId = i;
                     tie= false;
-                }else if(scores[i]==scores[winnerId]){
+                }else if(scores[i]==scores[winnerId]){   //this else if sets a tie if two players have the same influence points
                     tie= true;
                 }
             }
-            if (!tie) {
+            if (!tie) {  //in case there isn't a tie
                 team = teams.get(winnerId);
-                if (team != islandToConquer.getOwningTeam()) {
+                if (team != islandToConquer.getOwningTeam()) {   //I can conquer an island, stealing it from the other team, if I'm not the current owner
                     ArrayList<Tower> towersToMove = islandToConquer.getTowers();
-                    islandToConquer.removeAllTowers();
+                    islandToConquer.removeAllTowers();     //first I remove the towers of the previous owner
                     for (Tower t : towersToMove) {
                         t.getTeam().getSchoolBoardWithTowers().insertTower(t);
                     }
 
                     for (int i = 0; i < islandToConquer.getNumOfIslandsInThisSet(); i++) {
-                        Tower towerToMove = team.getSchoolBoardWithTowers().getFirstTower();
+                        Tower towerToMove = team.getSchoolBoardWithTowers().getFirstTower();  //Then I conquer by placing my towers, if I still have towers
                         if (towerToMove != null) {
                             islandToConquer.insertTower(towerToMove);
                             try {
@@ -556,13 +568,13 @@ public class Game{
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                        } else endGame();
+                        } else endGame();   //If I don't have any more towers to move it means the game is over
 
 
                     }
-                    islandList.checkAndMerge(index);
+                    islandList.checkAndMerge(index);  //this part of code checks if I have conquered more than one adjacent islands; if I have, it merges them
                     if(islandList.numOfIslandSets()<=3){
-                        endGame();
+                        endGame();       //If there are less than three clusters of islands on my table, it means the game is over
                     }
                 }
             }
@@ -578,14 +590,15 @@ public class Game{
     public Student drawStudentFromBag(){
         Student tmp =bag.draw();
         if (tmp==null){
-            isLastRoundFlag=true;
+            isLastRoundFlag=true;  //If the bag is empty, it means I must end the game at the end of this round
         }
         return tmp;
     }
 
 
     /**
-     * Method playAssistant is used in the planning phase when the player has to select an assistant from them deck
+     * Method playAssistant is used in the planning phase when the player has to select an assistant from them deck, the
+     * assistant I played determines my position in the turn order
      *
      * @param assistantPower selected
      */
@@ -594,19 +607,20 @@ public class Game{
     }
 
     /**
-     *Method moveFromEntranceToIsland is used to move a student from the entrance to one specific island
+     * Method moveFromEntranceToIsland is used to move a student from the entrance to one specific island
      *
      * @param studentColor of student to be moved
      * @param islandID of islandTileSet chosen
      */
     public void moveStudentFromEntranceToIsland(DiskColor studentColor, int islandID){
-        if(getCurrentSchoolBoard().getEntrance().getFirstStudentOfColor(studentColor).isPresent()){
+        if(getCurrentSchoolBoard().getEntrance().getFirstStudentOfColor(studentColor).isPresent()){  //If the entrance is not empty
+
             Student selectedStudent = getCurrentSchoolBoard().getEntrance().getFirstStudentOfColor(studentColor).get();
             IslandTileSet islandTileSet = islandList.getByIndex(islandID);
 
-            getCurrentSchoolBoard().getEntrance().removeElement(selectedStudent);
-            islandTileSet.insertStudent(selectedStudent);
-            disksMovedThisTurn++;
+            getCurrentSchoolBoard().getEntrance().removeElement(selectedStudent);  //it removes the first student of a certain color from the entrance
+            islandTileSet.insertStudent(selectedStudent);  //it inserts it in the island
+            disksMovedThisTurn++;  //this variable checks the number of students I moved in a turn, so that I don't move more than it's due
         }
     }
 
@@ -618,8 +632,8 @@ public class Game{
     public void moveMotherNature(int index){
         hasMovedMotherNature = true;
         IslandTileSet tmp = islandList.getByIndex(index);
-        islandList.moveMotherNature(tmp);
-        conquerIsland(islandList.getMotherNatureIndex());
+        islandList.moveMotherNature(tmp);   //I move motherNature to selected island
+        conquerIsland(islandList.getMotherNatureIndex());  //everytime I move motherNature, the island in which she arrives must have an influence check
     }
 
     /**
@@ -636,38 +650,39 @@ public class Game{
             s.moveStudentFromEntranceToRoom(student);
 
             if((s.getStudentsInRoomByColor(colorInEntrance)%3)==0){
-                collectCoin();
+                collectCoin();    //I can collect a coin for each 3 students of the same color in my diningRoom
             }
 
             SchoolBoard owner = professors[student.getColor().getValue()];
             if(owner!= null&&getActiveCharacterName()==CharacterName.CHARACTER_HOST) {
                 if (owner.getStudentsInRoomByColor(student.getColor()) <= s.getStudentsInRoomByColor(student.getColor())) {
-                    owner = s;
+                    owner = s;   //the professor of a color is already owned, but Host card has been played the current player has more(or THE SAME) students of that color, so he becomes the new owner
                 }
             }else if(owner!= null) {
                 if (owner.getStudentsInRoomByColor(student.getColor()) < s.getStudentsInRoomByColor(student.getColor())) {
-                    owner = s;
+                    owner = s;   //the professor of a color is already owned, but the current player has more students of that color, so he becomes the new owner
                 }
-            }else owner = s;
+            }else owner = s;   //the professors have no owner yet, they go to my current player
+
             professors[student.getColor().getValue()]=owner;
-            disksMovedThisTurn++;
+            disksMovedThisTurn++;  //this variable checks the number of students I moved in a turn, so that I don't move more than it's due
         }
     }
 
     /**
-     * Method insertNoEntry places a noEntry on a selected island
+     * Method insertNoEntry places a noEntry, collected from the herbalist card, on a selected island
      *
      * @param destination index of my selected island
      */
     public void insertNoEntry(int destination){
         IslandTileSet destinationIsland = islandList.getByIndex(destination);
-        NoEntry noEntry = ((CharacterHerbalist)getActiveCharacterCard()).getNoEntryCollection().getFirstNoEntry();
+        NoEntry noEntry = ((CharacterHerbalist)getActiveCharacterCard()).getNoEntryCollection().getFirstNoEntry();   //I collect a noEntry from the Herbalist card
         noEntry.getCharacterNoEntryCollection().removeElement(noEntry);
         destinationIsland.insertNoEntries(noEntry);
     }
 
     /**
-     * Method jesterSwap defines the functioning of a swap done by the JesterCar5d
+     * Method jesterSwap defines the functioning of a swap done by the JesterCard
      *
      * @param colorOfCharStudent color of the Student taken from the JesterCard
      * @param colorOfEntranceStudent color of the Student from the Entrance
@@ -675,12 +690,19 @@ public class Game{
     public void jesterSwap(DiskColor colorOfCharStudent, DiskColor colorOfEntranceStudent){
         CharacterJester jester =((CharacterJester)getActiveCharacterCard());
 
-        if(jester.getStudents().getFirstStudentOfColor(colorOfCharStudent).isPresent()){
+        if(jester.getStudents().getFirstStudentOfColor(colorOfCharStudent).isPresent()){   //checks if the collection on the Jester is not empty
+
             Student st0 = jester.getStudents().getFirstStudentOfColor(colorOfCharStudent).get();
-            if(getCurrentSchoolBoard().getEntrance().getFirstStudentOfColor(colorOfEntranceStudent).isPresent()){
+
+            if(getCurrentSchoolBoard().getEntrance().getFirstStudentOfColor(colorOfEntranceStudent).isPresent()){  //checks if the entrance is not empty
+
                 Student st1 = getCurrentSchoolBoard().getEntrance().getFirstStudentOfColor(colorOfEntranceStudent).get();
+
+                //removes the students
                 jester.getStudents().removeElement(st0);
                 getCurrentSchoolBoard().getEntrance().removeElement(st1);
+
+                //places them in the swapped places
                 jester.getStudents().insertElement(st1);
                 getCurrentSchoolBoard().getEntrance().insertElement(st0);
             }
@@ -734,11 +756,11 @@ public class Game{
      */
     public void fillIslands(){
         Student student;
-        for (int i=0; i<maxNumOfIslands; i++){
+        for (int i=0; i<maxNumOfIslands; i++){   //It will place a student on TEN islands in the setup phase of the game
             if (i!=(islandList.getMotherNatureIndex()+6)%12&&i!=islandList.getMotherNatureIndex()){
                 student = drawStudentFromBag();
                 if(student != null){
-                    islandList.getByIndex(i).insertStudent(student);
+                    islandList.getByIndex(i).insertStudent(student);  //if the student is not null, and if we are not on the initial island of motherNature (and its opposite island) I place it
                 }
             }
         }
@@ -750,6 +772,7 @@ public class Game{
     public void fillClouds(){
         Student student;
         int studentsPerCloud;
+
         if (numOfPlayers == 3){
             studentsPerCloud = 4;
 
@@ -770,11 +793,13 @@ public class Game{
      * @return true if the selected island is reachable, false otherwise
      */
     public boolean checkIfIslandInRange(IslandTileSet island){
-        int range=getCurrentSchoolBoard().getLastPlayedAssistantRange();
+        int range=getCurrentSchoolBoard().getLastPlayedAssistantRange();   //The maximum range is given by the assistant's power
+
         if(getActiveCharacterName()==CharacterName.CHARACTER_BEGGAR){
-            range+=2;
+            range+=2;   //The beggar card adds +2 to each assistant's maximum range
         }
         return islandList.distanceFromMotherNature(island) <= range && islandList.distanceFromMotherNature(island) > 0;
+        //true if the island's distance from motherNature is smaller than my maximum range, but also greater than 0
     }
 
     /**
@@ -787,7 +812,7 @@ public class Game{
     }
 
     /**
-     * Method movedAllDisksThisTurn returns if the player is done moving the students during them action phase
+     * Method movedAllDisksThisTurn returns if the player is done moving the students during the action phase
      *
      * @return true if all the students were moved, false otherwise
      */
@@ -797,7 +822,9 @@ public class Game{
 
         if(numOfPlayers==3){
             return disksMovedThisTurn==disksToMoveForThreePlayers;
-        }return disksMovedThisTurn==disksToMoveForTwoOrFourPlayers;
+        }
+
+        return disksMovedThisTurn==disksToMoveForTwoOrFourPlayers;
     }
 
     /**
@@ -810,8 +837,10 @@ public class Game{
     }
 
     public ArrayList<Assistant> getPlayableAssistants(){
+
         ArrayList<Assistant> playable = new ArrayList<>(getCurrentSchoolBoard().getRemainingAssistants());
         ArrayList<Assistant> toRemove = new ArrayList<>();
+
         for(int i = 0; i<getCurrentSchoolBoard().getRemainingAssistants().size(); i++){
             Assistant tmp = getCurrentSchoolBoard().getRemainingAssistants().get(i);
             if(!isAssistantPlayable(tmp.getTurnPower())){
@@ -834,23 +863,28 @@ public class Game{
 
         cardWasPlayed = wasCardPlayed(assistantPower);
 
-        if(cardWasPlayed){
-            for(int i = 0; i<getCurrentSchoolBoard().getRemainingAssistants().size(); i++){
+        if(cardWasPlayed){    //if the assistant with assistantPower was played
+            for(int i = 0; i<getCurrentSchoolBoard().getRemainingAssistants().size(); i++){   //iterates on the other assistants
 
-                int currentCardPower = getCurrentSchoolBoard().getRemainingAssistants().get(i).getTurnPower();
+                int currentCardPower = getCurrentSchoolBoard().getRemainingAssistants().get(i).getTurnPower();   //selects another card from the deck
 
 
                 if(!wasCardPlayed(currentCardPower)){
-                    noOtherPlayableAssistants=false;
+                    noOtherPlayableAssistants=false;    //if this selected card was not played it means there ARE other assistants playable, so I can exit the cycle
                     break;
                 }
             }
-        }else return true;
+        }else return true;  //if the assistant with assistantPower wasn't already used, itt means I can use it now
 
         return noOtherPlayableAssistants;
     }
 
-
+    /**
+     * wasCardPlayed method returns true if the assistant with int turnPower was already played
+     *
+     * @param turnPower the value of my assistant
+     * @return true if the assistant with that power was already played
+     */
     private boolean wasCardPlayed(int turnPower){
         for(int j=0; j<turn; j++){
             int toCheck = turnOrder.get(j).getLastPlayedAssistantPower();
@@ -915,12 +949,13 @@ public class Game{
     public void nextTurn(){
         hasMovedMotherNature=false;
         disksMovedThisTurn = 0;
+
         if(activeCharacterCard!=null){
             activeCharacterCard.setWasUsed(false);
             activeCharacterCard = null;
         }
         if(isLastTurn()){
-            turn=0;   //resets the turn count
+            turn=0;   //resets the turn count if it's the last turn, for the next round
         }else turn++;
     }
 
@@ -940,7 +975,7 @@ public class Game{
         Coin toBeMoved;
         for(int i=0; i<coinsUsed; i++){
             toBeMoved = getCurrentSchoolBoard().getFirstCoin();
-            getCurrentSchoolBoard().removeCoin(toBeMoved);
+            getCurrentSchoolBoard().removeCoin(toBeMoved);  //when I pay a character, the coins are removed from my schoolBoard, and placed again in the free bunch
             freeCoins.insertElement(toBeMoved);
         }
     }
@@ -951,8 +986,8 @@ public class Game{
     public void collectCoin(){
         Coin toBeMoved = freeCoins.getFirstCoin();
         if(toBeMoved!=null){
-            freeCoins.removeElement(toBeMoved);
-            getCurrentSchoolBoard().insertCoin(toBeMoved);
+            freeCoins.removeElement(toBeMoved);   //collects the coin from the free bunch
+            getCurrentSchoolBoard().insertCoin(toBeMoved);   //gives it to the current player
         }
     }
 
@@ -975,13 +1010,13 @@ public class Game{
     public void payAndSetActiveCharacter(CharacterName characterName){
 
         for (CharacterCard characterCard:characterCards) {
-            if (characterCard.getName().equals(characterName)){
+            if (characterCard.getName().equals(characterName)){  //checks if the character is the selected one
                 if (characterCards.contains(characterCard)){
                             int cost = characterCard.getCost();
-                            payCoins(cost);
+                            payCoins(cost);   //pays the cost of the character
                             if(!characterCard.wasPayedBefore()){
                                 Coin coinTmp = freeCoins.getFirstCoin();
-                                freeCoins.removeElement(coinTmp);
+                                freeCoins.removeElement(coinTmp);     //it places a coin on the character the first time, meaning it increased the cost by one the first time
                                 characterCard.insertCoin(coinTmp);
                             }
                             activeCharacterCard = characterCard;

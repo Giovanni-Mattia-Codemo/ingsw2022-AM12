@@ -80,27 +80,35 @@ public class IslandTileList {
      * Method mergeIslands merges two islandTileSets into one
      *
      * @param left first islandTileSet
-     * @param islandToCheck second islandTileSet (destination)
+     * @param islandToCheck second islandTileSet (destination of the content of both islands)
      */
     public void mergeIslands(IslandTileSet left, IslandTileSet islandToCheck){
-            int leftSize = left.getTowers().size();
+
+            int leftSize = left.getTowers().size(); //determines if the first island is a single island or a cluster of islands
+
             islandToCheck.addIsland(leftSize);
             for(int i=0; i<leftSize; i++){
-                islandToCheck.insertTower(left.getFirstTower());
-            }
-            ArrayList<Student> studentsToMove = left.getStudents();
-            int stdSize = studentsToMove.size();
-            for (int i = 0; i < stdSize; i++) {
-                islandToCheck.insertStudent(studentsToMove.get(0));
-            }
-            ArrayList<NoEntry> noEntriesToMove = left.getNoEntries();
-            int noEntrySize = noEntriesToMove.size();
-            for (int i = 0; i < noEntrySize; i++) {
-                islandToCheck.insertNoEntries(noEntriesToMove.get(0));
+                islandToCheck.insertTower(left.getFirstTower());  //puts all the towers contained in the first set in the second one
             }
 
-            islands.remove(left);
-            updateIslandIDs();
+            ArrayList<Student> studentsToMove = left.getStudents();  //determines how many students the first island has
+
+            int stdSize = studentsToMove.size();
+
+            for (int i = 0; i < stdSize; i++) {
+                islandToCheck.insertStudent(studentsToMove.get(0));   //puts all the students contained in the first set in the second one
+            }
+
+            ArrayList<NoEntry> noEntriesToMove = left.getNoEntries();  //determines how many noEntries the first island has
+
+            int noEntrySize = noEntriesToMove.size();
+
+            for (int i = 0; i < noEntrySize; i++) {
+                islandToCheck.insertNoEntries(noEntriesToMove.get(0));    //puts all the noEntries contained in the first set in the second one
+            }
+
+            islands.remove(left);   //the first set is now useless, so I remove it from the list of islands
+            updateIslandIDs();    //I update the number of islands, since now there is one less
     }
 
     /**
@@ -114,8 +122,8 @@ public class IslandTileList {
         int rightIndex;
 
         if(islandIndex==0){
-            leftIndex=islands.size()-1;
-        }else leftIndex=islandIndex-1;
+            leftIndex=islands.size()-1;   //we are in a circle, if my island is the first, the one on its left is the last one
+        }else leftIndex=islandIndex-1;    //else it's just the index of my island decreased by one
 
         IslandTileSet left = islands.get(leftIndex);
         IslandTileSet islandToCheck = islands.get(islandIndex);
@@ -149,7 +157,7 @@ public class IslandTileList {
 
 
     /**
-     * Method updateIslandIDs sets new IDs for my islands
+     * Method updateIslandIDs sets new IDs for my islands, after a merge
      */
     private void updateIslandIDs(){
         for(IslandTileSet i: islands){

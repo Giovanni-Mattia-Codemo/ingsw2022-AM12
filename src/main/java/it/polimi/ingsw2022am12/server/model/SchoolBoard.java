@@ -22,6 +22,7 @@ public class SchoolBoard{
 
     /**
      * Constructor method of SchoolBoard class
+     * @param name name of the player
      */
     public SchoolBoard(String name){
 
@@ -48,7 +49,7 @@ public class SchoolBoard{
     }
 
     /**
-     * Method setMage is used to set the selected mage
+     * Method setMage is used to associate the selected mage to my schoolBoard
      *
      * @param mage to be set
      */
