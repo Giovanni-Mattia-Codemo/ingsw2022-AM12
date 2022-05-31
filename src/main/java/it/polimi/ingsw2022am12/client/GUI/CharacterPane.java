@@ -12,7 +12,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Stack;
 
 /**
  * CharacterPane class is the graphic component thatrepresents the Character card
@@ -71,6 +70,8 @@ public class CharacterPane extends VBox {
 
 
         StackPane imgCoinPane = new StackPane();
+        imgCoinPane.setMinSize(1.0, 1.0);
+        imgCoinPane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
         imgCoinPane.getChildren().add(characterImgView);
         imgCoinPane.getChildren().add(characterButton);
@@ -163,7 +164,7 @@ public class CharacterPane extends VBox {
     /**
      * fillStudents fills with students the cells of the character's grid that are reserved for the students
      *
-     * @param newStudents
+     * @param newStudents updated
      */
     private void fillStudents(ArrayList<ClientStudent> newStudents){
         int difference = newStudents.size()-students.size();

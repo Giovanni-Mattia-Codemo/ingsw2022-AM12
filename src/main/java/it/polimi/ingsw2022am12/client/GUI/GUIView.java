@@ -10,31 +10,20 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import java.util.ArrayList;
-import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 public class GUIView implements View, Runnable{
 
-    private Client client;
+    private final Client client;
     private Scene tryAgainLater, tryAnother;
     private Scene schoolBoardScene, islandScene, pickMageScene;
     private SchoolBoardView mySchools;
-    private Scene initialScene, nickInputScene, gameSettingsScene, waitingQueueScene, gameIsFullScene;
+    private Scene nickInputScene, gameSettingsScene, waitingQueueScene, gameIsFullScene, matchIsStartingScene, disconnectionScene;
     private Stage primary;
     private IslandView islandView;
-    boolean firstTime = true;
     boolean afterFirstUpdate = false;
-
-    /**
-     * Default constructor
-     */
-    public GUIView(){
-
-    }
 
     /**
      * Constructor for setting the game
@@ -51,16 +40,17 @@ public class GUIView implements View, Runnable{
 
         primary = new Stage();
         primary.setTitle("Eryantis");
-        setInitialScene();
         nickInputScene = new Scene(new NickInputPane(client), 400, 300);
         gameSettingsScene = new Scene(new GameSettingsPane(client), 400, 300);
         primary.setResizable(true);
-        primary.setScene(initialScene);
+        primary.setScene(nickInputScene);
         primary.show();
         setTryAgain();
         setTryAnother();
         setWaitingQueueScene();
         setGameIsFullScene();
+        setMatchIsStartingScene();
+        setDisconnectionScene();
 
     }
 
@@ -68,14 +58,30 @@ public class GUIView implements View, Runnable{
     public void updateGameView(ClientGame game, UpdateFlag flag) {
 
         switch (flag.getFlag()){
-            case FULLGAME -> Platform.runLater(this::refreshAll);
-            case SCHOOL -> Platform.runLater(this::refreshAll);
-            default -> Platform.runLater(this::refreshAll);
+            case FULLGAME, CHARACTERS, CLOUDS -> Platform.runLater(this::refreshAll);
+            case SCHOOL -> Platform.runLater(this::schoolsRefresh);
+            case ISLANDS -> Platform.runLater(this::islandsRefresh);
         }
 
     }
 
-    public void refreshAll(){
+    private void islandsRefresh(){
+        if(afterFirstUpdate) {
+            islandView.refresh();
+        }else{
+            afterFirstUpdate = true;
+        }
+    }
+
+    private void schoolsRefresh(){
+        if(afterFirstUpdate) {
+            mySchools.refresh();
+        }else{
+            afterFirstUpdate = true;
+        }
+    }
+
+    private void refreshAll(){
         if(afterFirstUpdate) {
             mySchools.refresh();
             islandView.refresh();
@@ -90,13 +96,7 @@ public class GUIView implements View, Runnable{
         for(ControlMessages message: msg) {
             switch (message) {
                 case REQUESTINGNICK: {
-                    try {
-                        TimeUnit.SECONDS.sleep(3);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
                     Platform.runLater(() -> primary.setScene(nickInputScene));
-                    firstTime = false;
                     break;
                 }
                 case INSERTMODE: {
@@ -104,14 +104,6 @@ public class GUIView implements View, Runnable{
                     break;
                 }
                 case GAMEISBEINGCREATED: {
-                    if (firstTime) {
-                        try {
-                            TimeUnit.SECONDS.sleep(3);
-                            firstTime = false;
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
                     Platform.runLater(() -> primary.setScene(tryAgainLater));
                     break;
                 }
@@ -120,7 +112,6 @@ public class GUIView implements View, Runnable{
                     break;
                 }
                 case ASSIGNEDNICK: {
-                    System.out.println("Your nick has been set");
                     break;
                 }
                 case WAITINGFORPLAYERS: {
@@ -128,7 +119,6 @@ public class GUIView implements View, Runnable{
                     break;
                 }
                 case SELECTMAGE: {
-                    System.out.println("In select mage");
                     Platform.runLater(() -> {
                         setPickMageScene();
                         primary.setScene(pickMageScene);
@@ -136,13 +126,10 @@ public class GUIView implements View, Runnable{
                     break;
                 }
                 case MATCHMAKINGCOMPLETE: {
-                    //SchoolBoard setup logic
-                    Platform.runLater(()-> {
-                                setSchoolScene();
-                            });
-
-
-                    System.out.println("Starting match");
+                    Platform.runLater(()->{
+                        setSchoolScene();
+                        primary.setScene(matchIsStartingScene);
+                    });
                     break;
                 }
                 case GAMEISFULL: {
@@ -151,8 +138,15 @@ public class GUIView implements View, Runnable{
                 }
                 case PLAYASSISTANT:{
                     Platform.runLater(()->new AssistantSelectionWindow().displayScene(client));
+                    break;
                 }
-
+                case DISCONNECTION:{
+                    Platform.runLater(()-> {
+                        primary.setScene(disconnectionScene);
+                        client.disconnected();
+                    });
+                    break;
+                }
                 default:
                     System.out.println(message.getMessage());
                     break;
@@ -165,26 +159,31 @@ public class GUIView implements View, Runnable{
     private void setTryAgain(){
         VBox pane = new VBox();
         Label tryAnother = new Label("The game is being decided, wait");
-        Button close = new Button("Got it");
-        close.setOnAction(e->{
-            primary.setScene(nickInputScene);
-        });
-        pane.getChildren().addAll(tryAnother, close);
+        pane.getChildren().addAll(tryAnother);
         pane.setAlignment(Pos.CENTER);
         tryAgainLater = new Scene(pane, 400, 300);
-
     }
 
     private void setIslandScene(){
         islandView = new IslandView(client);
-        islandView.getSwitcher().setOnAction(e->{
-            Platform.runLater(()-> {
-                primary.setScene(schoolBoardScene);
-                primary.setWidth(islandScene.getWidth());
-                primary.setHeight(islandScene.getHeight());
-            });
-        });
-        islandScene = new Scene(islandView, 800, 600);
+        islandView.getSwitcher().setOnAction(e-> Platform.runLater(()-> primary.setScene(schoolBoardScene)));
+        islandScene = new Scene(islandView, 600, 400);
+    }
+
+    private void setMatchIsStartingScene(){
+        VBox pane = new VBox();
+        Label matchIsStarting = new Label("Your match is starting, wait for your turn");
+        pane.getChildren().addAll(matchIsStarting);
+        pane.setAlignment(Pos.CENTER);
+        matchIsStartingScene = new Scene(pane, 400, 300);
+    }
+
+    private void setDisconnectionScene(){
+        VBox pane = new VBox();
+        Label disconnection = new Label("A player left the game\nYou're being disconnected");
+        pane.getChildren().addAll(disconnection);
+        pane.setAlignment(Pos.CENTER);
+        disconnectionScene = new Scene(pane, 400, 300);
     }
 
     private void setSchoolScene(){
@@ -194,52 +193,25 @@ public class GUIView implements View, Runnable{
         HBox box = new HBox();
         GameStateView state = new GameStateView();
 
-        state.getToIslands().setOnAction(e->{
-            Platform.runLater(()-> {
-                primary.setScene(islandScene);
-                primary.setWidth(box.getWidth());
-                primary.setHeight(box.getHeight());
-            });
-        });
+        state.getToIslands().setOnAction(e-> Platform.runLater(()->
+            primary.setScene(islandScene)
+        ));
         box.getChildren().addAll(schools, state);
         state.prefWidthProperty().bind(box.widthProperty().multiply(0.2));
         schools.prefWidthProperty().bind(box.widthProperty().multiply(0.8));
         HBox.setHgrow(state, Priority.NEVER);
         HBox.setHgrow(schools, Priority.NEVER);
-        schoolBoardScene = new Scene(box);
+        schoolBoardScene = new Scene(box, 600, 400);
     }
 
     private void setTryAnother(){
         VBox pane = new VBox();
         Label tryAnotherLabel = new Label("The name you picked was already taken");
         Button close = new Button("Got it");
-        close.setOnAction(e->{
-            primary.setScene(nickInputScene);
-        });
+        close.setOnAction(e->Platform.runLater(()-> primary.setScene(nickInputScene)));
         pane.getChildren().addAll(tryAnotherLabel, close);
         pane.setAlignment(Pos.CENTER);
         tryAnother = new Scene(pane, 400, 300);
-    }
-
-    private void setInitialScene(){
-        BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false,false,true,true);
-        Image image = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/LOGO CRANIO CREATIONS_bianco.png")).toString());
-        Background background = new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, bSize));
-        GridPane pane = new GridPane();
-
-        pane.setBackground(background);
-        double h = image.getHeight()/2;
-        double w = image.getWidth()/2;
-
-        GridPane.setFillHeight(pane, true);
-        GridPane.setFillWidth(pane, true);
-        pane.setMinHeight(1);
-        pane.setMinWidth(1);
-        pane.setPrefSize(w, h);
-        pane.setMaxWidth(Double.POSITIVE_INFINITY);
-        pane.setMaxHeight(Double.POSITIVE_INFINITY);
-        pane.setAlignment(Pos.CENTER_LEFT);
-        initialScene = new Scene(pane);
     }
 
     private void setWaitingQueueScene(){
@@ -266,7 +238,6 @@ public class GUIView implements View, Runnable{
     }
 
     private void setPickMageScene(){
-        System.out.println("In pick mage");
         pickMageScene = new Scene(new MageSelectionPane(client, this), 400, 300);
     }
 
