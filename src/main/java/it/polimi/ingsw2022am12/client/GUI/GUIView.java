@@ -172,6 +172,7 @@ public class GUIView implements View, Runnable{
         pane.getChildren().addAll(tryAnother, close);
         pane.setAlignment(Pos.CENTER);
         tryAgainLater = new Scene(pane, 400, 300);
+
     }
 
     private void setIslandScene(){
@@ -179,6 +180,8 @@ public class GUIView implements View, Runnable{
         islandView.getSwitcher().setOnAction(e->{
             Platform.runLater(()-> {
                 primary.setScene(schoolBoardScene);
+                primary.setWidth(islandScene.getWidth());
+                primary.setHeight(islandScene.getHeight());
             });
         });
         islandScene = new Scene(islandView, 800, 600);
@@ -194,6 +197,8 @@ public class GUIView implements View, Runnable{
         state.getToIslands().setOnAction(e->{
             Platform.runLater(()-> {
                 primary.setScene(islandScene);
+                primary.setWidth(box.getWidth());
+                primary.setHeight(box.getHeight());
             });
         });
         box.getChildren().addAll(schools, state);

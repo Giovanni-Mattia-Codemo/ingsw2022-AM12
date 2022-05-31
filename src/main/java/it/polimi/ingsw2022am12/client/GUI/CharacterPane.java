@@ -12,11 +12,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Stack;
 
 /**
  * CharacterPane class is the graphic component thatrepresents the Character card
  */
-public class CharacterPane extends StackPane {
+public class CharacterPane extends VBox {
 
     private final String characterName;
     private final Client client;
@@ -37,10 +38,6 @@ public class CharacterPane extends StackPane {
         this.client = client;
         this.students = new ArrayList<>();
         this.noEntryImages = new ArrayList<>();
-        VBox anchor = new VBox();
-        anchor.setPickOnBounds(false);
-        anchor.setAlignment(Pos.CENTER);
-        grid = new GridPane();
 
         setMinSize(1.0, 1.0);
         setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
@@ -53,9 +50,6 @@ public class CharacterPane extends StackPane {
         characterButton.setMaxWidth(Double.MAX_VALUE);
         characterButton.setBackground(Background.EMPTY);
         characterButton.setOnAction(e -> ClientInputHandler.handle("Character "+characterName, client));
-        characterButton.prefHeightProperty().bind(characterButton.heightProperty());
-        characterButton.prefWidthProperty().bind(characterButton.widthProperty());
-
 
         Image characterImg = null;
         switch (characterName){
@@ -74,23 +68,16 @@ public class CharacterPane extends StackPane {
             default -> {}
         }
         ImageView characterImgView = new ImageView(characterImg);
-        characterImgView.fitWidthProperty().bind(this.widthProperty());
-        characterImgView.fitHeightProperty().bind(this.heightProperty());
 
-        getChildren().add(characterImgView);
-        getChildren().add(characterButton);
-        getChildren().add(anchor);
 
-        grid.setMinSize(1.0, 1.0);
-        grid.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        StackPane imgCoinPane = new StackPane();
 
-        /*
-        RowConstraints temp1 = new RowConstraints();
-        temp1.setVgrow(Priority.NEVER);
-        temp1.setFillHeight(true);
-
-        temp1.setPercentHeight(8);
-        grid.getRowConstraints().add(temp1);*/
+        imgCoinPane.getChildren().add(characterImgView);
+        imgCoinPane.getChildren().add(characterButton);
+        characterImgView.fitWidthProperty().bind(imgCoinPane.widthProperty());
+        characterImgView.fitHeightProperty().bind(imgCoinPane.heightProperty());
+        characterButton.prefHeightProperty().bind(imgCoinPane.heightProperty());
+        characterButton.prefWidthProperty().bind(imgCoinPane.widthProperty());
 
         coin = new Button();
         ImageView coinImg = new ImageView(new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/coin_sprite.png")).toString()));
@@ -103,73 +90,47 @@ public class CharacterPane extends StackPane {
         coin.setMaxHeight(Double.MAX_VALUE);
         coin.setMaxWidth(Double.MAX_VALUE);
         coin.setBackground(Background.EMPTY);
-        coin.prefHeightProperty().bind(heightProperty().multiply(0.1));
+        coin.prefHeightProperty().bind(imgCoinPane.heightProperty().multiply(0.1));
         coin.prefWidthProperty().bind(coin.heightProperty());
-        //grid.add(coin, 0, 0);
-        anchor.getChildren().add(coin);
-        anchor.setFillWidth(false);
-        VBox.setVgrow(coin, Priority.NEVER);
-        Pane blank = new Pane();
-        blank.setPickOnBounds(false);
-        blank.prefHeightProperty().bind(heightProperty().multiply(0.4));
-        anchor.getChildren().add(blank);
-        VBox.setVgrow(blank, Priority.NEVER);
+        imgCoinPane.getChildren().add(coin);
 
-
-
+        imgCoinPane.setAlignment(Pos.TOP_CENTER);
+        imgCoinPane.prefHeightProperty().bind(heightProperty().multiply(0.5));
+        imgCoinPane.prefWidthProperty().bind(widthProperty());
+        imgCoinPane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        imgCoinPane.setMinSize(1.0, 1.0);
 
         if(client.getClientGame().getCharacterByName(characterName).isHasCoin()){
             coin.setVisible(true);
         }
 
+        grid = new GridPane();
+        grid.setMinSize(1.0, 1.0);
+        grid.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+
         int numOfNoEntries = client.getClientGame().getCharacterByName(characterName).getNumberOfNoEntries();
         if(numOfNoEntries!=0){
-            for(int i=0; i<numOfNoEntries; i++){
-                NoEntryImage noEntry = new NoEntryImage();
-                grid.add(noEntry, i%2, i/2);
-                GridPane.setVgrow(noEntry, Priority.NEVER);
-                GridPane.setHgrow(noEntry, Priority.NEVER);
-                GridPane.setFillWidth(noEntry, false);
-                GridPane.setFillHeight(noEntry, false);
-                noEntry.prefWidthProperty().bind(widthProperty().multiply(0.25));
-                noEntry.prefHeightProperty().bind(noEntry.widthProperty());
-                noEntryImages.add(noEntry);
-            }
+            fillNoEntries(numOfNoEntries);
         }
 
         if(client.getClientGame().getCharacterByName(characterName).getStudents()!=null){
-            int numOfStudents = client.getClientGame().getCharacterByName(characterName).getStudents().getStudents().size();
-
-            for(int i=0; i<numOfStudents; i++){
-                ClientStudent student = client.getClientGame().getCharacterByName(characterName).getStudents().getStudents().get(i);
-                StudentButton studentButton = new StudentButton(student, client);
-                grid.add(studentButton, i%2, i/2);
-                GridPane.setVgrow(studentButton, Priority.NEVER);
-                GridPane.setHgrow(studentButton, Priority.NEVER);
-                GridPane.setFillWidth(studentButton, false);
-                GridPane.setFillHeight(studentButton, false);
-
-                studentButton.prefHeightProperty().bind(studentButton.widthProperty());
-                studentButton.prefWidthProperty().bind(widthProperty().multiply(0.25));
-                students.add(studentButton);
-            }
-
+            fillStudents(client.getClientGame().getCharacterByName(characterName).getStudents().getStudents());
         }
 
-        //getChildren().add(grid);
         grid.prefHeightProperty().bind(heightProperty().multiply(0.5));
         grid.prefWidthProperty().bind(this.widthProperty());
-        grid.setAlignment(Pos.BOTTOM_CENTER);
-        grid.setPickOnBounds(false);
-        anchor.prefHeightProperty().bind(heightProperty());
-        anchor.prefWidthProperty().bind(widthProperty());
-        anchor.setMinSize(1.0,1.0);
-        anchor.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        anchor.getChildren().add(grid);
-        VBox.setVgrow(grid, Priority.NEVER);
+        grid.setAlignment(Pos.TOP_CENTER);
 
-        //AnchorPane.setBottomAnchor(grid, 0.0);
-        //setAlignment(grid, Pos.BOTTOM_CENTER);
+        grid.setPickOnBounds(false);
+        grid.setGridLinesVisible(true);
+
+        getChildren().add(imgCoinPane);
+        getChildren().add(grid);
+
+        VBox.setVgrow(grid, Priority.NEVER);
+        VBox.setVgrow(imgCoinPane, Priority.NEVER);
+        setFillWidth(false);
+
     }
 
     /**
@@ -209,18 +170,34 @@ public class CharacterPane extends StackPane {
         for(int i=0; i<difference; i++){
             for(int j=0; j<6; j++){
                 if(getNodeByCoordinate((j/2), j%2)==null){
+                    if(grid.getRowConstraints().size()<=j/2){
+                        RowConstraints rc = new RowConstraints();
+                        rc.setVgrow(Priority.NEVER);
+                        rc.setFillHeight(true);
+                        rc.prefHeightProperty().bind(grid.widthProperty().divide(2));
+                        grid.getRowConstraints().add(rc);
+                    }
+                    if(grid.getColumnConstraints().size()<=j%2){
+                        ColumnConstraints cc = new ColumnConstraints();
+                        cc.setHgrow(Priority.NEVER);
+                        cc.setFillWidth(true);
+                        cc.prefWidthProperty().bind(grid.widthProperty().divide(2));
+                        grid.getColumnConstraints().add(cc);
+                    }
                     ClientStudent std = newStudents.get(newStudents.size()-i-1);
                     StudentButton stdButton = new StudentButton(std, client);
-                    GridPane.setVgrow(stdButton, Priority.NEVER);
-                    GridPane.setHgrow(stdButton, Priority.NEVER);
-                    GridPane.setFillWidth(stdButton, false);
-                    GridPane.setFillHeight(stdButton, false);
-                    stdButton.prefHeightProperty().bind(stdButton.widthProperty());
-                    stdButton.prefWidthProperty().bind(widthProperty().multiply(0.25));
+                    stdButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+                    stdButton.setMinSize(1.0, 1.0);
                     grid.add(stdButton, j%2,(j/2));
+                    students.add(stdButton);
+                    break;
                 }
             }
         }
+
+
+
+
 
     }
 
@@ -235,15 +212,24 @@ public class CharacterPane extends StackPane {
             for(int i=0; i<difference; i++){
                 for(int j=0; j<4; j++){
                     if(getNodeByCoordinate((j/2), j%2)==null){
+                        if(grid.getRowConstraints().size()<=j/2){
+                            RowConstraints rc = new RowConstraints();
+                            rc.setVgrow(Priority.NEVER);
+                            rc.setFillHeight(true);
+                            rc.prefHeightProperty().bind(grid.widthProperty().divide(2));
+                            grid.getRowConstraints().add(rc);
+                        }
+                        if(grid.getColumnConstraints().size()<=j%2){
+                            ColumnConstraints cc = new ColumnConstraints();
+                            cc.setHgrow(Priority.NEVER);
+                            cc.setFillWidth(true);
+                            cc.prefWidthProperty().bind(grid.widthProperty().divide(2));
+                            grid.getColumnConstraints().add(cc);
+                        }
                         NoEntryImage noEntry = new NoEntryImage();
                         grid.add(noEntry, j%2,(j/2));
-                        GridPane.setVgrow(noEntry, Priority.NEVER);
-                        GridPane.setHgrow(noEntry, Priority.NEVER);
-                        GridPane.setFillWidth(noEntry, false);
-                        GridPane.setFillHeight(noEntry, false);
-                        noEntry.prefWidthProperty().bind(widthProperty().multiply(0.25));
-                        noEntry.prefHeightProperty().bind(noEntry.widthProperty());
                         noEntryImages.add(noEntry);
+                        break;
                     }
                 }
             }

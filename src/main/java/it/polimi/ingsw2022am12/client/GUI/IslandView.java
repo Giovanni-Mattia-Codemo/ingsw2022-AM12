@@ -4,6 +4,7 @@ import it.polimi.ingsw2022am12.client.Client;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
@@ -25,7 +26,7 @@ public class IslandView extends ScrollPane {
         VBox box = new VBox();
         box.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         box.setMinSize(1.0, 1.0);
-
+        box.setFillWidth(false);
         //box.getChildren().add(cloudList);
         //box.getChildren().add(islandList);
         box.getChildren().add(islandCloudStack);
@@ -41,12 +42,14 @@ public class IslandView extends ScrollPane {
 
         islandCloudStack.setAlignment(Pos.CENTER);
         islandCloudStack.getChildren().addAll(islandList, cloudList);
+        VBox.setVgrow(islandCloudStack, Priority.NEVER);
 
         islandCloudStack.prefHeightProperty().bind(this.widthProperty());
         islandCloudStack.prefWidthProperty().bind(this.widthProperty());
 
-        characters.prefHeightProperty().bind(this.widthProperty().multiply(3.0/2.0).multiply(0.33));
+        characters.prefHeightProperty().bind(this.widthProperty().multiply(6.0/2.0).multiply(0.33));
         characters.prefWidthProperty().bind(this.widthProperty());
+        VBox.setVgrow(characters, Priority.NEVER);
 
 
 

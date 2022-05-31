@@ -12,7 +12,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Stack;
 
 public class IslandPane extends StackPane {
 

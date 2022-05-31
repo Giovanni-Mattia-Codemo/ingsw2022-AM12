@@ -4,9 +4,9 @@ import it.polimi.ingsw2022am12.client.Client;
 import it.polimi.ingsw2022am12.client.model.ClientCharacter;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
-
 import java.util.ArrayList;
 
 /**
@@ -23,18 +23,31 @@ public class CharacterListPane extends HBox {
      */
     public CharacterListPane(Client client){
         super();
-        double ratio = 3.0/2;
+        double ratio = 6.0/2;
         this.characters = new ArrayList<>();
         setMinSize(1.0, 1.0);
         setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         setBackground(Background.fill(Color.CYAN));
+        Pane blank = new Pane();
+        blank.setMinSize(1.0, 1.0);
+        blank.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        HBox.setHgrow(blank, Priority.ALWAYS);
+        getChildren().add(blank);
         for(ClientCharacter c : client.getClientGame().getCharacters()){
             CharacterPane character = new CharacterPane(c.getName(), client);
             characters.add(character);
             getChildren().add(character);
-            HBox.setHgrow(character, Priority.ALWAYS);
+            HBox.setHgrow(character, Priority.NEVER);
+            setFillHeight(false);
             character.prefHeightProperty().bind(character.widthProperty().multiply(ratio));
-            character.prefWidthProperty().bind(this.widthProperty().divide(3));
+            character.prefWidthProperty().bind(this.widthProperty().divide(6));
+
+
+            blank = new Pane();
+            blank.setMinSize(1.0, 1.0);
+            blank.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+            HBox.setHgrow(blank, Priority.ALWAYS);
+            getChildren().add(blank);
         }
     }
 
