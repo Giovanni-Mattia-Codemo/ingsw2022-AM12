@@ -19,6 +19,7 @@ public class GUIView implements View, Runnable{
     private final Client client;
     private Scene tryAgainLater, tryAnother;
     private Scene schoolBoardScene, islandScene, pickMageScene;
+    private GameStateView gameStateView;
     private SchoolBoardView mySchools;
     private Scene nickInputScene, gameSettingsScene, waitingQueueScene, gameIsFullScene, matchIsStartingScene, disconnectionScene, serverDownScene;
     private Stage primary;
@@ -87,6 +88,7 @@ public class GUIView implements View, Runnable{
         if(afterFirstUpdate) {
             mySchools.refresh();
             islandView.refresh();
+            gameStateView.refresh(client);
 
         }else{
             afterFirstUpdate = true;
@@ -149,8 +151,14 @@ public class GUIView implements View, Runnable{
                     });
                     break;
                 }
+                case SERVERUNREACHABLE:{
+                    Platform.runLater(()->{
+                        primary.setScene(serverDownScene);
+                    });
+                    break;
+                }
                 default:
-                    System.out.println(message.getMessage());
+                    Platform.runLater(()-> gameStateView.addMessage(message.getMessage()));
                     break;
             }
         }
@@ -197,12 +205,16 @@ public class GUIView implements View, Runnable{
         gameStateView.getToIslands().setOnAction(e-> Platform.runLater(()->
             primary.setScene(islandScene)
         ));
-        box.getChildren().addAll(schools, state);
-        state.prefWidthProperty().bind(box.widthProperty().multiply(0.2));
+        box.getChildren().addAll(schools, gameStateView);
+        gameStateView.prefWidthProperty().bind(box.widthProperty().multiply(0.2));
         schools.prefWidthProperty().bind(box.widthProperty().multiply(0.8));
-        HBox.setHgrow(state, Priority.NEVER);
+        HBox.setHgrow(gameStateView, Priority.NEVER);
         HBox.setHgrow(schools, Priority.NEVER);
         schoolBoardScene = new Scene(box, 600, 400);
+    }
+
+    private void setGameStateView(){
+        gameStateView = new GameStateView();
     }
 
     private void setTryAnother(){

@@ -68,6 +68,55 @@ public class Game{
         this.characterCards = new ArrayList<>();
     }
 
+
+    public Game (ArrayList<String> playerNicks, boolean characterMode, Bag bag, int coins, ArrayList<SchoolBoard> turnOrder, ArrayList<IslandTileSet> islands, int motherNature, ArrayList<StudentDiskCollection> clouds, ArrayList<Team> teams, String[] professors, ArrayList<CharacterCard> characterCards){
+        this.playerNicks = playerNicks;
+        this.numOfPlayers = playerNicks.size();
+        this.freeCoins = new CoinCollection();
+        for(int i=0; i<coins; i++){
+            freeCoins.insertElement(new Coin());
+        }
+        this.turnOrder = turnOrder;
+        this.islandList = new IslandTileList(islands, motherNature);
+        this.clouds = new StudentDiskCollection[this.numOfPlayers];
+        for(int i=0; i<numOfPlayers; i++){
+            this.clouds[i]=clouds.get(i);
+        }
+        this.bag = bag;
+        this.teams = teams;
+        for(Team t:this.teams){
+            t.setSchoolsFromGame(this);
+        }
+        this.professors = new SchoolBoard[5];
+        for(int i=0; i<5; i++){
+            this.professors[i]=getSchoolBoardByNick(professors[i]);
+        }
+        this.isExpertMode = characterMode;
+        this.characterCards = characterCards;
+        CharacterHerbalist herb = (CharacterHerbalist)getCharacterByName("CHARACTER_HERBALIST");
+        if(herb!=null){
+            for(IslandTileSet set:islandList.getIslands()){
+                set.setNoEntryCharacter(herb.getNoEntryCollection());
+            }
+        }
+        for(IslandTileSet set:islandList.getIslands()){
+            set.fillSavedTowers(this);
+        }
+
+    }
+
+    public ArrayList<String> getPlayerNicks() {
+        return playerNicks;
+    }
+
+    public Bag getBag() {
+        return bag;
+    }
+
+    public int getDisksMovedThisTurn() {
+        return disksMovedThisTurn;
+    }
+
     /**
      * Method assignTeams assigns to each schoolBoard (player) in the turnOrder array a team (We have no teams for 2 and 3
      * players, but we have two teams for four players)

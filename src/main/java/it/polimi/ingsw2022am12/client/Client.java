@@ -90,16 +90,7 @@ public class Client {
             }
         }while(!correct);
 
-        socket = new Socket(ip, port);
-        System.out.println("Connected!");
-        in = new Scanner(socket.getInputStream());
-        out = new PrintWriter(socket.getOutputStream());
-        ServerMessageHandler serverMessageHandler = new ServerMessageHandler(in, this);
-        serverMsg = new Thread(serverMessageHandler);
-        serverMsg.start();
-        timer = new Timer();
-        ClientPingTimerTask pingTimerTask = new ClientPingTimerTask(this);
-        timer.schedule(pingTimerTask, 3000, 3000);
+        connect();
     }
 
     public void controlMessageToView(ArrayList<ControlMessages> msg){
@@ -151,6 +142,25 @@ public class Client {
             e.printStackTrace();
         }
         timer.cancel();
+    }
+
+    public void connect(){
+        try{
+            socket = new Socket(ip, port);
+            System.out.println("Connected!");
+            in = new Scanner(socket.getInputStream());
+            out = new PrintWriter(socket.getOutputStream());
+            ServerMessageHandler serverMessageHandler = new ServerMessageHandler(in, this);
+            serverMsg = new Thread(serverMessageHandler);
+            serverMsg.start();
+            timer = new Timer();
+            ClientPingTimerTask pingTimerTask = new ClientPingTimerTask(this);
+            timer.schedule(pingTimerTask, 3000, 3000);
+        }catch(ConnectException e){
+            view.connectionFailedPrompt();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 
     public void setThisClientNick(String thisClientNick) {

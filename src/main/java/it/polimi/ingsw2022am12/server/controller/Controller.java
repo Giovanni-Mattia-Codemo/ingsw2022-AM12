@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import it.polimi.ingsw2022am12.ControlMessagesAdapter;
 import it.polimi.ingsw2022am12.NickInputAdapter;
+import it.polimi.ingsw2022am12.server.gameSaveAdapters.GameSaveAdapter;
 import it.polimi.ingsw2022am12.updateFlag.Flag;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlag;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlagAdapterFactory;
@@ -54,6 +55,7 @@ public class Controller {
         gameWasSet = false;
         lock = new ReentrantLock();
         virtualViews = new ArrayList<>();
+        savedGame = createNewFIle();
 
     }
 
@@ -98,6 +100,13 @@ public class Controller {
                     v.forwardMsg(gsonForMessages.toJson(messages));
                     return;
                 }else if(result.equals(ActionStep.OK)){
+                    System.out.println("serializing game");
+                    Gson gameSaveG = new GsonBuilder().registerTypeAdapter(Game.class, new GameSaveAdapter()).create();
+                    System.out.println("made the serializer");
+                    String savedGame = gameSaveG.toJson(myGame);
+                    System.out.println("serialized");
+                    saveGame(savedGame);
+                    System.out.println("saved");
                     Gson gson = new GsonBuilder().registerTypeAdapter(Game.class, new GameAdapter()).create();
                     String gameState = gson.toJson(myGame);
                     updateAllViews(gameState);

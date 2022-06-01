@@ -27,6 +27,12 @@ public class IslandTileList {
         motherNature = islands.get(index);
     }
 
+    public IslandTileList(ArrayList<IslandTileSet> islands, int motherNature){
+        this.islands = new ArrayList<>(islands);
+        this.motherNature = getByIndex(motherNature);
+
+    }
+
     /**
      * getIslandsAsSelectable returns an array of islands as Selectable objects
      *
@@ -34,6 +40,11 @@ public class IslandTileList {
      */
     public ArrayList<Selectable> getIslandsAsSelectable(){
         return new ArrayList<>(islands);
+    }
+
+
+    public ArrayList<IslandTileSet> getIslands(){
+        return islands;
     }
 
     /**

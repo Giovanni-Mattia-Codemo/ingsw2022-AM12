@@ -5,7 +5,7 @@ package it.polimi.ingsw2022am12.server.model;
  */
 public class NoEntry extends PlaceableObject implements Selectable {
 
-    private final NoEntryCollection characterNoEntryCollection;
+    private NoEntryCollection characterNoEntryCollection;
 
     /**
      * Constructor method of NoEntry. Creates a reference to the character card which defines the no entry
@@ -14,6 +14,10 @@ public class NoEntry extends PlaceableObject implements Selectable {
      */
     public NoEntry(NoEntryCollection characterNoEntryCollection){
         this.characterNoEntryCollection = characterNoEntryCollection;
+    }
+
+    public NoEntry(){
+
     }
 
     /**
@@ -34,5 +38,9 @@ public class NoEntry extends PlaceableObject implements Selectable {
     @Override
     public boolean isEqual(Selectable toCompare) {
         return toCompare instanceof NoEntry;
+    }
+
+    public void setCharacterNoEntryCollection(NoEntryCollection characterNoEntryCollection){
+        this.characterNoEntryCollection = characterNoEntryCollection;
     }
 }

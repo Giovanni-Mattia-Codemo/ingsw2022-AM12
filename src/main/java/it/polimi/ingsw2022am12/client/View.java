@@ -25,4 +25,6 @@ public interface View {
      * @param flag an update flag that signals the main changes
      */
     void updateGameView(ClientGame game, UpdateFlag flag);
+
+    void connectionFailedPrompt();
 }

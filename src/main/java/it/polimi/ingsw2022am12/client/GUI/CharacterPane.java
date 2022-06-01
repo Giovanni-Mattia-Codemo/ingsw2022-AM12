@@ -127,6 +127,9 @@ public class CharacterPane extends VBox {
 
         getChildren().add(imgCoinPane);
         getChildren().add(grid);
+        if(characterName.equals("CHARACTER_MERCHANT")||characterName.equals("CHARACTER_HAG")){
+
+        }
 
         VBox.setVgrow(grid, Priority.NEVER);
         VBox.setVgrow(imgCoinPane, Priority.NEVER);

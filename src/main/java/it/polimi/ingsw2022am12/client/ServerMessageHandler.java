@@ -52,7 +52,7 @@ public class ServerMessageHandler implements Runnable {
                     handle(message, client);
                 }
             } catch (RuntimeException e) {
-                    System.out.println("Server message handler scanner exception");
+                    //System.out.println("Server message handler scanner exception");
                     timer.cancel();
                     break;
                 }

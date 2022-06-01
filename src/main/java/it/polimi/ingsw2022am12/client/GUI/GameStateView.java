@@ -3,15 +3,17 @@ package it.polimi.ingsw2022am12.client.GUI;
 import it.polimi.ingsw2022am12.client.Client;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import java.util.ArrayList;
+
+import java.util.*;
 
 /**
  * GameStateView class visualizes the state of the game,in particular it shows the turn order and round number
  */
-public class GameStateView extends Pane {
-
+public class GameStateView extends VBox {
+    private final static int messageListSize = 20;
     private final Label round;
     private final Label turn;
     private final Label turnOrder;
@@ -23,7 +25,6 @@ public class GameStateView extends Pane {
      */
     public GameStateView(){
         super();
-        VBox box = new VBox();
         round = new Label();
         round.setText("Round 0");
         turn = new Label();
@@ -31,8 +32,14 @@ public class GameStateView extends Pane {
         turnOrder = new Label();
         turnOrder.setText("Not yet defined");
         toIslands = new Button("To islands");
-        box.getChildren().addAll(round, turn, turnOrder, toIslands);
-        getChildren().add(box);
+        getChildren().addAll(round, turn, turnOrder, toIslands);
+        messageList = new VBox();
+        messageList.setSpacing(10);
+        ScrollPane messages = new ScrollPane(messageList);
+        messages.prefHeightProperty().bind(this.heightProperty().divide(2));
+        getChildren().add(messages);
+
+
     }
 
     public Button getToIslands() {

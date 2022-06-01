@@ -19,6 +19,7 @@ public class SchoolBoard{
     private final StudentDiskCollection diningRoom;
     private final ArrayList<Assistant> assistants;
     private Assistant lastPlayedAssistant;
+    private int savedTowers;
 
     /**
      * Constructor method of SchoolBoard class
@@ -33,7 +34,25 @@ public class SchoolBoard{
         this.nick = name;
         this.assistants = new  ArrayList<>();
 
+
     }
+
+    public SchoolBoard(String name , int mage, int coins, ArrayList<Assistant> assistants, StudentDiskCollection entrance, StudentDiskCollection diningRoom, int towers, int lastPlayedAssistant){
+        this.nick = name;
+        this.towers = new TowerCollection();
+        this.mage = new Mage(mage);
+        this.coins = new CoinCollection();
+        for(int i=0;i<coins;i++) {
+            this.coins.insertElement(new Coin());
+        }
+        this.assistants = new ArrayList<>(assistants);
+        this.entrance = entrance;
+        this.diningRoom = diningRoom;
+        this.savedTowers = towers;
+        this.lastPlayedAssistant = AssistantCreator.createAssistant(lastPlayedAssistant);
+    }
+
+
 
     /**
      *Method setAssistants fills the schoolBoard's deck of assistants
@@ -134,6 +153,12 @@ public class SchoolBoard{
             for(int i=0; i<maxNumOfTowersForThreePlayers; i++){
                 towers.insertElement(new Tower(team));
             }
+        }
+    }
+
+    public void setSavedTowers(Team team){
+        for(int i=0; i<savedTowers;i++){
+            towers.insertElement(new Tower(team));
         }
     }
 

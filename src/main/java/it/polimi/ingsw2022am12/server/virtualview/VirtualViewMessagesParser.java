@@ -90,8 +90,9 @@ public class VirtualViewMessagesParser implements Runnable{
                             myController.send(virtualView, islandTileSet);
                         }
                         case "Color" -> {
-                            DiskColor color = (DiskColor) map.get("color");
-                            myController.send(virtualView, new ColorSelection(color));
+                            gson = new GsonBuilder().registerTypeAdapter(ColorSelection.class, new ColorSelectionAdapter()).create();
+                            ColorSelection selection = gson.fromJson(res, ColorSelection.class);
+                            myController.send(virtualView, selection);
                         }
                         case "InputMode" -> {
                             int num = (int) Math.round((double) map.get("number"));

@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Class Team defines the teams playing the game
  */
 public class Team {
-
+    private ArrayList<String> nicks;
     private final ArrayList<SchoolBoard> schoolBoards;
 
     /**
@@ -41,5 +41,31 @@ public class Team {
      */
     public ArrayList<SchoolBoard> getSchoolBoards(){
         return schoolBoards;
+    }
+
+
+    public void addNick(String nick){
+        if(nicks==null){
+            nicks= new ArrayList<>();
+        }
+        nicks.add(nick);
+    }
+
+    public void setSchoolsFromGame(Game game){
+        for(String nick: nicks){
+            schoolBoards.add(game.getSchoolBoardByNick(nick));
+        }
+    }
+
+    public boolean contains(SchoolBoard s){
+        for (SchoolBoard sc:schoolBoards
+             ) {
+
+            if(sc.equals(s)){
+                return true;
+            }
+
+        }
+        return false;
     }
 }

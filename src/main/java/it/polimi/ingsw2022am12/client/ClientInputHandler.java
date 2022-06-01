@@ -10,6 +10,8 @@ import it.polimi.ingsw2022am12.client.model.*;
 import it.polimi.ingsw2022am12.communication.InputMode;
 import it.polimi.ingsw2022am12.communication.InputModeAdapter;
 import it.polimi.ingsw2022am12.client.adapter.*;
+import it.polimi.ingsw2022am12.server.adapter.ColorSelectionAdapter;
+import it.polimi.ingsw2022am12.server.model.ColorSelection;
 
 
 /**
@@ -51,7 +53,7 @@ public class ClientInputHandler {
                 }
                 DiskColor color;
                 try{
-                    color = DiskColor.valueOf(tokens[1]);
+                    color = DiskColor.valueOf(tokens[1].toUpperCase());
                 }catch(Exception e){
                     System.out.println("Not a color, retry");
                     break;
@@ -203,10 +205,21 @@ public class ClientInputHandler {
                     System.out.println("Not a number, retry");
                     break;
                 }
-                InputMode inputMode = new InputMode(id, Boolean.parseBoolean(tokens[2]));
+                InputMode inputMode = new InputMode(id, Boolean.parseBoolean(tokens[2].toLowerCase()));
                 gson = new GsonBuilder().registerTypeAdapter(InputMode.class, new InputModeAdapter()).create();
                 result = gson.toJson(inputMode);
                 client.forwardJson(result);
+            }
+
+            case "Color" ->{
+                ColorSelection sel = new ColorSelection(DiskColor.valueOf(tokens[1].toUpperCase()));
+                gson = new GsonBuilder().registerTypeAdapter(ColorSelection.class, new ColorSelectionAdapter()).create();
+                result = gson.toJson(sel);
+                client.forwardJson(result);
+            }
+
+            case "RETRY" ->{
+                client.connect();
             }
             default -> {
                 System.out.println("Unrecognized input");

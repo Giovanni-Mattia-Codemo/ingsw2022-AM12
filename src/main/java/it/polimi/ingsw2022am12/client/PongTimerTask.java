@@ -1,5 +1,8 @@
 package it.polimi.ingsw2022am12.client;
 
+import it.polimi.ingsw2022am12.server.controller.ControlMessages;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.TimerTask;
 
 /**
@@ -25,7 +28,10 @@ public class PongTimerTask extends TimerTask {
     public void run() {
         if (hasPonged){
             hasPonged = false;
-        }else client.disconnected();
+        }else{
+            client.controlMessageToView(new ArrayList<>(List.of(ControlMessages.SERVERUNREACHABLE)));
+            client.disconnected();
+        }
     }
 
     /**

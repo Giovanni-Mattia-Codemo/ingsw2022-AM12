@@ -9,10 +9,12 @@ import java.util.ArrayList;
 public class IslandTileSet implements Selectable {
 
     private int ID;
+    private String owner;
     private final StudentDiskCollection students;
     private final NoEntryCollection noEntries;
     private int numOfIslandsInThisSet;
     private final TowerCollection towers;
+    private int savedTowers;
 
     /**
      * Constructor method of IslandTileSet. Creates the new collections and sets the numOfIsland to 1
@@ -32,6 +34,19 @@ public class IslandTileSet implements Selectable {
         students = null;
         noEntries = null;
         towers = null;
+    }
+
+    public IslandTileSet(int id, StudentDiskCollection students, int noEntryID, int numOfNoEntries, int numOfIslands,  int savedTowers, String owner){
+        ID = id;
+        this.towers = new TowerCollection();
+        this.students = students;
+        this.noEntries = new NoEntryCollection(noEntryID);
+        for(int i = 0; i<numOfNoEntries;i++){
+            this.noEntries.insertElement(new NoEntry());
+        }
+        this.numOfIslandsInThisSet = numOfIslands;
+        this.savedTowers = savedTowers;
+        this.owner = owner;
     }
 
     /**
@@ -165,6 +180,10 @@ public class IslandTileSet implements Selectable {
      */
     public void insertNoEntries(NoEntry noEntry){
         noEntries.insertElement(noEntry);
+    }
+
+    public int getNoEntryID(){
+        return noEntries.getMyId();
     }
 
     /**

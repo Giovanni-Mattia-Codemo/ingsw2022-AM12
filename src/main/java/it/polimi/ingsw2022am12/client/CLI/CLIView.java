@@ -35,4 +35,9 @@ public class CLIView implements View {
             System.out.println(message.getMessage());
         }
     }
+
+    @Override
+    public void connectionFailedPrompt() {
+        System.out.println("Connection failed (server not found): input RETRY to attempt to reconnect");
+    }
 }
