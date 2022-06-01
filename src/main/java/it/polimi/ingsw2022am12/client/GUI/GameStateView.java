@@ -1,5 +1,6 @@
 package it.polimi.ingsw2022am12.client.GUI;
 
+import it.polimi.ingsw2022am12.client.Client;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -14,7 +15,8 @@ public class GameStateView extends Pane {
     private final Label round;
     private final Label turn;
     private final Label turnOrder;
-    private Button toIslands;
+    private final Button toIslands;
+    private VBox messageList;
 
     /**
      * Constructor method of GameStateView
@@ -42,7 +44,7 @@ public class GameStateView extends Pane {
      *
      * @param roundNumber the number of the round
      */
-    public void setRound(int roundNumber){
+    private void setRound(int roundNumber){
         this.round.setText("This is the round number "+roundNumber);
     }
 
@@ -51,8 +53,8 @@ public class GameStateView extends Pane {
      *
      * @param turnNumber the number of the turn
      */
-    public void setTurn(int turnNumber){
-        this.turn.setText("This is the turn of the player number "+turnNumber);
+    private void setTurn(int turnNumber){
+        this.turn.setText("This is the turn of the player number "+(turnNumber+1));
     }
 
     /**
@@ -60,11 +62,24 @@ public class GameStateView extends Pane {
      * 
      * @param order the ordered arrayList of players
      */
-    public void setTurnOrder(ArrayList<String> order) {
+    private void setTurnOrder(ArrayList<String> order) {
         String text = "";
         for(String s:order){
             text = text.concat(s+"\t");
         }
         this.turnOrder.setText("The player order for this round is: "+text);
+    }
+
+    public void refresh(Client client){
+        setRound(client.getClientGame().getRound());
+        setTurn(client.getClientGame().getTurn());
+        setTurnOrder(client.getClientGame().getOrderedNicks());
+    }
+
+    public void addMessage(String msg){
+        messageList.getChildren().add(new Label(msg));
+        while(messageList.getChildren().size()>= messageListSize){
+            messageList.getChildren().remove(0);
+        }
     }
 }

@@ -36,7 +36,6 @@ public class GameAdapter extends TypeAdapter<Game> {
         writer.value(myGame.getRound());
         writer.name("Turn");
         writer.value(myGame.getTurn());
-
         writer.name("turnOrder");
         GsonBuilder builder = new GsonBuilder().registerTypeAdapter(SchoolBoard.class, new SchoolBoardAdapter());
         embedded = builder.create();
@@ -58,15 +57,11 @@ public class GameAdapter extends TypeAdapter<Game> {
             }else writer.value("null");
 
         }
-
         writer.name("Teams");
         embedded= new GsonBuilder().registerTypeAdapter(Team.class, new TeamAdapter()).create();
         embedded.toJson(embedded.toJsonTree(myGame.getTeams()), writer);
-
-        //writer.value(String.valueOf(foo.getColor()));
         writer.name("Phase");
         writer.value(myGame.getCurrentStrategy().getName());
-
         writer.name("LastRoundFlag");
         writer.value(myGame.getIsLastRoundFlag());
         writer.name("Mode");

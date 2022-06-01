@@ -214,4 +214,24 @@ public class IslandTileSet implements Selectable {
         }
         return false;
     }
+
+    public void fillSavedTowers(Game game){
+        Team tmp = null;
+        for(Team t: game.getTeams()){
+            if(t.contains(game.getSchoolBoardByNick(owner))){
+                tmp = t;
+                break;
+            }
+        }
+
+        for(int i = 0; i<savedTowers; i++){
+            towers.insertElement(new Tower(tmp));
+        }
+    }
+
+    public void setNoEntryCharacter(NoEntryCollection characterNoEntryCollection){
+        for(NoEntry e : noEntries.getAllNoEntries()){
+            e.setCharacterNoEntryCollection(characterNoEntryCollection);
+        }
+    }
 }

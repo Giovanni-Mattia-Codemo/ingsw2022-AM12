@@ -23,6 +23,12 @@ public class StudentDiskCollection implements Position, Selectable {
         numOfStudentCollections++;
 
     }
+    public StudentDiskCollection(ArrayList<Student> students, int id){
+        this.students = new ArrayList<>(students);
+        this.id = id;
+
+
+    }
 
     /**
      * Constructor method creates a new list of type Student, using an input as the ID

@@ -50,7 +50,8 @@ public enum ControlMessages {
     PLAYASSISTANT(43, "Select an assistant"),
     PRINCESSACTION(44, "To use the princess:"),
     TURNENDED(45, "Your turn has ended"+ "\n"),
-    DISCONNECTION(46, "Game is closing because of a player disconnection");
+    DISCONNECTION(46, "Game is closing because of a player disconnection"),
+    SERVERUNREACHABLE(47, "Connection with server lost");
 
 
 

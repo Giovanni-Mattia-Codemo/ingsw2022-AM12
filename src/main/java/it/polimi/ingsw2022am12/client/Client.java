@@ -8,6 +8,7 @@ import it.polimi.ingsw2022am12.client.model.ClientGame;
 import javafx.application.Platform;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.ConnectException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -141,7 +142,6 @@ public class Client {
      * the various client threads
      */
     public void disconnected(){
-        System.out.println("disconnecting");
         serverMsg.interrupt();
         in.close();
         out.close();
@@ -151,7 +151,6 @@ public class Client {
             e.printStackTrace();
         }
         timer.cancel();
-
     }
 
     public void setThisClientNick(String thisClientNick) {

@@ -14,6 +14,10 @@ import it.polimi.ingsw2022am12.server.adapter.GameAdapter;
 import it.polimi.ingsw2022am12.server.model.Game;
 import it.polimi.ingsw2022am12.server.model.Selectable;
 import it.polimi.ingsw2022am12.server.model.actions.ActionStep;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,6 +40,7 @@ public class Controller {
     private final ArrayList<VirtualView> virtualViews;
     private final Lock lock;
     private final Server server;
+    private File savedGame;
 
 
     /**
@@ -107,7 +112,6 @@ public class Controller {
                     messages.add(ControlMessages.ACTIONCOMPLETED);
                     v.forwardMsg(gsonForMessages.toJson(messages));
                     messages.remove(ControlMessages.ACTIONCOMPLETED);
-
 
                     if(myGame.getCurrentSchoolBoard().getNick().equals(userMap.get(v))){
                         //v.forwardMsg(inputHandler.getNextSelection());
@@ -359,6 +363,33 @@ public class Controller {
             ArrayList<ControlMessages>msgs = new ArrayList<>();
             msgs.add(getMatchStatusOfView(v));
             v.forwardMsg(g.toJson(msgs));
+        }
+    }
+
+    public File createNewFIle(){
+        try {
+            File myObj = new File("savedGame.txt");
+            if (myObj.createNewFile()) {
+                System.out.println("File created: " + myObj.getName());
+                return myObj;
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void saveGame(String game){
+        try {
+            FileWriter myWriter = new FileWriter("savedGame.txt");
+            myWriter.write(game);
+            myWriter.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
         }
     }
 

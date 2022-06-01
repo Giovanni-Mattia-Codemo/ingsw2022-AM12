@@ -25,6 +25,18 @@ public abstract class CharacterCard implements Selectable {
         additionalCoins = new CoinCollection();
     }
 
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+
+    public boolean isWasUsed() {
+        return wasUsed;
+    }
+
+    public void setAdditionalCoins(){
+        insertCoin(new Coin());
+    }
+
     /**
      * method getCost returns the cost of the specific character
      *

@@ -24,6 +24,11 @@ public class CharacterJester extends CharacterCard {
         students = new StudentDiskCollection();
     }
 
+    public CharacterJester(StudentDiskCollection students){
+        super(CharacterName.CHARACTER_JESTER, 1);
+        this.students = students;
+    }
+
     /**
      * Method initCharacter places the six students on this card
      *

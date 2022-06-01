@@ -26,6 +26,11 @@ public class CharacterPrincess extends CharacterCard {
         students = new StudentDiskCollection();
     }
 
+    public CharacterPrincess(StudentDiskCollection students){
+        super(CharacterName.CHARACTER_PRINCESS, 2);
+        this.students = students;
+    }
+
     /**
      * Getter method of the CharacterPrincess class
      *
@@ -66,11 +71,11 @@ public class CharacterPrincess extends CharacterCard {
     public void setWasUsed(boolean isUsed, Game game) {
         if(isUsed){
             super.setWasUsed(true);
-        }else{
             for(int i = students.amount(); i<princessStudents; i++){
                 students.insertElement(game.drawStudentFromBag());
-                super.setWasUsed(false);
             }
+        }else{
+            super.setWasUsed(false);
         }
     }
 }

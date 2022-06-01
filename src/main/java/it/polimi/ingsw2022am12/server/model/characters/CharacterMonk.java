@@ -26,6 +26,11 @@ public class CharacterMonk extends CharacterCard {
         students = new StudentDiskCollection();
     }
 
+    public CharacterMonk(StudentDiskCollection students){
+        super(CharacterName.CHARACTER_MONK, 1);
+        this.students = students;
+    }
+
     /**
      * Getter method of the CharacterHag class
      *
@@ -67,10 +72,10 @@ public class CharacterMonk extends CharacterCard {
     public void setWasUsed(boolean isUsed, Game game) {
         if(isUsed){
             super.setWasUsed(true);
-        }else{
             for(int i = students.amount(); i<monkStudents; i++){
                 students.insertElement(game.drawStudentFromBag());
             }
+        }else{
             super.setWasUsed(false);
         }
 

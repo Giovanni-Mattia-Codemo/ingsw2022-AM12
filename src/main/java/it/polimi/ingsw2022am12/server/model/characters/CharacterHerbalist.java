@@ -24,6 +24,13 @@ public class CharacterHerbalist extends CharacterCard {
         this.noEntryCollection= new NoEntryCollection();
     }
 
+    public CharacterHerbalist(int numOfNoEntries, int collectionID){
+        super(CharacterName.CHARACTER_HERBALIST, 2);
+        this.noEntryCollection = new NoEntryCollection(collectionID);
+        for(int i=0; i<numOfNoEntries; i++){
+            this.noEntryCollection.insertElement(new NoEntry(noEntryCollection));
+        }
+    }
     /**
      * getNoEntryCollection returns the collection of NoEntries placed on the Herbalist card
      *

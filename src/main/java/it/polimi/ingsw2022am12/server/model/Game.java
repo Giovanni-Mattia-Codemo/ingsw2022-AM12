@@ -1,11 +1,12 @@
 package it.polimi.ingsw2022am12.server.model;
 
-import com.google.gson.JsonElement;
+
 import it.polimi.ingsw2022am12.CharacterName;
 import it.polimi.ingsw2022am12.DiskColor;
 import it.polimi.ingsw2022am12.server.model.characters.*;
+import it.polimi.ingsw2022am12.server.model.phases.ActionStrategy;
+import it.polimi.ingsw2022am12.server.model.phases.PlanningStrategy;
 import it.polimi.ingsw2022am12.server.model.phases.SetupStrategy;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -27,7 +28,7 @@ public class Game{
     private final ArrayList<Team> teams;
     private final SchoolBoard[] professors;
     private PhaseStrategy currentStrategy;
-    private final ArrayList<Mage> mages;
+    private ArrayList<Mage> mages;
     private final static int maxNumOfIslands = 12;
     private final static int hagStudentsToRemove = 3;
     private final static int maxNumOfMages = 4;
@@ -158,6 +159,15 @@ public class Game{
             setUpForExpertMode();
         }
 
+    }
+
+    public CharacterCard getCharacterByName(String name){
+        for(CharacterCard c:characterCards){
+            if(c.getName().toString().equals(name)){
+                return c;
+            }
+        }
+        return null;
     }
 
     /**
@@ -419,6 +429,39 @@ public class Game{
         if (activeCharacterCard ==null){
             return null;
         } else return activeCharacterCard.getName();
+    }
+
+    public void setTurn(int turn) {
+        this.turn = turn;
+    }
+
+    public void setRound(int round) {
+        this.round = round;
+    }
+
+    public void setLastRoundFlag(boolean lastRoundFlag) {
+        isLastRoundFlag = lastRoundFlag;
+    }
+
+    public void setActiveCharacterCard(String activeCharacterCard) {
+        if(!activeCharacterCard.equals("null")){
+           this.activeCharacterCard = getCharacterByName(activeCharacterCard);
+        }else this.activeCharacterCard = null;
+    }
+
+    public void setDisksMovedThisTurn(int disksMovedThisTurn) {
+        this.disksMovedThisTurn = disksMovedThisTurn;
+    }
+
+    public void setHasMovedMotherNature(boolean hasMovedMotherNature) {
+        this.hasMovedMotherNature = hasMovedMotherNature;
+    }
+
+    public void setCurrentStrategy(String phase) {
+        switch (phase){
+            case "ActionPhase" -> this.currentStrategy = new ActionStrategy();
+            case "PlanningPhase" -> this.currentStrategy = new PlanningStrategy();
+        }
     }
 
     /**

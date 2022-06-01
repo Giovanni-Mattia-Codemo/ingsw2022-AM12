@@ -20,7 +20,7 @@ public class GUIView implements View, Runnable{
     private Scene tryAgainLater, tryAnother;
     private Scene schoolBoardScene, islandScene, pickMageScene;
     private SchoolBoardView mySchools;
-    private Scene nickInputScene, gameSettingsScene, waitingQueueScene, gameIsFullScene, matchIsStartingScene, disconnectionScene;
+    private Scene nickInputScene, gameSettingsScene, waitingQueueScene, gameIsFullScene, matchIsStartingScene, disconnectionScene, serverDownScene;
     private Stage primary;
     private IslandView islandView;
     boolean afterFirstUpdate = false;
@@ -37,7 +37,6 @@ public class GUIView implements View, Runnable{
 
     @Override
     public void run() {
-
         primary = new Stage();
         primary.setTitle("Eryantis");
         nickInputScene = new Scene(new NickInputPane(client), 400, 300);
@@ -51,7 +50,8 @@ public class GUIView implements View, Runnable{
         setGameIsFullScene();
         setMatchIsStartingScene();
         setDisconnectionScene();
-
+        setServerDownScene();
+        setGameStateView();
     }
 
     @Override
@@ -68,6 +68,7 @@ public class GUIView implements View, Runnable{
     private void islandsRefresh(){
         if(afterFirstUpdate) {
             islandView.refresh();
+            gameStateView.refresh(client);
         }else{
             afterFirstUpdate = true;
         }
@@ -76,6 +77,7 @@ public class GUIView implements View, Runnable{
     private void schoolsRefresh(){
         if(afterFirstUpdate) {
             mySchools.refresh();
+            gameStateView.refresh(client);
         }else{
             afterFirstUpdate = true;
         }
@@ -191,9 +193,8 @@ public class GUIView implements View, Runnable{
         SchoolBoardView schools = new SchoolBoardView(client);
         mySchools = schools;
         HBox box = new HBox();
-        GameStateView state = new GameStateView();
 
-        state.getToIslands().setOnAction(e-> Platform.runLater(()->
+        gameStateView.getToIslands().setOnAction(e-> Platform.runLater(()->
             primary.setScene(islandScene)
         ));
         box.getChildren().addAll(schools, state);
@@ -245,4 +246,21 @@ public class GUIView implements View, Runnable{
         primary.setScene(schoolBoardScene);
     }
 
+    public void setServerDownScene(){
+        VBox pane = new VBox();
+        Label serverDownLabel = new Label("The server you tried to connect to is unreachable");
+        Button close = new Button("Reconnect");
+        close.setOnAction(e->{
+            Platform.runLater(client::connect);
+            serverDownLabel.setText("The server is still unreachable, try again later");
+        });
+        pane.getChildren().addAll(serverDownLabel, close);
+        pane.setAlignment(Pos.CENTER);
+        serverDownScene = new Scene(pane, 400, 300);
+    }
+
+    @Override
+    public void connectionFailedPrompt(){
+        Platform.runLater(()->primary.setScene(serverDownScene));
+    }
 }

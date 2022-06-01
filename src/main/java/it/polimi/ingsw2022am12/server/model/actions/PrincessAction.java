@@ -3,7 +3,6 @@ package it.polimi.ingsw2022am12.server.model.actions;
 import it.polimi.ingsw2022am12.server.controller.ControlMessages;
 import it.polimi.ingsw2022am12.server.model.*;
 import it.polimi.ingsw2022am12.server.model.characters.CharacterPrincess;
-
 import java.util.ArrayList;
 
 /**
@@ -46,7 +45,7 @@ public class PrincessAction extends PossibleAction {
         if(!score.containsKey(0)){
             res.add(ControlMessages.CHARACTERCARD);
         }else if(!score.containsKey(1)){
-            res.add(ControlMessages.COLORSELECTION);
+            res.add(ControlMessages.JESTERACTION1);
         }
         return res;
     }
