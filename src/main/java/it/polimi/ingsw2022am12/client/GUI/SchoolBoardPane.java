@@ -372,7 +372,7 @@ public class SchoolBoardPane extends GridPane{
         for(int i=0; i<5; i++){
             ArrayList<StudentButton> studentButtons = null;
             switch (i+1){
-                case 1->{ studentButtons = greenDiningStudents;  }
+                case 1-> studentButtons = greenDiningStudents;
                 case 2->{ studentButtons =  redDiningStudents; }
                 case 3->{ studentButtons = yellowDiningStudents;  }
                 case 4->{ studentButtons =  pinkDiningStudents ;}
