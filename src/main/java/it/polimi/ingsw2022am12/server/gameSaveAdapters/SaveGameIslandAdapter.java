@@ -79,7 +79,7 @@ public class SaveGameIslandAdapter extends TypeAdapter<IslandTileSet> {
             }
             if("Students".equals(fieldName)){
                 jsonReader.peek();
-                students = new GsonBuilder().registerTypeAdapter(SaveGameStudentDiskCollectionAdapter.class, new StudentAdapter()).create().fromJson(jsonReader, Student.class);
+                students = new GsonBuilder().registerTypeAdapter(StudentDiskCollection.class, new SaveGameStudentDiskCollectionAdapter()).create().fromJson(jsonReader, StudentDiskCollection.class);
             }
 
         }

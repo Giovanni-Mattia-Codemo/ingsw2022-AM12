@@ -219,6 +219,10 @@ public class Game{
         return null;
     }
 
+    public Team getWinner() {
+        return winner;
+    }
+
     /**
      * Method setUpForExpertMode is used to set all the initial values of the attributes of the game, when the expertMode
      * is selected; it sets up twenty free coins, then assigns one of them, getting them from the bunch, to each player,
@@ -1017,7 +1021,7 @@ public class Game{
      * Method endGame sets the winner team
      */
     public void endGame(){
-        Team winningTeam;
+        Team winningTeam = null;
         int score = 10;
         for (Team t: teams){
             if(t.getSchoolBoardWithTowers().getTowersNumber()<score){
@@ -1025,6 +1029,7 @@ public class Game{
                 score = winningTeam.getSchoolBoardWithTowers().getTowersNumber();
             }
         }
+        winner = winningTeam;
     }
 
     /**

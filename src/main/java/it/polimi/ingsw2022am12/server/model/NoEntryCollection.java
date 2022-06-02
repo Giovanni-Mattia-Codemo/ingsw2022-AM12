@@ -25,7 +25,7 @@ public class NoEntryCollection implements Position {
      */
     public  NoEntryCollection(int id){
         myId = id;
-        noEntries = null;
+        noEntries = new ArrayList<>();
     }
 
     /**

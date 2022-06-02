@@ -6,7 +6,6 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
-import it.polimi.ingsw2022am12.server.adapter.*;
 import it.polimi.ingsw2022am12.server.model.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -78,7 +77,7 @@ public class GameSaveAdapter extends TypeAdapter<Game> {
         writer.name("LastRoundFlag");
         writer.value(myGame.getIsLastRoundFlag());
         writer.name("Characters");
-        embedded = new GsonBuilder().registerTypeAdapterFactory(new CharacterAdapterFactory()).create();
+        embedded = new GsonBuilder().registerTypeAdapterFactory(new SaveGameCharacterAdapterFactory()).create();
         embedded.toJson(embedded.toJsonTree(myGame.getAvailableCharacters()),writer);
         writer.name("ActiveCharacter");
         if(myGame.getActiveCharacterCard()!=null){
@@ -101,7 +100,8 @@ public class GameSaveAdapter extends TypeAdapter<Game> {
         ArrayList<StudentDiskCollection> clouds=null;
         String[] professors = new String[5];
         String phase=null, activeCharacter=null;
-        Bag bag = null;
+        Bag bag=null;
+        StudentDiskCollection temp=null;
         while(jsonReader.hasNext()){
             JsonToken token = jsonReader.peek();
             if(token.equals(JsonToken.NAME)){

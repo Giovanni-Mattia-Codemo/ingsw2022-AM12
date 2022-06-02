@@ -451,7 +451,7 @@ public class SchoolBoardPane extends GridPane{
             grid.add(coin, 1, 1);
 
         }
-        ((Label)coin.getChildren().get(1)).setText(""+client.getClientGame().getSchoolBoardByNick(client.getThisClientNick()).getCoins());
+        ((Label)coin.getChildren().get(1)).setText(""+client.getClientGame().getSchoolBoardByNick(name).getCoins());
 
     }
 

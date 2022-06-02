@@ -51,9 +51,9 @@ public enum ControlMessages {
     PRINCESSACTION(44, "To use the princess:"),
     TURNENDED(45, "Your turn has ended"+ "\n"),
     DISCONNECTION(46, "Game is closing because of a player disconnection"),
-    SERVERUNREACHABLE(47, "Connection with server lost");
-
-
+    SERVERUNREACHABLE(47, "Connection with server lost"),
+    LOSER(48, "You lost"),
+    WINNER(49, "You won");
 
     private final int value;
     private final String message;

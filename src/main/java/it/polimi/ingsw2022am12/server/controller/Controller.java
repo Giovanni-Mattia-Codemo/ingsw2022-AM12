@@ -17,6 +17,7 @@ import it.polimi.ingsw2022am12.server.model.Selectable;
 import it.polimi.ingsw2022am12.server.model.actions.ActionStep;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * Controller class represents the component which receives inputs from the client and generates a response updating views
  */
 public class Controller {
+
     private Game myGame;
     private boolean gameWasSet;
     private boolean difficulty;
@@ -50,12 +52,21 @@ public class Controller {
     public Controller(Server server){
         this.userMap = new HashMap<>();
         this.server = server;
+        this.directory = directory;
         creatingGame = false;
         acceptingUsers = true;
         gameWasSet = false;
         lock = new ReentrantLock();
         virtualViews = new ArrayList<>();
+
+
         savedGame = createNewFIle();
+
+        if(isGameSavedPresent){
+            String gameJson = getSavedJson();
+            Gson gson = new GsonBuilder().registerTypeAdapter(Game.class, new GameSaveAdapter()).create();
+            myGame = gson.fromJson(gameJson, Game.class);
+        }
 
     }
 
@@ -144,10 +155,10 @@ public class Controller {
     /**
      * setGameMode is the method that sets the instance of my game
      * @param v view of my user
-     * @param b game mode, which can be Easy (false) or Expert (true)
-     * @param i selected number of players
+     * @param mode game mode, which can be Easy (false) or Expert (true)
+     * @param playerNum selected number of players
      */
-    public void setGameMode(VirtualView v, int i, boolean b){
+    public void setGameMode(VirtualView v, int playerNum, boolean mode){
         synchronized (lock){
             ArrayList<ControlMessages> messages = new ArrayList<>();
             Gson gson = new GsonBuilder().registerTypeAdapter(ArrayList.class, new ControlMessagesAdapter()).create();
@@ -159,9 +170,12 @@ public class Controller {
                     return;
                 }
 
-                if (i > 1 && i <= 4) {
-                    difficulty = b;
-                    numOfPlayers = i;
+                if (playerNum > 1 && playerNum <= 4) {
+                    difficulty = mode;
+                    numOfPlayers = playerNum;
+                    if(isGameSavedPresent&&(myGame.isExpertMode()!=mode||myGame.getPlayerNicks().size()!=playerNum)){
+                        isGameSavedPresent = false;
+                    }
                     creatingGame = false;
                     gameWasSet = true;
                     //v.forwardMsg(ControlMessages.ACCEPTED.getMessage());
@@ -376,24 +390,27 @@ public class Controller {
     }
 
     public File createNewFIle(){
+        File myObj = null;
         try {
-            File myObj = new File("savedGame.txt");
+            myObj = new File(directory + "\\savedGame.txt");
             if (myObj.createNewFile()) {
                 System.out.println("File created: " + myObj.getName());
-                return myObj;
+                isGameSavedPresent = false;
             } else {
-                System.out.println("File already exists.");
+                if(!new Scanner(myObj).nextLine().equals("empty"))
+                    isGameSavedPresent = true;
             }
         } catch (IOException e) {
-            System.out.println("An error occurred.");
+            isGameSavedPresent = false;
+            System.out.println("An error occurred while making a save file.");
             e.printStackTrace();
         }
-        return null;
+        return myObj;
     }
 
     public void saveGame(String game){
         try {
-            FileWriter myWriter = new FileWriter("savedGame.txt");
+            FileWriter myWriter = new FileWriter(savedGame,false);
             myWriter.write(game);
             myWriter.close();
         } catch (IOException e) {

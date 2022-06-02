@@ -7,6 +7,7 @@ import it.polimi.ingsw2022am12.client.View;
 import it.polimi.ingsw2022am12.client.model.ClientGame;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -21,7 +22,8 @@ public class GUIView implements View, Runnable{
     private Scene schoolBoardScene, islandScene, pickMageScene;
     private GameStateView gameStateView;
     private SchoolBoardView mySchools;
-    private Scene nickInputScene, gameSettingsScene, waitingQueueScene, gameIsFullScene, matchIsStartingScene, disconnectionScene, serverDownScene;
+    private Scene activeScene;
+    private Scene nickInputScene, gameSettingsScene, waitingQueueScene, gameIsFullScene, matchIsStartingScene, endMatchScene, serverDownScene;
     private Stage primary;
     private IslandView islandView;
     boolean afterFirstUpdate = false;
@@ -50,7 +52,6 @@ public class GUIView implements View, Runnable{
         setWaitingQueueScene();
         setGameIsFullScene();
         setMatchIsStartingScene();
-        setDisconnectionScene();
         setServerDownScene();
         setGameStateView();
     }
@@ -190,10 +191,19 @@ public class GUIView implements View, Runnable{
 
     private void setDisconnectionScene(){
         VBox pane = new VBox();
-        Label disconnection = new Label("A player left the game\nYou're being disconnected");
+        Label disconnection = new Label(message.getMessage());
         pane.getChildren().addAll(disconnection);
         pane.setAlignment(Pos.CENTER);
-        disconnectionScene = new Scene(pane, 400, 300);
+        endMatchScene = new Scene(pane, 400, 300);
+        primary.setScene(endMatchScene);
+
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     private void setSchoolScene(){

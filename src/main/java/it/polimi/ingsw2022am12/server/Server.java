@@ -18,7 +18,7 @@ public class Server {
      *
      * @param port the server's port
      */
-    public Server(int port){
+    public Server(int port, String directory){
         this.port = port;
         this.myController = new Controller(this);
     }

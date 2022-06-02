@@ -8,10 +8,9 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
-import it.polimi.ingsw2022am12.server.adapter.StudentAdapter;
+import it.polimi.ingsw2022am12.DiskColor;
 import it.polimi.ingsw2022am12.server.adapter.StudentDiskCollectionAdapter;
 import it.polimi.ingsw2022am12.server.model.CharacterCard;
-import it.polimi.ingsw2022am12.server.model.Student;
 import it.polimi.ingsw2022am12.server.model.StudentDiskCollection;
 import it.polimi.ingsw2022am12.server.model.characters.*;
 
@@ -70,6 +69,8 @@ public class SaveGameCharacterAdapterFactory implements TypeAdapterFactory {
                 case "CHARACTER_JESTER" -> {
                     jsonWriter.name("Students");
                     gson.toJson(gson.toJsonTree(((CharacterJester) characterCard).getStudents()), jsonWriter);
+                    jsonWriter.name("MovesDone");
+                    jsonWriter.value(((CharacterJester)characterCard).getMovesDone());
                 }
                 case "CHARACTER_MONK" -> {
                     jsonWriter.name("Students");
@@ -78,6 +79,20 @@ public class SaveGameCharacterAdapterFactory implements TypeAdapterFactory {
                 case "CHARACTER_PRINCESS" -> {
                     jsonWriter.name("Students");
                     gson.toJson(gson.toJsonTree(((CharacterPrincess) characterCard).getStudents()), jsonWriter);
+                }
+                case "CHARACTER_BARD" ->{
+                    jsonWriter.name("SwapsDone");
+                    jsonWriter.value(((CharacterBard)characterCard).getSwapsDone());
+                }
+                case "CHARACTER_MERCHANT" ->{
+                    jsonWriter.name("Color");
+                    DiskColor color = ((CharacterMerchant)characterCard).getColor();
+                    if(color !=null){
+                        jsonWriter.value(String.valueOf(color));
+                    }else{
+                        jsonWriter.value("null");
+                    }
+
                 }
                 default -> {
                 }
@@ -100,8 +115,8 @@ public class SaveGameCharacterAdapterFactory implements TypeAdapterFactory {
             String fieldName = null;
             CharacterCard characterCard = null;
             boolean wasUsed=false, hasCoin=false;
-            int cost=0, entryNum=0, entryId=0;
-            String name=null;
+            int cost=0, entryNum=0, entryId=0, swapsDone=0, movesDone=0;
+            String name=null, color=null;
             StudentDiskCollection students = null;
 
             while (in.hasNext()) {
@@ -118,9 +133,21 @@ public class SaveGameCharacterAdapterFactory implements TypeAdapterFactory {
                     in.peek();
                     name = in.nextString();
                 }
+                if("Color".equals(fieldName)) {
+                    in.peek();
+                    color = in.nextString();
+                }
                 if("Cost".equals(fieldName)){
                     in.peek();
                     cost = in.nextInt();
+                }
+                if("MovesDone".equals(fieldName)){
+                    in.peek();
+                    movesDone = in.nextInt();
+                }
+                if("SwapsDone".equals(fieldName)){
+                    in.peek();
+                    swapsDone = in.nextInt();
                 }
                 if("WasUsed".equals(fieldName)){
                     in.peek();
@@ -136,7 +163,7 @@ public class SaveGameCharacterAdapterFactory implements TypeAdapterFactory {
                 }
                 if("Students".equals(fieldName)){
                     in.peek();
-                    students = new GsonBuilder().registerTypeAdapter(SaveGameStudentDiskCollectionAdapter.class, new StudentAdapter()).create().fromJson(in, Student.class);
+                    students = new GsonBuilder().registerTypeAdapter(StudentDiskCollection.class, new SaveGameStudentDiskCollectionAdapter()).create().fromJson(in, StudentDiskCollection.class);
                 }
 
             }
@@ -145,16 +172,21 @@ public class SaveGameCharacterAdapterFactory implements TypeAdapterFactory {
             if(name!=null){
                 switch (name) {
                     case "CHARACTER_HERBALIST" -> characterCard = new CharacterHerbalist(entryNum, entryId);
-                    case "CHARACTER_JESTER" -> characterCard = new CharacterJester(students);
+                    case "CHARACTER_JESTER" -> characterCard = new CharacterJester(students, movesDone);
                     case "CHARACTER_MONK" -> characterCard = new CharacterMonk(students);
                     case "CHARACTER_PRINCESS" -> characterCard = new CharacterPrincess(students);
-                    case "CHARACTER_BARD" -> characterCard = new CharacterBard();
+                    case "CHARACTER_BARD" -> characterCard = new CharacterBard(swapsDone);
                     case "CHARACTER_HAG" -> characterCard = new CharacterHag();
                     case "CHARACTER_HERALD" -> characterCard = new CharacterHerald();
                     case "CHARACTER_HOST" -> characterCard = new CharacterHost();
                     case "CHARACTER_CENTAUR" -> characterCard = new CharacterCentaur();
                     case "CHARACTER_KNIGHT" -> characterCard = new CharacterKnight();
-                    case "CHARACTER_MERCHANT" -> characterCard = new CharacterMerchant();
+                    case "CHARACTER_MERCHANT" -> {
+                        characterCard = new CharacterMerchant();
+                        if(!color.equals("null")){
+                            ((CharacterMerchant)characterCard).setColor(DiskColor.valueOf(color));
+                        }
+                    }
                     case "CHARACTER_BEGGAR" -> characterCard = new CharacterBeggar();
                     default -> {}
                 }

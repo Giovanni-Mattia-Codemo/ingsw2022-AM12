@@ -13,7 +13,6 @@ import it.polimi.ingsw2022am12.client.adapter.*;
 import it.polimi.ingsw2022am12.server.adapter.ColorSelectionAdapter;
 import it.polimi.ingsw2022am12.server.model.ColorSelection;
 
-
 /**
  * ClientInputHandler class represents the component that handles the data in input from the client's side
  */
@@ -210,14 +209,12 @@ public class ClientInputHandler {
                 result = gson.toJson(inputMode);
                 client.forwardJson(result);
             }
-
             case "Color" ->{
                 ColorSelection sel = new ColorSelection(DiskColor.valueOf(tokens[1].toUpperCase()));
                 gson = new GsonBuilder().registerTypeAdapter(ColorSelection.class, new ColorSelectionAdapter()).create();
                 result = gson.toJson(sel);
                 client.forwardJson(result);
             }
-
             case "RETRY" ->{
                 client.connect();
             }

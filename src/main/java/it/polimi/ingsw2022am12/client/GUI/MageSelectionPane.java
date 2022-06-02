@@ -65,7 +65,6 @@ public class MageSelectionPane extends VBox {
         select.setOnAction(e->{
             if(mages.getSelectedToggle()!=null){
                 ClientInputHandler.handle("Mage "+mages.getSelectedToggle().getProperties().get("id"), myClient);
-                guiView.  enterGameScene();
             }
         });
 

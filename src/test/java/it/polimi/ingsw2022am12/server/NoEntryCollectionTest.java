@@ -20,7 +20,7 @@ public class NoEntryCollectionTest {
         NoEntryCollection noEntryCollection0 = new NoEntryCollection();
         NoEntry noEntry = new NoEntry(noEntryCollection0);
         NoEntryCollection noEntryCollection1 = new NoEntryCollection();
-        NoEntryCollection noEntryCollection2 = new NoEntryCollection(2);
+        NoEntryCollection noEntryCollection2 = new NoEntryCollection();
 
         noEntryCollection0.removeElement(noEntry);
         noEntryCollection1.insertElement(noEntry);
@@ -28,7 +28,6 @@ public class NoEntryCollectionTest {
         Assertions.assertTrue(noEntryCollection0.getAllNoEntries().isEmpty());
         Assertions.assertEquals(0, noEntryCollection0.noEntriesSize());
         Assertions.assertTrue(noEntryCollection1.contains(noEntry));
-        Assertions.assertNull(noEntryCollection2.getAllNoEntries());
-        Assertions.assertEquals(2, noEntryCollection2.getMyId());
+        Assertions.assertTrue(noEntryCollection2.getAllNoEntries().isEmpty());
     }
 }

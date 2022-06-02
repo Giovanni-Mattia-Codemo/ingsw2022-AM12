@@ -13,7 +13,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.8.2</junit.version>
-        <sonar.exclusions>**/adapter/**/*,**/controller/**/*,**/client/**/*,**/virtualview/**/*,**/Server.java,**/communication/**/*,**/ConnectionHandler.java, **/updateFlag/**/*, **/NickInput.java, **/NickInputAdapter.java</sonar.exclusions>
+        <sonar.exclusions>**/adapter/**/*,**/gameSaveAdapters/**/*,**/controller/**/*,**/client/**/*,**/virtualview/**/*,**/Server.java,**/communication/**/*,**/ConnectionHandler.java, **/updateFlag/**/*, **/NickInput.java, **/NickInputAdapter.java</sonar.exclusions>
     </properties>
 
     <dependencies>

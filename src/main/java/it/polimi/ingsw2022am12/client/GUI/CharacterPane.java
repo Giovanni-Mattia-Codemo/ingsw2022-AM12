@@ -98,8 +98,6 @@ public class CharacterPane extends VBox {
         imgCoinPane.setAlignment(Pos.TOP_CENTER);
         imgCoinPane.prefHeightProperty().bind(heightProperty().multiply(0.5));
         imgCoinPane.prefWidthProperty().bind(widthProperty());
-        imgCoinPane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        imgCoinPane.setMinSize(1.0, 1.0);
 
         if(client.getClientGame().getCharacterByName(characterName).isHasCoin()){
             coin.setVisible(true);
