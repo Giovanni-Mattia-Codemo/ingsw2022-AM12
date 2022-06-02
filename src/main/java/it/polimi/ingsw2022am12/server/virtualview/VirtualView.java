@@ -43,6 +43,7 @@ public class VirtualView{
      *
      */
     public void forwardMsg(String update){
+
         out.println(update);
         out.flush();
     }

@@ -129,7 +129,7 @@ public class GameSaveAdapter extends TypeAdapter<Game> {
                 jsonReader.beginArray();
 
                 while (jsonReader.hasNext()){
-                    Team t = embedded.fromJson(jsonReader.nextString(), Team.class);
+                    Team t = embedded.fromJson(jsonReader, Team.class);
                     teams.add(t);
                 }
 
@@ -241,7 +241,8 @@ public class GameSaveAdapter extends TypeAdapter<Game> {
             }
             if("Bag".equals(fieldName)){
                 jsonReader.peek();
-                bag = new GsonBuilder().registerTypeAdapter(StudentDiskCollection.class, new SaveGameStudentDiskCollectionAdapter()).create().fromJson(jsonReader, StudentDiskCollection.class);
+                temp = new GsonBuilder().registerTypeAdapter(StudentDiskCollection.class, new SaveGameStudentDiskCollectionAdapter()).create().fromJson(jsonReader, StudentDiskCollection.class);
+                bag = new Bag(temp);
             }
 
         }

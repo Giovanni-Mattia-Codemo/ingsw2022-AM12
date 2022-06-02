@@ -1,5 +1,6 @@
 package it.polimi.ingsw2022am12.client.GUI;
 
+import it.polimi.ingsw2022am12.DiskColor;
 import it.polimi.ingsw2022am12.client.Client;
 import it.polimi.ingsw2022am12.client.ClientInputHandler;
 import it.polimi.ingsw2022am12.client.model.ClientStudent;
@@ -10,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -91,8 +94,9 @@ public class CharacterPane extends VBox {
         coin.setMaxHeight(Double.MAX_VALUE);
         coin.setMaxWidth(Double.MAX_VALUE);
         coin.setBackground(Background.EMPTY);
-        coin.prefHeightProperty().bind(imgCoinPane.heightProperty().multiply(0.1));
-        coin.prefWidthProperty().bind(coin.heightProperty());
+        coin.maxHeightProperty().bind(imgCoinPane.heightProperty().multiply(0.1));
+        coin.maxWidthProperty().bind(coin.heightProperty());
+
         imgCoinPane.getChildren().add(coin);
 
         imgCoinPane.setAlignment(Pos.TOP_CENTER);
@@ -126,7 +130,18 @@ public class CharacterPane extends VBox {
         getChildren().add(imgCoinPane);
         getChildren().add(grid);
         if(characterName.equals("CHARACTER_MERCHANT")||characterName.equals("CHARACTER_HAG")){
-
+            VBox colors = new VBox();
+            colors.setFillWidth(true);
+            colors.prefWidthProperty().bind(grid.widthProperty());
+            colors.prefHeightProperty().bind(grid.heightProperty());
+            colors.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+            colors.setMinSize(1.0,1.0);
+            for(DiskColor c: DiskColor.values()){
+                Button button = newColorSelection(c);
+                VBox.setVgrow(button, Priority.ALWAYS);
+                colors.getChildren().add(button);
+            }
+            grid.add(colors, 0 ,0);
         }
 
         VBox.setVgrow(grid, Priority.NEVER);
@@ -253,5 +268,24 @@ public class CharacterPane extends VBox {
             }
         }
         return null;
+    }
+
+
+    private Button newColorSelection(DiskColor d){
+        Button colorSel = new Button();
+        switch (d.name()){
+            case "GREEN" -> colorSel.setBackground(Background.fill(Color.GREEN));
+            case "BLUE" -> colorSel.setBackground(Background.fill(Color.BLUE));
+            case "PINK" -> colorSel.setBackground(Background.fill(Color.PINK));
+            case "YELLOW" -> colorSel.setBackground(Background.fill(Color.YELLOW));
+            case "RED" -> colorSel.setBackground(Background.fill(Color.RED));
+        }
+        colorSel.setOnAction(e->{
+            System.out.println(d.name());
+            ClientInputHandler.handle("Color "+d.name(), client);
+        });
+        colorSel.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        colorSel.setMinSize(1.0,1.0);
+        return colorSel;
     }
 }

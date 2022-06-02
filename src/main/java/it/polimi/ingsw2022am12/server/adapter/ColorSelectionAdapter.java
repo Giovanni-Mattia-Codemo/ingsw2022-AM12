@@ -19,6 +19,7 @@ public class ColorSelectionAdapter extends TypeAdapter<ColorSelection> {
         jsonWriter.value("Color");
         jsonWriter.name("Color");
         jsonWriter.value(String.valueOf(c.getColor()));
+        jsonWriter.endObject();
     }
 
     @Override

@@ -5,6 +5,8 @@ import com.google.gson.GsonBuilder;
 import it.polimi.ingsw2022am12.ControlMessagesAdapter;
 import it.polimi.ingsw2022am12.NickInputAdapter;
 import it.polimi.ingsw2022am12.server.gameSaveAdapters.GameSaveAdapter;
+import it.polimi.ingsw2022am12.server.model.SchoolBoard;
+import it.polimi.ingsw2022am12.server.model.Team;
 import it.polimi.ingsw2022am12.updateFlag.Flag;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlag;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlagAdapterFactory;
@@ -20,9 +22,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -44,12 +44,13 @@ public class Controller {
     private final Lock lock;
     private final Server server;
     private File savedGame;
-
+    private final String directory;
+    private boolean isGameSavedPresent = false;
 
     /**
      * Constructor method of Controller class
      */
-    public Controller(Server server){
+    public Controller(Server server, String directory){
         this.userMap = new HashMap<>();
         this.server = server;
         this.directory = directory;
@@ -111,6 +112,15 @@ public class Controller {
                     v.forwardMsg(gsonForMessages.toJson(messages));
                     return;
                 }else if(result.equals(ActionStep.OK)){
+                    Team winner = myGame.getWinner();
+
+                    if(winner!=null){
+
+                        endGame();
+                        return;
+
+                    }
+
                     System.out.println("serializing game");
                     Gson gameSaveG = new GsonBuilder().registerTypeAdapter(Game.class, new GameSaveAdapter()).create();
                     System.out.println("made the serializer");
@@ -249,6 +259,9 @@ public class Controller {
      * @param v the view of the user
      */
     private void bindView(VirtualView v, String nick){
+        if(isGameSavedPresent&&!myGame.getPlayerNicks().contains(nick)){
+            isGameSavedPresent=false;
+        }
 
         userMap.put(v, nick);
         if(userMap.size()==1){
@@ -260,11 +273,19 @@ public class Controller {
         if(userMap.size()==numOfPlayers){
             System.out.println("Reached max players");
             acceptingUsers = false;
-            ArrayList<String> nicks = new ArrayList<>(userMap.values());
-            myGame = new Game(nicks, difficulty);
-            myGame.setUp();
-            System.out.println("Game is up");
+            if(!isGameSavedPresent){
+                ArrayList<String> nicks = new ArrayList<>(userMap.values());
+                myGame = new Game(nicks, difficulty);
+                myGame.setUp();
+                System.out.println("Game is up");
+            }else{
+                System.out.println("Resuming game");
+            }
+
+
+
             inputHandler = new InputHandler(myGame);
+            System.out.println("made an input handler");
             Gson gson = new GsonBuilder().registerTypeAdapter(Game.class, new GameAdapter()).create();
             String gameState = gson.toJson(myGame);
             updateAllViews(gameState);
@@ -275,7 +296,9 @@ public class Controller {
             updateAllViews(res);
 
             updateViewsOfStatus();
+
             notifyNextPlayerOfSel();
+            System.out.println("finished the last binding");
             return;
         }
         updateViewsOfStatus();
@@ -292,6 +315,7 @@ public class Controller {
             if(userMap.get(virtualView).equals(myGame.getCurrentSchoolBoard().getNick())){
                 Gson gson = new GsonBuilder().registerTypeAdapter(ArrayList.class, new ControlMessagesAdapter()).create();
                 //virtualView.forwardMsg(gson.toJson(inputHandler.getNextSelection()));
+                System.out.println("Sending selection because "+userMap.get(virtualView)+" equals "+ myGame.getCurrentSchoolBoard().getNick());
                 msgs.addAll(inputHandler.getNextSelection());
                 virtualView.forwardMsg(gson.toJson(msgs));
             }
@@ -304,20 +328,40 @@ public class Controller {
     public void endGame(){
         System.out.println("Closing game");
         Gson g = new GsonBuilder().registerTypeAdapter(ArrayList.class, new ControlMessagesAdapter()).create();
-        ArrayList<ControlMessages> msgs = new ArrayList<>();
-        msgs.add(ControlMessages.DISCONNECTION);
-        updateAllViews(g.toJson(msgs));
 
+
+        Team winner = myGame.getWinner();
+
+        if(winner!=null) {
+            for (VirtualView virtualView : userMap.keySet()) {
+                ArrayList<ControlMessages> msgs = new ArrayList<>();
+                ControlMessages message = ControlMessages.LOSER;
+                String nick = userMap.get(virtualView);
+                for (SchoolBoard schoolBoard : winner.getSchoolBoards()) {
+                    if (schoolBoard.getNick().equals(nick)) {
+                        message = ControlMessages.WINNER;
+                        break;
+                    }
+                }
+                msgs.add(message);
+                virtualView.forwardMsg(g.toJson(msgs));
+
+            }
+        }else{
+            ArrayList<ControlMessages> msgs = new ArrayList<>();
+            msgs.add(ControlMessages.DISCONNECTION);
+            updateAllViews(g.toJson(msgs));
+        }
+
+
+        saveGame("empty");
         myGame = null;
 
         gameWasSet = false;
         creatingGame = false;
         acceptingUsers = true;
 
-        for(VirtualView v: userMap.keySet()){
-            virtualViews.remove(v);
-            v.close();
-        }
+
         userMap.clear();
         updateViewsOfStatus();
     }
@@ -330,6 +374,7 @@ public class Controller {
 
         if(userMap.remove(v)!=null){
             System.out.println("a player disconnected");
+            virtualViews.remove(v);
             v.close();
             endGame();
         }else{
@@ -381,12 +426,14 @@ public class Controller {
      *
      */
     public void updateViewsOfStatus(){
+        System.out.println("updating statuses ");
         Gson g = new GsonBuilder().registerTypeAdapter(ArrayList.class, new ControlMessagesAdapter()).create();
         for(VirtualView v : virtualViews){
             ArrayList<ControlMessages>msgs = new ArrayList<>();
             msgs.add(getMatchStatusOfView(v));
             v.forwardMsg(g.toJson(msgs));
         }
+        System.out.println("done updating statuses");
     }
 
     public File createNewFIle(){
@@ -414,9 +461,22 @@ public class Controller {
             myWriter.write(game);
             myWriter.close();
         } catch (IOException e) {
-            System.out.println("An error occurred.");
+            System.out.println("An error occurred while writing on the save file.");
             e.printStackTrace();
         }
+    }
+
+    public String getSavedJson(){
+        String data =null;
+        try {
+            Scanner myReader = new Scanner(savedGame);
+            data = myReader.nextLine();
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred while reading the saved game.");
+            e.printStackTrace();
+        }
+        return data;
     }
 
 }

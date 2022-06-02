@@ -22,6 +22,11 @@ public class CharacterBard extends CharacterCard {
         super(CharacterName.CHARACTER_BARD, 1);
     }
 
+    public CharacterBard(int swapsDone){
+        super(CharacterName.CHARACTER_BARD, 1);
+        this.swapsDone = swapsDone;
+    }
+
     /**
      * Method PossibleAction allows me to know the Bard power (swaps from entrance to room)
      *
@@ -50,4 +55,8 @@ public class CharacterBard extends CharacterCard {
         }
     }
 
+
+    public int getSwapsDone() {
+        return swapsDone;
+    }
 }

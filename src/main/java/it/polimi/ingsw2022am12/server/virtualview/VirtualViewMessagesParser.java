@@ -50,6 +50,7 @@ public class VirtualViewMessagesParser implements Runnable{
 
                     line = in.nextLine();
 
+
                     Gson gson = new Gson();
                     Map map = gson.fromJson(line, Map.class);
                     String tag = (String) map.get("tag");

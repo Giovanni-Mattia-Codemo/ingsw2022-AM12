@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  * Class Game is the instance of the game
  */
 public class Game{
-
+    private Team winner;
     private final static int coinsTOTAL = 20;
     private final ArrayList<String> playerNicks;
     private final int numOfPlayers;
@@ -86,6 +86,9 @@ public class Game{
         this.teams = teams;
         for(Team t:this.teams){
             t.setSchoolsFromGame(this);
+            for(SchoolBoard s: t.getSchoolBoards()){
+                s.setSavedTowers(t);
+            }
         }
         this.professors = new SchoolBoard[5];
         for(int i=0; i<5; i++){
@@ -102,6 +105,7 @@ public class Game{
         for(IslandTileSet set:islandList.getIslands()){
             set.fillSavedTowers(this);
         }
+
 
     }
 

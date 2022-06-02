@@ -94,7 +94,11 @@ public class StudentButton extends Button{
 
             setVisible(false);
         }
-        setOnAction(e-> ClientInputHandler.handle("Student "+myStudent.getColor()+" "+myStudent.getID(),client));
+        setOnAction(e-> {
+            System.out.println("ButtonPressed");
+            ClientInputHandler.handle("Student "+myStudent.getColor()+" "+myStudent.getID(),client);
+
+        });
 
     }
 

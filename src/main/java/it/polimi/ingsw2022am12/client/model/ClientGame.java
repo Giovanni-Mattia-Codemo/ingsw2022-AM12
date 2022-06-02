@@ -441,6 +441,7 @@ public class ClientGame {
         round = newGame.getRound();
         turn = newGame.getTurn();
         phase = newGame.getPhase();
+        teams = newGame.getTeams();
         motherNatureIndex = newGame.getMotherNatureIndex();
         freeCoins = newGame.getFreeCoins();
         orderedNicks = newGame.getOrderedNicks();
@@ -491,10 +492,12 @@ public class ClientGame {
                 islands.removeAll(toRemove);
                 break;
             case CHARACTERS:
+                System.out.println("starting characters");
                 String nameToCheck = ((UpdateFlagCharacter)myFlag).getNick();
                 if(!nameToCheck.equals("null")){
                     getCharacterByName(nameToCheck).updateFromCharacter(newGame.getCharacterByName(nameToCheck));
                 }
+                System.out.println("finished chaacters");
                 break;
             default:
                 break;

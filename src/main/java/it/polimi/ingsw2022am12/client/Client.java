@@ -94,6 +94,9 @@ public class Client {
     }
 
     public void controlMessageToView(ArrayList<ControlMessages> msg){
+        if(msg.contains(ControlMessages.DISCONNECTION)|| msg.contains(ControlMessages.WINNER)||msg.contains(ControlMessages.LOSER)){
+            clientGame = null;
+        }
         view.viewControlMessages(msg);
     }
 
@@ -113,15 +116,22 @@ public class Client {
      * @param flag fields to be updated
      */
     public void updateGameState(UpdateFlag flag){
-        if(clientGame==null){
-            clientGame=newClientGame;
-        }else clientGame.updateFromGame(newClientGame, flag);
+
+        System.out.println("starting to update with flags");
+        clientGame.updateFromGame(newClientGame, flag);
+        System.out.println("updated the code game");
         view.updateGameView(clientGame, flag);
+        System.out.println("updated the view game");
 
     }
 
     public void updateLastSavedGame(ClientGame newGame){
+        System.out.println("got a new game");
         newClientGame = newGame;
+        if(clientGame== null){
+            clientGame=newGame;
+        }
+        System.out.println("used it");
     }
 
     public ClientGame getClientGame() {

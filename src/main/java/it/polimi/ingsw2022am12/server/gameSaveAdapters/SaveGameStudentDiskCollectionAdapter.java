@@ -52,6 +52,7 @@ public class SaveGameStudentDiskCollectionAdapter extends TypeAdapter<StudentDis
                 jsonReader.beginArray();
                 while (jsonReader.hasNext()){
                     Student st = new GsonBuilder().registerTypeAdapter(Student.class, new StudentAdapter()).create().fromJson(jsonReader, Student.class);
+                    st.setPositionID(id);
                     students.add(st);
 
                 }

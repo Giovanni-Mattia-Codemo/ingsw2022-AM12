@@ -89,4 +89,8 @@ public class GameStateView extends VBox {
             messageList.getChildren().remove(0);
         }
     }
+
+    public void clearMessages(){
+        messageList.getChildren().clear();
+    }
 }

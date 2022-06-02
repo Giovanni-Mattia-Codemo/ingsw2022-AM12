@@ -20,7 +20,7 @@ public class Server {
      */
     public Server(int port, String directory){
         this.port = port;
-        this.myController = new Controller(this);
+        this.myController = new Controller(this, directory);
     }
 
     /**
@@ -29,7 +29,26 @@ public class Server {
      * @param args array of parameters written as strings
      */
     public static void main(String[] args) {
-        Server server = new Server(1344);
+
+        String directory=System.getProperty("user.dir");
+        String port="";
+        if(args.length>0){
+            for(int i=0; i< args.length-1;i++){
+                if(args[i].equals("-p")){
+                    port = args[i+1];
+                } else if (args[i].equals("-f")){
+                    directory = "";
+                    for(int t=i+1;t< args.length;t++){
+                        directory = directory.concat("\s"+args[t]);
+                    }
+
+                }
+            }
+
+        }
+        directory = directory.replaceFirst("\s", "" );
+        System.out.println("Directory:"+directory);
+        Server server = new Server(Integer.parseInt(port), directory);
         server.startServer();
     }
 

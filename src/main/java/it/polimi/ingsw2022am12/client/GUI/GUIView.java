@@ -14,12 +14,14 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class GUIView implements View, Runnable{
 
     private final Client client;
     private Scene tryAgainLater, tryAnother;
-    private Scene schoolBoardScene, islandScene, pickMageScene;
+    private Scene pickMageScene;
+    private HBox activeViewContent;
     private GameStateView gameStateView;
     private SchoolBoardView mySchools;
     private Scene activeScene;
@@ -55,6 +57,8 @@ public class GUIView implements View, Runnable{
         setServerDownScene();
         setGameStateView();
     }
+
+
 
     @Override
     public void updateGameView(ClientGame game, UpdateFlag flag) {
@@ -133,6 +137,8 @@ public class GUIView implements View, Runnable{
                 case MATCHMAKINGCOMPLETE: {
                     Platform.runLater(()->{
                         setSchoolScene();
+                        setIslandScene();
+                        activeViewContent.getChildren().add(mySchools);
                         primary.setScene(matchIsStartingScene);
                     });
                     break;
@@ -145,10 +151,9 @@ public class GUIView implements View, Runnable{
                     Platform.runLater(()->new AssistantSelectionWindow().displayScene(client));
                     break;
                 }
-                case DISCONNECTION:{
+                case DISCONNECTION,WINNER,LOSER:{
                     Platform.runLater(()-> {
-                        primary.setScene(disconnectionScene);
-                        client.disconnected();
+                        setEndMatchScene(message);
                     });
                     break;
                 }
@@ -158,8 +163,18 @@ public class GUIView implements View, Runnable{
                     });
                     break;
                 }
+                case ACCEPTED, INVALIDSELECTION, ACTIONCOMPLETED:{
+                    Platform.runLater(()->{
+                        gameStateView.clearMessages();
+                        gameStateView.addMessage(message.getMessage());
+                    });
+                    break;
+                }
                 default:
-                    Platform.runLater(()-> gameStateView.addMessage(message.getMessage()));
+                    Platform.runLater(()-> {
+                        gameStateView.addMessage(message.getMessage());
+                        primary.setScene(activeScene);
+                    });
                     break;
             }
         }
@@ -176,9 +191,11 @@ public class GUIView implements View, Runnable{
     }
 
     private void setIslandScene(){
+        activeViewContent.getChildren().remove(islandView);
         islandView = new IslandView(client);
-        islandView.getSwitcher().setOnAction(e-> Platform.runLater(()-> primary.setScene(schoolBoardScene)));
-        islandScene = new Scene(islandView, 600, 400);
+        islandView.prefWidthProperty().bind(activeViewContent.widthProperty().multiply(0.8));
+        HBox.setHgrow(islandView, Priority.NEVER);
+
     }
 
     private void setMatchIsStartingScene(){
@@ -189,7 +206,7 @@ public class GUIView implements View, Runnable{
         matchIsStartingScene = new Scene(pane, 400, 300);
     }
 
-    private void setDisconnectionScene(){
+    private void setEndMatchScene(ControlMessages message){
         VBox pane = new VBox();
         Label disconnection = new Label(message.getMessage());
         pane.getChildren().addAll(disconnection);
@@ -206,25 +223,37 @@ public class GUIView implements View, Runnable{
 
     }
 
-    private void setSchoolScene(){
-        setIslandScene();
-        SchoolBoardView schools = new SchoolBoardView(client);
-        mySchools = schools;
-        HBox box = new HBox();
 
-        gameStateView.getToIslands().setOnAction(e-> Platform.runLater(()->
-            primary.setScene(islandScene)
-        ));
-        box.getChildren().addAll(schools, gameStateView);
-        gameStateView.prefWidthProperty().bind(box.widthProperty().multiply(0.2));
-        schools.prefWidthProperty().bind(box.widthProperty().multiply(0.8));
-        HBox.setHgrow(gameStateView, Priority.NEVER);
-        HBox.setHgrow(schools, Priority.NEVER);
-        schoolBoardScene = new Scene(box, 600, 400);
+    public void switchScene(){
+        Node active = activeViewContent.getChildren().remove(1);
+        if(active==mySchools){
+            activeViewContent.getChildren().add(islandView);
+
+        }else if(active==islandView){
+            activeViewContent.getChildren().add(mySchools);
+        }
+    }
+
+    private void setSchoolScene(){
+        activeViewContent.getChildren().remove(mySchools);
+        mySchools = new SchoolBoardView(client);
+
+        mySchools.prefWidthProperty().bind(activeViewContent.widthProperty().multiply(0.8));
+
+        HBox.setHgrow(mySchools, Priority.NEVER);
+
     }
 
     private void setGameStateView(){
         gameStateView = new GameStateView();
+        activeViewContent = new HBox();
+        activeViewContent.getChildren().add(gameStateView);
+        gameStateView.prefWidthProperty().bind(activeViewContent.widthProperty().multiply(0.2));
+        HBox.setHgrow(gameStateView, Priority.NEVER);
+        activeScene = new Scene(activeViewContent, 600,400);
+
+        gameStateView.getToIslands().setOnAction(e-> Platform.runLater(this::switchScene));
+
     }
 
     private void setTryAnother(){
@@ -262,10 +291,6 @@ public class GUIView implements View, Runnable{
 
     private void setPickMageScene(){
         pickMageScene = new Scene(new MageSelectionPane(client, this), 400, 300);
-    }
-
-    public void enterGameScene(){
-        primary.setScene(schoolBoardScene);
     }
 
     public void setServerDownScene(){

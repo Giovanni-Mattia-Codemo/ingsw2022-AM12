@@ -83,7 +83,7 @@ public class SaveGameSchoolBoardAdapter extends TypeAdapter<SchoolBoard> {
             }
             if("Entrance".equals(fieldName)){
                 jsonReader.peek();
-                entrance = new GsonBuilder().registerTypeAdapter(SaveGameStudentDiskCollectionAdapter.class, new StudentAdapter()).create().fromJson(jsonReader, Student.class);
+                entrance = new GsonBuilder().registerTypeAdapter(StudentDiskCollection.class, new SaveGameStudentDiskCollectionAdapter()).create().fromJson(jsonReader, StudentDiskCollection.class);
             }
             if("DiningRoom".equals(fieldName)){
                 jsonReader.peek();

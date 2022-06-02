@@ -14,6 +14,15 @@ public class Bag extends StudentDiskCollection {
      *
      * @return Student drawn from the bag
      */
+
+    public Bag(){
+        super();
+    }
+
+    public Bag(StudentDiskCollection studentDiskCollection){
+        super(studentDiskCollection.getAllStudents(), studentDiskCollection.getID());
+    }
+
     public Student draw() {
             if(this.amount()>0) {
                 Random randomValue = new Random();

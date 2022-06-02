@@ -24,9 +24,10 @@ public class CharacterJester extends CharacterCard {
         students = new StudentDiskCollection();
     }
 
-    public CharacterJester(StudentDiskCollection students){
+    public CharacterJester(StudentDiskCollection students, int movesDone){
         super(CharacterName.CHARACTER_JESTER, 1);
         this.students = students;
+        this.movesDone = movesDone;
     }
 
     /**
@@ -80,5 +81,7 @@ public class CharacterJester extends CharacterCard {
         }
     }
 
-
+    public int getMovesDone() {
+        return movesDone;
+    }
 }
