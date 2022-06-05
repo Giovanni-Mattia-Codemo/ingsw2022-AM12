@@ -7,7 +7,7 @@ import java.net.*;
 import java.util.Scanner;
 
 /**
- * VirtualView class represents the layer that transforms information that come from the client and sends them to the
+ * VirtualView class represents the layer that transforms information that comes from the client and sends it to the
  * controller inside the server
  */
 public class VirtualView{
@@ -39,8 +39,8 @@ public class VirtualView{
 
     /**
      * forwardMsg puts the gameState string as a message in the output stream of the socket, then flushes it
-     * @param update the state of the game coded as a string
      *
+     * @param update the state of the game coded as a string, so that I can forward it
      */
     public void forwardMsg(String update){
 
@@ -49,7 +49,8 @@ public class VirtualView{
     }
 
     /**
-     * disconnected method ends the game and prints a message of disconnection
+     * disconnected method ends the game by removing the Virtual View of the disconnected player, and prints a message of
+     * disconnection
      */
     public void disconnected(){
         myController.removeView(this);

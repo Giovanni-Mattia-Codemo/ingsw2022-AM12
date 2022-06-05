@@ -15,11 +15,12 @@ public class PingTimerTask extends TimerTask {
      * @param v my Virtual View
      */
     public PingTimerTask(VirtualView v){
-        mine=v;
+        mine = v;
     }
 
     /**
-     * The action to be performed by this timer task.
+     * The action to be performed by this timer task, it sets the boolean value hasPinged to false if there has been a Ping
+     * already, else if there hasn't been a Ping it disconnects the virtual view
      */
     @Override
     public void run() {

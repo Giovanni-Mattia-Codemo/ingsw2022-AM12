@@ -7,6 +7,7 @@ import com.google.gson.stream.JsonWriter;
 import it.polimi.ingsw2022am12.DiskColor;
 import it.polimi.ingsw2022am12.server.model.Student;
 import java.io.IOException;
+
 /**
  * Class used to simplify the handling of a certain event.
  * In this case,it helps to handle objects of the type STUDENT.

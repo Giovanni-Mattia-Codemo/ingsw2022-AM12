@@ -15,7 +15,7 @@ import it.polimi.ingsw2022am12.server.model.characters.*;
 import java.io.IOException;
 
 /**
- * Class used to simplify the handling of a certain event.
+ * Class used to simplify the handling of a certain event, using a factory design pattern.
  * In this case,it helps to handle objects of the type CHARACTERCARD.
  */
 public class CharacterAdapterFactory implements TypeAdapterFactory {

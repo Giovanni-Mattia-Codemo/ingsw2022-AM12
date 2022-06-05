@@ -18,7 +18,7 @@ import java.util.Objects;
 public class UpdateFlagAdapterFactory implements TypeAdapterFactory {
 
     /**
-     * Custom creation of a TypeAdapter
+     * Custom creation of a TypeAdapter for the UpdateFlag
      * @param gson my Gson object
      * @param typeToken my type token
      * @param <T> generic type for the TypeAdapter
@@ -33,8 +33,6 @@ public class UpdateFlagAdapterFactory implements TypeAdapterFactory {
     }
 
     private final TypeAdapter<UpdateFlag> customTypeAdapter = new TypeAdapter<>() {
-
-   //     private final TypeAdapter<UpdateFlag> customTypeAdapter = new  TypeAdapter<>{
 
         /**
          * Method write receives an object of type UpdateFlag and serializes it in the JSON format
@@ -66,7 +64,8 @@ public class UpdateFlagAdapterFactory implements TypeAdapterFactory {
         }
 
     /**
-     * Method "read" reads a JSON encoded UpdateFlag as a stream of tokens
+     * Method "read" reads a JSON encoded UpdateFlag as a stream of tokens; it creates a different UpdateFlag for each
+     * possible string in the enum
      *
      * @param reader the reader which will receive my JSON data
      * @return UpdateFlag read from the JSON text

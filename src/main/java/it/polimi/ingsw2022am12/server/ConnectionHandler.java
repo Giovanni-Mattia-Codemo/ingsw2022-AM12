@@ -15,7 +15,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 /**
- * ConnectionHandler class represents the component that handles the connection with the server
+ * ConnectionHandler class represents the component that handles the connection with the server's side, through a virtual view
  */
 public class ConnectionHandler implements Runnable{
 

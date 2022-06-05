@@ -139,28 +139,28 @@ public class IslandTileList {
         IslandTileSet left = islands.get(leftIndex);
         IslandTileSet islandToCheck = islands.get(islandIndex);
 
-        if(left.getOwningTeam()==islandToCheck.getOwningTeam()){
+        if(left.getOwningTeam()==islandToCheck.getOwningTeam()){  //I can only merge islands of the same team
             if(left!=motherNature){
-                mergeIslands(left, islandToCheck);
+                mergeIslands(left, islandToCheck);    //if the island on the left does not contain mother Nature, it means islandToCheck does, so I merge everything into it
 
             }else {
-                mergeIslands(islandToCheck,left);
+                mergeIslands(islandToCheck,left);    //if the island on the left contains mother Nature, it means I have to use it as a destination to the merge
 
-                islandToCheck = left;
+                islandToCheck = left;     //the island with mother Nature on it must always be the destination of the merge, now I use the new island cluster merged in the left, and check if I can merge to the right
             }
         }
 
-        if(islandToCheck.getID()==islands.size()-1){
+        if(islandToCheck.getID()==islands.size()-1){  //we are in a circle, if my island is the last, the one on its right is the first one
             rightIndex = 0;
-        }else rightIndex=islandToCheck.getID()+1;
+        }else rightIndex=islandToCheck.getID()+1; //else it's just the index of my island increased by one
 
         IslandTileSet right = islands.get(rightIndex);
-        if(right.getOwningTeam()==islandToCheck.getOwningTeam()){
+        if(right.getOwningTeam()==islandToCheck.getOwningTeam()){       //I can only merge islands of the same team
             if(right!=motherNature){
-                mergeIslands(right, islandToCheck);
+                mergeIslands(right, islandToCheck);    //if the island on the right does not contain mother Nature, it means islandToCheck does, so I merge everything into it
 
             }else{
-                mergeIslands(islandToCheck, right);
+                mergeIslands(islandToCheck, right);   //if the island on the right contains mother Nature, it means I have to use it as a destination to the merge
 
             }
         }

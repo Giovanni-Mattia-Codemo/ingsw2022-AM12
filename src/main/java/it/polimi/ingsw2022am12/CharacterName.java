@@ -29,9 +29,9 @@ public enum CharacterName {
     }
 
     /**
-     * Method getValue returns the correspondent value of a CharacterName
+     * Method getValue returns the correspondent int value of a CharacterName
      *
-     * @return value of name
+     * @return int value of name
      */
     public int getValue(){
         return value;

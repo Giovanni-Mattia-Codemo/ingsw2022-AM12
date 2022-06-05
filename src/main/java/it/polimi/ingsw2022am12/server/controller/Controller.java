@@ -307,7 +307,7 @@ public class Controller {
 
 
     /**
-     *notifyNextPlayerOfSel iterates on the VirtualViews
+     * notifyNextPlayerOfSel iterates on the VirtualViews
      */
     public void notifyNextPlayerOfSel(){
         for(VirtualView virtualView : userMap.keySet()){
@@ -423,19 +423,27 @@ public class Controller {
     }
 
     /**
-     *
+     * updateViewsOfStatus sends the new status of the game as an update to the Virtual Views
      */
     public void updateViewsOfStatus(){
+
         System.out.println("updating statuses ");
+
         Gson g = new GsonBuilder().registerTypeAdapter(ArrayList.class, new ControlMessagesAdapter()).create();
         for(VirtualView v : virtualViews){
-            ArrayList<ControlMessages>msgs = new ArrayList<>();
-            msgs.add(getMatchStatusOfView(v));
-            v.forwardMsg(g.toJson(msgs));
+            ArrayList<ControlMessages> messages = new ArrayList<>();
+            messages.add(getMatchStatusOfView(v));
+            v.forwardMsg(g.toJson(messages));
         }
         System.out.println("done updating statuses");
     }
 
+    /**
+     * createNewFile creates a new file with the name "\\savedGame.txt" from the directory, and returns an error message
+     * if there is a problem with my input
+     *
+     * @return new file created
+     */
     public File createNewFIle(){
         File myObj = null;
         try {
@@ -455,6 +463,11 @@ public class Controller {
         return myObj;
     }
 
+    /**
+     * saveGame writes the state of the game (a String) in the savedGame file
+     *
+     * @param game a string with the state of the game
+     */
     public void saveGame(String game){
         try {
             FileWriter myWriter = new FileWriter(savedGame,false);
@@ -466,6 +479,12 @@ public class Controller {
         }
     }
 
+    /**
+     * getSavedJson searches for the file where the savedState of the game is, and reads from it with a scanner, returning
+     * a String containing the state of the game
+     *
+     * @return String containing the state of the game
+     */
     public String getSavedJson(){
         String data =null;
         try {

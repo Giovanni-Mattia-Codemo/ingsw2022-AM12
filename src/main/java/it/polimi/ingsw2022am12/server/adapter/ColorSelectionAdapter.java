@@ -10,8 +10,19 @@ import it.polimi.ingsw2022am12.server.model.Student;
 
 import java.io.IOException;
 
+/**
+ * Class used to simplify the handling of a certain event.
+ * In this case,it helps to handle objects of the type COLORSELECTION.
+ */
 public class ColorSelectionAdapter extends TypeAdapter<ColorSelection> {
 
+    /**
+     * Method write receives an object of type ColorSelection and serializes it in the JSON format
+     *
+     * @param jsonWriter the writer which will generate my JSON data
+     * @param c the ColorSelection I want to serialize
+     * @throws IOException if there is a problem with my input
+     */
     @Override
     public void write(JsonWriter jsonWriter, ColorSelection c) throws IOException {
         jsonWriter.beginObject();
@@ -22,6 +33,13 @@ public class ColorSelectionAdapter extends TypeAdapter<ColorSelection> {
         jsonWriter.endObject();
     }
 
+    /**
+     * Method "read" reads a JSON encoded ColorSelection as a stream of tokens
+     *
+     * @param reader the reader which will receive my JSON data
+     * @return ColorSelection the ColorSelection created from the JSON values
+     * @throws IOException if there is a problem with my input
+     */
     @Override
     public ColorSelection read(JsonReader reader) throws IOException {
         DiskColor color = null;

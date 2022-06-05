@@ -9,7 +9,7 @@ import java.io.IOException;
 
 /**
  * Class used to simplify the handling of a certain event.
- * In this case,it helps to handle objects of the type TEAM.
+ * In this case, it helps to handle objects of the type TEAM.
  */
 public class TeamAdapter extends TypeAdapter<Team> {
 

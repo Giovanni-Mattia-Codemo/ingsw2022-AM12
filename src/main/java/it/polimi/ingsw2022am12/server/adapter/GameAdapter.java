@@ -13,11 +13,16 @@ import java.io.IOException;
  * In this case,it helps to handle objects of the type GAME.
  */
 public class GameAdapter extends TypeAdapter<Game> {
+
     Gson embedded = new Gson();
 
+    /**
+     * Constructor method of GameAdapter, it calls the constructor of the superclass
+     */
     public GameAdapter(){
         super();
     }
+
     /**
      * Method write receives an object of type Game and serializes it in the JSON format
      *

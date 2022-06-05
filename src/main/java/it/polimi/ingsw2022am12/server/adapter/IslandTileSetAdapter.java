@@ -74,8 +74,6 @@ public class IslandTileSetAdapter extends TypeAdapter<IslandTileSet> {
                 island = new IslandTileSet(reader.nextInt());
             }
 
-
-
         }
         reader.endObject();
         return island;
