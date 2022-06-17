@@ -15,7 +15,7 @@ import java.util.Objects;
 
 public class MageSelectionPane extends VBox {
 
-    public MageSelectionPane(Client myClient, GUIView guiView){
+    public MageSelectionPane(Client myClient){
         super();
         Label selectMage = new Label("Pick a mage");
         selectMage.setAlignment(Pos.CENTER);
@@ -56,8 +56,6 @@ public class MageSelectionPane extends VBox {
             mageButton.prefHeightProperty().bind(mageButton.widthProperty().multiply(1.44));
             mageButton.prefWidthProperty().bind(mageLayout.widthProperty().divide(pickable.size()));
             HBox.setHgrow(mageButton, Priority.ALWAYS);
-
-
 
         }
         Button select = new Button("Select");

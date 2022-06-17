@@ -1,6 +1,7 @@
 package it.polimi.ingsw2022am12.client.GUI;
 
 import it.polimi.ingsw2022am12.client.Client;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -38,8 +39,7 @@ public class GameStateView extends VBox {
         ScrollPane messages = new ScrollPane(messageList);
         messages.prefHeightProperty().bind(this.heightProperty().divide(2));
         getChildren().add(messages);
-
-
+        setAlignment(Pos.CENTER);
     }
 
     public Button getToIslands() {
@@ -74,7 +74,7 @@ public class GameStateView extends VBox {
         for(String s:order){
             text = text.concat(s+"\t");
         }
-        this.turnOrder.setText("The player order for this round is: "+text);
+        this.turnOrder.setText("The player order for this round is: "+ "\n"+text);
     }
 
     public void refresh(Client client){

@@ -11,9 +11,13 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class GUIView implements View, Runnable{
@@ -29,6 +33,7 @@ public class GUIView implements View, Runnable{
     private Stage primary;
     private IslandView islandView;
     boolean afterFirstUpdate = false;
+    private Image initialSceneImage;
 
     /**
      * Constructor for setting the game
@@ -36,16 +41,16 @@ public class GUIView implements View, Runnable{
      *
      */
     public GUIView(Client client){
-
         this.client = client;
     }
 
     @Override
     public void run() {
         primary = new Stage();
+        initialSceneImage = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/EryantisImage.png")).toString());
+        setNickInputScene();
         primary.setTitle("Eryantis");
-        nickInputScene = new Scene(new NickInputPane(client), 400, 300);
-        gameSettingsScene = new Scene(new GameSettingsPane(client), 400, 300);
+        setGameSettingsScene();
         primary.setResizable(true);
         primary.setScene(nickInputScene);
         primary.show();
@@ -180,14 +185,47 @@ public class GUIView implements View, Runnable{
         }
     }
 
+    private void setNickInputScene(){
+        StackPane pane = new StackPane();
+        ImageView initialSceneImageView = new ImageView(initialSceneImage);
+        initialSceneImageView.fitWidthProperty().bind(pane.widthProperty());
+        initialSceneImageView.fitHeightProperty().bind(pane.heightProperty());
+        pane.getChildren().add(initialSceneImageView);
+        VBox nickInput = new NickInputPane(client);
+        nickInput.prefWidthProperty().bind(pane.widthProperty());
+        nickInput.prefHeightProperty().bind(pane.heightProperty());
+        pane.getChildren().add(nickInput);
+        nickInputScene = new Scene(pane, 600, 450);
+    }
 
+    private void setGameSettingsScene(){
+        StackPane pane = new StackPane();
+        ImageView initialSceneImageView = new ImageView(initialSceneImage);
+        initialSceneImageView.fitWidthProperty().bind(pane.widthProperty());
+        initialSceneImageView.fitHeightProperty().bind(pane.heightProperty());
+        pane.getChildren().add(initialSceneImageView);
+        GameSettingsPane container = new GameSettingsPane(client);
+        container.prefWidthProperty().bind(pane.widthProperty());
+        container.prefHeightProperty().bind(pane.heightProperty());
+        pane.getChildren().add(container);
+        gameSettingsScene = new Scene(pane, 600, 450);
+    }
 
     private void setTryAgain(){
-        VBox pane = new VBox();
+        StackPane pane = new StackPane();
+        ImageView initialSceneImageView = new ImageView(initialSceneImage);
+        initialSceneImageView.fitWidthProperty().bind(pane.widthProperty());
+        initialSceneImageView.fitHeightProperty().bind(pane.heightProperty());
+        pane.getChildren().add(initialSceneImageView);
+        VBox container = new VBox();
         Label tryAnother = new Label("The game is being decided, wait");
-        pane.getChildren().addAll(tryAnother);
-        pane.setAlignment(Pos.CENTER);
-        tryAgainLater = new Scene(pane, 400, 300);
+        tryAnother.setFont(new Font("Arial", 25));
+        container.getChildren().addAll(tryAnother);
+        container.setAlignment(Pos.CENTER);
+        container.prefWidthProperty().bind(pane.widthProperty());
+        container.prefHeightProperty().bind(pane.heightProperty());
+        pane.getChildren().add(container);
+        tryAgainLater = new Scene(pane, 600, 450);
     }
 
     private void setIslandScene(){
@@ -195,27 +233,42 @@ public class GUIView implements View, Runnable{
         islandView = new IslandView(client);
         islandView.prefWidthProperty().bind(activeViewContent.widthProperty().multiply(0.8));
         HBox.setHgrow(islandView, Priority.NEVER);
-
     }
 
     private void setMatchIsStartingScene(){
-        VBox pane = new VBox();
+        StackPane pane = new StackPane();
+        ImageView initialSceneImageView = new ImageView(initialSceneImage);
+        initialSceneImageView.fitWidthProperty().bind(pane.widthProperty());
+        initialSceneImageView.fitHeightProperty().bind(pane.heightProperty());
+        pane.getChildren().add(initialSceneImageView);
+        VBox container = new VBox();
         Label matchIsStarting = new Label("Your match is starting, wait for your turn");
-        pane.getChildren().addAll(matchIsStarting);
-        pane.setAlignment(Pos.CENTER);
-        matchIsStartingScene = new Scene(pane, 400, 300);
+        container.setAlignment(Pos.CENTER);
+        container.getChildren().addAll(matchIsStarting);
+        container.prefWidthProperty().bind(pane.widthProperty());
+        container.prefHeightProperty().bind(pane.heightProperty());
+        pane.getChildren().add(container);
+        matchIsStartingScene = new Scene(pane, 600, 450);
     }
 
     private void setEndMatchScene(ControlMessages message){
-        VBox pane = new VBox();
+        StackPane pane = new StackPane();
+        ImageView initialSceneImageView = new ImageView(initialSceneImage);
+        initialSceneImageView.fitWidthProperty().bind(pane.widthProperty());
+        initialSceneImageView.fitHeightProperty().bind(pane.heightProperty());
+        pane.getChildren().add(initialSceneImageView);
+        VBox container = new VBox();
         Label disconnection = new Label(message.getMessage());
-        pane.getChildren().addAll(disconnection);
-        pane.setAlignment(Pos.CENTER);
+        container.getChildren().addAll(disconnection);
+        container.setAlignment(Pos.CENTER);
+        container.prefWidthProperty().bind(pane.widthProperty());
+        container.prefHeightProperty().bind(pane.heightProperty());
+        pane.getChildren().add(container);
         endMatchScene = new Scene(pane, 400, 300);
         primary.setScene(endMatchScene);
 
         try {
-            TimeUnit.SECONDS.sleep(3);
+            TimeUnit.SECONDS.sleep(10);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -257,22 +310,37 @@ public class GUIView implements View, Runnable{
     }
 
     private void setTryAnother(){
-        VBox pane = new VBox();
-        Label tryAnotherLabel = new Label("The name you picked was already taken");
+        StackPane pane = new StackPane();
+        ImageView initialSceneImageView = new ImageView(initialSceneImage);
+        initialSceneImageView.fitWidthProperty().bind(pane.widthProperty());
+        initialSceneImageView.fitHeightProperty().bind(pane.heightProperty());
+        pane.getChildren().add(initialSceneImageView);
+        VBox container = new VBox();
         Button close = new Button("Got it");
         close.setOnAction(e->Platform.runLater(()-> primary.setScene(nickInputScene)));
-        pane.getChildren().addAll(tryAnotherLabel, close);
-        pane.setAlignment(Pos.CENTER);
-        tryAnother = new Scene(pane, 400, 300);
+        Label tryAnotherLabel = new Label("The name you picked was already taken");
+        container.getChildren().addAll(tryAnotherLabel, close);
+        container.setAlignment(Pos.CENTER);
+        container.prefWidthProperty().bind(pane.widthProperty());
+        container.prefHeightProperty().bind(pane.heightProperty());
+        pane.getChildren().add(container);
+        tryAnother = new Scene(pane, 600, 450);
     }
 
     private void setWaitingQueueScene(){
-        VBox pane = new VBox();
+        StackPane pane = new StackPane();
+        ImageView initialSceneImageView = new ImageView(initialSceneImage);
+        initialSceneImageView.fitWidthProperty().bind(pane.widthProperty());
+        initialSceneImageView.fitHeightProperty().bind(pane.heightProperty());
+        pane.getChildren().add(initialSceneImageView);
+        VBox container = new VBox();
         Label waitingQueueLabel = new Label("Waiting for other players to log in");
-        waitingQueueLabel.setAlignment(Pos.CENTER);
-        pane.getChildren().add(waitingQueueLabel);
-        pane.setAlignment(Pos.CENTER);
-        waitingQueueScene = new Scene(pane, 400, 300);
+        container.getChildren().addAll(waitingQueueLabel);
+        container.setAlignment(Pos.CENTER);
+        container.prefWidthProperty().bind(pane.widthProperty());
+        container.prefHeightProperty().bind(pane.heightProperty());
+        pane.getChildren().add(container);
+        waitingQueueScene = new Scene(pane, 600, 450);
     }
 
     private void setGameIsFullScene(){
@@ -290,7 +358,7 @@ public class GUIView implements View, Runnable{
     }
 
     private void setPickMageScene(){
-        pickMageScene = new Scene(new MageSelectionPane(client, this), 400, 300);
+        pickMageScene = new Scene(new MageSelectionPane(client), 400, 300);
     }
 
     public void setServerDownScene(){
