@@ -271,6 +271,12 @@ public class CharacterPane extends VBox {
     }
 
 
+    /**
+     * newColorSelection creates a colored button based on the new color I selected
+     *
+     * @param d the color I want to select
+     * @return the new button
+     */
     private Button newColorSelection(DiskColor d){
         Button colorSel = new Button();
         switch (d.name()){

@@ -13,10 +13,21 @@ import it.polimi.ingsw2022am12.server.model.StudentDiskCollection;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Class used to simplify the handling of a certain event.
+ * In this case,it helps to handle objects of the type STUDENTDISKCOLLECTION to save them as JSON encoded data
+ */
 public class SaveGameStudentDiskCollectionAdapter extends TypeAdapter<StudentDiskCollection> {
 
     Gson embedded = new Gson();
 
+    /**
+     * Method write receives an object of type StudentDiskCollection and serializes it in the JSON format
+     *
+     * @param jsonWriter the writer which will generate my JSON data
+     * @param studentDiskCollection the StudentDiskCollection I want to serialize
+     * @throws IOException if there is a problem with my input
+     */
     @Override
     public void write(JsonWriter jsonWriter, StudentDiskCollection studentDiskCollection) throws IOException {
         jsonWriter.beginObject();
@@ -30,6 +41,13 @@ public class SaveGameStudentDiskCollectionAdapter extends TypeAdapter<StudentDis
         jsonWriter.endObject();
     }
 
+    /**
+     * Method "read" reads a JSON encoded StudentDiskCollection as a stream of tokens
+     *
+     * @param jsonReader the reader which will receive my JSON data
+     * @return the StudentDiskCollection created from the JSON values
+     * @throws IOException if there is a problem with my input
+     */
     @Override
     public StudentDiskCollection read(JsonReader jsonReader) throws IOException {
         jsonReader.beginObject();

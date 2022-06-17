@@ -13,6 +13,10 @@ import it.polimi.ingsw2022am12.server.model.StudentDiskCollection;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Class used to simplify the handling of a certain event.
+ * In this case,it helps to handle objects of the type SCHOOLBOARD to save them as JSON encoded data
+ */
 public class SaveGameSchoolBoardAdapter extends TypeAdapter<SchoolBoard> {
 
     Gson embedded = new Gson();
