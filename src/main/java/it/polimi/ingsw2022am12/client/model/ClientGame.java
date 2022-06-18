@@ -157,11 +157,11 @@ public class ClientGame {
     }
 
     /**
-     * Method that iterates on the array list of schoolboards and returns a Schoolboard if the nicks match, else returns
+     * Method that iterates on the array list of school boards and returns a School board if the nicks match, else returns
      * null, if it can't find a match
      *
      * @param nick of the player
-     * @return ClientSchoolboard of the player
+     * @return ClientSchoolBoard of the player
      */
     public ClientSchoolBoard getSchoolBoardByNick(String nick) {
         for (ClientSchoolBoard s:schoolBoards
@@ -345,15 +345,6 @@ public class ClientGame {
     }
 
     /**
-     * isCharacterMode returns true if the game is in ExpertMode, else it returns false
-     *
-     * @return true if the mode is set on Expert
-     */
-    public boolean isCharacterMode() {
-        return mode;
-    }
-
-    /**
      * getBoardStringToView uses the current values of the Game's attributes, and writes them all in a string
      *
      * @return string message that represents the state of the Game
@@ -492,12 +483,10 @@ public class ClientGame {
                 islands.removeAll(toRemove);
                 break;
             case CHARACTERS:
-                System.out.println("starting characters");
                 String nameToCheck = ((UpdateFlagCharacter)myFlag).getNick();
                 if(!nameToCheck.equals("null")){
                     getCharacterByName(nameToCheck).updateFromCharacter(newGame.getCharacterByName(nameToCheck));
                 }
-                System.out.println("finished chaacters");
                 break;
             default:
                 break;

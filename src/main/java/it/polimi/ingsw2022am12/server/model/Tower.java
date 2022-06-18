@@ -1,14 +1,11 @@
 package it.polimi.ingsw2022am12.server.model;
 
-import it.polimi.ingsw2022am12.server.model.PlaceableObject;
-import it.polimi.ingsw2022am12.server.model.Team;
-
 /**
  * Class Tower defines the object tower
  */
 public class Tower extends PlaceableObject {
 
-    private final Team team;        //The team that owns a certain tower
+    private final Team team;  //The team that owns a certain tower
 
     /**
      * Constructor method of the class Tower. Assigns a team to the Tower

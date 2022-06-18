@@ -72,41 +72,32 @@ public class ServerMessageHandler implements Runnable {
         Map map = gson.fromJson(message, Map.class);
         String tag = (String) map.get("tag");
         map.remove("tag");
-        String res = null;
-        switch (tag){
-            case "GameState":
+        String res;
+        switch (tag) {
+            case "GameState" -> {
                 res = gson.toJson(map);
                 gson = new GsonBuilder().registerTypeAdapter(ClientGame.class, new GameStateAdapter()).create();
                 ClientGame tmp = gson.fromJson(res, ClientGame.class);
                 client.updateLastSavedGame(tmp);
-                break;
-
-            case "UpdateFlag":
+            }
+            case "UpdateFlag" -> {
                 res = gson.toJson(map);
                 gson = new GsonBuilder().registerTypeAdapterFactory(new UpdateFlagAdapterFactory()).create();
                 UpdateFlag flag = gson.fromJson(res, UpdateFlag.class);
                 client.updateGameState(flag);
-                break;
-
-            case "Nick":
+            }
+            case "Nick" -> {
                 String nick = (String) map.get("nick");
                 client.setThisClientNick(nick);
-                break;
-
-            case "ControlMessages":
+            }
+            case "ControlMessages" -> {
                 res = gson.toJson(map);
                 gson = new GsonBuilder().registerTypeAdapter(ArrayList.class, new ControlMessagesAdapter()).create();
                 ArrayList<ControlMessages> msg = gson.fromJson(res, ArrayList.class );
                 client.controlMessageToView(msg);
-                break;
-
-            case "Ping":
-                pong.pong();
-                break;
-
-            default:
-                System.out.println("Weird message from server");
-                break;
+            }
+            case "Ping" -> pong.pong();
+            default -> System.out.println("Weird message from server");
         }
 
     }

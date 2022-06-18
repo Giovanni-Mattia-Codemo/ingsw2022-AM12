@@ -1,7 +1,6 @@
 package it.polimi.ingsw2022am12.server.model;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Random;
 
 /**

@@ -46,7 +46,7 @@ public class MonkActionTest {
         testCharacter.getUserSelectionsMessage();
 
         testCharacter.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input));
 
         testCharacter.useAction(testGame);
         Assertions.assertTrue(testGame.getIslandList().getByIndex(motherNatureIndex).getStudentCollection().contains(student));
@@ -75,7 +75,7 @@ public class MonkActionTest {
         input.add(testGame.getActiveCharacterCard());
         input.add(s0);
         testCharacter.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.HALFOK, testCharacter.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.HALFOK, testCharacter.checkInputValidity(input));
     }
 
     /**
@@ -101,7 +101,7 @@ public class MonkActionTest {
         input.add(motherNatureIsland);
 
         testCharacter.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input));
     }
 
     /**
@@ -129,7 +129,7 @@ public class MonkActionTest {
         input.add(motherNatureIsland);
 
         testCharacter.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input));
     }
 
     /**
@@ -151,6 +151,6 @@ public class MonkActionTest {
         ArrayList<Selectable> input = new ArrayList<>();
 
         testCharacter.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input));
     }
 }

@@ -32,7 +32,7 @@ public class DrawFromCloudTest {
         Selectable cloud = testGame.getCloud(0);
         input.add(cloud);
         testMove.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.OK, testMove.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.OK, testMove.checkInputValidity(input));
 
         testMove.useAction(testGame);
         Assertions.assertFalse(testGame.checkIfCloudDrawableByID(0));
@@ -57,7 +57,7 @@ public class DrawFromCloudTest {
         input.add(cloud);
         testMove.setSelectables(testGame);
         testMove.getUpdates(testGame);
-        Assertions.assertEquals(ActionStep.NOTOK, testMove.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.NOTOK, testMove.checkInputValidity(input));
     }
 
 }

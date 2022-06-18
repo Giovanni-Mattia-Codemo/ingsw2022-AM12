@@ -5,7 +5,6 @@ import it.polimi.ingsw2022am12.updateFlag.Flag;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlag;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlagSchool;
 import it.polimi.ingsw2022am12.server.model.*;
-
 import java.util.ArrayList;
 
 /**

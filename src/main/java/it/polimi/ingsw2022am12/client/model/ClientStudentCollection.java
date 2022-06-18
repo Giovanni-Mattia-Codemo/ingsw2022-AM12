@@ -1,7 +1,6 @@
 package it.polimi.ingsw2022am12.client.model;
 
 import it.polimi.ingsw2022am12.DiskColor;
-
 import java.util.ArrayList;
 
 /**
@@ -60,20 +59,6 @@ public class ClientStudentCollection {
     }
 
     /**
-     * getStudentByID iterates on the arrayList of students, and searches the one with a matching ID
-     * @param id the id of my student
-     * @return ClientStudent selected, null if no match is found
-     */
-    public ClientStudent getStudentByID(int id){
-        for(ClientStudent st:students){
-            if(st.getID()==id){
-                return st;
-            }
-        }
-        return null;
-    }
-
-    /**
      * getStudents as string visualises the students contained in the collection as a String
      * @return string list of students
      */
@@ -99,20 +84,19 @@ public class ClientStudentCollection {
         ArrayList<ClientStudent> copyStudents = new ArrayList<>(students);
         ArrayList<ClientStudent> toAdd = new ArrayList<>();
 
-        for(int i=0; i<tmpCopy.size();i++){
-            ClientStudent tmp = tmpCopy.get(i);
-            ClientStudent stud = null;
+        for (ClientStudent tmp : tmpCopy) {
+            ClientStudent stud;
             boolean found = false;
-            for(int j=0; j< copyStudents.size(); j++){
+            for (int j = 0; j < copyStudents.size(); j++) {
                 stud = copyStudents.get(j);
-                if(tmp.getColor()==stud.getColor()){
+                if (tmp.getColor() == stud.getColor()) {
                     found = true;
                     copyStudents.remove(stud);
 
                     break;
                 }
             }
-            if(!found){
+            if (!found) {
                 toAdd.add(tmp);
             }
 

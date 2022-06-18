@@ -57,7 +57,7 @@ public class ClientInputHandler {
                     System.out.println("Not a color, retry");
                     break;
                 }
-                int id = -1;
+                int id;
                 String name = client.getThisClientNick();
                 if(tokens[2].equals("Entrance")){
                     id = client.getClientGame().getSchoolBoardByNick(name).getEntrance().getID();
@@ -67,7 +67,7 @@ public class ClientInputHandler {
                 }else{
 
                     try{
-                        id = Integer.valueOf(tokens[2]);
+                        id = Integer.parseInt(tokens[2]);
                     }catch(Exception e){
                         System.out.println("Not a number, retry");
                         break;
@@ -215,12 +215,9 @@ public class ClientInputHandler {
                 result = gson.toJson(sel);
                 client.forwardJson(result);
             }
-            case "RETRY" ->{
-                client.connect();
-            }
-            default -> {
-                System.out.println("Unrecognized input");
-            }
+            case "RETRY" -> client.connect();
+            default -> System.out.println("Unrecognized input");
+
         }
     }
 }

@@ -11,13 +11,11 @@ import it.polimi.ingsw2022am12.updateFlag.Flag;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlag;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlagAdapterFactory;
 import it.polimi.ingsw2022am12.NickInput;
-import it.polimi.ingsw2022am12.server.Server;
 import it.polimi.ingsw2022am12.server.virtualview.VirtualView;
 import it.polimi.ingsw2022am12.server.adapter.GameAdapter;
 import it.polimi.ingsw2022am12.server.model.Game;
 import it.polimi.ingsw2022am12.server.model.Selectable;
 import it.polimi.ingsw2022am12.server.model.actions.ActionStep;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -42,17 +40,15 @@ public class Controller {
     private final Map<VirtualView, String> userMap;
     private final ArrayList<VirtualView> virtualViews;
     private final Lock lock;
-    private final Server server;
-    private File savedGame;
+    private final File savedGame;
     private final String directory;
     private boolean isGameSavedPresent = false;
 
     /**
      * Constructor method of Controller class
      */
-    public Controller(Server server, String directory){
+    public Controller(String directory){
         this.userMap = new HashMap<>();
-        this.server = server;
         this.directory = directory;
         creatingGame = false;
         acceptingUsers = true;
@@ -60,9 +56,8 @@ public class Controller {
         lock = new ReentrantLock();
         virtualViews = new ArrayList<>();
 
-
-        savedGame = createNewFIle();
-
+        //persistence
+        savedGame = createNewFile();
         if(isGameSavedPresent){
             String gameJson = getSavedJson();
             Gson gson = new GsonBuilder().registerTypeAdapter(Game.class, new GameSaveAdapter()).create();
@@ -72,11 +67,10 @@ public class Controller {
     }
 
     /**
-     * updateAllViews converts the state of the game in a string, and forwards it to the various VirtualViews
+     * updateAllViews forwards the state of the game (a String) to the various VirtualViews
      */
     private void updateAllViews(String result){
         for(VirtualView v: userMap.keySet()){
-            System.out.println("updating virtualview "+ userMap.get(v));
             v.forwardMsg(result);
         }
     }
@@ -101,54 +95,44 @@ public class Controller {
                 ActionStep result = inputHandler.addSelection(s);
                 if (result.equals(ActionStep.NOTOK)){
                     messages.add(ControlMessages.INVALIDSELECTION);
-                    //v.forwardMsg(ControlMessages.INVALIDSELECTION.getMessage());
-                    //v.forwardMsg(inputHandler.getNextSelection());
                     messages.addAll(inputHandler.getNextSelection());
                     v.forwardMsg(gsonForMessages.toJson(messages));
                     return;
                 }else if(result.equals(ActionStep.HALFOK)){
-                    //v.forwardMsg(inputHandler.getNextSelection());
                     messages.addAll(inputHandler.getNextSelection());
                     v.forwardMsg(gsonForMessages.toJson(messages));
                     return;
                 }else if(result.equals(ActionStep.OK)){
+                    //check if there's a winner after every action completed successfully
                     Team winner = myGame.getWinner();
-
                     if(winner!=null){
-
                         endGame();
                         return;
-
                     }
-
-                    System.out.println("serializing game");
+                    //if there's no winner the game is saved on the disk
                     Gson gameSaveG = new GsonBuilder().registerTypeAdapter(Game.class, new GameSaveAdapter()).create();
-                    System.out.println("made the serializer");
                     String savedGame = gameSaveG.toJson(myGame);
-                    System.out.println("serialized");
                     saveGame(savedGame);
-                    System.out.println("saved");
+                    //update all the views of the new state of the game
                     Gson gson = new GsonBuilder().registerTypeAdapter(Game.class, new GameAdapter()).create();
                     String gameState = gson.toJson(myGame);
                     updateAllViews(gameState);
+                    //tell the clients what to update from the game, reducing updating time
                     ArrayList<UpdateFlag> up = inputHandler.getUpdates();
                     gson = new GsonBuilder().registerTypeAdapterFactory(new UpdateFlagAdapterFactory()).create();
                     for(UpdateFlag f:up){
                         String res = gson.toJson(f);
                         updateAllViews(res);
                     }
-
-                    //v.forwardMsg(ControlMessages.ACTIONCOMPLETED.getMessage());
+                    //tells the view the action was successfully executed
                     messages.add(ControlMessages.ACTIONCOMPLETED);
                     v.forwardMsg(gsonForMessages.toJson(messages));
                     messages.remove(ControlMessages.ACTIONCOMPLETED);
-
+                    //sends the next possible selection the current player can do
                     if(myGame.getCurrentSchoolBoard().getNick().equals(userMap.get(v))){
-                        //v.forwardMsg(inputHandler.getNextSelection());
                         messages.addAll(inputHandler.getNextSelection());
                         v.forwardMsg(gsonForMessages.toJson(messages));
                     }else {
-                        //v.forwardMsg("Your turn has ended"+ "\n");
                         messages.add(ControlMessages.TURNENDED);
                         v.forwardMsg(gsonForMessages.toJson(messages));
                         notifyNextPlayerOfSel();
@@ -156,7 +140,6 @@ public class Controller {
                     return;
                 }
             }
-            //v.forwardMsg(ControlMessages.INVALIDUSER.getMessage());
             messages.add(ControlMessages.INVALIDUSER);
             v.forwardMsg(gsonForMessages.toJson(messages));
         }
@@ -174,7 +157,6 @@ public class Controller {
             Gson gson = new GsonBuilder().registerTypeAdapter(ArrayList.class, new ControlMessagesAdapter()).create();
             if(userMap.containsKey(v)) {
                 if (gameWasSet) {
-                    //v.forwardMsg(ControlMessages.GAMEWASSET.getMessage());
                     messages.add(ControlMessages.GAMEWASSET);
                     v.forwardMsg(gson.toJson(messages));
                     return;
@@ -188,25 +170,20 @@ public class Controller {
                     }
                     creatingGame = false;
                     gameWasSet = true;
-                    //v.forwardMsg(ControlMessages.ACCEPTED.getMessage());
                     messages.add(ControlMessages.ACCEPTED);
                     v.forwardMsg(gson.toJson(messages));
 
                     updateViewsOfStatus();
                 } else {
-                    //v.forwardMsg(ControlMessages.INVALIDVALUES.getMessage());
                     messages.add(ControlMessages.INVALIDUSER);
                     v.forwardMsg(gson.toJson(messages));
                 }
 
                 return;
             }
-            //v.forwardMsg(ControlMessages.INVALIDUSER.getMessage());
             messages.add(ControlMessages.INVALIDUSER);
             v.forwardMsg(gson.toJson(messages));
         }
-
-
     }
 
 
@@ -220,22 +197,21 @@ public class Controller {
             ArrayList<ControlMessages> messages = new ArrayList<>();
             Gson gson = new GsonBuilder().registerTypeAdapter(ArrayList.class, new ControlMessagesAdapter()).create();
             if (userMap.containsKey(v)) {
-                //v.forwardMsg(ControlMessages.ALREADYIN.getMessage());
+                //trying to select another username while already in the game
                 messages.add(ControlMessages.ALREADYIN);
                 v.forwardMsg(gson.toJson(messages));
                 return;
             }else if (creatingGame) {
-                //v.forwardMsg(ControlMessages.GAMEISBEINGCREATED.getMessage());
+                //notify the player that the first player is setting the game options
                 messages.add(ControlMessages.GAMEISBEINGCREATED);
                 v.forwardMsg(gson.toJson(messages));
                 return;
             }else if (acceptingUsers) {
                 if (userMap.containsValue(nick)) {
-                    //v.forwardMsg(ControlMessages.RETRY.getMessage());
+                    //the nick picked was already taken
                     messages.add(ControlMessages.RETRY);
                     v.forwardMsg(gson.toJson(messages));
                 } else {
-                    //v.forwardMsg(ControlMessages.ASSIGNEDNICK.getMessage());
                     messages.add(ControlMessages.ASSIGNEDNICK);
                     v.forwardMsg(gson.toJson(messages));
                     NickInput toBeSet = new NickInput(nick);
@@ -247,7 +223,6 @@ public class Controller {
                 return;
 
             }
-            //v.forwardMsg(ControlMessages.GAMEISFULL.getMessage());
             messages.add(ControlMessages.GAMEISFULL);
             v.forwardMsg(gson.toJson(messages));
         }
@@ -271,21 +246,14 @@ public class Controller {
         }
 
         if(userMap.size()==numOfPlayers){
-            System.out.println("Reached max players");
             acceptingUsers = false;
             if(!isGameSavedPresent){
                 ArrayList<String> nicks = new ArrayList<>(userMap.values());
                 myGame = new Game(nicks, difficulty);
                 myGame.setUp();
-                System.out.println("Game is up");
-            }else{
-                System.out.println("Resuming game");
             }
 
-
-
             inputHandler = new InputHandler(myGame);
-            System.out.println("made an input handler");
             Gson gson = new GsonBuilder().registerTypeAdapter(Game.class, new GameAdapter()).create();
             String gameState = gson.toJson(myGame);
             updateAllViews(gameState);
@@ -298,7 +266,6 @@ public class Controller {
             updateViewsOfStatus();
 
             notifyNextPlayerOfSel();
-            System.out.println("finished the last binding");
             return;
         }
         updateViewsOfStatus();
@@ -311,12 +278,9 @@ public class Controller {
      */
     public void notifyNextPlayerOfSel(){
         for(VirtualView virtualView : userMap.keySet()){
-            ArrayList<ControlMessages> msgs = new ArrayList<>();
             if(userMap.get(virtualView).equals(myGame.getCurrentSchoolBoard().getNick())){
                 Gson gson = new GsonBuilder().registerTypeAdapter(ArrayList.class, new ControlMessagesAdapter()).create();
-                //virtualView.forwardMsg(gson.toJson(inputHandler.getNextSelection()));
-                System.out.println("Sending selection because "+userMap.get(virtualView)+" equals "+ myGame.getCurrentSchoolBoard().getNick());
-                msgs.addAll(inputHandler.getNextSelection());
+                ArrayList<ControlMessages> msgs = new ArrayList<>(inputHandler.getNextSelection());
                 virtualView.forwardMsg(gson.toJson(msgs));
             }
         }
@@ -328,7 +292,6 @@ public class Controller {
     public void endGame(){
         System.out.println("Closing game");
         Gson g = new GsonBuilder().registerTypeAdapter(ArrayList.class, new ControlMessagesAdapter()).create();
-
 
         Team winner = myGame.getWinner();
 
@@ -353,15 +316,12 @@ public class Controller {
             updateAllViews(g.toJson(msgs));
         }
 
-
+        //resetting initial values
         saveGame("empty");
         myGame = null;
-
         gameWasSet = false;
         creatingGame = false;
         acceptingUsers = true;
-
-
         userMap.clear();
         updateViewsOfStatus();
     }
@@ -373,7 +333,7 @@ public class Controller {
     public void removeView(VirtualView v){
 
         if(userMap.remove(v)!=null){
-            System.out.println("a player disconnected");
+            System.out.println("A player disconnected");
             virtualViews.remove(v);
             v.close();
             endGame();
@@ -418,7 +378,6 @@ public class Controller {
      * @param v the VirtualView I want to add
      */
     public void addView(VirtualView v){
-        System.out.println("adding a view to server");
         virtualViews.add(v);
     }
 
@@ -426,25 +385,21 @@ public class Controller {
      * updateViewsOfStatus sends the new status of the game as an update to the Virtual Views
      */
     public void updateViewsOfStatus(){
-
-        System.out.println("updating statuses ");
-
         Gson g = new GsonBuilder().registerTypeAdapter(ArrayList.class, new ControlMessagesAdapter()).create();
         for(VirtualView v : virtualViews){
             ArrayList<ControlMessages> messages = new ArrayList<>();
             messages.add(getMatchStatusOfView(v));
             v.forwardMsg(g.toJson(messages));
         }
-        System.out.println("done updating statuses");
     }
 
     /**
      * createNewFile creates a new file with the name "\\savedGame.txt" from the directory, and returns an error message
-     * if there is a problem with my input
+     * if there is a problem with the call to createNewFile
      *
-     * @return new file created
+     * @return new file created or found in memory
      */
-    public File createNewFIle(){
+    public File createNewFile(){
         File myObj = null;
         try {
             myObj = new File(directory + "\\savedGame.txt");
@@ -464,7 +419,7 @@ public class Controller {
     }
 
     /**
-     * saveGame writes the state of the game (a String) in the savedGame file
+     * saveGame writes the state of the game (a String made from a json adapter) in the savedGame file
      *
      * @param game a string with the state of the game
      */

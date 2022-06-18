@@ -60,12 +60,4 @@ public class ClientStudent {
         return ID;
     }
 
-    /**
-     * updateFromStudent updates the state of the current student using a new one
-     * @param student the new student
-     */
-    public void updateFromStudent(ClientStudent student){
-        color = student.getColor();
-        ID = student.getID();
-    }
 }

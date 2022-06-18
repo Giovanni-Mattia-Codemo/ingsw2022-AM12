@@ -35,7 +35,7 @@ public class PlayAssistantTest {
         Selectable assistantToPlay = testGame.getCurrentSchoolBoard().getRemainingAssistants().get(0);
         input.add(assistantToPlay);
         testMove.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.OK, testMove.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.OK, testMove.checkInputValidity(input));
         int playableAssistantsBefore = testGame.getCurrentSchoolBoard().getRemainingAssistants().size();
 
         testMove.useAction(testGame);
@@ -63,6 +63,6 @@ public class PlayAssistantTest {
         Selectable assistantToPlay = new Assistant(11,3);
         input.add(assistantToPlay);
         testMove.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.NOTOK, testMove.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.NOTOK, testMove.checkInputValidity(input));
     }
 }

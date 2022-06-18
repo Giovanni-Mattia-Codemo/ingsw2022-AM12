@@ -44,9 +44,9 @@ public class MerchantActionTest {
 
         testCharacter.setSelectables(testGame);
         testCharacter.getUpdates(testGame);
-        Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input));
         ((CharacterMerchant)testGame.getActiveCharacterCard()).getColor();
-        ((CharacterMerchant)testGame.getActiveCharacterCard()).setWasUsed(true);
+        (testGame.getActiveCharacterCard()).setWasUsed(true);
     }
 
     /**
@@ -72,7 +72,7 @@ public class MerchantActionTest {
         input.add(color);
 
         testCharacter.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input));
         ((CharacterMerchant)testGame.getActiveCharacterCard()).setColor(DiskColor.PINK);
         testGame.getActiveCharacterCard().setWasUsed(false);
     }

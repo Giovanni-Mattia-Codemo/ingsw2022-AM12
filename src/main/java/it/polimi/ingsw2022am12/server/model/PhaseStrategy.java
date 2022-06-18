@@ -13,14 +13,11 @@ public interface PhaseStrategy {
      */
      void endTurn(Game game);
 
-
     /**
      * Method that ends rounds
      * @param game instance of my game
      */
      void endRound(Game game);
-  //   ArrayList<Selectable> getValidSelections(Game game);
-
 
     /**
      * Method that returns valid actions
@@ -35,5 +32,5 @@ public interface PhaseStrategy {
      *
      * @return string name
      */
-     public String getName();
+     String getName();
 }

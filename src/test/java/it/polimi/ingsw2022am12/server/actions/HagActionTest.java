@@ -46,7 +46,7 @@ public class HagActionTest {
         input.add(color);
         testCharacter.setSelectables(testGame);
         testCharacter.getUserSelectionsMessage();
-        Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input));
 
         testCharacter.useAction(testGame);
         Assertions.assertEquals(0, testGame.getCurrentSchoolBoard().getDiningRoom().amount());
@@ -78,7 +78,7 @@ public class HagActionTest {
         ArrayList<Selectable> input = new ArrayList<>();
         input.add(std);
         testCharacter.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input));
         testGame.getActiveCharacterCard().getPossibleAction();
     }
 

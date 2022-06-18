@@ -2,8 +2,6 @@ package it.polimi.ingsw2022am12.server.model.actions;
 
 import it.polimi.ingsw2022am12.server.controller.ControlMessages;
 import it.polimi.ingsw2022am12.server.model.*;
-import it.polimi.ingsw2022am12.server.model.characters.CharacterBard;
-
 import java.util.ArrayList;
 
 /**
@@ -27,11 +25,9 @@ public class BardAction extends PossibleAction {
     public void setSelectables(Game game) {
 
         ArrayList<Selectable> tmp = new ArrayList<>(game.getCurrentSchoolBoard().getEntrance().getStudentsAsSelectables());
-        boolean b = tmp.removeIf(a -> game.getCurrentSchoolBoard().isDiningRoomFull(((Student) a).getColor()));
+        tmp.removeIf(a -> game.getCurrentSchoolBoard().isDiningRoomFull(((Student) a).getColor()));
         ArrayList<Selectable> character = new ArrayList<>();
         character.add(game.getActiveCharacterCard());
-
-
 
         selectables.put(0, character);
         selectables.put(1, tmp);

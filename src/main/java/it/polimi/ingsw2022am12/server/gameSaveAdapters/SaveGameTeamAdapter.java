@@ -6,7 +6,6 @@ import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import it.polimi.ingsw2022am12.server.model.SchoolBoard;
 import it.polimi.ingsw2022am12.server.model.Team;
-
 import java.io.IOException;
 
 public class SaveGameTeamAdapter extends TypeAdapter<Team> {
@@ -34,10 +33,8 @@ public class SaveGameTeamAdapter extends TypeAdapter<Team> {
             JsonToken token = reader.peek();
 
             if (token.equals(JsonToken.NAME)) {
-                //get the current token
                 fieldName = reader.nextName();
             }
-
             if ("Player0".equals(fieldName)) {
                 reader.peek();
                 t.addNick(reader.nextString());
@@ -46,11 +43,9 @@ public class SaveGameTeamAdapter extends TypeAdapter<Team> {
                 reader.peek();
                 t.addNick(reader.nextString());
             }
-
-
         }
+
         reader.endObject();
         return t;
-
     }
 }

@@ -2,7 +2,6 @@ package it.polimi.ingsw2022am12.server.model.phases;
 
 import it.polimi.ingsw2022am12.server.model.PhaseStrategy;
 import it.polimi.ingsw2022am12.server.model.PossibleAction;
-import it.polimi.ingsw2022am12.server.model.Selectable;
 import it.polimi.ingsw2022am12.server.model.Game;
 import it.polimi.ingsw2022am12.server.model.actions.PlayAssistant;
 
@@ -59,19 +58,5 @@ public class PlanningStrategy implements PhaseStrategy {
     public String getName() {
         return "PlanningPhase";
     }
-
-
-    /*
-    /**
-     * Method getValidSelection returns the possible selections a player can do during the Planning Phase
-     *
-     * @param game instance of the game
-     * @return ArrayList of possible actions
-
-    public ArrayList<Selectable> getValidSelections(Game game) {
-
-        return new ArrayList<>(game.getCurrentSchoolBoard().getPlayableAssistants());
-    }
-*/
 
 }

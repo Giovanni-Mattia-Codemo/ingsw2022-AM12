@@ -8,7 +8,6 @@ import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import it.polimi.ingsw2022am12.server.model.IslandTileSet;
 import it.polimi.ingsw2022am12.server.model.StudentDiskCollection;
-
 import java.io.IOException;
 
 /**
@@ -62,18 +61,14 @@ public class IslandTileSetAdapter extends TypeAdapter<IslandTileSet> {
         IslandTileSet island = null;
         while (reader.hasNext()) {
             JsonToken token = reader.peek();
-
             if (token.equals(JsonToken.NAME)) {
 
                 fieldName = reader.nextName();
             }
-
             if("ID".equals(fieldName)) {
-
                 reader.peek();
                 island = new IslandTileSet(reader.nextInt());
             }
-
         }
         reader.endObject();
         return island;

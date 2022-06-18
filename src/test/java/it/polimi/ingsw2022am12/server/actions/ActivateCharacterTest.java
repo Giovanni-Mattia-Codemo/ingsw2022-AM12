@@ -42,7 +42,7 @@ public class ActivateCharacterTest {
         testGame.collectCoin();
 
         testCharacter.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input));
 
         Assertions.assertNull(testGame.getActiveCharacterCard());
 
@@ -71,7 +71,7 @@ public class ActivateCharacterTest {
         Selectable rightCharacter = testGame.getAvailableCharacters().get(0);
         input.add(rightCharacter);
         testCharacter.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input));
 
         //Character not available
         input.remove(rightCharacter);
@@ -93,6 +93,6 @@ public class ActivateCharacterTest {
         testGame.collectCoin();
 
         testCharacter.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input));
     }
 }

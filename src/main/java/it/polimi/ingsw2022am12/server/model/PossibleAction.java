@@ -34,10 +34,9 @@ public abstract class PossibleAction {
      * Method checkInputValidity checks if I'm using the correct type and number of inputs required by my action
      *
      * @param input my chosen inputs
-     * @param game the instance of my game
      * @return ActionStep number of inputs needed by my PossibleAction
      */
-    public ActionStep checkInputValidity(ArrayList<Selectable> input, Game game){
+    public ActionStep checkInputValidity(ArrayList<Selectable> input){
 
             if(input.size()==0||input.size()>requiredInputs){
                 return ActionStep.NOTOK;

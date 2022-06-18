@@ -1,6 +1,5 @@
 package it.polimi.ingsw2022am12;
 
-import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;

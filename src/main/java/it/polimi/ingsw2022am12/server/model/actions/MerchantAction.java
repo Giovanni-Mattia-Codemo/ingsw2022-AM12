@@ -4,15 +4,12 @@ import it.polimi.ingsw2022am12.DiskColor;
 import it.polimi.ingsw2022am12.server.controller.ControlMessages;
 import it.polimi.ingsw2022am12.server.model.*;
 import it.polimi.ingsw2022am12.server.model.characters.CharacterMerchant;
-
 import java.util.ArrayList;
 
 /**
  * Class that defines the process of activation of the Merchant Card
  */
 public class MerchantAction extends PossibleAction {
-
-    private DiskColor color;
 
     /**
      * Constructor method of MerchantAction class

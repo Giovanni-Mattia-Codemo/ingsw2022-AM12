@@ -45,7 +45,7 @@ public class JesterActionTest {
 
         testCharacter.setSelectables(testGame);
         testCharacter.getUserSelectionsMessage();
-        Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input));
 
         testCharacter.useAction(testGame);
         Assertions.assertTrue(testGame.getCurrentSchoolBoard().getEntrance().contains(stdJester));
@@ -75,7 +75,7 @@ public class JesterActionTest {
         input.add(stdJester);
 
         testCharacter.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.HALFOK, testCharacter.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.HALFOK, testCharacter.checkInputValidity(input));
     }
 
     /**
@@ -100,7 +100,7 @@ public class JesterActionTest {
         input.add(stdEntrance);
 
         testCharacter.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input));
     }
 
     /**
@@ -127,7 +127,7 @@ public class JesterActionTest {
         input.add(stdEntrance);
 
         testCharacter.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input));
         testGame.getActiveCharacterCard().getPossibleAction();
     }
 
@@ -152,7 +152,7 @@ public class JesterActionTest {
         input.add(stdEntrance);
 
         testCharacter.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input));
         testGame.getActiveCharacterCard().setWasUsed(false);
     }
 }

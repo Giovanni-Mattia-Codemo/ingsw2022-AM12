@@ -4,7 +4,6 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import it.polimi.ingsw2022am12.server.model.Team;
-
 import java.io.IOException;
 
 /**
@@ -42,6 +41,5 @@ public class TeamAdapter extends TypeAdapter<Team> {
             jsonWriter.value(team.getSchoolBoards().get(1).getNick());
         }else jsonWriter.value("null");
         jsonWriter.endObject();
-
     }
 }

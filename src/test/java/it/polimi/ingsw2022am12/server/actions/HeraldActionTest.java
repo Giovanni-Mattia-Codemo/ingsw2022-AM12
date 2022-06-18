@@ -42,7 +42,7 @@ public class HeraldActionTest {
 
         testCharacter.setSelectables(testGame);
         testCharacter.getUserSelectionsMessage();
-        Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input));
         testGame.getActiveCharacterCard().getPossibleAction();
         testCharacter.useAction(testGame);
     }
@@ -69,6 +69,6 @@ public class HeraldActionTest {
         island.setID(30);
         input.add(island);
         testCharacter.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input));
     }
 }

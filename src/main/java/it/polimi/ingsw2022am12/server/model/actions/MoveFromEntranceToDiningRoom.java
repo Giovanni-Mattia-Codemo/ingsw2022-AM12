@@ -71,8 +71,7 @@ public class MoveFromEntranceToDiningRoom extends PossibleAction {
      */
     @Override
     public ArrayList<UpdateFlag> getUpdates(Game game) {
-        ArrayList<UpdateFlag> updates = new ArrayList();
-        System.out.println("adding a school to the updates in action");
+        ArrayList<UpdateFlag> updates = new ArrayList<>();
         updates.add(new UpdateFlagSchool(game.getCurrentSchoolBoard().getNick()));
         return updates;
     }

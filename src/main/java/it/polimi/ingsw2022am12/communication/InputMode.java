@@ -5,7 +5,6 @@ package it.polimi.ingsw2022am12.communication;
  * (Tag for identification, number of players and if the Expert Mode has been selected)
  */
 public class InputMode {
-    private final String tag = "InputMode";
     private int number = 2;
     private boolean mode = true;
 

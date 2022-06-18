@@ -2,7 +2,6 @@ package it.polimi.ingsw2022am12.server.virtualview;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import it.polimi.ingsw2022am12.DiskColor;
 import it.polimi.ingsw2022am12.communication.Ping;
 import it.polimi.ingsw2022am12.communication.PingAdapter;
 import it.polimi.ingsw2022am12.server.adapter.*;
@@ -46,11 +45,9 @@ public class VirtualViewMessagesParser implements Runnable{
         String line;
         while (true) {
             try {
-                while (in.hasNextLine()) {
+                while(in.hasNextLine()) {
 
                     line = in.nextLine();
-
-
                     Gson gson = new Gson();
                     Map map = gson.fromJson(line, Map.class);
                     String tag = (String) map.get("tag");
@@ -112,7 +109,6 @@ public class VirtualViewMessagesParser implements Runnable{
                         }
                         case "Ping" -> {
                             pingTimerTask.ping();
-                            //virtualView.forwardMsg("Pong");
                             Gson pongG = new GsonBuilder().registerTypeAdapter(Ping.class, new PingAdapter()).create();
                             virtualView.forwardMsg(pongG.toJson(new Ping()));
                         }

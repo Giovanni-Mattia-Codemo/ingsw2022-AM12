@@ -21,14 +21,13 @@ public class Client {
 
     private final int port;
     private final String ip;
-    private PrintWriter stdout;
     private PrintWriter out;
     private ClientGame clientGame, newClientGame;
     private Socket socket;
     private Scanner in;
     private Timer timer;
     private View view;
-    private Thread serverMsg, clientInput;
+    private Thread serverMsg;
     private String thisClientNick;
 
     /**
@@ -61,7 +60,6 @@ public class Client {
     public void startClient() throws IOException{
 
         Scanner stdin = new Scanner(System.in);
-        stdout = new PrintWriter(System.out);
 
         System.out.println("Enter GUI or CLI to pick a client mode");
         String sel;
@@ -71,22 +69,21 @@ public class Client {
             sel = stdin.nextLine();
 
             switch (sel) {
-                case "CLI":
+                case "CLI" -> {
                     CLIHandler cliHandler = new CLIHandler(stdin, this);
-                    clientInput = new Thread(cliHandler);
+                    Thread clientInput = new Thread(cliHandler);
                     clientInput.start();
                     view = new CLIView();
-                    break;
-
-                case "GUI":
+                }
+                case "GUI" -> {
                     GUIView guiView = new GUIView(this);
                     Platform.startup(guiView);
                     view = guiView;
-                    break;
-
-                default: correct = false;
+                }
+                default -> {
+                    correct = false;
                     System.out.println("Wrong input, retry");
-                    break;
+                }
             }
         }while(!correct);
 
@@ -116,22 +113,15 @@ public class Client {
      * @param flag fields to be updated
      */
     public void updateGameState(UpdateFlag flag){
-
-        System.out.println("starting to update with flags");
         clientGame.updateFromGame(newClientGame, flag);
-        System.out.println("updated the code game");
         view.updateGameView(clientGame, flag);
-        System.out.println("updated the view game");
-
     }
 
     public void updateLastSavedGame(ClientGame newGame){
-        System.out.println("got a new game");
         newClientGame = newGame;
         if(clientGame== null){
             clientGame=newGame;
         }
-        System.out.println("used it");
     }
 
     public ClientGame getClientGame() {

@@ -45,7 +45,7 @@ public class PrincessActionTest {
         input.add(std);
         testCharacter.getUserSelectionsMessage();
         testCharacter.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input));
         testCharacter.useAction(testGame);
         Assertions.assertEquals(1, testGame.getCurrentSchoolBoard().getDiningRoom().getAllStudents().size());
         testGame.getActiveCharacterCard().getPossibleAction();
@@ -77,6 +77,6 @@ public class PrincessActionTest {
         ArrayList<Selectable> input = new ArrayList<>();
         input.add(std);
         testCharacter.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input));
     }
 }

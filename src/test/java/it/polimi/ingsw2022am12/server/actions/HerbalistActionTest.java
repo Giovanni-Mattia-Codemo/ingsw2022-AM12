@@ -48,7 +48,7 @@ public class HerbalistActionTest {
 
         testCharacter.setSelectables(testGame);
         testCharacter.getUserSelectionsMessage();
-        Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.OK, testCharacter.checkInputValidity(input));
 
         testCharacter.useAction(testGame);
         Assertions.assertFalse(testGame.getIslandList().getByIndex(motherNatureIndex).getNoEntries().isEmpty());
@@ -78,7 +78,7 @@ public class HerbalistActionTest {
         input.add(noEntry);
 
         testCharacter.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.HALFOK, testCharacter.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.HALFOK, testCharacter.checkInputValidity(input));
     }
 
     /**
@@ -104,7 +104,7 @@ public class HerbalistActionTest {
         input.add(motherNatureIsland);
 
         testCharacter.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input));
     }
 
     /**
@@ -132,7 +132,7 @@ public class HerbalistActionTest {
         input.add(motherNatureIsland);
 
         testCharacter.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input));
     }
 
     /**
@@ -160,6 +160,6 @@ public class HerbalistActionTest {
         input.add(island);
 
         testCharacter.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input));
     }
 }

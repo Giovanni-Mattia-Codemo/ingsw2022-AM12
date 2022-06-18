@@ -57,11 +57,9 @@ public class StudentDiskCollectionAdapter extends TypeAdapter<StudentDiskCollect
             if(token.equals(JsonToken.NAME)){
                 fieldName = jsonReader.nextName();
             }
-
             if("ID".equals(fieldName)){
                 studentDiskCollection = new StudentDiskCollection(jsonReader.nextInt());
             }
-
         }
         jsonReader.endObject();
         return studentDiskCollection;

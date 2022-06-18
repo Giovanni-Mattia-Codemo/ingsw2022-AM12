@@ -101,7 +101,7 @@ public class GameSaveAdapter extends TypeAdapter<Game> {
         String[] professors = new String[5];
         String phase=null, activeCharacter=null;
         Bag bag=null;
-        StudentDiskCollection temp=null;
+        StudentDiskCollection temp;
         while(jsonReader.hasNext()){
             JsonToken token = jsonReader.peek();
             if(token.equals(JsonToken.NAME)){

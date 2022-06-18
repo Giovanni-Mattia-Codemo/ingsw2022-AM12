@@ -1,7 +1,6 @@
 package it.polimi.ingsw2022am12.server.model;
 
 import it.polimi.ingsw2022am12.DiskColor;
-
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -53,7 +52,10 @@ public class StudentDiskCollection implements Position, Selectable {
      * @return ArrayList students
      */
     public ArrayList<Student> getAllStudents(){
-        return new ArrayList<>(students);
+        if (students != null) {
+            return new ArrayList<>(students);
+        }
+        return null;
     }
 
     /**
@@ -62,7 +64,10 @@ public class StudentDiskCollection implements Position, Selectable {
      * @return ArrayList students
      */
     public ArrayList<Selectable> getStudentsAsSelectables(){
-        return new ArrayList<>(students);
+        if (students != null) {
+            return new ArrayList<>(students);
+        }
+        return null;
     }
 
     /**
@@ -72,7 +77,10 @@ public class StudentDiskCollection implements Position, Selectable {
      * @return int number of students of this color
      */
     public int getByColor(DiskColor color){
-        return (int) this.students.stream().filter(x->x.getColor()==color).count();
+        if (this.students != null) {
+            return (int) this.students.stream().filter(x->x.getColor()==color).count();
+        }
+        return 0;
     }
 
     /**
@@ -82,7 +90,10 @@ public class StudentDiskCollection implements Position, Selectable {
      * @return Student
      */
     public Student getByIndex(int idx){
-        return this.students.get(idx);
+        if (this.students != null) {
+            return this.students.get(idx);
+        }
+        return null;
     }
 
     /**
@@ -91,7 +102,10 @@ public class StudentDiskCollection implements Position, Selectable {
      * @return int amount of students in the collection
      */
     public int amount(){
-       return (this.students.size());
+        if (this.students != null) {
+            return (this.students.size());
+        }
+        return 0;
     }
 
     /**
@@ -101,7 +115,10 @@ public class StudentDiskCollection implements Position, Selectable {
      * @return Optional<Student>
      */
     public Optional<Student> getFirstStudentOfColor(DiskColor color){
-        return students.stream().filter(s->s.getColor()==color).findFirst();
+        if (students != null) {
+            return students.stream().filter(s->s.getColor()==color).findFirst();
+        }
+        return Optional.empty();
     }
 
     /**
@@ -112,7 +129,9 @@ public class StudentDiskCollection implements Position, Selectable {
      */
     @Override
     public void removeElement(PlaceableObject o) {
-        students.remove((Student) o);
+        if (students != null) {
+            students.remove((Student) o);
+        }
     }
 
     /**
@@ -124,7 +143,9 @@ public class StudentDiskCollection implements Position, Selectable {
     @Override
     public void insertElement(PlaceableObject o) {
         if(o!=null){
-            students.add((Student) o);
+            if (students != null) {
+                students.add((Student) o);
+            }
             o.setPosition(this);
         }
     }
@@ -137,7 +158,10 @@ public class StudentDiskCollection implements Position, Selectable {
      */
     @Override
     public boolean contains(PlaceableObject o){
-        return students.contains(o);
+        if (students != null) {
+            return students.contains(o);
+        }
+        return false;
     }
 
     /**

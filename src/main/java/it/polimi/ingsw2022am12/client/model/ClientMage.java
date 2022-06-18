@@ -5,7 +5,7 @@ package it.polimi.ingsw2022am12.client.model;
  */
 public class ClientMage {
 
-    private int ID;
+    private final int ID;
 
     /**
      * Constructor method of ClientMage class

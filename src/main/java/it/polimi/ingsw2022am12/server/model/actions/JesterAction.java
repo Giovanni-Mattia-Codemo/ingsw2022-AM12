@@ -2,7 +2,6 @@ package it.polimi.ingsw2022am12.server.model.actions;
 
 import it.polimi.ingsw2022am12.server.controller.ControlMessages;
 import it.polimi.ingsw2022am12.server.model.*;
-import it.polimi.ingsw2022am12.server.model.characters.CharacterHerbalist;
 import it.polimi.ingsw2022am12.server.model.characters.CharacterJester;
 
 import java.util.ArrayList;

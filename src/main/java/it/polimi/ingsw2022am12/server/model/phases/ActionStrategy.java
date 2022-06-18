@@ -49,34 +49,6 @@ public class ActionStrategy implements PhaseStrategy {
         }
 
     }
-/*
-
-    /**
-     * Method getValidSelection returns the possible selections a player can do during the Action Phase
-     *
-     * @param game instance of the game
-     * @return ArrayList of possible actions
-
-    public ArrayList<Selectable> getValidSelections(Game game) {
-        ArrayList<Selectable> result = new ArrayList<>();
-        if(!game.movedAllDisksThisTurn()){
-            result.addAll(game.getStudentsInEntranceOfCurrentTurn());
-
-
-        }else if(!game.hasMovedMotherNature()){
-
-            result.addAll(game.getIslandsInRange());
-        }else result.addAll(game.getSelectableClouds());
-
-
-        if(game.getActiveCharacter!= null){
-            result.add(characters)
-        }else if (game.getCharNeedsInput){
-            result.add(required inputs)
-        }
-
-        return result;
-    }*/
 
     /**
      * Method getValidActions returns a list of possible actions for the current player

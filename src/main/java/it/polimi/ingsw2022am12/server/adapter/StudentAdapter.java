@@ -44,12 +44,9 @@ public class StudentAdapter extends TypeAdapter<Student> {
 
         while (reader.hasNext()) {
             JsonToken token = reader.peek();
-
             if (token.equals(JsonToken.NAME)) {
-                //get the current token
                 fieldName = reader.nextName();
             }
-
             if("positionID".equals(fieldName)) {
                 reader.peek();
                 student.setPositionID(reader.nextInt());
@@ -58,8 +55,6 @@ public class StudentAdapter extends TypeAdapter<Student> {
                 reader.peek();
                 student.setColor(DiskColor.valueOf(reader.nextString()));
             }
-
-
         }
         reader.endObject();
         return student;

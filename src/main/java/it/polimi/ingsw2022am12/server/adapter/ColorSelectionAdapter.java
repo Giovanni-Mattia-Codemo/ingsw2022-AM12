@@ -6,8 +6,6 @@ import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import it.polimi.ingsw2022am12.DiskColor;
 import it.polimi.ingsw2022am12.server.model.ColorSelection;
-import it.polimi.ingsw2022am12.server.model.Student;
-
 import java.io.IOException;
 
 /**
@@ -49,19 +47,13 @@ public class ColorSelectionAdapter extends TypeAdapter<ColorSelection> {
 
         while (reader.hasNext()) {
             JsonToken token = reader.peek();
-
             if (token.equals(JsonToken.NAME)) {
-                //get the current token
                 fieldName = reader.nextName();
             }
-
             if("Color".equals(fieldName)) {
                 reader.peek();
                 color = DiskColor.valueOf(reader.nextString());
             }
-
-
-
         }
         reader.endObject();
         return new ColorSelection(color);

@@ -49,7 +49,7 @@ public class MoveFromEntranceToDiningRoomTest {
         input.add(testGame.getCurrentSchoolBoard().getDiningRoom());
 
         testMove.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.OK, testMove.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.OK, testMove.checkInputValidity(input));
 
         testMove.useAction(testGame);
         testMove.getUpdates(testGame);
@@ -84,7 +84,7 @@ public class MoveFromEntranceToDiningRoomTest {
         }
 
         testMove.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.HALFOK, testMove.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.HALFOK, testMove.checkInputValidity(input));
 
     }
 
@@ -104,7 +104,7 @@ public class MoveFromEntranceToDiningRoomTest {
         ArrayList<Selectable> input = new ArrayList<>();
         input.add(testGame.getCurrentSchoolBoard().getDiningRoom());
         testMove.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.NOTOK, testMove.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.NOTOK, testMove.checkInputValidity(input));
     }
 
     /**
@@ -126,7 +126,7 @@ public class MoveFromEntranceToDiningRoomTest {
         input.add(sRed);
 
         testMove.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.NOTOK, testMove.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.NOTOK, testMove.checkInputValidity(input));
     }
 
     /**
@@ -157,7 +157,7 @@ public class MoveFromEntranceToDiningRoomTest {
         StudentDiskCollection notCurrentPlayerRoom = testGame.getTurnOrder().get(1).getDiningRoom();
         input.add(notCurrentPlayerRoom);
         testMove.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.NOTOK, testMove.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.NOTOK, testMove.checkInputValidity(input));
 
     }
 

@@ -48,7 +48,7 @@ public class MoveFromEntranceToIslandTest {
         input.add(destination);
         testMove.getUserSelectionsMessage();
         testMove.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.OK, testMove.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.OK, testMove.checkInputValidity(input));
 
         testMove.useAction(testGame);
         testMove.getUpdates(testGame);
@@ -81,7 +81,7 @@ public class MoveFromEntranceToIslandTest {
             input.add(sRed);
         }
         testMove.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.HALFOK, testMove.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.HALFOK, testMove.checkInputValidity(input));
 
     }
 
@@ -103,7 +103,7 @@ public class MoveFromEntranceToIslandTest {
         IslandTileSet destination = testGame.getIslandList().getByIndex(4);
         input.add(destination);
         testMove.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.NOTOK, testMove.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.NOTOK, testMove.checkInputValidity(input));
     }
 
     /**
@@ -125,7 +125,7 @@ public class MoveFromEntranceToIslandTest {
         input.add(testSet);
         testSet.setID(30);
         testMove.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.NOTOK, testMove.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.NOTOK, testMove.checkInputValidity(input));
 
     }
 
@@ -152,6 +152,6 @@ public class MoveFromEntranceToIslandTest {
         input.add(testSet);
         testSet.setID(30);
 
-        Assertions.assertEquals(ActionStep.NOTOK, testMove.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.NOTOK, testMove.checkInputValidity(input));
     }
 }

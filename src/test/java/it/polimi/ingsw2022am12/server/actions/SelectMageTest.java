@@ -35,7 +35,7 @@ public class SelectMageTest {
         Selectable mage = testGame.getAvailableMages().get(0);
         input.add(mage);
         testMove.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.OK, testMove.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.OK, testMove.checkInputValidity(input));
         int numOfAvailableMagesBefore = testGame.getAvailableMages().size();
         testMove.useAction(testGame);
         int numOfAvailableMagesAfter = testGame.getAvailableMages().size();
@@ -64,19 +64,19 @@ public class SelectMageTest {
         input.add(mage);
 
         testMove.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.NOTOK, testMove.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.NOTOK, testMove.checkInputValidity(input));
 
         input.remove(mage);
         Selectable rightMage = testGame.getAvailableMages().get(0);
         input.add(rightMage);
         SelectMage testSelectMage = new SelectMage();
 
-        testMove.checkInputValidity(input, testGame);
+        testMove.checkInputValidity(input);
         testMove.useAction(testGame);
         Assertions.assertEquals(testGame.getTurnOrder().get(0).getMage(), rightMage);
 
         testSelectMage.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.NOTOK, testSelectMage.checkInputValidity(input, testGame));
+        Assertions.assertEquals(ActionStep.NOTOK, testSelectMage.checkInputValidity(input));
 
     }
 }

@@ -37,15 +37,6 @@ public class Student extends PlaceableObject implements Selectable {
     }
 
     /**
-     * Method getPositionID returns the position of the Student as an index
-     *
-     * @return the position's index
-     */
-    public int getPositionID() {
-        return positionID;
-    }
-
-    /**
      * Method setPosition sets the position of the Student
      *
      * @param position the position to set

@@ -20,7 +20,7 @@ public class Server {
      */
     public Server(int port, String directory){
         this.port = port;
-        this.myController = new Controller(this, directory);
+        this.myController = new Controller(directory);
     }
 
     /**

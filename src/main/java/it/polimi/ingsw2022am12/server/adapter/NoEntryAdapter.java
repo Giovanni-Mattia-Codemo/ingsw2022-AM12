@@ -41,22 +41,15 @@ public class NoEntryAdapter extends TypeAdapter<NoEntry> {
         NoEntry noEntry = null;
         while (reader.hasNext()) {
             JsonToken token = reader.peek();
-
             if (token.equals(JsonToken.NAME)) {
 
                 fieldName = reader.nextName();
             }
-
             if("ID".equals(fieldName)) {
-
                 reader.peek();
                 NoEntryCollection noEntryCollection = new NoEntryCollection(reader.nextInt());
-                
                 noEntry = new NoEntry(noEntryCollection);
             }
-
-
-
         }
         reader.endObject();
         return noEntry;

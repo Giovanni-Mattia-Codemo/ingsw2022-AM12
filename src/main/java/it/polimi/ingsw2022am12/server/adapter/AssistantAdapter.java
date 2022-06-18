@@ -44,17 +44,13 @@ public class AssistantAdapter extends TypeAdapter<Assistant> {
 
         while (jsonReader.hasNext()) {
             JsonToken token = jsonReader.peek();
-
             if (token.equals(JsonToken.NAME)) {
                 fieldName = jsonReader.nextName();
             }
-
             if("AssistantTurnPower".equals(fieldName)) {
-
                 jsonReader.peek();
                 assistant = AssistantCreator.createAssistant(jsonReader.nextInt());
             }
-
         }
         jsonReader.endObject();
         

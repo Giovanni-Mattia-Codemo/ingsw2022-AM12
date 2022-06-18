@@ -56,19 +56,6 @@ public class InputHandler {
     }
 
     /**
-     * getAcceptableSelections creates an array list of valid selections for each possibleAction
-     *
-     * @return an array of acceptable selections
-     */
-    public ArrayList<Selectable> getAcceptableSelections(){
-        ArrayList<Selectable> selections = new ArrayList<>();
-        for(PossibleAction a: actions){
-            selections.addAll(a.getSelectables()) ;
-        }
-        return selections;
-    }
-
-    /**
      * flushSelected method empties the array of selections
      */
     private void flushSelected(){
@@ -99,7 +86,7 @@ public class InputHandler {
         int count = 0;
         ArrayList<PossibleAction> newActions = new ArrayList<>(actions);
         for(PossibleAction pa: actions){
-            ActionStep result = pa.checkInputValidity(selected, myGame);
+            ActionStep result = pa.checkInputValidity(selected);
             if(result.equals(ActionStep.OK)){
                 pa.useAction(myGame);
                 setUpdate(pa.getUpdates(myGame));

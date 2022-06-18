@@ -531,7 +531,7 @@ public class Game{
     }
 
     /**
-     * Method getAvailableCharacters returns a list of available charcter cards
+     * Method getAvailableCharacters returns a list of available character cards
      *
      * @return a list of available CharacterCards
      */
@@ -632,7 +632,7 @@ public class Game{
             if(owner!= null&&!(getActiveCharacterCard()!=null&&getActiveCharacterName()==CharacterName.CHARACTER_CENTAUR)){ //if I already own (I placed a tower) on an island, I must add +1 score to my influence for each tower, unless the Centaur is active
                 scores[teams.indexOf(owner)]+=islandToConquer.getNumOfIslandsInThisSet();
             }
-            if(getActiveCharacterCard()!=null&&getActiveCharacterName()==CharacterName.CHARACTER_KNIGHT){ //the knights adds +2 to the score of my influence
+            if(getActiveCharacterCard()!=null&&getActiveCharacterName()==CharacterName.CHARACTER_KNIGHT){ //the knight adds +2 to the score of my influence
                 for(Team t: teams){
                     if (t.getSchoolBoards().contains(getCurrentSchoolBoard())){
                         scores[teams.indexOf(t)]+=2;
@@ -642,11 +642,11 @@ public class Game{
             }
             int winnerId = 0;
             boolean tie = false;
-            for(int i=1; i<scores.length; i++){    //this for calculates the person with the highest influence score
+            for(int i=1; i<scores.length; i++){  //this for calculates the person with the highest influence score
                 if (scores[i]>scores[winnerId]){
                     winnerId = i;
                     tie= false;
-                }else if(scores[i]==scores[winnerId]){   //this else if sets a tie if two players have the same influence points
+                }else if(scores[i]==scores[winnerId]){ //this else if sets a tie if two players have the same influence points
                     tie= true;
                 }
             }

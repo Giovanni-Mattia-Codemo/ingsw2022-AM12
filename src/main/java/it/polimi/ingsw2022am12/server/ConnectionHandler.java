@@ -1,15 +1,12 @@
 package it.polimi.ingsw2022am12.server;
 
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import it.polimi.ingsw2022am12.ControlMessagesAdapter;
 import it.polimi.ingsw2022am12.server.controller.ControlMessages;
 import it.polimi.ingsw2022am12.server.controller.Controller;
 import it.polimi.ingsw2022am12.server.virtualview.VirtualView;
-
 import java.io.IOException;
-
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -43,22 +40,17 @@ public class ConnectionHandler implements Runnable{
         while(true){
             try{
                 Socket socket = serverSocket.accept();
-
                 VirtualView virtualView = new VirtualView(socket, controller);
-
                 controller.addView(virtualView);
-                System.out.println("created virtualview");
                 ControlMessages msg = controller.getMatchStatusOfView(virtualView);
                 ArrayList<ControlMessages> msgs = new ArrayList<>();
                 msgs.add(msg);
                 Gson g = new GsonBuilder().registerTypeAdapter(ArrayList.class, new ControlMessagesAdapter()).create();
                 virtualView.forwardMsg(g.toJson(msgs));
-                System.out.println("Sent it a message");
 
             }catch(IOException e ){
                 break;
             }
-
         }
     }
 }
