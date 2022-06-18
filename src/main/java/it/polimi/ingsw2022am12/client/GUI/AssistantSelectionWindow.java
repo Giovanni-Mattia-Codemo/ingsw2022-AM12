@@ -22,7 +22,8 @@ import java.util.Objects;
 public class AssistantSelectionWindow implements Window {
 
     /**
-     * displayScene method creates the new window and the new scene for the assistant's selection
+     * displayScene method creates the new window and the new scene for the assistant's selection; the Assistants are
+     * ToggleButtons, to enable only one selection at a time
      *
      * @param client the client that needs the window to open
      */

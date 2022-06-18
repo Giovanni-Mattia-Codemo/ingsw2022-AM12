@@ -27,7 +27,8 @@ public class StudentButton extends Button{
 
     /**
      * Constructor method of StudentButton class
-     * @param  student the color of my student
+     * @param student the student of the client I need to visualize
+     * @param client the client that owns the student
      */
     public StudentButton(ClientStudent student, Client client){
 
@@ -70,7 +71,7 @@ public class StudentButton extends Button{
     }
 
     /**
-     *
+     * Setter method for the student's color, it also chooses the correct images based on the DiskColor value
      * @param color DiskColor chosen
      */
     private void setStudentColor(DiskColor color){
@@ -102,6 +103,9 @@ public class StudentButton extends Button{
 
     }
 
+    /**
+     * refresh resets all the graphics for the studentButton
+     */
     public void refresh(){
         setStudentColor(myStudent.getColor());
         setDisabled(color == null);

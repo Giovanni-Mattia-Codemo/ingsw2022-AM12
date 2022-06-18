@@ -9,10 +9,21 @@ import com.google.gson.stream.JsonWriter;
 import it.polimi.ingsw2022am12.server.model.*;
 import java.io.IOException;
 
+/**
+ * Class used to simplify the handling of a certain event.
+ * In this case,it helps to handle objects of the type ISLANDTILESET  to save them as JSON encoded data
+ */
 public class SaveGameIslandAdapter extends TypeAdapter<IslandTileSet> {
 
     Gson embedded;
 
+    /**
+     * Method write receives an object of type IslandTileSet and serializes it in the JSON format
+     *
+     * @param jsonWriter the writer which will generate my JSON data
+     * @param islandTileSet the IslandTileSet I want to serialize
+     * @throws IOException if there is a problem with my input
+     */
     @Override
     public void write(JsonWriter jsonWriter, IslandTileSet islandTileSet) throws IOException {
         jsonWriter.beginObject();
@@ -36,6 +47,13 @@ public class SaveGameIslandAdapter extends TypeAdapter<IslandTileSet> {
         jsonWriter.endObject();
     }
 
+    /**
+     * Method "read" reads a JSON encoded IslandTileSet as a stream of tokens
+     *
+     * @param jsonReader the reader which will receive my JSON data
+     * @return the IslandTileSet created from the JSON values
+     * @throws IOException if there is a problem with my input
+     */
     @Override
     public IslandTileSet read(JsonReader jsonReader) throws IOException {
         jsonReader.beginObject();

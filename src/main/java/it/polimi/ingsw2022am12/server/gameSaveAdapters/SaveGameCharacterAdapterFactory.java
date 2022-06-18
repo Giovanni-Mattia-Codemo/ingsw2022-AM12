@@ -18,7 +18,7 @@ import java.io.IOException;
 
 /**
  * Class used to simplify the handling of a certain event.
- * In this case,it helps to handle objects of the type CHARACTERCARD.
+ * In this case,it helps to handle objects of the type CHARACTERCARD  to save them as JSON encoded data
  */
 public class SaveGameCharacterAdapterFactory implements TypeAdapterFactory {
 
@@ -107,7 +107,7 @@ public class SaveGameCharacterAdapterFactory implements TypeAdapterFactory {
          *
          * @param in the reader which will receive my JSON data
          * @return the CharacterCard created from the JSON values
-         * @throws IOException the reader which will receive my JSON data
+         * @throws IOException if there is a problem with my input
          */
         @Override
         public CharacterCard read(JsonReader in) throws IOException {

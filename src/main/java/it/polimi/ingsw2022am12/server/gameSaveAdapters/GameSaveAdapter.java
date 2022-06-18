@@ -10,10 +10,21 @@ import it.polimi.ingsw2022am12.server.model.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Class used to simplify the handling of a certain event.
+ * In this case,it helps to handle objects of the type GAME  to save them as JSON encoded data
+ */
 public class GameSaveAdapter extends TypeAdapter<Game> {
 
     Gson embedded;
 
+    /**
+     * Method write receives an object of type Game and serializes it in the JSON format
+     *
+     * @param writer the writer which will generate my JSON data
+     * @param myGame the Game I want to serialize
+     * @throws IOException if there is a problem with my input
+     */
     @Override
     public void write(JsonWriter writer, Game myGame) throws IOException {
         writer.beginObject();
@@ -86,6 +97,13 @@ public class GameSaveAdapter extends TypeAdapter<Game> {
         writer.endObject();
     }
 
+    /**
+     * Method "read" reads a JSON encoded Game as a stream of tokens
+     *
+     * @param jsonReader the reader which will receive my JSON data
+     * @return the Game created from the JSON values
+     * @throws IOException if there is a problem with my input
+     */
     @Override
     public Game read(JsonReader jsonReader) throws IOException {
         jsonReader.beginObject();
