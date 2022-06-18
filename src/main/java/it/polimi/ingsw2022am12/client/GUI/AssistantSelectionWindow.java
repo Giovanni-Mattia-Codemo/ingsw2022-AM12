@@ -3,11 +3,14 @@ package it.polimi.ingsw2022am12.client.GUI;
 import it.polimi.ingsw2022am12.client.Client;
 import it.polimi.ingsw2022am12.client.ClientInputHandler;
 import it.polimi.ingsw2022am12.client.model.ClientAssistant;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.Modality;
 import javafx.scene.image.Image;
@@ -38,8 +41,10 @@ public class AssistantSelectionWindow implements Window {
         window.setOnCloseRequest(e -> closeProgram(window));
 
         Label label = new Label("Select an Assistant:");
+        label.setFont(new Font("Algerian", 25));
 
         VBox layout = new VBox();
+        layout.setBackground(new Background(new BackgroundFill(Color.WHEAT, CornerRadii.EMPTY, Insets.EMPTY)));
         HBox assistantsLayout = new HBox();
 
 
@@ -83,19 +88,19 @@ public class AssistantSelectionWindow implements Window {
 
         }
 
-        Button selection = new Button("Select");
+        Button selection = new Button("SELECT");
         selection.setOnAction(e-> {if(assistants.getSelectedToggle()!=null){
                     int assistantNum = (int) assistants.getSelectedToggle().getProperties().get("id");
                     ClientInputHandler.handle("Assistant "+assistantNum, client);
                     window.close();
         }
             else System.out.println("Null value");
-        });//clientInputHandler.handle("Assistant "+assistants.getSelectedToggle().getProperties().get("id")));
+        });
 
         layout.getChildren().addAll(label, assistantsLayout, selection);
         layout.setAlignment(Pos.CENTER);
 
-        Scene scene = new Scene(layout, 800, 600);
+        Scene scene = new Scene(layout, 800, 200);
         window.setScene(scene);
         window.show();
 

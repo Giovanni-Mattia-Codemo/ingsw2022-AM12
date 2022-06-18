@@ -14,7 +14,7 @@ public class NickInputPane extends VBox {
     public NickInputPane(Client client){
         super();
         Label nickInsert = new Label("Insert your nick for the game");
-        nickInsert.setFont(new Font("Arial", 20));
+        nickInsert.setFont(new Font("Algerian", 25));
         nickInsert.setAlignment(Pos.CENTER);
         final TextField name = new TextField();
         name.setPromptText("Enter your nick.");
@@ -22,7 +22,7 @@ public class NickInputPane extends VBox {
         name.setPrefColumnCount(20);
         name.setMaxWidth(200);
 
-        Button submit = new Button("Submit");
+        Button submit = new Button("SUBMIT");
         submit.setAlignment(Pos.CENTER);
         submit.setOnAction(e->{
             if(name.getText() != null && !name.getText().isEmpty()){

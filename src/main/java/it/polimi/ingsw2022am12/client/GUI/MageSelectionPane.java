@@ -2,13 +2,15 @@ package it.polimi.ingsw2022am12.client.GUI;
 
 import it.polimi.ingsw2022am12.client.Client;
 import it.polimi.ingsw2022am12.client.ClientInputHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
@@ -17,7 +19,9 @@ public class MageSelectionPane extends VBox {
 
     public MageSelectionPane(Client myClient){
         super();
+        setBackground(new Background(new BackgroundFill(Color.WHEAT, CornerRadii.EMPTY, Insets.EMPTY)));
         Label selectMage = new Label("Pick a mage");
+        selectMage.setFont(new Font("Algerian", 25));
         selectMage.setAlignment(Pos.CENTER);
 
         HBox mageLayout = new HBox();
@@ -58,7 +62,7 @@ public class MageSelectionPane extends VBox {
             HBox.setHgrow(mageButton, Priority.ALWAYS);
 
         }
-        Button select = new Button("Select");
+        Button select = new Button("SELECT");
         select.setAlignment(Pos.CENTER);
         select.setOnAction(e->{
             if(mages.getSelectedToggle()!=null){

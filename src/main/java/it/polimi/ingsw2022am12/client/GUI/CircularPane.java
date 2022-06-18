@@ -17,7 +17,7 @@ public class CircularPane extends Pane {
     protected void layoutChildren() {
 
         final double offsetForChildrenInCircle = (double) 360 / getChildren().size();
-        double degrees = 0;  //Starting point from 0 degrees, moves clockwise from now on
+        double degrees = 0;  //Starting point from 0 degrees and moves clockwise
         double x = 0;
         double y = 0;
         for (Node node : getChildren()) {

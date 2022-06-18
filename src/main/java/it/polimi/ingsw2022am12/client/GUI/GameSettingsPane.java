@@ -22,7 +22,7 @@ public class GameSettingsPane extends VBox {
         super();
 
         Label playersNumLabel = new Label("Enter the number of players for the match");
-        playersNumLabel.setFont(new Font("Arial", 18));
+        playersNumLabel.setFont(new Font("Algerian", 18));
         playersNumLabel.setAlignment(Pos.CENTER);
         ChoiceBox<String> playersNum = new ChoiceBox<>();
         playersNum.setId("Players Number");
@@ -31,20 +31,20 @@ public class GameSettingsPane extends VBox {
         playersNum.getItems().add("4");
         playersNum.setStyle("-fx-pref-width: 220;");
         Label modalityLabel = new Label("Set game difficulty");
-        modalityLabel.setFont(new Font("Arial", 18));
+        modalityLabel.setFont(new Font("Algerian", 18));
         modalityLabel.setAlignment(Pos.CENTER);
 
         ChoiceBox<String> mode = new ChoiceBox<>();
-        mode.getItems().add("CharacterMode");
-        mode.getItems().add("EasyMode");
+        mode.getItems().add("CHARACTER MODE");
+        mode.getItems().add("EASY MODE");
 
-        Button submit = new Button("Submit");
+        Button submit = new Button("SUBMIT");
         submit.setAlignment(Pos.CENTER);
 
         submit.setOnAction(e->{
             String modality = "false";
             if(playersNum.getValue()!=null&&mode.getValue()!=null){
-                if(mode.getValue().equals("CharacterMode")){
+                if(mode.getValue().equals("CHARACTER MODE")){
                     modality = "true";
                 }
                 ClientInputHandler.handle("GameSettings "+Integer.parseInt(playersNum.getValue())+" "+modality, client);
