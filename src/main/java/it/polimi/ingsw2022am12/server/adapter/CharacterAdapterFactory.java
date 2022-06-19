@@ -102,6 +102,7 @@ public class CharacterAdapterFactory implements TypeAdapterFactory {
                     fieldName = in.nextName();
                 }
 
+
                 if("CharacterName".equals(fieldName)) {
                     in.peek();
                     String name = in.nextString();

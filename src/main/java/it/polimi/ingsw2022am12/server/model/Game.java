@@ -596,6 +596,7 @@ public class Game{
                 collectCoin();           //collects a coin for each three students placed in a table in the dining room
             }
         }
+        updateProfessor(color);
     }
 
     /**
@@ -838,6 +839,7 @@ public class Game{
                 collectCoin();
             }
         }
+
     }
 
     /**
@@ -1125,7 +1127,7 @@ public class Game{
                 if (characterCards.contains(characterCard)){
                             int cost = characterCard.getCost();
                             payCoins(cost);   //pays the cost of the character
-                            if(!characterCard.wasPayedBefore()){
+                            if(!characterCard.getCoin()){
                                 Coin coinTmp = freeCoins.getFirstCoin();
                                 freeCoins.removeElement(coinTmp);     //it places a coin on the character the first time, meaning it increased the cost by one the first time
                                 characterCard.insertCoin(coinTmp);

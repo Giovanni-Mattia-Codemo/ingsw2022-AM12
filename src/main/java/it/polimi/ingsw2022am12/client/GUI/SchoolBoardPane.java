@@ -1,5 +1,6 @@
 package it.polimi.ingsw2022am12.client.GUI;
 
+import it.polimi.ingsw2022am12.DiskColor;
 import it.polimi.ingsw2022am12.client.Client;
 import it.polimi.ingsw2022am12.client.ClientInputHandler;
 import it.polimi.ingsw2022am12.client.model.ClientGame;
@@ -520,28 +521,21 @@ public class SchoolBoardPane extends GridPane{
     private void fillDiningRoom() {
         ArrayList<ClientStudent> diningStudents = new ArrayList<>(myGame.getSchoolBoardByNick(name).getDiningRooms().getStudents());
         for (int i = 0; i < 5; i++) {
-            GridPane students= null;
-            ArrayList<StudentButton> studentButtons = null;
-            switch (i+1){
-                case 1->{ students = greenRoom; studentButtons = greenDiningStudents;  }
-                case 2->{ students=redRoom;studentButtons =  redDiningStudents; }
-                case 3->{ students = yellowRoom;studentButtons = yellowDiningStudents;  }
-                case 4->{ students=pinkRoom;studentButtons =  pinkDiningStudents ;}
-                case 5-> {students=blueRoom;studentButtons = blueDiningStudents  ;}
-            }
-
             for (int t = 0; t < 10; t++) {
                 boolean alreadyPresent = false;
+                StudentButton student=null;
+                ArrayList<StudentButton> studentButtons = getButtonsOfRow(i);
                 for (StudentButton s: studentButtons){
                     if(GridPane.getColumnIndex(s)==t){
                         alreadyPresent = true;
+                        student = s;
                         break;
                     }
                 }
 
                 ClientStudent realStudent = null;
                 for (ClientStudent s : diningStudents) {
-                    if (s.getColor().getValue() == i) {
+                    if (s.getColor() == DiskColor.valueOf(DiskColor.RED.getColor(i))) {
                         realStudent = s;
                         diningStudents.remove(s);
                         break;
@@ -554,6 +548,8 @@ public class SchoolBoardPane extends GridPane{
                     }else {
                         student.setNewStudent(realStudent);
                     }
+                }else if(alreadyPresent){
+                    student.setNewStudent(new ClientStudent());
                 }
             }
         }
@@ -567,4 +563,39 @@ public class SchoolBoardPane extends GridPane{
         }
         return null;
     }
+
+    private void assignStudentButtonOfColor(int i, int t, ClientStudent realStudent){
+        GridPane students= getGridOfRow(i);
+        ArrayList<StudentButton> studentButtons = getButtonsOfRow(i);
+
+        StudentButton student = new StudentButton(realStudent, client);
+        students.add(student, t, 0);
+        studentButtons.add(student);
+    }
+
+
+    private ArrayList<StudentButton> getButtonsOfRow(int i){
+        ArrayList<StudentButton> studentButtons = null;
+        switch (i+1){
+            case 1->studentButtons = greenDiningStudents;
+            case 2-> studentButtons =  redDiningStudents;
+            case 3-> studentButtons = yellowDiningStudents;
+            case 4-> studentButtons =  pinkDiningStudents ;
+            case 5-> studentButtons = blueDiningStudents  ;
+        }
+        return studentButtons;
+    }
+
+    private GridPane getGridOfRow(int i){
+        GridPane students= null;
+        switch (i+1){
+            case 1-> students = greenRoom;
+            case 2-> students=redRoom;
+            case 3-> students = yellowRoom;
+            case 4-> students=pinkRoom;
+            case 5-> students=blueRoom;
+        }
+        return students;
+    }
+
 }

@@ -111,4 +111,9 @@ public class StudentButton extends Button{
         setDisabled(color == null);
     }
 
+
+    public void setNewStudent(ClientStudent student){
+        myStudent=student;
+    }
+
 }

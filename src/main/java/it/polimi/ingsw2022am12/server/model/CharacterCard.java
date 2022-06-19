@@ -116,4 +116,8 @@ public abstract class CharacterCard implements Selectable {
     public boolean getCoin(){
         return additionalCoins.size() > 0;
     }
+
+    public void setUsage( boolean usage){
+        wasUsed= usage;
+    }
 }

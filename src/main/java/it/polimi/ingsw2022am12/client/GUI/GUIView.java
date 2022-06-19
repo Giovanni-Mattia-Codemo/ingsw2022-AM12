@@ -207,6 +207,7 @@ public class GUIView implements View, Runnable{
         container.prefHeightProperty().bind(pane.heightProperty());
         pane.getChildren().add(container);
         gameSettingsScene = new Scene(pane, 600, 450);
+
     }
 
     private void setTryAgain(){
@@ -299,6 +300,7 @@ public class GUIView implements View, Runnable{
         HBox.setHgrow(gameStateView, Priority.NEVER);
         activeScene = new Scene(activeViewContent, 800,600);
         gameStateView.getSwitcher().setOnAction(e-> Platform.runLater(this::switchScene));
+
     }
 
     private void setTryAnother(){

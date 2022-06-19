@@ -194,7 +194,7 @@ public class SaveGameCharacterAdapterFactory implements TypeAdapterFactory {
 
             if(characterCard!=null){
                 characterCard.setCost(cost);
-                characterCard.setWasUsed(wasUsed);
+                characterCard.setUsage(wasUsed);
                 if(hasCoin){
                     characterCard.setAdditionalCoins();
                 }
