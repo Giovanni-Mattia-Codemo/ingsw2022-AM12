@@ -402,7 +402,7 @@ public class ClientGame {
 
         msg = msg.concat("Mother nature position: " +motherNatureIndex+"\n");
 
-        msg = msg.concat("Clouds:"+phase+"\n");
+        msg = msg.concat("Clouds:"+"\n");
         for(ClientStudentCollection cloud : clouds){
             msg = msg.concat(cloud.getID()+" with students: "+cloud.getStudentsAsString()+"\n");
         }

@@ -210,7 +210,12 @@ public class IslandPane extends StackPane {
             img.fitHeightProperty().bind(towerButton.heightProperty());
             img.fitWidthProperty().bind(towerButton.widthProperty());
             towerButton.setGraphic(img);
+            towerButton.setVisible(true);
             numOfTowers.setText("x" + client.getClientGame().getIslandByID(id).getNumber());
+            numOfTowers.setVisible(true);
+        }else{
+            towerButton.setVisible(false);
+            numOfTowers.setVisible(false);
         }
         if(client.getClientGame().getCharacterByName("CHARACTER_HERBALIST")!=null){
             numOfNoEntries.setText("x" + client.getClientGame().getIslandByID(islandId).getNumOfNoEntries());

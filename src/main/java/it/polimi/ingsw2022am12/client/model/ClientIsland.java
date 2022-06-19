@@ -132,5 +132,6 @@ public class ClientIsland {
         conqueror = island.getConqueror();
         number = island.getNumber();
         students.updateFromCollection(island.getStudents());
+        numOfNoEntries = island.getNumOfNoEntries();
     }
 }

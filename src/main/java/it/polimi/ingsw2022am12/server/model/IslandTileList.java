@@ -105,15 +105,15 @@ public class IslandTileList {
 
 
 
-            for (int i = 0; i < stdSize; i++) {
-                islandToCheck.insertStudent(studentsToMove.get(0));   //puts all the students contained in the first set in the second one
+            for (Student student : studentsToMove) {
+                islandToCheck.insertStudent(student);   //puts all the students contained in the first set in the second one
             }
 
             ArrayList<NoEntry> noEntriesToMove = left.getNoEntries();  //determines how many noEntries the first island has
 
 
-            for (int i = 0; i < noEntrySize; i++) {
-                islandToCheck.insertNoEntries(noEntriesToMove.get(0));    //puts all the noEntries contained in the first set in the second one
+            for (NoEntry noEntry : noEntriesToMove) {
+                islandToCheck.insertNoEntries(noEntry);    //puts all the noEntries contained in the first set in the second one
             }
 
             islands.remove(left);   //the first set is now useless, so I remove it from the list of islands
