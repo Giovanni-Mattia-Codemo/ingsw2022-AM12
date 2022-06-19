@@ -390,6 +390,7 @@ public class ClientGame {
         msg = msg.concat("Islands: \n");
         for (ClientIsland clientIsland: islands){
             msg = msg.concat(clientIsland.getID()+" with students: "+clientIsland.getStudents().getStudentsAsString());
+            msg = msg.concat("\t"+clientIsland.getConqueror());
             for(ClientCharacter c:characters){
                 if(c.getName().equals("CHARACTER_HERBALIST")){
                     msg = msg.concat("\tNum of noEntries: "+c.getNumberOfNoEntries());

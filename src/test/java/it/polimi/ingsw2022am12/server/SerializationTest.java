@@ -37,7 +37,6 @@ public class SerializationTest {
         Student foo2= gson.fromJson(jsonString, Student.class);
 
         Map map= gson.fromJson(jsonString, Map.class);
-        System.out.println(map);
 
 
         Gson gson2 = new Gson();
@@ -45,14 +44,12 @@ public class SerializationTest {
         map2.put("tag", "Student");
         map2.remove("tag");
         String line = gson.toJson(map2);
-        System.out.println("\n "+ map2);
+
 
         GsonBuilder b = new GsonBuilder();
         b.registerTypeAdapter(Student.class, new StudentAdapter());
         gson = b.create();
-        System.out.println("Ciao");
         Student student = gson.fromJson(line, Student.class);
-        System.out.println("Ciao2");
         Assertions.assertEquals(DiskColor.RED ,student.getColor());
 
 
@@ -78,45 +75,6 @@ public class SerializationTest {
         Gson newGson = build.serializeNulls().create();
         String output = newGson.toJson(newGame, Game.class);
         System.out.println(output);
-
-        InputMode inputMode = new InputMode();
-        //Gson gson1234 = new GsonBuilder().registerTypeAdapter(InputMode.class, new MessageAdapter()).create();
-        //String outpu = gson1234.toJson(inputMode);
-        //System.out.println(outpu);
-
-        //Map myMap = gson1234.fromJson(outpu, Map.class);
-        //String number =  myMap.get("number").toString();
-        //System.out.println(number);
-
-
-
-
-        /*
-        StudentDiskCollection studentDiskCollection = new StudentDiskCollection();
-        Student newStudent = new Student(DiskColor.RED);
-
-        studentDiskCollection.insertElement(newStudent);
-        newStudent = new Student(DiskColor.BLUE);
-        studentDiskCollection.insertElement(newStudent);
-        build.registerTypeAdapter(StudentDiskCollection.class, new StudentDiskCollectionAdapter());
-        newGson = build.create();
-        String output = newGson.toJson(studentDiskCollection, StudentDiskCollection.class);
-        System.out.println(output);
-
-
-
-
-        /*
-        String x= (String) map.get("color");
-        System.out.println(x);
-        System.out.println(foo2);
-        System.out.println(foo);
-        System.out.println("step 2...");
-        foo.setPositionID(4);
-        jsonString = gson.toJson(foo);
-        System.out.println(jsonString);
-
-         */
 
     }
 

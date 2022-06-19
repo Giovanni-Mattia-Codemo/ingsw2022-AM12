@@ -60,7 +60,7 @@ public class MerchantAction extends PossibleAction {
      */
     @Override
     public void useAction(Game game) {
-        ((CharacterMerchant)game.getActiveCharacterCard()).setColor(((ColorSelection)score.get(0)).getColor());
+        ((CharacterMerchant)game.getActiveCharacterCard()).setColor(((ColorSelection)score.get(1)).getColor());
         game.getActiveCharacterCard().setWasUsed(true);
     }
 }

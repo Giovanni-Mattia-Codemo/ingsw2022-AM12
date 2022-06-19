@@ -156,8 +156,8 @@ public class GUIView implements View, Runnable{
                 }
                 case DISCONNECTION,WINNER,LOSER:{
                     Platform.runLater(()->{
-                        setEndMatchScene(message);
                         setServerDownScene();
+                        setEndMatchScene(message);
                     });
                     break;
                 }
@@ -391,6 +391,8 @@ public class GUIView implements View, Runnable{
 
     @Override
     public void connectionFailedPrompt(){
-        Platform.runLater(()->primary.setScene(serverDownScene));
+        Platform.runLater(()->{
+            primary.setScene(serverDownScene);
+        });
     }
 }

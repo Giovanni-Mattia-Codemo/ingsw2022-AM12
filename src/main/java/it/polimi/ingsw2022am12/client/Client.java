@@ -46,7 +46,19 @@ public class Client {
      * @param args array of parameters written as strings
      */
     public static void main(String[] args){
-        Client client = new Client("26.90.185.232", 9000);
+        String ip = "";
+        String port ="";
+        if(args.length>0){
+            for(int i=0; i< args.length-1;i++){
+                if(args[i].equals("-i")){
+                    ip = args[i+1];
+                } else if (args[i].equals("-p")){
+                    port = args[i+1];
+                }
+            }
+
+        }
+        Client client = new Client(ip, Integer.parseInt(port));
         try{
             client.startClient();
         }catch(IOException e){

@@ -103,7 +103,7 @@ public class IslandTileList {
 
             ArrayList<Student> studentsToMove = left.getStudents();  //determines how many students the first island has
 
-            int stdSize = studentsToMove.size();
+
 
             for (int i = 0; i < stdSize; i++) {
                 islandToCheck.insertStudent(studentsToMove.get(0));   //puts all the students contained in the first set in the second one
@@ -111,7 +111,6 @@ public class IslandTileList {
 
             ArrayList<NoEntry> noEntriesToMove = left.getNoEntries();  //determines how many noEntries the first island has
 
-            int noEntrySize = noEntriesToMove.size();
 
             for (int i = 0; i < noEntrySize; i++) {
                 islandToCheck.insertNoEntries(noEntriesToMove.get(0));    //puts all the noEntries contained in the first set in the second one

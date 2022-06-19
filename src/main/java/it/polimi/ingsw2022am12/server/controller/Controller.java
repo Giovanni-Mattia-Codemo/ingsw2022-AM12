@@ -293,7 +293,10 @@ public class Controller {
         System.out.println("Closing game");
         Gson g = new GsonBuilder().registerTypeAdapter(ArrayList.class, new ControlMessagesAdapter()).create();
 
-        Team winner = myGame.getWinner();
+        Team winner = null;
+        if(myGame!=null){
+            winner = myGame.getWinner();
+        }
 
         if(winner!=null) {
             for (VirtualView virtualView : userMap.keySet()) {
@@ -319,6 +322,7 @@ public class Controller {
         //resetting initial values
         saveGame("empty");
         myGame = null;
+        isGameSavedPresent = false;
         gameWasSet = false;
         creatingGame = false;
         acceptingUsers = true;

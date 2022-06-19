@@ -246,7 +246,9 @@ public class Game{
         for(int i=0; i<numOfCharacters; i++){
             Random rnd= new Random();
             boolean taken;
+            /*
             int x;
+
             do {
                 taken=false;
                 x = rnd.nextInt(12);
@@ -258,7 +260,13 @@ public class Game{
                 }
             }while(taken);
             characterCards.add(CharacterCreator.createCharacter(x));
+             */
+
+
         }
+        characterCards.add(CharacterCreator.createCharacter(11));
+        characterCards.add(CharacterCreator.createCharacter(2));
+        characterCards.add(CharacterCreator.createCharacter(5));
         for (CharacterCard c:characterCards) {
             c.initCharacter(this);
         }
@@ -664,13 +672,12 @@ public class Game{
                         Tower towerToMove = team.getSchoolBoardWithTowers().getFirstTower();  //Then I conquer by placing my towers, if I still have towers
                         if (towerToMove != null) {
                             islandToConquer.insertTower(towerToMove);
-                            try {
-                                team.getSchoolBoardWithTowers().removeTower(towerToMove);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        } else endGame();   //If I don't have any more towers to move it means the game is over
 
+                            team.getSchoolBoardWithTowers().removeTower(towerToMove);
+                            if(team.getSchoolBoardWithTowers().getTowersNumber()<=0){
+                                endGame();      //If I don't have any more towers to move it means the game is over
+                            }
+                        }
 
                     }
                     islandList.checkAndMerge(index);  //this part of code checks if I have conquered more than one adjacent islands; if I have, it merges them
