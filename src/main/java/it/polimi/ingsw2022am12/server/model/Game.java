@@ -840,6 +840,8 @@ public class Game{
             }
         }
 
+        updateProfessor(colorOfEntranceStudent);
+
     }
 
     /**

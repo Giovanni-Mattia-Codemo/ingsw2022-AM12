@@ -30,6 +30,7 @@ public class VirtualView{
             out = new PrintWriter(socket.getOutputStream());
             VirtualViewMessagesParser virtualViewMessagesParser = new VirtualViewMessagesParser(this, in, myController);
             parser = new Thread(virtualViewMessagesParser);
+            System.out.println("I'm alive");
             parser.start();
         }catch (IOException e){
             System.err.println(e.getMessage());

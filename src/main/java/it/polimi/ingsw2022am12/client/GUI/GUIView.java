@@ -155,9 +155,10 @@ public class GUIView implements View, Runnable{
                     break;
                 }
                 case DISCONNECTION,WINNER,LOSER:{
-                    Platform.runLater(()->
-                        setEndMatchScene(message)
-                    );
+                    Platform.runLater(()->{
+                        setEndMatchScene(message);
+                        setServerDownScene();
+                    });
                     break;
                 }
                 case SERVERUNREACHABLE:{

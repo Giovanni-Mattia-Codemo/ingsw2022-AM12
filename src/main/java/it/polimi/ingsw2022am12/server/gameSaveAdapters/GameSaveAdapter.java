@@ -37,23 +37,19 @@ public class GameSaveAdapter extends TypeAdapter<Game> {
         writer.name("Turn");
         writer.value(myGame.getTurn());
         writer.name("TurnOrder");
-        System.out.println("starting turn order");
         GsonBuilder builder = new GsonBuilder().registerTypeAdapter(SchoolBoard.class, new SaveGameSchoolBoardAdapter());
         embedded = builder.create();
         embedded.toJson(embedded.toJsonTree(myGame.getTurnOrder()), writer);
         writer.name("IslandList");
-        System.out.println("starting island list");
         builder.registerTypeAdapter(IslandTileSet.class, new SaveGameIslandAdapter());
         embedded = builder.create();
         embedded.toJson(embedded.toJsonTree(myGame.getIslandList().getIslandsAsSelectable()), writer);
         writer.name("MotherNature");
         writer.value(myGame.getIslandList().getMotherNatureIndex());
         writer.name("Clouds");
-        System.out.println("starting clouds");
         builder = new GsonBuilder().registerTypeAdapter(StudentDiskCollection.class, new SaveGameStudentDiskCollectionAdapter());
         embedded = builder.create();
         embedded.toJson(embedded.toJsonTree(myGame.getClouds()), writer);
-        System.out.println("starting professors");
         for(int i=0; i<5; i++){
             writer.name("Professor"+ i);
             if(myGame.getProfessors()[i]!=null){
@@ -67,7 +63,6 @@ public class GameSaveAdapter extends TypeAdapter<Game> {
         }
         writer.endArray();
         writer.name("Bag");
-        System.out.println("starting bag");
         builder = new GsonBuilder().registerTypeAdapter(Bag.class, new SaveGameStudentDiskCollectionAdapter());
         embedded = builder.create();
         embedded.toJson(embedded.toJsonTree(myGame.getBag()), writer);

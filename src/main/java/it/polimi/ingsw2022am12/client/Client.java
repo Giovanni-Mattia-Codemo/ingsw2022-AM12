@@ -46,7 +46,7 @@ public class Client {
      * @param args array of parameters written as strings
      */
     public static void main(String[] args){
-        Client client = new Client("localhost", 1344);
+        Client client = new Client("26.90.185.232", 9000);
         try{
             client.startClient();
         }catch(IOException e){
