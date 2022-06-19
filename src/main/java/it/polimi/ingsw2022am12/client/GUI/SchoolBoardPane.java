@@ -16,6 +16,9 @@ import javafx.scene.layout.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * IslandListPane is the graphical component that represents my schoolBoard and all its parts (entrance, diningRoom, tower area)
+ */
 public class SchoolBoardPane extends GridPane{
 
     private final String name;
@@ -40,6 +43,12 @@ public class SchoolBoardPane extends GridPane{
     private GridPane yellowRoom;
     private GridPane pinkRoom;
 
+    /**
+     * Constructor method of SchoolBoardPane
+     *
+     * @param name of the player
+     * @param client that must interact with the schoolBoard
+     */
     public SchoolBoardPane(String name,Client client){
         super();
         myGame=client.getClientGame();
@@ -317,6 +326,9 @@ public class SchoolBoardPane extends GridPane{
         refresh();
     }
 
+    /**
+     * refresh method resets all the graphical components in this layout according to the current state of the game
+     */
     public void refresh(){
 
         fillEntrance(myGame.getSchoolBoardByNick(name).getEntrance().getStudents());
@@ -391,6 +403,9 @@ public class SchoolBoardPane extends GridPane{
         updateCoins();
     }
 
+    /**
+     * updateCoins shows on the SchoolBoard the number of coins a player has, according to the current state of the game
+     */
     public void updateCoins(){
         if(coin == null){
             coin = new StackPane();
@@ -413,6 +428,9 @@ public class SchoolBoardPane extends GridPane{
 
     }
 
+    /**
+     * fillEntrance fills entrance of the SchoolBoard
+     */
     private void fillEntrance(ArrayList<ClientStudent> students){
         int difference = students.size()-entrance.size();
         int maxEntranceRows = myGame.getOrderedNicks().size()==3?5:4;
@@ -438,6 +456,9 @@ public class SchoolBoardPane extends GridPane{
         }
     }
 
+    /**
+     * fillProfessors adds the professor buttons to the GridPane of the diningRoom, corresponding to the professors' table
+     */
     private void fillProfessors(){
         Image prof = null;
 
@@ -469,6 +490,9 @@ public class SchoolBoardPane extends GridPane{
     }
 
 
+    /**
+     * fillTowers fills the tower Area of the SchoolBoard
+     */
     private void fillTowers(){
 
         int towersTotal = myGame.getSchoolBoardByNick(name).getTowers();
@@ -518,6 +542,9 @@ public class SchoolBoardPane extends GridPane{
         }
     }
 
+    /**
+     * fillDiningRoom method fills the diningRoom with buttons that represent the selected students
+     */
     private void fillDiningRoom() {
         ArrayList<ClientStudent> diningStudents = new ArrayList<>(myGame.getSchoolBoardByNick(name).getDiningRooms().getStudents());
         for (int i = 0; i < 5; i++) {
@@ -555,6 +582,13 @@ public class SchoolBoardPane extends GridPane{
         }
     }
 
+    /**
+     * getNodeByCoordinates returns the node located in the coordinates in input
+     *
+     * @param row index of row
+     * @param column index of column
+     * @return Node located in those coordinates
+     */
     private Node getNodeByCoordinate(int row, int column) {
         for (Node node : towers.getChildren()) {
             if(GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column){
@@ -564,6 +598,14 @@ public class SchoolBoardPane extends GridPane{
         return null;
     }
 
+    /**
+     * assignStudentButtonOfColor creates a button for the selected student, and adds it both in the GridPane of the DiningRoom,
+     * and to the buttons contained in the row of the diningRoom table
+     *
+     * @param i the selected row of the diningRoom
+     * @param t the position where I must put my student
+     * @param realStudent the student selected by the client
+     */
     private void assignStudentButtonOfColor(int i, int t, ClientStudent realStudent){
         GridPane students= getGridOfRow(i);
         ArrayList<StudentButton> studentButtons = getButtonsOfRow(i);
@@ -574,6 +616,11 @@ public class SchoolBoardPane extends GridPane{
     }
 
 
+    /**
+     * getButtons of row returns the buttons contained in a certain row of the GridPane representing the diningRoom
+     * @param i index of the row
+     * @return row of buttons
+     */
     private ArrayList<StudentButton> getButtonsOfRow(int i){
         ArrayList<StudentButton> studentButtons = null;
         switch (i+1){
@@ -586,6 +633,11 @@ public class SchoolBoardPane extends GridPane{
         return studentButtons;
     }
 
+    /**
+     * getButtons of row returns the GridPane contained in a certain row of the GridPane representing the entire diningRoom
+     * @param i index of the row
+     * @return the GridPane associated to the row
+     */
     private GridPane getGridOfRow(int i){
         GridPane students= null;
         switch (i+1){

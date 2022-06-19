@@ -13,6 +13,9 @@ import javafx.scene.layout.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * IslandPane is the graphical component that represents the layout of the object on a single Island tile
+ */
 public class IslandPane extends StackPane {
 
     private int islandId;
@@ -24,6 +27,12 @@ public class IslandPane extends StackPane {
     private final Button motherNature;
     private final Label numOfNoEntries;
 
+    /**
+     * Constructor method of the IslandPane class
+     *
+     * @param id the id of the single Island
+     * @param client the client that will interact with the Island
+     */
     public IslandPane(int id, Client client) {
         super();
         islandId = id;
@@ -187,6 +196,10 @@ public class IslandPane extends StackPane {
 
     }
 
+    /**
+     * refresh resets all the graphical assets in this layout according to the current state of the game
+     * @param id the id of the Island
+     */
     public void refresh(int id){
         islandId = id;
         for(DiskColor c: DiskColor.values()){
@@ -239,6 +252,11 @@ public class IslandPane extends StackPane {
         islandImageView.setImage(resource);
     }
 
+    /**
+     * Getter method for islandId
+     *
+     * @return the id of the Island
+     */
     public int getIslandId() {
         return islandId;
     }

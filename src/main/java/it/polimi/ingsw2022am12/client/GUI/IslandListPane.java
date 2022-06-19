@@ -6,11 +6,19 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import java.util.ArrayList;
 
+/**
+ * IslandListPane is the graphical component that displays the 12 islands in circular layout at the beginning of the game
+ */
 public class IslandListPane extends CircularPane{
 
     private final Client client;
     private final ArrayList<IslandPane> islandStacks;
 
+    /**
+     * Constructor method of IslandListPane
+     *
+     * @param client the client that must interact with my scene
+     */
     public IslandListPane(Client client) {
         super();
         this.client = client;
@@ -33,6 +41,9 @@ public class IslandListPane extends CircularPane{
 
     }
 
+    /**
+     * refresh resets all the graphical assets in this pane according to the current state of the game
+     */
     public void refresh(){
         ArrayList<IslandPane> temp = new ArrayList<>(islandStacks);
         for (ClientIsland clientIsland : client.getClientGame().getIslands()) {

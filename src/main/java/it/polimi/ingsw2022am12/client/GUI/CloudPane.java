@@ -13,12 +13,21 @@ import javafx.scene.layout.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * CloudPane is the graphical component that represents the layout of the object on a single Cloud tile
+ */
 public class CloudPane extends StackPane {
 
     private final int cloudId;
     private final Client client;
     private final ArrayList<Label> studentNumberLabels;
 
+    /**
+     * Constructor method of the CloudPane class
+     *
+     * @param id the id of the single Cloud
+     * @param client the client that will interact with the Cloud
+     */
     public CloudPane(int id, Client client){
         super();
         cloudId = id;
@@ -95,6 +104,10 @@ public class CloudPane extends StackPane {
 
     }
 
+    /**
+     * refresh resets all the graphical assets in this layout according to the current state of the game
+     *
+     */
     public void refresh(){
         for(DiskColor c: DiskColor.values()){
             int color = c.getValue();
@@ -102,6 +115,11 @@ public class CloudPane extends StackPane {
         }
     }
 
+    /**
+     * Getter method for cloudId
+     *
+     * @return the id of the Cloud
+     */
     public int getCloudId() {
         return cloudId;
     }

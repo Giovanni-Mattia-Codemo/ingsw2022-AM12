@@ -7,12 +7,21 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * Class that defines the layout of a scene used to represent a part of our table: it contains the 12 islands, the clouds and
+ * the 3 characters randomly drawn at the beginning of the game
+ */
 public class IslandView extends ScrollPane {
 
     private final IslandListPane islandList;
     private final CloudListPane cloudList;
     private final CharacterListPane characters;
 
+    /**
+     * Constructor method of IslandView
+     *
+     * @param client the client that must interact with the scene
+     */
     public IslandView(Client client){
         super();
         StackPane islandCloudStack = new StackPane();
@@ -51,12 +60,20 @@ public class IslandView extends ScrollPane {
 
     }
 
+    /**
+     * refresh method resets all the graphical assets of this pane according to the current state of the game
+     */
     public void refresh(){
         islandList.refresh();
         cloudList.refresh();
         characters.refresh();
     }
 
+    /**
+     * Getter method for islandList
+     *
+     * @return IslandListPane the layout that contains the graphical assets of the islands
+     */
     public IslandListPane getIslandList() {
         return islandList;
     }

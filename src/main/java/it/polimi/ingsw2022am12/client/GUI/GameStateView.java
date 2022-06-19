@@ -14,7 +14,8 @@ import javafx.scene.paint.Color;
 import java.util.*;
 
 /**
- * GameStateView class visualizes the state of the game,in particular it shows the turn order and round number
+ * GameStateView class visualizes the state of the game, in particular it shows the turn order, round number and useful
+ * messages and hints for the player
  */
 public class GameStateView extends VBox {
     private final static int messageListSize = 20;
@@ -49,6 +50,11 @@ public class GameStateView extends VBox {
         setAlignment(Pos.TOP_CENTER);
     }
 
+    /**
+     * Getter method for switcher
+     *
+     * @return the switcher button
+     */
     public Button getSwitcher() {
         return switcher;
     }
@@ -84,12 +90,22 @@ public class GameStateView extends VBox {
         this.players.setText(text+"\n\n");
     }
 
+    /**
+     * refresh resets the numbers shown in the scene according to the current state of the game
+     *
+     * @param client the client that is interacting with my scene
+     */
     public void refresh(Client client){
         setRound(client.getClientGame().getRound());
         setTurn(client.getClientGame().getOrderedNicks().get(client.getClientGame().getTurn()));
         setTurnOrder(client.getClientGame().getOrderedNicks());
     }
 
+    /**
+     * addMessage method gets a communication message and creates a label for it, adding it to the list of messages
+     *
+     * @param msg the communication message I want to show
+     */
     public void addMessage(String msg){
         msg = msg.toUpperCase();
         messageList.getChildren().add(new Label(msg));
@@ -98,6 +114,9 @@ public class GameStateView extends VBox {
         }
     }
 
+    /**
+     * clearMessages deletes from the scene every message
+     */
     public void clearMessages(){
         messageList.getChildren().clear();
     }

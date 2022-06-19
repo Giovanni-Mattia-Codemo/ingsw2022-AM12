@@ -6,7 +6,7 @@ import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 
 /**
- * CircularPane defines a custom type of Pane that is used to display the islands in the GUI View
+ * CircularPane defines a custom type of Pane that is used to display the islands in the GUI View in a circle
  */
 public class CircularPane extends Pane {
 

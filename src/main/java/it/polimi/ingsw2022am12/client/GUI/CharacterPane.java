@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- * CharacterPane class is the graphic component thatrepresents the Character card
+ * CharacterPane class is the graphic component that represents the layout of the Character card itself
  */
 public class CharacterPane extends VBox {
 

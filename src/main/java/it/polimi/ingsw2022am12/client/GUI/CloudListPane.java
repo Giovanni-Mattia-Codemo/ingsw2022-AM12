@@ -43,7 +43,8 @@ public class CloudListPane extends CircularPane {
     }
 
     /**
-     * refresh resets all the graphics for the objects placed on the various clouds in the list
+     * refresh resets all the graphics for the objects placed on the various clouds in the list according to the current
+     * state of the game
      */
     public void refresh(){
         for(ClientStudentCollection i : client.getClientGame().getClouds()){

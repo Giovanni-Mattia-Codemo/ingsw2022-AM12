@@ -52,7 +52,8 @@ public class CharacterListPane extends HBox {
     }
 
     /**
-     * refresh resets all the graphics for the objects placed on the various characters in the list
+     * refresh resets all the graphics for the objects placed on the various characters in the list according to the
+     * current state of the game
      */
     public void refresh(){
         for(CharacterPane p:characters){

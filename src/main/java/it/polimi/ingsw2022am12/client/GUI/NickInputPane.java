@@ -9,8 +9,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 
+/**
+ * Class that defines the layout of a scene used to insert the nick of the player at the beginning of the game
+ */
 public class NickInputPane extends VBox {
 
+    /**
+     * Constructor method of NickInputPane
+     *
+     * @param client the client that must interact with the scene
+     */
     public NickInputPane(Client client){
         super();
         Label nickInsert = new Label("Insert your nick for the game");

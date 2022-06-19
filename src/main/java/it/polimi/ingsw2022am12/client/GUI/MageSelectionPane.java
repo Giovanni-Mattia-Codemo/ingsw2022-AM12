@@ -15,8 +15,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
 
+/**
+ * Class that defines the layout of a scene used to choose the mage of the player at the beginning of the game
+ */
 public class MageSelectionPane extends VBox {
 
+    /**
+     * Constructor method of MageSelectionPane
+     *
+     * @param myClient the client that must interact with the scene
+     */
     public MageSelectionPane(Client myClient){
         super();
         setBackground(new Background(new BackgroundFill(Color.WHEAT, CornerRadii.EMPTY, Insets.EMPTY)));

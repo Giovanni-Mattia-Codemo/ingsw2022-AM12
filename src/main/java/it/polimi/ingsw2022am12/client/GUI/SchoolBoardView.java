@@ -9,10 +9,18 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import java.util.ArrayList;
 
+/**
+ * Class that defines the layout of a scene used to represent a part of our table: it contains the SchoolBoards of our players
+ */
 public class SchoolBoardView extends ScrollPane{
 
     private final ArrayList<SchoolBoardContainer> schools;
 
+    /**
+     * Constructor method of SchoolBoardView
+     *
+     * @param client the client that must interact with the scene
+     */
     public SchoolBoardView(Client client){
         super();
         schools= new ArrayList<>();
@@ -44,6 +52,10 @@ public class SchoolBoardView extends ScrollPane{
         setContent(box);
 
     }
+
+    /**
+     * refresh method resets all the graphical assets of this pane according to the current state of the game
+     */
     public void refresh(){
         for (SchoolBoardContainer s:schools
              ) {

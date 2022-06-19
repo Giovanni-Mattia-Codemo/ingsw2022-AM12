@@ -11,6 +11,11 @@ import javafx.scene.paint.Color;
 import java.util.HashMap;
 import java.util.Objects;
 
+/**
+ * IslandListPane is the graphical component that represents the area around my schoolBoard (the schoolBoard itself, the tag with
+ * the name of the player, the last played assistant and the assistants, deck...)
+ *
+ */
 public class SchoolBoardContainer extends GridPane {
 
     private static HashMap<Integer, Image> assistantImages;
@@ -22,6 +27,12 @@ public class SchoolBoardContainer extends GridPane {
     private final Button lastPlayedAssistant;
     boolean mageIsUpToDate = false;
 
+    /**
+     * Constructor method of SchoolBoardContainer
+     *
+     * @param nick of the player
+     * @param client that must interact with the schoolBoard
+     */
     public SchoolBoardContainer(String nick, Client client){
         super();
         this.client = client;
@@ -136,9 +147,12 @@ public class SchoolBoardContainer extends GridPane {
         }
     }
 
+    /**
+     * updateMage method updates the graphics of the mage according to the selection of the player
+     */
     private void updateMage(){
 
-        Image back = null;
+        Image back;
         int mageNumber = client.getClientGame().getSchoolBoardByNick(nick).getMage();
         switch (mageNumber){
             case 0->back = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/CarteTOT_back_1@3x.png")).toString());
@@ -154,6 +168,9 @@ public class SchoolBoardContainer extends GridPane {
         mageIsUpToDate = true;
     }
 
+    /**
+     * updatePlayedAssistant method updates the graphics of the lastPlayedAssistant according to the current state of the game
+     */
     private void updatePlayedAssistant(){
         Image assistant = null;
 

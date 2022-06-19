@@ -20,6 +20,9 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * class that creates the window that will display all the scenes necessary to play the game using a Graphic Interface
+ */
 public class GUIView implements View, Runnable{
 
     private final Client client;
@@ -36,14 +39,18 @@ public class GUIView implements View, Runnable{
     private Image initialSceneImage;
 
     /**
-     * Constructor for setting the game
+     * Constructor method for GUIView
      *
-     *
+     * @param client the client that will interact with this View
      */
     public GUIView(Client client){
         this.client = client;
     }
 
+    /**
+     * run method creates the primary window of the game, and runs all the necessary methods to initiate the match, or to
+     * handle every possible problem which may occur (Server going down, match already full...)
+     */
     @Override
     public void run() {
         primary = new Stage();
@@ -63,8 +70,12 @@ public class GUIView implements View, Runnable{
         setGameStateView();
     }
 
-
-
+    /**
+     * method that updates the GUI View based on the current state of the game
+     *
+     * @param game the current state of the game
+     * @param flag an update flag that signals the main changes
+     */
     @Override
     public void updateGameView(ClientGame game, UpdateFlag flag) {
         switch (flag.getFlag()){
@@ -74,6 +85,10 @@ public class GUIView implements View, Runnable{
         }
     }
 
+    /**
+     * method that resets the graphical assets in the scene that displays the islands according to the current state of
+     * the game
+     */
     private void islandsRefresh(){
         if(afterFirstUpdate) {
             islandView.refresh();
@@ -83,6 +98,10 @@ public class GUIView implements View, Runnable{
         }
     }
 
+    /**
+     * method that resets the graphical assets in the scene that displays the schoolBoards according to the current state
+     * of the game
+     */
     private void schoolsRefresh(){
         if(afterFirstUpdate) {
             mySchools.refresh();
@@ -92,6 +111,10 @@ public class GUIView implements View, Runnable{
         }
     }
 
+    /**
+     * method that resets the graphical assets in both the scene that displays the schoolBoards, and the scene that
+     * displays the islands, according to the current state of the game
+     */
     private void refreshAll(){
         if(afterFirstUpdate) {
             mySchools.refresh();
@@ -102,6 +125,10 @@ public class GUIView implements View, Runnable{
         }
     }
 
+    /**
+     * viewControlMessages method sets a different scene for every message contained in the list of ControlMessages
+     * @param msg the list of ControlMessages
+     */
     @Override
     public void viewControlMessages(ArrayList<ControlMessages> msg) {
         for(ControlMessages message: msg) {
@@ -184,6 +211,9 @@ public class GUIView implements View, Runnable{
         }
     }
 
+    /**
+     * method that sets the scene in which the player must input his name on the stage at the beginning of the game
+     */
     private void setNickInputScene(){
         StackPane pane = new StackPane();
         ImageView initialSceneImageView = new ImageView(initialSceneImage);
@@ -197,6 +227,9 @@ public class GUIView implements View, Runnable{
         nickInputScene = new Scene(pane, 600, 450);
     }
 
+    /**
+     * method that sets the scene in which the player must input the number of players and mode on the stage at the beginning of the game
+     */
     private void setGameSettingsScene(){
         StackPane pane = new StackPane();
         ImageView initialSceneImageView = new ImageView(initialSceneImage);
@@ -211,6 +244,9 @@ public class GUIView implements View, Runnable{
 
     }
 
+    /**
+     * method that sets the scene that announces to the player that he must wait for the game to be set
+     */
     private void setTryAgain(){
         StackPane pane = new StackPane();
         ImageView initialSceneImageView = new ImageView(initialSceneImage);
@@ -228,6 +264,9 @@ public class GUIView implements View, Runnable{
         tryAgainLater = new Scene(pane, 600, 450);
     }
 
+    /**
+     * setIslandScene shows the scene that represents the part of the table with the islands, clouds and characters
+     */
     private void setIslandScene(){
         activeViewContent.getChildren().remove(islandView);
         islandView = new IslandView(client);
@@ -235,6 +274,9 @@ public class GUIView implements View, Runnable{
         HBox.setHgrow(islandView, Priority.NEVER);
     }
 
+    /**
+     * method that sets the scene that announces to the player that the game is starting, and he must wait for his turn
+     */
     private void setMatchIsStartingScene(){
         StackPane pane = new StackPane();
         ImageView initialSceneImageView = new ImageView(initialSceneImage);
@@ -252,6 +294,9 @@ public class GUIView implements View, Runnable{
         matchIsStartingScene = new Scene(pane, 600, 450);
     }
 
+    /**
+     * method that sets the scene that announces to the player that the game has ended
+     */
     private void setEndMatchScene(ControlMessages message){
         StackPane pane = new StackPane();
         ImageView initialSceneImageView = new ImageView(initialSceneImage);
@@ -276,6 +321,9 @@ public class GUIView implements View, Runnable{
 
     }
 
+    /**
+     * switchScene method is used to switch from the IslandView scene and the SchoolBoardView scene
+     */
     public void switchScene(){
         Node active = activeViewContent.getChildren().remove(1);
         if(active==mySchools){
@@ -286,6 +334,9 @@ public class GUIView implements View, Runnable{
         }
     }
 
+    /**
+     * setIslandScene shows the scene that represents the part of the table with the schoolBoards
+     */
     private void setSchoolScene(){
         activeViewContent.getChildren().remove(mySchools);
         mySchools = new SchoolBoardView(client);
@@ -293,6 +344,10 @@ public class GUIView implements View, Runnable{
         HBox.setHgrow(mySchools, Priority.NEVER);
     }
 
+    /**
+     * setIslandScene shows the scene that represents every useful information about the game (number of the round, number
+     * of the turn, messages shown to the player...)
+     */
     private void setGameStateView(){
         gameStateView = new GameStateView();
         activeViewContent = new HBox();
@@ -304,6 +359,10 @@ public class GUIView implements View, Runnable{
 
     }
 
+    /**
+     * setWaitingQueueScene method creates a new scene in my window, used to signal that the name I chose was already chosen,
+     * so I must select another
+     */
     private void setTryAnother(){
         StackPane pane = new StackPane();
         ImageView initialSceneImageView = new ImageView(initialSceneImage);
@@ -323,6 +382,10 @@ public class GUIView implements View, Runnable{
         tryAnother = new Scene(pane, 600, 450);
     }
 
+    /**
+     * setWaitingQueueScene method creates a new scene in my window, used to signal that there are other players logging in,
+     * so I must wait
+     */
     private void setWaitingQueueScene(){
         StackPane pane = new StackPane();
         ImageView initialSceneImageView = new ImageView(initialSceneImage);
@@ -340,6 +403,10 @@ public class GUIView implements View, Runnable{
         waitingQueueScene = new Scene(pane, 600, 450);
     }
 
+    /**
+     * setGameIsFullScene method creates a new scene in my window, used to signal that the current instance of the game
+     * is already full
+     */
     private void setGameIsFullScene(){
         StackPane pane = new StackPane();
         ImageView initialSceneImageView = new ImageView(initialSceneImage);
@@ -362,10 +429,17 @@ public class GUIView implements View, Runnable{
         gameIsFullScene = new Scene(pane, 600, 450);
     }
 
+    /**
+     * setPickMageScene method creates a Mage selection scene in my window
+     */
     private void setPickMageScene(){
         pickMageScene = new Scene(new MageSelectionPane(client), 500, 300);
     }
 
+    /**
+     * setServerDownScene method creates a new scene in my window, used to signal that the server has gone down, therefore
+     * it's not possible to stay connected; it still gives the option to try and reconnect to server using a button
+     */
     public void setServerDownScene(){
         StackPane pane = new StackPane();
         ImageView initialSceneImageView = new ImageView(initialSceneImage);
@@ -389,6 +463,9 @@ public class GUIView implements View, Runnable{
         serverDownScene = new Scene(pane, 600, 450);
     }
 
+    /**
+     * method that represents the prompt used to show the serverDownScene
+     */
     @Override
     public void connectionFailedPrompt(){
         Platform.runLater(()->{
