@@ -4,7 +4,6 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
-
 import java.util.Objects;
 
 public class NoEntryImage extends Button {

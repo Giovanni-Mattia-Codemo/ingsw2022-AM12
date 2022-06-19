@@ -122,8 +122,8 @@ public class SchoolBoardPane extends GridPane{
 
         for (int rowIndex = 0; rowIndex < 5; rowIndex++) {
             RowConstraints rc = new RowConstraints();
-            rc.setVgrow(Priority.NEVER) ; // allow row to grow
-            rc.setFillHeight(true); // ask nodes to fill height for row
+            rc.setVgrow(Priority.NEVER);
+            rc.setFillHeight(true);
             rc.prefHeightProperty().bind(diningRoom.heightProperty().multiply(0.1));
             diningRoom.getRowConstraints().add(rc);
         }
@@ -177,14 +177,10 @@ public class SchoolBoardPane extends GridPane{
 
             for(int t = 0; t<10; t++){
                 ColumnConstraints cc = new ColumnConstraints();
-                cc.setHgrow(Priority.NEVER) ; // allow column to grow
-                cc.setFillWidth(true); // ask nodes to fill space for column
+                cc.setHgrow(Priority.NEVER);
+                cc.setFillWidth(true);
                 cc.prefWidthProperty().bind(room.heightProperty());
                 students.getColumnConstraints().add(cc);
-
-
-
-                //student.setOnAction(e-> System.out.println("Student button"));
             }
 
             students.hgapProperty().bind(this.widthProperty().divide(250));
@@ -239,12 +235,11 @@ public class SchoolBoardPane extends GridPane{
 
         for (int colIndex = 1; colIndex < 2; colIndex++) {
             ColumnConstraints cc = new ColumnConstraints();
-            cc.setHgrow(Priority.NEVER) ; // allow column to grow
-            cc.setFillWidth(true); // ask nodes to fill space for column
+            cc.setHgrow(Priority.NEVER);
+            cc.setFillWidth(true);
             cc.prefWidthProperty().bind(professors.heightProperty().multiply(0.10));
             professors.getColumnConstraints().add(cc);
         }
-
 
         professors.hgapProperty().bind(this.widthProperty().divide(200));
         professors.vgapProperty().bind(this.heightProperty().divide(16));
@@ -267,8 +262,8 @@ public class SchoolBoardPane extends GridPane{
 
         for (int rowIndex = 0; rowIndex < 4; rowIndex++) {
             RowConstraints rc = new RowConstraints();
-            rc.setVgrow(Priority.NEVER) ; // allow row to grow
-            rc.setFillHeight(true); // ask nodes to fill height for row
+            rc.setVgrow(Priority.NEVER);
+            rc.setFillHeight(true);
             rc.prefHeightProperty().bind(towers.heightProperty().divide(8.0));
             towers.getRowConstraints().add(rc);
         }
@@ -286,13 +281,11 @@ public class SchoolBoardPane extends GridPane{
 
         for (int colIndex = 1; colIndex < 3; colIndex++) {
             ColumnConstraints cc = new ColumnConstraints();
-            cc.setHgrow(Priority.NEVER) ; // allow column to grow
-            cc.setFillWidth(true); // ask nodes to fill space for column
+            cc.setHgrow(Priority.NEVER);
+            cc.setFillWidth(true);
             cc.prefWidthProperty().bind(towers.heightProperty().divide(8.0));
             towers.getColumnConstraints().add(cc);
         }
-
-
 
         towers.hgapProperty().bind(this.widthProperty().divide(55));
         towers.vgapProperty().bind(this.heightProperty().divide(28));
@@ -544,10 +537,8 @@ public class SchoolBoardPane extends GridPane{
                         alreadyPresent = true;
                         break;
                     }
-
                 }
 
-                StudentButton student;
                 ClientStudent realStudent = null;
                 for (ClientStudent s : diningStudents) {
                     if (s.getColor().getValue() == i) {
@@ -556,39 +547,12 @@ public class SchoolBoardPane extends GridPane{
                         break;
                     }
                 }
+                if(realStudent!=null){
+                    if(!alreadyPresent){
+                        assignStudentButtonOfColor(i,t,realStudent);
 
-                if(!alreadyPresent){
-                    if (realStudent != null) {
-                        switch (i + 1) {
-                            case 1 -> {
-                                student = new StudentButton(realStudent, client);
-                                students.add(student, t, 0);
-                                greenDiningStudents.add(student);
-
-                            }
-                            case 2 -> {
-                                student = new StudentButton(realStudent, client);
-                                students.add(student, t, 0);
-                                redDiningStudents.add(student);
-                            }
-                            case 3 -> {
-                                student = new StudentButton(realStudent, client);
-                                students.add(student, t, 0);
-                                yellowDiningStudents.add(student);
-                            }
-                            case 4 -> {
-                                student = new StudentButton(realStudent, client);
-                                students.add(student, t, 0);
-                                pinkDiningStudents.add(student);
-                            }
-                            case 5 -> {
-                                student = new StudentButton(realStudent, client);
-                                students.add(student, t, 0);
-                                blueDiningStudents.add(student);
-                            }
-                            default -> {
-                            }
-                        }
+                    }else {
+                        student.setNewStudent(realStudent);
                     }
                 }
             }

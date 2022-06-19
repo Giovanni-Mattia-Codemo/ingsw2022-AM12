@@ -58,7 +58,7 @@ public class PrincessAction extends PossibleAction {
     @Override
     public void useAction(Game game) {
         game.moveStudentFromCardToRoom(((Student)score.get(1)).getColor());
-        game.getActiveCharacterCard().setWasUsed(true);
+        ((CharacterPrincess)game.getActiveCharacterCard()).setWasUsed(true, game);
     }
     
     

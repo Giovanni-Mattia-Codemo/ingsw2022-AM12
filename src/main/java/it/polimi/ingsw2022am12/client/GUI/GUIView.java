@@ -140,6 +140,7 @@ public class GUIView implements View, Runnable{
                     Platform.runLater(()->{
                         setSchoolScene();
                         setIslandScene();
+                        gameStateView.refresh(client);
                         activeViewContent.getChildren().add(mySchools);
                         primary.setScene(matchIsStartingScene);
                     });

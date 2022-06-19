@@ -40,7 +40,7 @@ public class AssistantSelectionWindow implements Window {
 
         window.setOnCloseRequest(e -> closeProgram(window));
 
-        Label label = new Label("Select an Assistant:");
+        Label label = new Label("Select an Assistant");
         label.setFont(new Font("Algerian", 25));
 
         VBox layout = new VBox();

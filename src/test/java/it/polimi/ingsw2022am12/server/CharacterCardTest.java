@@ -30,14 +30,14 @@ public class CharacterCardTest {
         //getName
         Assertions.assertEquals(CharacterName.CHARACTER_BEGGAR, testCard.getName());
         //getWasUsed
-        Assertions.assertFalse(testCard.wasPayedBefore());
+        Assertions.assertFalse(testCard.getCoin());
         //insertCoin
         Coin testCoin = new Coin();
         testCard.insertCoin(testCoin);
         Assertions.assertEquals(2, testCard.getCost());
         //setWasUsed
         testCard.setWasUsed(true);
-        Assertions.assertTrue(testCard.wasPayedBefore());
+        Assertions.assertTrue(testCard.getCoin());
         //getPossibleAction
         Assertions.assertNull(testCard.getPossibleAction());
         //getWasUsed

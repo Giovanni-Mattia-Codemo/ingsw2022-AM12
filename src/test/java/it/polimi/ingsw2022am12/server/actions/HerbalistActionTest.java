@@ -37,9 +37,6 @@ public class HerbalistActionTest {
 
         ArrayList<Selectable> input = new ArrayList<>();
         testCharacter.getUserSelectionsMessage();
-        Selectable noEntry = ((CharacterHerbalist)testGame.getActiveCharacterCard()).getNoEntryCollection().getFirstNoEntry();
-        input.add(noEntry);
-        testCharacter.getUserSelectionsMessage();
         int motherNatureIndex = testGame.getIslandList().getMotherNatureIndex();
         Selectable motherNatureIsland = testGame.getIslandList().getByIndex(motherNatureIndex);
         input.add(testGame.getActiveCharacterCard());
@@ -52,33 +49,6 @@ public class HerbalistActionTest {
 
         testCharacter.useAction(testGame);
         Assertions.assertFalse(testGame.getIslandList().getByIndex(motherNatureIndex).getNoEntries().isEmpty());
-    }
-
-    /**
-     * checkCheckInputValidityHALFOK1 creates an instance of the game with two players and sets it up; it then gets an
-     * HerbalistCard and activates it; a NoEntry is selected and placed in the input
-     * ArrayList, then we check if checkInputValidity returns HALFOK
-     *
-     */
-    @Test
-    public void checkCheckInputValidityHALFOK1(){
-        HerbalistAction testCharacter = new HerbalistAction();
-        ArrayList<String> nicks = new ArrayList<>();
-        nicks.add("Nick1");
-        nicks.add("Nick2");
-        Game testGame = new Game(nicks, true);
-        testGame.setUp();
-        testGame.collectCoin();
-        testGame.addCharacter(3);
-        testGame.payAndSetActiveCharacter(CharacterName.CHARACTER_HERBALIST);
-
-        ArrayList<Selectable> input = new ArrayList<>();
-        Selectable noEntry = ((CharacterHerbalist)testGame.getActiveCharacterCard()).getNoEntryCollection().getFirstNoEntry();
-        input.add(testGame.getActiveCharacterCard());
-        input.add(noEntry);
-
-        testCharacter.setSelectables(testGame);
-        Assertions.assertEquals(ActionStep.HALFOK, testCharacter.checkInputValidity(input));
     }
 
     /**

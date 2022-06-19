@@ -20,7 +20,7 @@ import java.util.Objects;
 public class StudentButton extends Button{
 
     private DiskColor color;
-    private Client client;
+    private final Client client;
     private ClientStudent myStudent;
     private static HashMap<DiskColor, Image> images;
     private ImageView myView;

@@ -17,7 +17,7 @@ public class HerbalistAction extends PossibleAction {
      * Constructor method of HerbalistAction class
      */
     public HerbalistAction(){
-        super(3);
+        super(2);
     }
 
     /**
@@ -27,13 +27,10 @@ public class HerbalistAction extends PossibleAction {
      */
     @Override
     public void setSelectables(Game game) {
-        ArrayList<Selectable> result = new ArrayList<>(((CharacterHerbalist) game.getActiveCharacterCard()).getNoEntryCollection().getAllNoEntries());
         ArrayList<Selectable> character = new ArrayList<>();
         character.add(game.getActiveCharacterCard());
-
         selectables.put(0, character);
-        selectables.put(1, result);
-        selectables.put(2, game.getIslandList().getIslandsAsSelectable());
+        selectables.put(1, game.getIslandList().getIslandsAsSelectable());
     }
 
     /**
@@ -49,8 +46,6 @@ public class HerbalistAction extends PossibleAction {
             messages.add(ControlMessages.CHARACTERCARD);
         }else if(!score.containsKey(1)){
             messages.add(ControlMessages.HERBALISTACTION1);
-        }else if(!score.containsKey(2)){
-            messages.add(ControlMessages.HERBALISTACTION2);
         }
         return messages;
     }
@@ -62,7 +57,7 @@ public class HerbalistAction extends PossibleAction {
      */
     @Override
     public void useAction(Game game) {
-        game.insertNoEntry(((IslandTileSet)score.get(2)).getID());
+        game.insertNoEntry(((IslandTileSet)score.get(1)).getID());
         game.getActiveCharacterCard().setWasUsed(true);
     }
 }

@@ -30,7 +30,7 @@ public abstract class CharacterCard implements Selectable {
     }
 
     public void setAdditionalCoins(){
-        insertCoin(new Coin());
+        this.additionalCoins.insertElement(new Coin());
     }
 
     /**
@@ -69,15 +69,6 @@ public abstract class CharacterCard implements Selectable {
      */
     public boolean getWasUsed(){
         return wasUsed;
-    }
-
-    /**
-     * Method wasPlayedBefore tells if the character was already used
-     *
-     * @return true if the character was already used, false otherwise
-     */
-    public boolean wasPayedBefore(){
-        return additionalCoins.size()==1;
     }
 
     /**

@@ -753,20 +753,30 @@ public class Game{
                 collectCoin();    //I can collect a coin for each 3 students of the same color in my diningRoom
             }
 
-            SchoolBoard owner = professors[student.getColor().getValue()];
-            if(owner!= null&&getActiveCharacterName()==CharacterName.CHARACTER_HOST) {
-                if (owner.getStudentsInRoomByColor(student.getColor()) <= s.getStudentsInRoomByColor(student.getColor())) {
-                    owner = s;   //the professor of a color is already owned, but Host card has been played the current player has more(or THE SAME) students of that color, so he becomes the new owner
-                }
-            }else if(owner!= null) {
-                if (owner.getStudentsInRoomByColor(student.getColor()) < s.getStudentsInRoomByColor(student.getColor())) {
-                    owner = s;   //the professor of a color is already owned, but the current player has more students of that color, so he becomes the new owner
-                }
-            }else owner = s;   //the professors have no owner yet, they go to my current player
-
-            professors[student.getColor().getValue()]=owner;
+            updateProfessor(colorInEntrance);
             disksMovedThisTurn++;  //this variable checks the number of students I moved in a turn, so that I don't move more than it's due
         }
+    }
+
+    /**
+     * Method updateProfessor updates the current position of the professor of a certain color
+     *
+     * @param color of the professor to update
+     */
+    private void updateProfessor(DiskColor color){
+        SchoolBoard s = getCurrentSchoolBoard();
+        SchoolBoard owner = professors[color.getValue()];
+        if(owner!= null&&getActiveCharacterName()==CharacterName.CHARACTER_HOST) {
+            if (owner.getStudentsInRoomByColor(color) <= s.getStudentsInRoomByColor(color)) {
+                owner = s;   //the professor of a color is already owned, but Host card has been played the current player has more(or THE SAME) students of that color, so he becomes the new owner
+            }
+        }else if(owner!= null) {
+            if (owner.getStudentsInRoomByColor(color) < s.getStudentsInRoomByColor(color)) {
+                owner = s;   //the professor of a color is already owned, but the current player has more students of that color, so he becomes the new owner
+            }
+        }else owner = s;   //the professors have no owner yet, they go to my current player
+
+        professors[color.getValue()]=owner;
     }
 
     /**
