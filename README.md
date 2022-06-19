@@ -6,14 +6,14 @@ Cristiana Calvaresi cristiana.calvaresi@mail.polimi.it
 
 | Functionality    |                       State                        |
 |:-----------------|:--------------------------------------------------:|
-| Basic rules      | 🟡 |
-| Complete rules   | 🟡 |
-| Socket           | 🟡 |
+| Basic rules      | 🟢 |
+| Complete rules   | 🟢 |
+| Socket           | 🟢 |
 | GUI              | 🟡 |
-| CLI              | 🟡 |
+| CLI              | 🟢 |
 | Four players     | 🟡 |
-| Persistence      | 🟡 |
-| All Characters   | 🟡 |
+| Persistence      | 🟢 |
+| All Characters   | 🟢 |
 
 🔴
 🟢
