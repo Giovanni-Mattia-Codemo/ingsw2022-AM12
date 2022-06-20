@@ -22,6 +22,13 @@ public class StudentDiskCollection implements Position, Selectable {
         numOfStudentCollections++;
 
     }
+
+    /**
+     * Constructor method of StudentDiskCollection
+     *
+     * @param students contained in the collection
+     * @param id of the collection
+     */
     public StudentDiskCollection(ArrayList<Student> students, int id){
         this.students = new ArrayList<>(students);
         this.id = id;

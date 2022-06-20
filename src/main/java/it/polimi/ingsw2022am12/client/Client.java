@@ -102,6 +102,11 @@ public class Client {
         connect();
     }
 
+    /**
+     * controlMessageToView deletes the instance of the game from the client's side in case of a disconnection (or in case the
+     * match has ended, whether the player is the winner or not) and visualizes the message for this client
+     * @param msg the message in input
+     */
     public void controlMessageToView(ArrayList<ControlMessages> msg){
         if(msg.contains(ControlMessages.DISCONNECTION)|| msg.contains(ControlMessages.WINNER)||msg.contains(ControlMessages.LOSER)){
             clientGame = null;
@@ -129,6 +134,11 @@ public class Client {
         view.updateGameView(clientGame, flag);
     }
 
+    /**
+     * updateLastSavedGame creates a new game instance of the client from the current one if there isn't one already, else
+     * it just updates the last saved game
+     * @param newGame the new state of the game
+     */
     public void updateLastSavedGame(ClientGame newGame){
         newClientGame = newGame;
         if(clientGame== null){
@@ -136,6 +146,10 @@ public class Client {
         }
     }
 
+    /**
+     * Getter method for clientGame
+     * @return the client's game
+     */
     public ClientGame getClientGame() {
         return clientGame;
     }
@@ -156,6 +170,9 @@ public class Client {
         timer.cancel();
     }
 
+    /**
+     * method connect deals with the remote connection to the server, creating a new socket and exchanging Ping-Pong messages
+     */
     public void connect(){
         try{
             socket = new Socket(ip, port);
@@ -175,14 +192,26 @@ public class Client {
         }
     }
 
+    /**
+     * Setter method for thisClientNick
+     * @param thisClientNick the client's nickname
+     */
     public void setThisClientNick(String thisClientNick) {
         this.thisClientNick = thisClientNick;
     }
 
+    /**
+     * Getter method for thisClientNick
+     * @return the client's nickname
+     */
     public String getThisClientNick() {
         return thisClientNick;
     }
 
+    /**
+     * Method that returns the mages that have not been selected already
+     * @return the id's of the available mages
+     */
     public ArrayList<Integer> availableMages(){
         return clientGame.getAvailableMages();
     }

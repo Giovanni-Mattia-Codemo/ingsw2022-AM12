@@ -16,6 +16,9 @@ public class NoEntry extends PlaceableObject implements Selectable {
         this.characterNoEntryCollection = characterNoEntryCollection;
     }
 
+    /**
+     * Default constructor of NoEntry
+     */
     public NoEntry(){
 
     }
@@ -40,6 +43,10 @@ public class NoEntry extends PlaceableObject implements Selectable {
         return toCompare instanceof NoEntry;
     }
 
+    /**
+     * Setter method for characterNoEntryCollection
+     * @param characterNoEntryCollection the noEntries placed on the card
+     */
     public void setCharacterNoEntryCollection(NoEntryCollection characterNoEntryCollection){
         this.characterNoEntryCollection = characterNoEntryCollection;
     }

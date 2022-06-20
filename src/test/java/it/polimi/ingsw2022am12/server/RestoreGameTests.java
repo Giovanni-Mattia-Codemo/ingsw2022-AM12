@@ -7,8 +7,15 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * RestoreGameTests is a class that tests if the game state can be restored from the saved files correctly
+ */
 public class RestoreGameTests {
 
+    /**
+     * checkSavedIsland creates an instance of an island, an instance a schoolBoard and an instance of the game and checks if
+     * the values have been assigned correctly
+     */
     @Test
     public void checkSavedIsland(){
         StudentDiskCollection studentDiskCollection = new StudentDiskCollection(300);

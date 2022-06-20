@@ -70,6 +70,11 @@ public class ClientStudentCollection {
         return stringStudents;
     }
 
+    /**
+     * getByColor returns the number of students of a certain color
+     * @param color of the students
+     * @return number of students of that colo
+     */
     public int getByColor(DiskColor color){
         return (int) this.students.stream().filter(x->x.getColor()==color).count();
     }

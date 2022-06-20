@@ -69,6 +69,20 @@ public class Game{
     }
 
 
+    /**
+     * Constructor method for Game
+     * @param playerNicks names of the players
+     * @param characterMode if the Expert mode has been selected or not
+     * @param bag the bag from which I will draw the students
+     * @param coins the number of coins in the beginning
+     * @param turnOrder order of the turns in the beginning
+     * @param islands list of islands
+     * @param motherNature the initial index of MotherNature
+     * @param clouds list of clouds
+     * @param teams list of teams
+     * @param professors list of professors
+     * @param characterCards three random Chracters
+     */
     public Game (ArrayList<String> playerNicks, boolean characterMode, Bag bag, int coins, ArrayList<SchoolBoard> turnOrder, ArrayList<IslandTileSet> islands, int motherNature, ArrayList<StudentDiskCollection> clouds, ArrayList<Team> teams, String[] professors, ArrayList<CharacterCard> characterCards){
         this.playerNicks = playerNicks;
         this.numOfPlayers = playerNicks.size();
@@ -109,14 +123,26 @@ public class Game{
 
     }
 
+    /**
+     * Getter method for playerNicks
+     * @return list of the players' names
+     */
     public ArrayList<String> getPlayerNicks() {
         return playerNicks;
     }
 
+    /**
+     * Getter method for bag
+     * @return Bag
+     */
     public Bag getBag() {
         return bag;
     }
 
+    /**
+     * Getter method for disksMovedThisTurn
+     * @return number of disks move this turn
+     */
     public int getDisksMovedThisTurn() {
         return disksMovedThisTurn;
     }
@@ -214,6 +240,11 @@ public class Game{
 
     }
 
+    /**
+     * getCharacterByName returns the CharacterCard with the name in input
+     * @param name of the Character
+     * @return the Character with that name
+     */
     public CharacterCard getCharacterByName(String name){
         for(CharacterCard c:characterCards){
             if(c.getName().toString().equals(name)){
@@ -223,6 +254,10 @@ public class Game{
         return null;
     }
 
+    /**
+     * Getter method for winner
+     * @return winner Team
+     */
     public Team getWinner() {
         return winner;
     }
@@ -496,32 +531,60 @@ public class Game{
         } else return activeCharacterCard.getName();
     }
 
+    /**
+     * Setter method for turn
+     * @param turn number of turn
+     */
     public void setTurn(int turn) {
         this.turn = turn;
     }
 
+    /**
+     * Setter method for round
+     * @param round number of round
+     */
     public void setRound(int round) {
         this.round = round;
     }
 
+    /**
+     * Setter method for isLastRoundFlag
+     * @param lastRoundFlag true if it's the last round, false otherwise
+     */
     public void setLastRoundFlag(boolean lastRoundFlag) {
         isLastRoundFlag = lastRoundFlag;
     }
 
+    /**
+     * Setter method for activeCharacterCard
+     * @param activeCharacterCard name of the active Character
+     */
     public void setActiveCharacterCard(String activeCharacterCard) {
         if(!activeCharacterCard.equals("null")){
            this.activeCharacterCard = getCharacterByName(activeCharacterCard);
         }else this.activeCharacterCard = null;
     }
 
+    /**
+     * Setter method for disksMovedThisTurn
+     * @param disksMovedThisTurn number of disks moved this turn
+     */
     public void setDisksMovedThisTurn(int disksMovedThisTurn) {
         this.disksMovedThisTurn = disksMovedThisTurn;
     }
 
+    /**
+     * Setter method for hasMovedMotherNature
+     * @param hasMovedMotherNature true if Mother Nature has been moved, false otherwise
+     */
     public void setHasMovedMotherNature(boolean hasMovedMotherNature) {
         this.hasMovedMotherNature = hasMovedMotherNature;
     }
 
+    /**
+     * Setter method for currentStrategy
+     * @param phase name of the current phase
+     */
     public void setCurrentStrategy(String phase) {
         switch (phase){
             case "ActionPhase" -> this.currentStrategy = new ActionStrategy();
@@ -957,6 +1020,10 @@ public class Game{
         return hasMovedMotherNature;
     }
 
+    /**
+     * Getter method for the playable assistants
+     * @return the list of assistants that are still playable
+     */
     public ArrayList<Assistant> getPlayableAssistants(){
 
         ArrayList<Assistant> playable = new ArrayList<>(getCurrentSchoolBoard().getRemainingAssistants());

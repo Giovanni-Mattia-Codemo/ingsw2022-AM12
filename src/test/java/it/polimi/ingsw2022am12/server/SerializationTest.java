@@ -17,7 +17,7 @@ import java.util.Map;
 public class SerializationTest {
 
     /**
-     *test() method is mainly used to test the main features of GSON and JSON and use them in a setup of an ipothetical game
+     *test() method is mainly used to test the main features of GSON and JSON and use them in a setup of a hypothetical game
      */
     @Test
     public void test(){

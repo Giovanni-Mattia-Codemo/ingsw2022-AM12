@@ -18,7 +18,7 @@ public class CharacterPrincess extends CharacterCard {
     private static final int princessStudents= 4;
 
     /**
-     * Constructor method of the CharacterPrincess class
+     * Default constructor method of the CharacterPrincess class
      *
      */
     public CharacterPrincess(){
@@ -26,6 +26,10 @@ public class CharacterPrincess extends CharacterCard {
         students = new StudentDiskCollection();
     }
 
+    /**
+     * Constructor method of the CharacterPrincess class
+     * @param students the students to place on this card
+     */
     public CharacterPrincess(StudentDiskCollection students){
         super(CharacterName.CHARACTER_PRINCESS, 2);
         this.students = students;

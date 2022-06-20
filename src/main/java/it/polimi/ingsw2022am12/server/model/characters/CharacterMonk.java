@@ -18,7 +18,7 @@ public class CharacterMonk extends CharacterCard {
     private static final int monkStudents= 4;
 
     /**
-     * Constructor method of the CharacterMonk class
+     * Default constructor method of the CharacterMonk class
      *
      */
     public CharacterMonk(){
@@ -26,6 +26,10 @@ public class CharacterMonk extends CharacterCard {
         students = new StudentDiskCollection();
     }
 
+    /**
+     * Constructor method of the CharacterMonk class
+     * @param students the students to place on this card
+     */
     public CharacterMonk(StudentDiskCollection students){
         super(CharacterName.CHARACTER_MONK, 1);
         this.students = students;

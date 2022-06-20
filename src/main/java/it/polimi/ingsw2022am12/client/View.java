@@ -26,5 +26,8 @@ public interface View {
      */
     void updateGameView(ClientGame game, UpdateFlag flag);
 
+    /**
+     * connectionFailedPrompt sends a prompt in case the connection to the server has failed
+     */
     void connectionFailedPrompt();
 }

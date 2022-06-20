@@ -17,7 +17,6 @@ public class Assistant implements Selectable {
      * @param motherNatureRange; integer number, determines the MAXIMUM amount of "jumps" MotherNature can make
      *                                    from tile to tile
      */
-
     public Assistant(int turnPower, int motherNatureRange) {
         this.turnPower = turnPower;
         this.motherNatureRange = motherNatureRange;

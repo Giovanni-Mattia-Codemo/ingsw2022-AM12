@@ -16,7 +16,7 @@ public class CharacterJester extends CharacterCard {
     private final StudentDiskCollection students;
 
     /**
-     * Constructor method of the CharacterJester class
+     * Default constructor method of the CharacterJester class
      *
      */
     public CharacterJester(){
@@ -24,6 +24,11 @@ public class CharacterJester extends CharacterCard {
         students = new StudentDiskCollection();
     }
 
+    /**
+     * Constructor method of the CharacterJester class
+     * @param students the students to place on the card
+     * @param movesDone number of moves done
+     */
     public CharacterJester(StudentDiskCollection students, int movesDone){
         super(CharacterName.CHARACTER_JESTER, 1);
         this.students = students;
@@ -81,6 +86,11 @@ public class CharacterJester extends CharacterCard {
         }
     }
 
+    /**
+     * Getter method for movesDone
+     *
+     * @return number of moves done
+     */
     public int getMovesDone() {
         return movesDone;
     }

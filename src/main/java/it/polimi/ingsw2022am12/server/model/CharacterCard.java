@@ -25,10 +25,17 @@ public abstract class CharacterCard implements Selectable {
         additionalCoins = new CoinCollection();
     }
 
+    /**
+     * Setter method for cost
+     * @param cost the cost of the card
+     */
     public void setCost(int cost) {
         this.cost = cost;
     }
 
+    /**
+     * setAdditionalCoins adds a new coin to card
+     */
     public void setAdditionalCoins(){
         this.additionalCoins.insertElement(new Coin());
     }
@@ -117,6 +124,11 @@ public abstract class CharacterCard implements Selectable {
         return additionalCoins.size() > 0;
     }
 
+    /**
+     * method that sets the wasUsed value of a card to true/false
+     *
+     * @param usage boolean value that determines if the card was used or not
+     */
     public void setUsage( boolean usage){
         wasUsed= usage;
     }

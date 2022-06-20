@@ -144,6 +144,10 @@ public class ClientGame {
         this.professors[i] = professor;
     }
 
+    /**
+     * Setter method for orderedNicks
+     * @param orderedNicks the nicknames in order
+     */
     public void setOrderedNicks(ArrayList<String> orderedNicks) {
         this.orderedNicks = orderedNicks;
     }
@@ -192,6 +196,10 @@ public class ClientGame {
         return  null;
     }
 
+    /**
+     * Getter method for islands
+     * @return the list of islands in this current instance of the client's game
+     */
     public ArrayList<ClientIsland> getIslands() {
         return islands;
     }
@@ -215,6 +223,10 @@ public class ClientGame {
         return null;
     }
 
+    /**
+     * Getter method for clouds
+     * @return the list of clouds in this current instance of the client's game
+     */
     public ArrayList<ClientStudentCollection> getClouds() {
         return clouds;
     }
@@ -285,6 +297,10 @@ public class ClientGame {
         return  null;
     }
 
+    /**
+     * Getter method for characters
+     * @return the list of characters in this current instance of the client's game
+     */
     public ArrayList<ClientCharacter> getCharacters() {
         return characters;
     }
@@ -305,6 +321,10 @@ public class ClientGame {
         return professors;
     }
 
+    /**
+     * Getter method for schoolBoards
+     * @return the list of schoolBoards in this current instance of the client's game
+     */
     public ArrayList<ClientSchoolBoard> getSchoolBoards(){
         return schoolBoards;
     }
@@ -317,10 +337,19 @@ public class ClientGame {
         return isLastRound;
     }
 
+    /**
+     * Getter method for teams
+     * @return the list of teams in this current instance of the client's game
+     */
     public ArrayList<ClientTeam> getTeams() {
         return teams;
     }
 
+    /**
+     * getTeamByNick returns the Team to which a certain player belongs
+     * @param nick of the player
+     * @return team to which the player belongs
+     */
     public ClientTeam getTeamByNick(String nick){
         for(ClientTeam team : teams){
             if(team.getPlayer1().equals(nick)||team.getPlayer2().equals(nick)){
@@ -330,6 +359,10 @@ public class ClientGame {
         return null;
     }
 
+    /**
+     * Getter method for the available mages
+     * @return the list of available mages in this current instance of the client's game
+     */
     public ArrayList<Integer> getAvailableMages(){
         ArrayList<Integer> availableMages = new ArrayList<>();
         availableMages.add(0);

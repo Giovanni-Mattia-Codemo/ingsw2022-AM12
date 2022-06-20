@@ -35,6 +35,17 @@ public class SchoolBoard{
 
     }
 
+    /**
+     * Constructor method of SchoolBoard class
+     * @param name of the player
+     * @param mage of the player
+     * @param coins owned by the player
+     * @param assistants placed on the SchoolBoard
+     * @param entrance of the SchoolBoard
+     * @param diningRoom of the SchoolBoard
+     * @param towers left in the SchoolBoard
+     * @param lastPlayedAssistant the last assistant played
+     */
     public SchoolBoard(String name , int mage, int coins, ArrayList<Assistant> assistants, StudentDiskCollection entrance, StudentDiskCollection diningRoom, int towers, int lastPlayedAssistant){
         this.nick = name;
         this.towers = new TowerCollection();
@@ -154,6 +165,11 @@ public class SchoolBoard{
         }
     }
 
+    /**
+     *
+     *
+     * @param team that owns the towers in the schoolBoard
+     */
     public void setSavedTowers(Team team){
         for(int i=0; i<savedTowers;i++){
             towers.insertElement(new Tower(team));

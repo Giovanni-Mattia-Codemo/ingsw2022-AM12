@@ -43,7 +43,11 @@ public class Team {
         return schoolBoards;
     }
 
-
+    /**
+     * addNick adds the nick of the player to a list
+     *
+     * @param nick of the player
+     */
     public void addNick(String nick){
         if(nicks==null){
             nicks= new ArrayList<>();
@@ -51,12 +55,21 @@ public class Team {
         nicks.add(nick);
     }
 
+    /**
+     * setSchoolsFromGame adds the schoolBoards to a certain team according to the current state of the game
+     * @param game the current instance of my game
+     */
     public void setSchoolsFromGame(Game game){
         for(String nick: nicks){
             schoolBoards.add(game.getSchoolBoardByNick(nick));
         }
     }
 
+    /**
+     * contains method checks if the schoolBoard in input is in this Team
+     * @param s the schoolBoard I want to check
+     * @return true if the schoolBoard is in the Team, false otherwise
+     */
     public boolean contains(SchoolBoard s){
         for (SchoolBoard sc:schoolBoards
              ) {

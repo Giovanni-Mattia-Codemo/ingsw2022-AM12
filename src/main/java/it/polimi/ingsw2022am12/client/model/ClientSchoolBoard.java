@@ -163,6 +163,11 @@ public class ClientSchoolBoard {
         return powers;
     }
 
+    /**
+     * updateFromSchool updates a current schoolBoard using the data from a new one
+     *
+     * @param schoolBoard the new ClientSchoolBoard
+     */
     public void updateFromSchool(ClientSchoolBoard schoolBoard){
 
         entrance.updateFromCollection(schoolBoard.getEntrance());

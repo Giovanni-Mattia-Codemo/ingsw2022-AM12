@@ -526,6 +526,9 @@ public class GameTest {
 
     }
 
+    /**
+     * checkInsertNoEntry just sets up the game, because the insertion of noEntries is already tested elsewhere
+     */
     @Test
     public void checkInsertNoEntry(){
         ArrayList<String> nicks = new ArrayList<>();

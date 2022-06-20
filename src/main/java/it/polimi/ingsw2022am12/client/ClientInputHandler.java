@@ -19,6 +19,9 @@ import it.polimi.ingsw2022am12.server.model.ColorSelection;
 public class ClientInputHandler {
 
 
+    /**
+     * Default constructor of the ClientInputHandler
+     */
     public ClientInputHandler(){
 
     }

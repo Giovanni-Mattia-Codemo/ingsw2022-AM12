@@ -36,6 +36,16 @@ public class IslandTileSet implements Selectable {
         towers = null;
     }
 
+    /**
+     * Constructor method of IslandTileSet
+     * @param id of the island
+     * @param students on the island
+     * @param noEntryID id of the NoEntry on the island
+     * @param numOfNoEntries number of NoEntries on the island
+     * @param numOfIslands number of the islands that form this set (can go from 1 to 10)
+     * @param savedTowers towers contained on the IslandTileSet
+     * @param owner of the island
+     */
     public IslandTileSet(int id, StudentDiskCollection students, int noEntryID, int numOfNoEntries, int numOfIslands,  int savedTowers, String owner){
         ID = id;
         this.towers = new TowerCollection();
@@ -182,6 +192,10 @@ public class IslandTileSet implements Selectable {
         noEntries.insertElement(noEntry);
     }
 
+    /**
+     * Gtter method for the NoEntry's id
+     * @return the id of my noEntry
+     */
     public int getNoEntryID(){
         return noEntries.getMyId();
     }
@@ -234,6 +248,10 @@ public class IslandTileSet implements Selectable {
         return false;
     }
 
+    /**
+     * fillSavedTowers refills the island with the correct amount of towers according to the current state of the game
+     * @param game the instance of my game
+     */
     public void fillSavedTowers(Game game){
         Team tmp = null;
         for(Team t: game.getTeams()){
@@ -248,6 +266,10 @@ public class IslandTileSet implements Selectable {
         }
     }
 
+    /**
+     * setNoEntryCharacter places all the noEntries on the Herbalist Character
+     * @param characterNoEntryCollection the collection of NoEntries on a character
+     */
     public void setNoEntryCharacter(NoEntryCollection characterNoEntryCollection){
         for(NoEntry e : noEntries.getAllNoEntries()){
             e.setCharacterNoEntryCollection(characterNoEntryCollection);
