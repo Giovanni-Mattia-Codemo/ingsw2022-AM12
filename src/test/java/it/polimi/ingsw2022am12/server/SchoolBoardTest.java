@@ -43,7 +43,9 @@ public class SchoolBoardTest {
     @Test
     public void checkIsDiningRoomFull(){
         SchoolBoard testingBoard = new SchoolBoard("Pietro");
-        Student student0 = new Student(DiskColor.RED);
+        Student student0 = new Student();
+        student0.setColor(DiskColor.RED);
+        student0.setPositionID(1);
         Student student1 = new Student(DiskColor.RED);
         Student student2 = new Student(DiskColor.RED);
         Student student3 = new Student(DiskColor.RED);

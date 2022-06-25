@@ -19,11 +19,13 @@ public class NoEntryCollectionTest {
     @Test
     public void checkInsertAndRemoveAndContainsElement(){
         NoEntryCollection noEntryCollection0 = new NoEntryCollection();
-        NoEntry noEntry = new NoEntry(noEntryCollection0);
-        NoEntryCollection noEntryCollection1 = new NoEntryCollection();
-        NoEntryCollection noEntryCollection2 = new NoEntryCollection();
+        NoEntry noEntry = new NoEntry();
+        noEntryCollection0.insertElement(noEntry);
 
-        noEntryCollection0.removeElement(noEntry);
+        NoEntryCollection noEntryCollection1 = new NoEntryCollection();
+        NoEntryCollection noEntryCollection2 = new NoEntryCollection(1);
+
+        noEntryCollection0.removeElement(noEntryCollection0.getFirstNoEntry());
         noEntryCollection1.insertElement(noEntry);
 
         Assertions.assertTrue(noEntryCollection0.getAllNoEntries().isEmpty());
