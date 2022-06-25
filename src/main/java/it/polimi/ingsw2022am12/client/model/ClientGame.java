@@ -495,7 +495,10 @@ public class ClientGame {
 
                 updateFromGame(newGame, new UpdateFlag(Flag.ISLANDS));
                 updateFromGame(newGame, new UpdateFlag(Flag.CLOUDS));
-                updateFromGame(newGame, new UpdateFlagCharacter(activeCharacter));
+                for(ClientCharacter character: newGame.getCharacters()){
+                    updateFromGame(newGame, new UpdateFlagCharacter(character.getName()));
+                }
+
 
                 break;
 
