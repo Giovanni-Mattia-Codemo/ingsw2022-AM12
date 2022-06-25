@@ -59,10 +59,11 @@ public class StudentDiskCollection implements Position, Selectable {
      * @return ArrayList students
      */
     public ArrayList<Student> getAllStudents(){
+        ArrayList<Student> studentsToSend = null;
         if (students != null) {
-            return new ArrayList<>(students);
+            studentsToSend = new ArrayList<>(students);
         }
-        return null;
+        return studentsToSend;
     }
 
     /**
@@ -71,10 +72,11 @@ public class StudentDiskCollection implements Position, Selectable {
      * @return ArrayList students
      */
     public ArrayList<Selectable> getStudentsAsSelectables(){
-        if (students != null) {
-            return new ArrayList<>(students);
+        ArrayList<Selectable> studentsToSend = null;
+        if(students!=null){
+            studentsToSend = new ArrayList<>(students);
         }
-        return null;
+        return studentsToSend;
     }
 
     /**
@@ -84,10 +86,11 @@ public class StudentDiskCollection implements Position, Selectable {
      * @return int number of students of this color
      */
     public int getByColor(DiskColor color){
+        int number=0;
         if (this.students != null) {
-            return (int) this.students.stream().filter(x->x.getColor()==color).count();
+            number = (int) this.students.stream().filter(x->x.getColor()==color).count();
         }
-        return 0;
+        return number;
     }
 
     /**
@@ -97,10 +100,11 @@ public class StudentDiskCollection implements Position, Selectable {
      * @return Student
      */
     public Student getByIndex(int idx){
+        Student student = null;
         if (this.students != null) {
-            return this.students.get(idx);
+            student= this.students.get(idx);
         }
-        return null;
+        return student;
     }
 
     /**
@@ -109,10 +113,11 @@ public class StudentDiskCollection implements Position, Selectable {
      * @return int amount of students in the collection
      */
     public int amount(){
+        int amount =0;
         if (this.students != null) {
-            return (this.students.size());
+            amount = this.students.size();
         }
-        return 0;
+        return amount;
     }
 
     /**
@@ -165,10 +170,11 @@ public class StudentDiskCollection implements Position, Selectable {
      */
     @Override
     public boolean contains(PlaceableObject o){
+        boolean result = false;
         if (students != null) {
-            return students.contains(o);
+            result = students.contains(o);
         }
-        return false;
+        return result;
     }
 
     /**

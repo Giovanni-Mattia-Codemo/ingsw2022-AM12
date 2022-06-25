@@ -20,7 +20,6 @@ public class NoEntry extends PlaceableObject{
      * Default constructor of NoEntry
      */
     public NoEntry(){
-
     }
 
     /**
