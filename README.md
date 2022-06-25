@@ -30,6 +30,7 @@ replace "java" with the pathname of the JDK17 java.exe on your machine e.g.:
 
 For persistence, the game is saved after every successful action and loaded if the server detects a savedGame.txt at the address specified on launch (or in the same
 location as the jar if left unspecified), and the right players join with the same game settings. If a player disconnects during the match the saved game is instead
-freed
+freed.
+
 When launching the client the first option is to select either GUI or CLI, and the client will proceed working accordingly. While using the CLI version it is possible to
 enter the command "Help" to get a message with the accepted formats of input
