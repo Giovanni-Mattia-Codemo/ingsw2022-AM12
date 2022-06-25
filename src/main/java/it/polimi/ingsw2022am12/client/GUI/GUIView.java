@@ -167,6 +167,7 @@ public class GUIView implements View, Runnable{
                     Platform.runLater(() -> {
                         setServerDownScene();
                         setEndMatchScene(message);
+                        afterFirstUpdate = false;
                     });
                 case SERVERUNREACHABLE ->
                     Platform.runLater(() ->
