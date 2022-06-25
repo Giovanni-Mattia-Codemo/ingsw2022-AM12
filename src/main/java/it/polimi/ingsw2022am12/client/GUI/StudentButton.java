@@ -30,25 +30,7 @@ public class StudentButton extends Button{
     public StudentButton(ClientStudent student, Client client){
 
         super();
-        if(images==null) {
-            System.out.println("Creating images");
-            images = new HashMap<>();
-            for (DiskColor d:DiskColor.values()){
-
-                Image resource = null;
-                switch (d) {
-                    case RED -> resource = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/student_red.png")).toString()) ;
-                    case BLUE -> resource = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/student_blue.png")).toString()) ;
-                    case PINK -> resource = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/student_pink.png")).toString());
-                    case YELLOW -> resource = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/student_yellow.png")).toString());
-                    case GREEN -> resource = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/student_green.png")).toString());
-                    default -> {
-                    }
-                }
-                images.put(d, resource);
-            }
-
-        }
+        generateImages();
         myStudent = student;
         this.client = client;
         setMinWidth(1.0);
@@ -67,8 +49,35 @@ public class StudentButton extends Button{
         return myStudent.getColor();
     }
 
+
     /**
-     * Setter method for the student's color, it also chooses the correct images based on the DiskColor value
+     * generates the images needed for the buttons once for all of them
+     */
+    private void generateImages(){
+        if(images==null) {
+
+            images = new HashMap<>();
+            for (DiskColor d:DiskColor.values()){
+
+                Image resource = null;
+                switch (d) {
+                    case RED -> resource = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/student_red.png")).toString()) ;
+                    case BLUE -> resource = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/student_blue.png")).toString()) ;
+                    case PINK -> resource = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/student_pink.png")).toString());
+                    case YELLOW -> resource = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/student_yellow.png")).toString());
+                    case GREEN -> resource = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/student_green.png")).toString());
+                    default -> {
+                    }
+                }
+                images.put(d, resource);
+            }
+
+        }
+    }
+
+
+    /**
+     * Setter method for the student's color, also sets visibility to false if color is null, and updates the button action based on the new color
      * @param color DiskColor chosen
      */
     private void setStudentColor(DiskColor color){
@@ -76,6 +85,7 @@ public class StudentButton extends Button{
         if(color!=null){
         Image resource = images.get(color);
         if(myView==null){
+            //assigns a new graphic element to the button
 
             myView = new ImageView(resource);
             setGraphic(myView);
@@ -83,7 +93,7 @@ public class StudentButton extends Button{
             myView.fitWidthProperty().bind(widthProperty());
 
         }else{
-
+            //changes image of the graphic
             myView.setImage(resource);
         }
             setVisible(true);
@@ -92,21 +102,22 @@ public class StudentButton extends Button{
 
             setVisible(false);
         }
-        setOnAction(e-> {
-            ClientInputHandler.handle("Student "+myStudent.getColor()+" "+myStudent.getID(),client);
-        });
+        setOnAction(e-> ClientInputHandler.handle("Student "+myStudent.getColor()+" "+myStudent.getID(),client));
 
     }
 
     /**
-     * refresh resets all the graphics for the studentButton
+     * refresh resets all the graphics and functions for the studentButton
      */
     public void refresh(){
         setStudentColor(myStudent.getColor());
         setDisabled(color == null);
     }
 
-
+    /**
+     * ties this button to a new student
+     * @param student newStudent
+     */
     public void setNewStudent(ClientStudent student){
         myStudent=student;
     }

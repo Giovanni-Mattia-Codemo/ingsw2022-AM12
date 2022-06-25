@@ -81,7 +81,7 @@ public class Game{
      * @param clouds list of clouds
      * @param teams list of teams
      * @param professors list of professors
-     * @param characterCards three random Chracters
+     * @param characterCards three random Characters
      */
     public Game (ArrayList<String> playerNicks, boolean characterMode, Bag bag, int coins, ArrayList<SchoolBoard> turnOrder, ArrayList<IslandTileSet> islands, int motherNature, ArrayList<StudentDiskCollection> clouds, ArrayList<Team> teams, String[] professors, ArrayList<CharacterCard> characterCards){
         this.playerNicks = playerNicks;
@@ -110,7 +110,7 @@ public class Game{
         }
         this.isExpertMode = characterMode;
         this.characterCards = characterCards;
-        CharacterHerbalist herb = (CharacterHerbalist)getCharacterByName("CHARACTER_HERBALIST");
+        CharacterHerbalist herb = (CharacterHerbalist)getCharacterByName(CharacterName.CHARACTER_HERBALIST.toString());
         if(herb!=null){
             for(IslandTileSet set:islandList.getIslands()){
                 set.setNoEntryCharacter(herb.getNoEntryCollection());
@@ -920,7 +920,8 @@ public class Game{
                 cloud = clouds[i];
             }
         }
-        int size = cloud.amount();
+        int size=0;
+        if(cloud!=null) size = cloud.amount();
         Student tmp;
         for(int i = 0; i<size; i++){
             tmp = cloud.getByIndex(0);

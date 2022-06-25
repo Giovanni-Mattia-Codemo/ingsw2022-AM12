@@ -11,6 +11,8 @@ import javafx.scene.paint.Color;
 import java.util.HashMap;
 import java.util.Objects;
 
+import static javafx.scene.paint.Color.rgb;
+
 /**
  * IslandListPane is the graphical component that represents the area around my schoolBoard (the schoolBoard itself, the tag with
  * the name of the player, the last played assistant and the assistants, deck...)
@@ -159,12 +161,16 @@ public class SchoolBoardContainer extends GridPane {
             case 1->back = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/CarteTOT_back_11@3x.png")).toString());
             case 2->back = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/CarteTOT_back_21@3x.png")).toString());
             case 3->back = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/CarteTOT_back_31@3x.png")).toString());
-            default -> {return;}
+            default -> {
+                deck.setVisible(false);
+                return;
+            }
         }
         ImageView backView = new ImageView(back);
         backView.fitHeightProperty().bind(deck.heightProperty());
         backView.fitWidthProperty().bind(deck.widthProperty());
         deck.setGraphic(backView);
+        deck.setVisible(true);
         mageIsUpToDate = true;
     }
 
@@ -200,7 +206,7 @@ public class SchoolBoardContainer extends GridPane {
         }
 
 
-        if (assistantNumber != 0) {
+        if (assistantNumber > 0) {
             assistant = assistantImages.get(assistantNumber);
 
             if(assistantView ==null){
@@ -212,9 +218,6 @@ public class SchoolBoardContainer extends GridPane {
             }else{
                 assistantView.setImage(assistant);
             }
-
-
-
         }
     }
 }

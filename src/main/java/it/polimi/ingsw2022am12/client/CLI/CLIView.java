@@ -4,7 +4,12 @@ import it.polimi.ingsw2022am12.server.controller.ControlMessages;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlag;
 import it.polimi.ingsw2022am12.client.View;
 import it.polimi.ingsw2022am12.client.model.ClientGame;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -41,5 +46,25 @@ public class CLIView implements View {
     @Override
     public void connectionFailedPrompt() {
         System.out.println("Connection failed (server not found): input RETRY to attempt to reconnect");
+    }
+
+    @Override
+    public void showHelp(int i){
+        Scanner reader = null;
+
+        try {
+            switch (i){
+                case 0-> reader = new Scanner(new File("src/main/resources/it/polimi/ingsw2022am12/client/GUI/CliHelp"));
+                case 1-> reader = new Scanner(new File("src/main/resources/it/polimi/ingsw2022am12/client/GUI/GameRules"));
+                default -> {}
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        if (reader != null) {
+            while(reader.hasNextLine()){
+                System.out.println(reader.nextLine());
+            }
+        }
     }
 }

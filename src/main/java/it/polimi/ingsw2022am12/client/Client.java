@@ -215,4 +215,12 @@ public class Client {
     public ArrayList<Integer> availableMages(){
         return clientGame.getAvailableMages();
     }
+
+    /**
+     * Method showHelp returns the instructions to use the CLI
+     */
+    public void showHelp(int i){
+        view.showHelp(i);
+    }
+
 }

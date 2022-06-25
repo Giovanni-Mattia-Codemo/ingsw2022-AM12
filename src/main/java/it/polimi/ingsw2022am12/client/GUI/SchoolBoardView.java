@@ -6,6 +6,7 @@ import javafx.beans.binding.Bindings;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import java.util.ArrayList;
 
@@ -28,12 +29,15 @@ public class SchoolBoardView extends ScrollPane{
         schools= new ArrayList<>();
         double schoolRatio = 0.4337708831;
         GridPane box = new GridPane();
+
+        this.setBackground(Background.fill(rgb(51,232,189)));
         ArrayList<ClientSchoolBoard>gameSchools= client.getClientGame().getSchoolBoards();
 
-
+        //for each school board creates a school board container and the associated label and adds them to a GridPane component
         for(int i=0; i<gameSchools.size();i++){
             ClientSchoolBoard thisSchool = gameSchools.get(i);
             Label name = new Label();
+            name.setAlignment(Pos.CENTER);
             name.setMinSize(1.0,1.0);
             name.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
             name.setText(thisSchool.getNick());

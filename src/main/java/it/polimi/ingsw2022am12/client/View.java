@@ -30,4 +30,6 @@ public interface View {
      * connectionFailedPrompt sends a prompt in case the connection to the server has failed
      */
     void connectionFailedPrompt();
+
+    void showHelp(int i);
 }

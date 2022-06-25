@@ -8,6 +8,7 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
+import it.polimi.ingsw2022am12.CharacterName;
 import it.polimi.ingsw2022am12.server.model.CharacterCard;
 import it.polimi.ingsw2022am12.server.model.StudentDiskCollection;
 import it.polimi.ingsw2022am12.server.model.characters.*;
@@ -66,11 +67,11 @@ public class CharacterAdapterFactory implements TypeAdapterFactory {
                     jsonWriter.name("Students");
                     gson.toJson(gson.toJsonTree(((CharacterJester) characterCard).getStudents()), jsonWriter);
                 }
-                case "CHARACTER_MONK" -> {
+                case CHARACTER_MONK -> {
                     jsonWriter.name("Students");
                     gson.toJson(gson.toJsonTree(((CharacterMonk) characterCard).getStudents()), jsonWriter);
                 }
-                case "CHARACTER_PRINCESS" -> {
+                case CHARACTER_PRINCESS -> {
                     jsonWriter.name("Students");
                     gson.toJson(gson.toJsonTree(((CharacterPrincess) characterCard).getStudents()), jsonWriter);
                 }
@@ -107,19 +108,19 @@ public class CharacterAdapterFactory implements TypeAdapterFactory {
                     in.peek();
                     String name = in.nextString();
 
-                    switch (name) {
-                        case "CHARACTER_HERBALIST" -> characterCard = new CharacterHerbalist();
-                        case "CHARACTER_JESTER" -> characterCard = new CharacterJester();
-                        case "CHARACTER_MONK" -> characterCard = new CharacterMonk();
-                        case "CHARACTER_PRINCESS" -> characterCard = new CharacterPrincess();
-                        case "CHARACTER_BARD" -> characterCard = new CharacterBard();
-                        case "CHARACTER_HAG" -> characterCard = new CharacterHag();
-                        case "CHARACTER_HERALD" -> characterCard = new CharacterHerald();
-                        case "CHARACTER_HOST" -> characterCard = new CharacterHost();
-                        case "CHARACTER_CENTAUR" -> characterCard = new CharacterCentaur();
-                        case "CHARACTER_KNIGHT" -> characterCard = new CharacterKnight();
-                        case "CHARACTER_MERCHANT" -> characterCard = new CharacterMerchant();
-                        case "CHARACTER_BEGGAR" -> characterCard = new CharacterBeggar();
+                    switch (CharacterName.valueOf(name)) {
+                        case CHARACTER_HERBALIST -> characterCard = new CharacterHerbalist();
+                        case CHARACTER_JESTER -> characterCard = new CharacterJester();
+                        case CHARACTER_MONK -> characterCard = new CharacterMonk();
+                        case CHARACTER_PRINCESS -> characterCard = new CharacterPrincess();
+                        case CHARACTER_BARD -> characterCard = new CharacterBard();
+                        case CHARACTER_HAG -> characterCard = new CharacterHag();
+                        case CHARACTER_HERALD -> characterCard = new CharacterHerald();
+                        case CHARACTER_HOST -> characterCard = new CharacterHost();
+                        case CHARACTER_CENTAUR -> characterCard = new CharacterCentaur();
+                        case CHARACTER_KNIGHT -> characterCard = new CharacterKnight();
+                        case CHARACTER_MERCHANT -> characterCard = new CharacterMerchant();
+                        case CHARACTER_BEGGAR -> characterCard = new CharacterBeggar();
                         default -> {}
                     }
                 }

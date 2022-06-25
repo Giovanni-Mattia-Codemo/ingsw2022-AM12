@@ -62,8 +62,10 @@ public class SchoolBoardPane extends GridPane{
         yellowDiningStudents = new ArrayList<>();
         pinkDiningStudents = new ArrayList<>();
 
+
+        //start of entrance
         grid = new GridPane();
-        //grid.setGridLinesVisible(true);
+
         RowConstraints temp = new RowConstraints();
         temp.setVgrow(Priority.ALWAYS);
         temp.setFillHeight(true);
@@ -71,8 +73,8 @@ public class SchoolBoardPane extends GridPane{
 
         for (int rowIndex = 0; rowIndex < 5; rowIndex++) {
             RowConstraints rc = new RowConstraints();
-            rc.setVgrow(Priority.NEVER) ; // allow row to grow
-            rc.setFillHeight(true); // ask nodes to fill height for row
+            rc.setVgrow(Priority.NEVER) ;
+            rc.setFillHeight(true);
             rc.prefHeightProperty().bind(grid.heightProperty().multiply(0.1));
             grid.getRowConstraints().add(rc);
         }
@@ -90,8 +92,8 @@ public class SchoolBoardPane extends GridPane{
 
         for (int colIndex = 1; colIndex < 3; colIndex++) {
             ColumnConstraints cc = new ColumnConstraints();
-            cc.setHgrow(Priority.NEVER) ; // allow column to grow
-            cc.setFillWidth(true); // ask nodes to fill space for column
+            cc.setHgrow(Priority.NEVER) ;
+            cc.setFillWidth(true);
             cc.prefWidthProperty().bind(grid.heightProperty().divide(10.0));
             grid.getColumnConstraints().add(cc);
         }
@@ -107,9 +109,9 @@ public class SchoolBoardPane extends GridPane{
         grid.prefHeightProperty().bind(this.heightProperty());
         grid.prefWidthProperty().bind(this.widthProperty().multiply(0.15));
         this.addColumn(0, grid);
-        //end of this
+        //end of entrance
 
-        //diningroom
+        //start diningroom
         StackPane stackRoom = new StackPane();
         GridPane.setHgrow(stackRoom, Priority.NEVER);
         stackRoom.setPickOnBounds(false);
@@ -353,13 +355,27 @@ public class SchoolBoardPane extends GridPane{
             Button prof = getProfessorByRow(i);
             prof.setVisible(myGame.getProfessors()[i].equals(name));
         }
-        updateCoins();
+        if(myGame.isCharacterMode()) {
+            updateCoins();
+        }
+    }
+
+    private Button getProfessorByRow(int i){
+        Button found = null;
+        for(Button b: professorButtons){
+            if(GridPane.getRowIndex(b)==i+1){
+                found = b;
+                break;
+            }
+        }
+        return found;
     }
 
     /**
      * updateCoins shows on the SchoolBoard the number of coins a player has, according to the current state of the game
      */
     public void updateCoins(){
+        //sets up a node for the coin
         if(coin == null){
             coin = new StackPane();
             coin.setMinSize(1.0, 1.0);
@@ -377,6 +393,7 @@ public class SchoolBoardPane extends GridPane{
             coin.setAlignment(Pos.CENTER);
             grid.add(coin, 1, 1);
         }
+        //updates number of coins
         ((Label)coin.getChildren().get(1)).setText(""+client.getClientGame().getSchoolBoardByNick(name).getCoins());
 
     }
@@ -388,16 +405,19 @@ public class SchoolBoardPane extends GridPane{
         int difference = students.size()-entrance.size();
         int maxEntranceRows = myGame.getOrderedNicks().size()==3?5:4;
         int maxPos = -1;
+        //gets the highest position occupied on the entrance
         for(StudentButton s: entrance){
             int pos = GridPane.getRowIndex(s)-1 + GridPane.getColumnIndex(s)==2?0:maxEntranceRows;
             if(pos>maxPos){
                 maxPos = pos;
             }
         }
+
         for(int i=0; i<difference;i++){
            ClientStudent tmp = students.get(students.size()-i-1);
            StudentButton newButton = new StudentButton(tmp, client);
            int firstAvailablePos;
+           //gets the first available position as an int
            if(maxPos<maxEntranceRows-1){
                firstAvailablePos = maxPos+1;
            }else{
@@ -407,6 +427,26 @@ public class SchoolBoardPane extends GridPane{
            entrance.add(newButton);
            maxPos=firstAvailablePos;
         }
+    }
+
+    /**
+     *
+     * @param firstAvailablePos int
+     * @param maxEntranceRows int
+     * @return column index based on input parameters
+     */
+    private int getEntranceColumn(int firstAvailablePos, int maxEntranceRows){
+        return firstAvailablePos>=maxEntranceRows?1:2;
+    }
+
+    /**
+     *
+     * @param firstAvailablePos int
+     * @param maxEntranceRows int
+     * @return row index based on input parameters
+     */
+    private int getEntranceRow(int firstAvailablePos, int maxEntranceRows){
+        return firstAvailablePos<maxEntranceRows?firstAvailablePos+1:firstAvailablePos%maxEntranceRows+2;
     }
 
     /**
@@ -456,9 +496,10 @@ public class SchoolBoardPane extends GridPane{
         for(int i= 0; i<4;i++){
 
             for(int j = 0; j<2; j++){
-
-                if(getNodeByCoordinate(i+1, j+1)==null){
-                    Button tower = new Button();
+                Button tower = (Button) getNodeByCoordinate(i+1, j+1);
+                if(tower==null){
+                    //creates a new tower as a button
+                    tower = new Button();
                     tower.setMinSize(1.0,1.0);
                     tower.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
                     towers.add(tower, j+1 , i+1);
@@ -467,14 +508,32 @@ public class SchoolBoardPane extends GridPane{
                     img.fitHeightProperty().bind(tower.heightProperty());
                     img.fitWidthProperty().bind(tower.widthProperty());
                     tower.setGraphic(img);
-                }
-
-                Button tower = (Button) getNodeByCoordinate(i+1, j+1);
-                if (tower != null) {
+                }else{
                     tower.setVisible(towersTotal > 0);
                 }
 
                 towersTotal--;
+            }
+        }
+    }
+
+
+    private void pickTowerColor(){
+        if(towerImage == null) {
+            ArrayList<ClientTeam> teams = myGame.getTeams();
+            int col = 0;
+            for (ClientTeam t : teams) {
+                if (t.getPlayer1().equals(name) || t.getPlayer2().equals(name)) {
+                    col = teams.indexOf(t);
+                }
+            }
+
+            switch (col) {
+                case 0 -> towerImage = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/white_tower.png")).toString());
+                case 1 -> towerImage = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/grey_tower.png")).toString());
+                case 2 -> towerImage = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/black_tower.png")).toString());
+                default -> {
+                }
             }
         }
     }
@@ -484,20 +543,22 @@ public class SchoolBoardPane extends GridPane{
      */
     private void fillDiningRoom() {
         ArrayList<ClientStudent> diningStudents = new ArrayList<>(myGame.getSchoolBoardByNick(name).getDiningRooms().getStudents());
+        //iterates on the dining room
         for (int i = 0; i < 5; i++) {
             for (int t = 0; t < 10; t++) {
-                boolean alreadyPresent = false;
+
                 StudentButton student=null;
                 ArrayList<StudentButton> studentButtons = getButtonsOfRow(i);
+                //checks if a cell is occupied
                 for (StudentButton s: studentButtons){
                     if(GridPane.getColumnIndex(s)==t){
-                        alreadyPresent = true;
                         student = s;
                         break;
                     }
                 }
 
                 ClientStudent realStudent = null;
+                //picks a student to assign to the cell
                 for (ClientStudent s : diningStudents) {
                     if (s.getColor() == DiskColor.valueOf(DiskColor.RED.getColor(i))) {
                         realStudent = s;
@@ -506,13 +567,13 @@ public class SchoolBoardPane extends GridPane{
                     }
                 }
                 if(realStudent!=null){
-                    if(!alreadyPresent){
+                    if(student==null){
                         assignStudentButtonOfColor(i,t,realStudent);
 
                     }else {
                         student.setNewStudent(realStudent);
                     }
-                }else if(alreadyPresent){
+                }else if(student!=null){
                     student.setNewStudent(new ClientStudent());
                 }
             }

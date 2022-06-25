@@ -325,6 +325,7 @@ public class GUIView implements View, Runnable{
     private void setGameStateView(){
         gameStateView = new GameStateView();
         activeViewContent = new HBox();
+        activeViewContent.setBackground(Background.fill(rgb(51,232,189)));
         activeViewContent.getChildren().add(gameStateView);
         gameStateView.prefWidthProperty().bind(activeViewContent.widthProperty().multiply(0.2));
         HBox.setHgrow(gameStateView, Priority.NEVER);
@@ -443,5 +444,10 @@ public class GUIView implements View, Runnable{
     public void connectionFailedPrompt(){
         Platform.runLater(()-> primary.setScene(serverDownScene)
         );
+    }
+
+    @Override
+    public void showHelp(int i) {
+
     }
 }
