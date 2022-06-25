@@ -22,7 +22,9 @@ Cristiana Calvaresi cristiana.calvaresi@mail.polimi.it
 Model Coverage: Class-100% Methods-92% Lines-89%
 
 To launch the server jar file from command line enter: java -jar AM12-1.0-SNAPSHOT-Server.jar -p portNumber [-f targetDirectoryToSave]
+
 To launch the client jar file from command line enter: java -jar AM12-1.0-SNAPSHOT-Client.jar -i ipAddress -p portNumber
+
 replace "java" with the pathname of the JDK17 java.exe on your machine e.g.: 
 "C:\Users\Giovanni M. Codemo\.jdks\openjdk-17\bin\java.exe" -jar "C:\Users\Giovanni M. Codemo\Desktop\Uni terzo anno\Progetto IdS\Progetto\target\AM12-1.0-SNAPSHOT-Server.jar"  -p 9000 -f C:\Users\Giovanni M. Codemo\Desktop\SaveGame
 
