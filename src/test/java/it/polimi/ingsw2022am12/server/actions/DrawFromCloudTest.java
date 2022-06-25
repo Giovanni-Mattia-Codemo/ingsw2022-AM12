@@ -1,5 +1,6 @@
 package it.polimi.ingsw2022am12.server.actions;
 
+import it.polimi.ingsw2022am12.server.controller.ControlMessages;
 import it.polimi.ingsw2022am12.server.model.*;
 import it.polimi.ingsw2022am12.server.model.actions.ActionStep;
 import it.polimi.ingsw2022am12.server.model.actions.DrawFromCloud;
@@ -37,6 +38,7 @@ public class DrawFromCloudTest {
         testMove.useAction(testGame);
         Assertions.assertFalse(testGame.checkIfCloudDrawableByID(0));
         Assertions.assertEquals(0, testGame.getCloud(0).amount());
+        Assertions.assertEquals(ControlMessages.DRAWFROMCLOUD, testMove.getUserSelectionsMessage().get(0));
     }
 
     /**

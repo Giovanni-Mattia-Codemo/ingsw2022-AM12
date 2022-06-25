@@ -75,5 +75,7 @@ public class MerchantActionTest {
         Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input));
         ((CharacterMerchant)testGame.getActiveCharacterCard()).setColor(DiskColor.PINK);
         testGame.getActiveCharacterCard().setWasUsed(false);
+        testGame.getActiveCharacterCard().setCost(3);
+        testGame.getActiveCharacterCard().setAdditionalCoins();
     }
 }

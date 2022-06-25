@@ -5,6 +5,7 @@ import it.polimi.ingsw2022am12.DiskColor;
 import it.polimi.ingsw2022am12.server.model.*;
 import it.polimi.ingsw2022am12.server.model.actions.ActionStep;
 import it.polimi.ingsw2022am12.server.model.actions.BardAction;
+import it.polimi.ingsw2022am12.server.model.characters.CharacterBard;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
@@ -83,6 +84,9 @@ public class BardActionTest {
 
         testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.HALFOK, testCharacter.checkInputValidity(input));
+
+        CharacterBard character = new CharacterBard(2);
+        Assertions.assertEquals(2, character.getSwapsDone());
     }
 
     /**

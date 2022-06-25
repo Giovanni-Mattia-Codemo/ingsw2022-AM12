@@ -2,6 +2,7 @@ package it.polimi.ingsw2022am12.server;
 
 import it.polimi.ingsw2022am12.server.model.NoEntry;
 import it.polimi.ingsw2022am12.server.model.NoEntryCollection;
+import it.polimi.ingsw2022am12.server.model.Selectable;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
@@ -29,5 +30,7 @@ public class NoEntryCollectionTest {
         Assertions.assertEquals(0, noEntryCollection0.noEntriesSize());
         Assertions.assertTrue(noEntryCollection1.contains(noEntry));
         Assertions.assertTrue(noEntryCollection2.getAllNoEntries().isEmpty());
+        Assertions.assertEquals(1,noEntryCollection2.getMyId());
+
     }
 }

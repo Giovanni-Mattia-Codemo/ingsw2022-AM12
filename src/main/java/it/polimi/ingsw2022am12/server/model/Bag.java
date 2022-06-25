@@ -30,6 +30,7 @@ public class Bag extends StudentDiskCollection {
      * @return Student drawn from the bag
      */
     public Student draw() {
+
             if(this.amount()>0) {
                 Random randomValue = new Random();
                 Student temporaryStudent = this.getByIndex(randomValue.nextInt(this.amount()));

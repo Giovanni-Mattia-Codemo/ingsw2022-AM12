@@ -3,7 +3,7 @@ package it.polimi.ingsw2022am12.server.model;
 /**
  * Class NoEntry defines the NoEntry tile introduced in the hard game mode
  */
-public class NoEntry extends PlaceableObject implements Selectable {
+public class NoEntry extends PlaceableObject{
 
     private NoEntryCollection characterNoEntryCollection;
 
@@ -30,17 +30,6 @@ public class NoEntry extends PlaceableObject implements Selectable {
      */
     public NoEntryCollection getCharacterNoEntryCollection(){
         return characterNoEntryCollection;
-    }
-
-    /**
-     * Method isEqual compares two objects, and checks if they are in the same state
-     *
-     * @param toCompare the Selectable object to compare
-     * @return boolean true if the objects have the same values
-     */
-    @Override
-    public boolean isEqual(Selectable toCompare) {
-        return toCompare instanceof NoEntry;
     }
 
     /**

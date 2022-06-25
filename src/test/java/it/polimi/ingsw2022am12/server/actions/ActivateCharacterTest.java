@@ -1,6 +1,7 @@
 package it.polimi.ingsw2022am12.server.actions;
 
 
+import it.polimi.ingsw2022am12.server.controller.ControlMessages;
 import it.polimi.ingsw2022am12.server.model.CharacterCard;
 import it.polimi.ingsw2022am12.server.model.Game;
 import it.polimi.ingsw2022am12.server.model.Selectable;
@@ -48,6 +49,8 @@ public class ActivateCharacterTest {
 
         testCharacter.useAction(testGame);
         Assertions.assertEquals(character, testGame.getActiveCharacterCard());
+        Assertions.assertEquals(ControlMessages.CHARACTERACTION, testCharacter.getUserSelectionsMessage().get(0));
+
     }
 
     /**

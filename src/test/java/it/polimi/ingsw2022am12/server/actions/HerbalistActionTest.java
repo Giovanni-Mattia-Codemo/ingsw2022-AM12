@@ -49,6 +49,10 @@ public class HerbalistActionTest {
 
         testCharacter.useAction(testGame);
         Assertions.assertFalse(testGame.getIslandList().getByIndex(motherNatureIndex).getNoEntries().isEmpty());
+
+        CharacterHerbalist newCharacter = new CharacterHerbalist(3, 12);
+        Assertions.assertEquals(12, newCharacter.getNoEntryCollection().getMyId());
+        Assertions.assertEquals(HerbalistAction.class, newCharacter.getPossibleAction().getClass());
     }
 
     /**

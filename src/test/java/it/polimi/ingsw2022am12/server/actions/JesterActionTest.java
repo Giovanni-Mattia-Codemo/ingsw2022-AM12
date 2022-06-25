@@ -2,6 +2,7 @@ package it.polimi.ingsw2022am12.server.actions;
 
 import it.polimi.ingsw2022am12.CharacterName;
 import it.polimi.ingsw2022am12.DiskColor;
+import it.polimi.ingsw2022am12.server.controller.ControlMessages;
 import it.polimi.ingsw2022am12.server.model.*;
 import it.polimi.ingsw2022am12.server.model.actions.ActionStep;
 import it.polimi.ingsw2022am12.server.model.actions.JesterAction;
@@ -32,16 +33,22 @@ public class JesterActionTest {
         testGame.setUp();
         testGame.addCharacter(10);
         testGame.payAndSetActiveCharacter(CharacterName.CHARACTER_JESTER);
+        testCharacter.setSelectables(testGame);
 
         ArrayList<Selectable> input = new ArrayList<>();
-        testCharacter.getUserSelectionsMessage();
+        Assertions.assertEquals(ControlMessages.JESTERACTION, testCharacter.getUserSelectionsMessage().get(0));
+        Assertions.assertEquals(ControlMessages.CHARACTERCARD, testCharacter.getUserSelectionsMessage().get(1));
         input.add(testGame.getActiveCharacterCard());
-        testCharacter.getUserSelectionsMessage();
+        testCharacter.checkInputValidity(input);
+        Assertions.assertEquals(ControlMessages.JESTERACTION1, testCharacter.getUserSelectionsMessage().get(1));
         Student stdJester = ((CharacterJester)testGame.getActiveCharacterCard()).getStudents().getByIndex(0);
         input.add(stdJester);
+        testCharacter.checkInputValidity(input);
+        Assertions.assertEquals(ControlMessages.JESTERACTION2, testCharacter.getUserSelectionsMessage().get(1));
         Student stdEntrance = testGame.getCurrentSchoolBoard().getEntrance().getByIndex(0);
         testCharacter.getUserSelectionsMessage();
         input.add(stdEntrance);
+        Assertions.assertEquals(ControlMessages.JESTERACTION2, testCharacter.getUserSelectionsMessage().get(1));
 
         testCharacter.setSelectables(testGame);
         testCharacter.getUserSelectionsMessage();
@@ -154,5 +161,9 @@ public class JesterActionTest {
         testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input));
         testGame.getActiveCharacterCard().setWasUsed(false);
+
+        StudentDiskCollection collection = new StudentDiskCollection();
+        CharacterJester newCharacter = new CharacterJester(collection, 2);
+        Assertions.assertEquals(2, newCharacter.getMovesDone());
     }
 }

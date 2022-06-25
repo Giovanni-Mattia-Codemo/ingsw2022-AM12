@@ -152,5 +152,9 @@ public class MonkActionTest {
 
         testCharacter.setSelectables(testGame);
         Assertions.assertEquals(ActionStep.NOTOK, testCharacter.checkInputValidity(input));
+
+        StudentDiskCollection collection = new StudentDiskCollection(12);
+        CharacterMonk newCharacter = new CharacterMonk(collection);
+        Assertions.assertEquals(12, newCharacter.getStudents().getID());
     }
 }

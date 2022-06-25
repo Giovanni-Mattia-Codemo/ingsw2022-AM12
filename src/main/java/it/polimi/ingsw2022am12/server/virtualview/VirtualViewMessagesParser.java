@@ -72,11 +72,6 @@ public class VirtualViewMessagesParser implements Runnable{
                             StudentDiskCollection studentDiskCollection = gson.fromJson(res, StudentDiskCollection.class);
                             myController.send(virtualView, studentDiskCollection);
                         }
-                        case "NoEntry" -> {
-                            gson = new GsonBuilder().registerTypeAdapter(NoEntry.class, new NoEntryAdapter()).create();
-                            NoEntry noEntry = gson.fromJson(res, NoEntry.class);
-                            myController.send(virtualView, noEntry);
-                        }
                         case "Character" -> {
                             gson = new GsonBuilder().registerTypeAdapterFactory(new CharacterAdapterFactory()).create();
                             CharacterCard characterCard = gson.fromJson(res, CharacterCard.class);

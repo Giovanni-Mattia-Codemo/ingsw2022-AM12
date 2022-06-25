@@ -52,11 +52,7 @@ public class CoinCollection implements Position {
      */
     @Override
     public void removeElement(PlaceableObject o) {
-        try{coins.remove((Coin) o);
-        }catch (ClassCastException e) {
-            System.out.println("ClassCastException in CoinCollection.removeElement()");
-        }
-
+        coins.remove((Coin) o);
     }
 
     /**
