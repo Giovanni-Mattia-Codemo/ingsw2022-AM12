@@ -498,8 +498,6 @@ public class ClientGame {
                 for(ClientCharacter character: newGame.getCharacters()){
                     updateFromGame(newGame, new UpdateFlagCharacter(character.getName()));
                 }
-
-
                 break;
 
             case SCHOOL:
