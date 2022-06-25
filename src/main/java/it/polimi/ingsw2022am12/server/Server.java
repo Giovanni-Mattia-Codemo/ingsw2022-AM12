@@ -41,12 +41,10 @@ public class Server {
                     for(int t=i+1;t< args.length;t++){
                         directory = directory.concat("\s"+args[t]);
                     }
-
+                    directory = directory.replaceFirst("\s", "" );
                 }
             }
-
         }
-        directory = directory.replaceFirst("\s", "" );
         System.out.println("Directory:"+directory);
         Server server = new Server(Integer.parseInt(port), directory);
         server.startServer();

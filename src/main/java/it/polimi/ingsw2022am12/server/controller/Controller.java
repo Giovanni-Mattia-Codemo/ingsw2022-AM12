@@ -24,7 +24,6 @@ import java.util.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-
 /**
  * Controller class represents the component which receives inputs from the client and generates a response updating views
  */
@@ -161,7 +160,6 @@ public class Controller {
                     v.forwardMsg(gson.toJson(messages));
                     return;
                 }
-
                 if (playerNum > 1 && playerNum <= 4) {
                     difficulty = mode;
                     numOfPlayers = playerNum;
@@ -178,7 +176,6 @@ public class Controller {
                     messages.add(ControlMessages.INVALIDUSER);
                     v.forwardMsg(gson.toJson(messages));
                 }
-
                 return;
             }
             messages.add(ControlMessages.INVALIDUSER);
@@ -221,7 +218,6 @@ public class Controller {
                     bindView(v, nick);
                 }
                 return;
-
             }
             messages.add(ControlMessages.GAMEISFULL);
             v.forwardMsg(gson.toJson(messages));
@@ -237,14 +233,12 @@ public class Controller {
         if(isGameSavedPresent&&!myGame.getPlayerNicks().contains(nick)){
             isGameSavedPresent=false;
         }
-
         userMap.put(v, nick);
         if(userMap.size()==1){
             creatingGame=true;
             updateViewsOfStatus();
             return;
         }
-
         if(userMap.size()==numOfPlayers){
             acceptingUsers = false;
             if(!isGameSavedPresent){
