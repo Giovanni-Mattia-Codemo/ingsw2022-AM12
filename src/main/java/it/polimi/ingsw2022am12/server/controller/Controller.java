@@ -403,6 +403,7 @@ public class Controller {
             myObj = new File(directory + "\\savedGame.txt");
             if (myObj.createNewFile()) {
                 System.out.println("File created: " + myObj.getName());
+                saveGame("empty");
                 isGameSavedPresent = false;
             } else {
                 if(!new Scanner(myObj).nextLine().equals("empty"))
