@@ -114,9 +114,8 @@ public class CharacterPane extends VBox {
         grid.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
         //Insert noEntries if the character has some
-        int numOfNoEntries = client.getClientGame().getCharacterByName(characterName).getNumberOfNoEntries();
-        if(numOfNoEntries!=0){
-            fillNoEntries(numOfNoEntries);
+        if(characterName.equals(CharacterName.CHARACTER_HERBALIST.toString())){
+            fillNoEntries();
         }
         //Insert students if the character has some
         if(client.getClientGame().getCharacterByName(characterName).getStudents()!=null){
@@ -168,8 +167,6 @@ public class CharacterPane extends VBox {
         for(StudentButton s:students){
             s.refresh();
         }
-        //Updates the noEntries on the card
-        fillNoEntries(client.getClientGame().getCharacterByName(characterName).getNumberOfNoEntries());
         //Sets all the noEntries to not visible
         for(NoEntryImage noEntry : noEntryImages){
             noEntry.setVisible(false);
@@ -219,36 +216,34 @@ public class CharacterPane extends VBox {
     /**
      * fillNoEntries fills with noEntries the cells of the character's grid that are reserved for the noEntries
      *
-     * @param noEntries number of noEntries needed
      */
-    private void fillNoEntries(int noEntries){
-        int difference = noEntries - noEntryImages.size();
-        if(difference>0){
-            for(int i=0; i<difference; i++){
-                for(int j=0; j<4; j++){
-                    if(getNodeByCoordinate((j/2), j%2)==null){
-                        if(grid.getRowConstraints().size()<=j/2){
-                            RowConstraints rc = new RowConstraints();
-                            rc.setVgrow(Priority.NEVER);
-                            rc.setFillHeight(true);
-                            rc.prefHeightProperty().bind(grid.widthProperty().divide(2));
-                            grid.getRowConstraints().add(rc);
-                        }
-                        if(grid.getColumnConstraints().size()<=j%2){
-                            ColumnConstraints cc = new ColumnConstraints();
-                            cc.setHgrow(Priority.NEVER);
-                            cc.setFillWidth(true);
-                            cc.prefWidthProperty().bind(grid.widthProperty().divide(2));
-                            grid.getColumnConstraints().add(cc);
-                        }
-                        NoEntryImage noEntry = new NoEntryImage();
-                        grid.add(noEntry, j%2,(j/2));
-                        noEntryImages.add(noEntry);
-                        break;
+    private void fillNoEntries(){
+        int numOfNoEntries = 4;
+        for(int i=0; i<numOfNoEntries; i++){
+            for(int j=0; j<4; j++){
+                if(getNodeByCoordinate((j/2), j%2)==null){
+                    if(grid.getRowConstraints().size()<=j/2){
+                        RowConstraints rc = new RowConstraints();
+                        rc.setVgrow(Priority.NEVER);
+                        rc.setFillHeight(true);
+                        rc.prefHeightProperty().bind(grid.widthProperty().divide(2));
+                        grid.getRowConstraints().add(rc);
                     }
+                    if(grid.getColumnConstraints().size()<=j%2){
+                        ColumnConstraints cc = new ColumnConstraints();
+                        cc.setHgrow(Priority.NEVER);
+                        cc.setFillWidth(true);
+                        cc.prefWidthProperty().bind(grid.widthProperty().divide(2));
+                        grid.getColumnConstraints().add(cc);
+                    }
+                    NoEntryImage noEntry = new NoEntryImage();
+                    grid.add(noEntry, j%2,(j/2));
+                    noEntryImages.add(noEntry);
+                    break;
                 }
             }
         }
+
     }
 
     /**

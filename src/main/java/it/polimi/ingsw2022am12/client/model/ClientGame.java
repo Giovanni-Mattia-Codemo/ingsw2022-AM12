@@ -433,13 +433,8 @@ public class ClientGame {
         for (ClientIsland clientIsland: islands){
             msg = msg.concat(clientIsland.getID()+" with students: "+clientIsland.getStudents().getStudentsAsString());
             msg = msg.concat("\t"+clientIsland.getConqueror());
-            for(ClientCharacter c:characters){
-                if(c.getName().equals("CHARACTER_HERBALIST")){
-                    msg = msg.concat("\tNum of noEntries: "+c.getNumberOfNoEntries());
-                }
-            }
+            msg = msg.concat("\nNum of no entries: "+clientIsland.getNumOfNoEntries());
             msg = msg.concat("\n");
-
         }
 
         msg = msg.concat("Mother nature position: " +motherNatureIndex+"\n");

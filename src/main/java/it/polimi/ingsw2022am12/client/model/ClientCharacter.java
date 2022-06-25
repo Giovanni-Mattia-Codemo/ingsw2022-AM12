@@ -140,7 +140,6 @@ public class ClientCharacter {
         if(students!=null){
             students.updateFromCollection(character.getStudents());
         }
-
         numberOfNoEntries = character.getNumberOfNoEntries();
     }
 }

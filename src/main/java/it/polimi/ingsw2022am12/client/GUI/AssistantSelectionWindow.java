@@ -37,7 +37,7 @@ public class AssistantSelectionWindow implements Window {
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Assistant Selection");
         window.setMinWidth(250);
-        window.setOnCloseRequest(e -> closeProgram(window));
+        //window.setOnCloseRequest(e -> closeProgram(window));
 
         Label label = new Label("Select an Assistant");
         label.setFont(new Font("Algerian", 25));
