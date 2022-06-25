@@ -22,6 +22,7 @@ public class GameStateView extends VBox {
     private final Label round;
     private final Label turn;
     private final Label players;
+    private final Label freeCoins;
     private final Button switcher;
     private final VBox messageList;
 
@@ -31,15 +32,23 @@ public class GameStateView extends VBox {
     public GameStateView(){
         super();
         setBackground(new Background(new BackgroundFill(Color.WHEAT, CornerRadii.EMPTY, Insets.EMPTY)));
+
         round = new Label();
         round.setText("ROUND: 0");
+
         turn = new Label();
         turn.setText("TURN: 0");
+
         Label turnOrder = new Label();
         turnOrder.setText("THE PLAYER ORDER IS:");
+
         players = new Label("");
+
+        freeCoins = new Label("");
+
+        getChildren().addAll(round, turn, turnOrder, players, freeCoins);
+
         switcher = new Button("SWITCH SCENE");
-        getChildren().addAll(round, turn, turnOrder, players);
         messageList = new VBox();
         messageList.setSpacing(5);
         ScrollPane messages = new ScrollPane(messageList);
@@ -91,6 +100,15 @@ public class GameStateView extends VBox {
     }
 
     /**
+     * setterMethod for freeCoins
+     *
+     * @param coins freeCoins taken from the ClientGame
+     */
+    private void setFreeCoins(int coins){
+        freeCoins.setText("COINS LEFT ON THE TABLE: "+coins);
+    }
+
+    /**
      * refresh resets the numbers shown in the scene according to the current state of the game
      *
      * @param client the client that is interacting with my scene
@@ -99,6 +117,9 @@ public class GameStateView extends VBox {
         setRound(client.getClientGame().getRound());
         setTurn(client.getClientGame().getOrderedNicks().get(client.getClientGame().getTurn()));
         setTurnOrder(client.getClientGame().getOrderedNicks());
+        if(client.getClientGame().isCharacterMode()){
+            setFreeCoins(client.getClientGame().getFreeCoins());
+        }
     }
 
     /**

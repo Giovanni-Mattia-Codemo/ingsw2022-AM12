@@ -32,12 +32,11 @@ public class AssistantSelectionWindow implements Window {
      */
     @Override
     public void displayScene(Client client) {
+        //Stage settings
         Stage window = new Stage();
-
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Assistant Selection");
         window.setMinWidth(250);
-
         window.setOnCloseRequest(e -> closeProgram(window));
 
         Label label = new Label("Select an Assistant");
@@ -45,16 +44,14 @@ public class AssistantSelectionWindow implements Window {
 
         VBox layout = new VBox();
         layout.setBackground(new Background(new BackgroundFill(Color.WHEAT, CornerRadii.EMPTY, Insets.EMPTY)));
+
+        //Assistant box
         HBox assistantsLayout = new HBox();
-
-
         ToggleGroup assistants = new ToggleGroup();
-
         ArrayList<ClientAssistant> assistantList = client.getClientGame().getPlayableAssistants();
         for(ClientAssistant s : assistantList){
             ToggleButton assistantButton = new ToggleButton();
             Image assistant = null;
-
             switch (s.getTurnPower()){
                 case 1->assistant = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/Assistente (1).png")).toString());
                 case 2->assistant = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/Assistente (2).png")).toString());
@@ -68,17 +65,17 @@ public class AssistantSelectionWindow implements Window {
                 case 10->assistant = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/Assistente (10).png")).toString());
                 default -> {}
             }
+            //Assistant image settings
             ImageView assistantView = new ImageView(assistant);
-
             assistantView.fitHeightProperty().bind(assistantButton.heightProperty());
             assistantView.fitWidthProperty().bind(assistantButton.widthProperty());
-
+            //Associate image to button
             assistantButton.setGraphic(assistantView);
             assistantButton.setMinSize(1.0, 1.0);
             assistantButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-
             assistantButton.setToggleGroup(assistants);
             assistantButton.getProperties().put ("id", s.getTurnPower());
+            //Bind button to toggle group
             assistantsLayout.getChildren().add(assistantButton);
             assistantButton.prefHeightProperty().bind(assistantButton.widthProperty().multiply(1.44));
             assistantButton.prefWidthProperty().bind(assistantsLayout.widthProperty().divide(assistantList.size()));
@@ -88,22 +85,23 @@ public class AssistantSelectionWindow implements Window {
 
         }
 
+        //Setting button to confirm choice
         Button selection = new Button("SELECT");
-        selection.setOnAction(e-> {if(assistants.getSelectedToggle()!=null){
+        selection.setOnAction(e-> {
+            if(assistants.getSelectedToggle()!=null){
                     int assistantNum = (int) assistants.getSelectedToggle().getProperties().get("id");
                     ClientInputHandler.handle("Assistant "+assistantNum, client);
                     window.close();
-        }
-            else System.out.println("Null value");
+            }
         });
 
+        //Add objects to Vbox pane
         layout.getChildren().addAll(label, assistantsLayout, selection);
         layout.setAlignment(Pos.CENTER);
-
+        //Set scene
         Scene scene = new Scene(layout, 800, 200);
         window.setScene(scene);
         window.show();
-
     }
 
     /**

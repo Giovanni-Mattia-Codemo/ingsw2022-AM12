@@ -264,6 +264,15 @@ public class ClientGame {
     }
 
     /**
+     * Getter method for mode
+     *
+     * @return true if its character mode
+     */
+    public boolean isCharacterMode() {
+        return mode;
+    }
+
+    /**
      * Getter method for motherNatureIndex
      * @return int motherNatureIndex
      */

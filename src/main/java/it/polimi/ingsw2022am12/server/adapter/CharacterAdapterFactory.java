@@ -55,14 +55,14 @@ public class CharacterAdapterFactory implements TypeAdapterFactory {
             jsonWriter.value(characterCard.getCost());
             Gson gson = new GsonBuilder().registerTypeAdapter(StudentDiskCollection.class, new StudentDiskCollectionAdapter()).create();
 
-            switch (characterCard.getName().toString()) {
-                case "CHARACTER_HERBALIST" -> {
+            switch (characterCard.getName()) {
+                case CHARACTER_HERBALIST -> {
                     jsonWriter.name("EntryNum");
                     jsonWriter.value(((CharacterHerbalist) characterCard).getNoEntryCollection().noEntriesSize());
                     jsonWriter.name("EntryId");
                     jsonWriter.value(((CharacterHerbalist) characterCard).getNoEntryCollection().getMyId());
                 }
-                case "CHARACTER_JESTER" -> {
+                case CHARACTER_JESTER -> {
                     jsonWriter.name("Students");
                     gson.toJson(gson.toJsonTree(((CharacterJester) characterCard).getStudents()), jsonWriter);
                 }

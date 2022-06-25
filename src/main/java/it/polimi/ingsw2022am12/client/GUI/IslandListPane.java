@@ -24,12 +24,14 @@ public class IslandListPane extends CircularPane{
         this.client = client;
         islandStacks = new ArrayList<>();
 
+        //CircularPane settings
         setMinWidth(1.0);
         setMinHeight(1.0);
         setMaxHeight(Double.MAX_VALUE);
         setMaxWidth(Double.MAX_VALUE);
         setBackground(Background.fill(Color.CYAN));
 
+        //Populating IslandListPane with game islands
         for (ClientIsland clientIsland : client.getClientGame().getIslands()) {
             IslandPane island = new IslandPane(clientIsland.getID(), client);
             int ratio = 3;

@@ -37,7 +37,7 @@ public class SchoolBoardContainer extends GridPane {
         super();
         this.client = client;
         this.nick = nick;
-        this.setBackground(Background.fill(Color.BLUE));
+        this.setBackground(Background.fill(rgb(51,232,189)));
         double schoolRatio = 0.4337708831;
         //super grid constraints
         ColumnConstraints cc = new ColumnConstraints();
@@ -103,7 +103,7 @@ public class SchoolBoardContainer extends GridPane {
         temp.prefWidthProperty().bind(Bindings.min(this.widthProperty().multiply(0.33), this.heightProperty().multiply(0.3).divide(1.44)));
         assistantPanel.getColumnConstraints().add(temp);
 
-         temp = new ColumnConstraints();
+        temp = new ColumnConstraints();
         temp.setHgrow(Priority.ALWAYS);
         temp.setFillWidth(true);
 
@@ -202,6 +202,7 @@ public class SchoolBoardContainer extends GridPane {
 
         if (assistantNumber != 0) {
             assistant = assistantImages.get(assistantNumber);
+
             if(assistantView ==null){
                 assistantView = new ImageView(assistant);
                 lastPlayedAssistant.setGraphic(assistantView);

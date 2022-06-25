@@ -24,23 +24,27 @@ public class GameSettingsPane extends VBox {
         Label playersNumLabel = new Label("Enter the number of players for the match");
         playersNumLabel.setFont(new Font("Algerian", 18));
         playersNumLabel.setAlignment(Pos.CENTER);
+
+        //Creating choiceBox with possible players number for the match
         ChoiceBox<String> playersNum = new ChoiceBox<>();
         playersNum.setId("Players Number");
         playersNum.getItems().add("2");
         playersNum.getItems().add("3");
         playersNum.getItems().add("4");
+        //Sets choiceBox pose
         playersNum.setStyle("-fx-pref-width: 220;");
+
         Label modalityLabel = new Label("Set game difficulty");
         modalityLabel.setFont(new Font("Algerian", 18));
         modalityLabel.setAlignment(Pos.CENTER);
 
+        //Creating choiceBox with possible mode for the match
         ChoiceBox<String> mode = new ChoiceBox<>();
         mode.getItems().add("CHARACTER MODE");
         mode.getItems().add("EASY MODE");
 
         Button submit = new Button("SUBMIT");
         submit.setAlignment(Pos.CENTER);
-
         submit.setOnAction(e->{
             String modality = "false";
             if(playersNum.getValue()!=null&&mode.getValue()!=null){

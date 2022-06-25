@@ -22,17 +22,20 @@ public class CharacterListPane extends HBox {
      * @param client the client visualizing the Characters' list
      */
     public CharacterListPane(Client client){
+        //HBox settings
         super();
-        double ratio = 6.0/2;
+        double ratio = 6.0/2; //Character image ratio
         this.characters = new ArrayList<>();
         setMinSize(1.0, 1.0);
         setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         setBackground(Background.fill(Color.CYAN));
+        //Character visual divider
         Pane blank = new Pane();
         blank.setMinSize(1.0, 1.0);
         blank.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         HBox.setHgrow(blank, Priority.ALWAYS);
         getChildren().add(blank);
+        //Creates character panes and sets their position in the CharacterListPane
         for(ClientCharacter c : client.getClientGame().getCharacters()){
             CharacterPane character = new CharacterPane(c.getName(), client);
             characters.add(character);
@@ -41,8 +44,7 @@ public class CharacterListPane extends HBox {
             setFillHeight(false);
             character.prefHeightProperty().bind(character.widthProperty().multiply(ratio));
             character.prefWidthProperty().bind(this.widthProperty().divide(6));
-
-
+            //Inserts a divider
             blank = new Pane();
             blank.setMinSize(1.0, 1.0);
             blank.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);

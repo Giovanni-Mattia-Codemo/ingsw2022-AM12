@@ -281,7 +281,6 @@ public class Game{
         for(int i=0; i<numOfCharacters; i++){
             Random rnd= new Random();
             boolean taken;
-            /*
             int x;
 
             do {
@@ -295,13 +294,8 @@ public class Game{
                 }
             }while(taken);
             characterCards.add(CharacterCreator.createCharacter(x));
-             */
-
-
         }
-        characterCards.add(CharacterCreator.createCharacter(11));
-        characterCards.add(CharacterCreator.createCharacter(2));
-        characterCards.add(CharacterCreator.createCharacter(5));
+
         for (CharacterCard c:characterCards) {
             c.initCharacter(this);
         }

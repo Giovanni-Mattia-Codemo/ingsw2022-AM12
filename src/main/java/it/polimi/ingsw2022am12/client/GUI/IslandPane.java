@@ -42,35 +42,44 @@ public class IslandPane extends StackPane {
         numOfNoEntries = new Label();
         numOfTowers = new Label();
         islandImageView = new ImageView();
-        GridPane island = new GridPane();
 
+        //GridPane settings
+        GridPane island = new GridPane();
         island.setMinSize(1.0, 1.0);
         island.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+
+        //StackPane settings
         setMinSize(1.0, 1.0);
         setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
+        //Creating button to make the island selectable
         Button islandButton = new Button();
         islandButton.setMinWidth(1.0);
         islandButton.setMinHeight(1.0);
         islandButton.setMaxHeight(Double.MAX_VALUE);
         islandButton.setMaxWidth(Double.MAX_VALUE);
         islandButton.setBackground(Background.EMPTY);
+        //islandButton action
         islandButton.setOnAction(e -> ClientInputHandler.handle("Island " + islandId, client));
+
+        //Adding island image to IslandPane
         getChildren().add(islandImageView);
         islandImageView.setPreserveRatio(false);
         islandImageView.fitWidthProperty().bind(widthProperty());
         islandImageView.fitHeightProperty().bind(heightProperty());
 
+        //Creates HBox to fill the gridPane cells
         HBox box;
         HBox.setHgrow(island, Priority.NEVER);
         String resource = null;
         for (DiskColor c : DiskColor.values()) {
             int i = c.getValue();
+            //For every cycle an HBox is instantiated
             box = new HBox();
             box.setFillHeight(false);
-
             box.setMinSize(1.0, 1.0);
             box.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+            //Creates button used to visualize student image
             Button studentImg = new Button();
             switch (i) {
                 case 1 -> resource = Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/student_red.png")).toString();
@@ -79,12 +88,16 @@ public class IslandPane extends StackPane {
                 case 2 -> resource = Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/student_yellow.png")).toString();
                 case 0 -> resource = Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/student_green.png")).toString();
             }
-
-            Image image = new Image(resource);
+            //Loading the student image from the resources and sets the studentButton graphics
+            Image image = null;
+            if (resource != null) {
+                image = new Image(resource);
+            }
             ImageView img = new ImageView(image);
             studentImg.setGraphic(img);
             img.fitHeightProperty().bind(studentImg.heightProperty());
             img.fitWidthProperty().bind(studentImg.widthProperty());
+            //Button settings
             studentImg.setVisible(true);
             studentImg.setMinWidth(1.0);
             studentImg.setMinHeight(1.0);
@@ -93,15 +106,17 @@ public class IslandPane extends StackPane {
             studentImg.setBackground(Background.EMPTY);
             studentImg.prefHeightProperty().bind(box.heightProperty());
             studentImg.prefWidthProperty().bind(studentImg.heightProperty());
-
+            //HBox settings
             HBox.setHgrow(studentImg, Priority.NEVER);
             box.getChildren().add(studentImg);
+
             Label number = new Label();
             number.setMinSize(1.0,1.0);
             number.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
             number.prefHeightProperty().bind(box.heightProperty());
             number.prefWidthProperty().bind(number.heightProperty());
             studentNumberLabels.add(number);
+
             HBox.setHgrow(number, Priority.NEVER);
             box.getChildren().add(number);
             island.add(box, i % 2, i / 2);
@@ -112,17 +127,17 @@ public class IslandPane extends StackPane {
         }
 
         towerButton.setBackground(Background.EMPTY);
+
         box = new HBox();
         box.setFillHeight(false);
         box.prefHeightProperty().bind(heightProperty().multiply(0.25));
         box.prefWidthProperty().bind(widthProperty().multiply(0.5));
         box.setMinSize(1.0, 1.0);
         box.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-
         HBox.setHgrow(towerButton, Priority.NEVER);
+
         towerButton.setMinSize(1.0, 1.0);
         towerButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-
         towerButton.prefHeightProperty().bind(box.heightProperty());
         towerButton.prefWidthProperty().bind(towerButton.heightProperty());
         box.getChildren().add(towerButton);
@@ -140,6 +155,7 @@ public class IslandPane extends StackPane {
         box.prefWidthProperty().bind(widthProperty().multiply(0.5));
         box.setMinSize(1.0, 1.0);
         box.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+
         motherNature = new Button();
         resource = Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/mother_nature.png")).toString();
         Image image = new Image(resource);
@@ -168,6 +184,7 @@ public class IslandPane extends StackPane {
             box.setMinSize(1.0, 1.0);
             box.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
             box.setFillHeight(false);
+
             noEntryButton.setMinSize(1.0, 1.0);
             noEntryButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
             box.getChildren().add(noEntryButton);

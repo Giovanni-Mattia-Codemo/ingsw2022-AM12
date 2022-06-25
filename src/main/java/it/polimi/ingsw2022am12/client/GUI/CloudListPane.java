@@ -21,6 +21,7 @@ public class CloudListPane extends CircularPane {
      * @param client the client visualizing the clouds' list
      */
     public CloudListPane(Client client){
+        //CircularPane settings
         super();
         this.client = client;
         clouds = new ArrayList<>();
@@ -30,7 +31,7 @@ public class CloudListPane extends CircularPane {
         setMaxHeight(Double.MAX_VALUE);
         setMaxWidth(Double.MAX_VALUE);
         setBackground(Background.fill(Color.CYAN));
-
+        //Fills CloudListPane with clouds
         for(ClientStudentCollection i : client.getClientGame().getClouds()){
             CloudPane cloud = new CloudPane(i.getID(), client);
             int ratio = 3;
@@ -39,7 +40,6 @@ public class CloudListPane extends CircularPane {
             clouds.add(cloud);
             getChildren().add(cloud);
         }
-
     }
 
     /**

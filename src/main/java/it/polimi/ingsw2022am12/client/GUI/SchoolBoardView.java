@@ -9,6 +9,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import java.util.ArrayList;
 
+import static javafx.scene.paint.Color.rgb;
+
 /**
  * Class that defines the layout of a scene used to represent a part of our table: it contains the SchoolBoards of our players
  */
@@ -36,6 +38,7 @@ public class SchoolBoardView extends ScrollPane{
             name.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
             name.setText(thisSchool.getNick());
             box.addRow(i*2, name);
+            box.setAlignment(Pos.CENTER);
 
             SchoolBoardContainer schoolBoard = new SchoolBoardContainer(thisSchool.getNick(),client);
             schools.add(schoolBoard);
@@ -47,7 +50,6 @@ public class SchoolBoardView extends ScrollPane{
 
         }
 
-        box.setGridLinesVisible(true);
         box.setAlignment(Pos.CENTER);
         setContent(box);
 

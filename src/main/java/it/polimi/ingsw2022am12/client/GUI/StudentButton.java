@@ -7,10 +7,7 @@ import it.polimi.ingsw2022am12.client.model.ClientStudent;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.PixelWriter;
-import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Background;
-import javafx.scene.paint.Color;
 import java.util.HashMap;
 import java.util.Objects;
 

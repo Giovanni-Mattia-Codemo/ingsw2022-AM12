@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+import static javafx.scene.paint.Color.rgb;
+
 /**
  * class that creates the window that will display all the scenes necessary to play the game using a Graphic Interface
  */
@@ -54,13 +56,19 @@ public class GUIView implements View, Runnable{
     @Override
     public void run() {
         primary = new Stage();
+        //Loading Eryantis image
         initialSceneImage = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/EryantisImage.png")).toString());
         setNickInputScene();
+
+        //Stage settings
         primary.setTitle("Eryantis");
-        setGameSettingsScene();
+        primary.getIcons().add(initialSceneImage);
         primary.setResizable(true);
         primary.setScene(nickInputScene);
         primary.show();
+
+        //Setting all scenes
+        setGameSettingsScene();
         setTryAgain();
         setTryAnother();
         setWaitingQueueScene();
@@ -132,81 +140,47 @@ public class GUIView implements View, Runnable{
     @Override
     public void viewControlMessages(ArrayList<ControlMessages> msg) {
         for(ControlMessages message: msg) {
-            switch(message) {
-                case REQUESTINGNICK: {
-                    Platform.runLater(() -> primary.setScene(nickInputScene));
-                    break;
+            switch (message) {
+                case REQUESTINGNICK -> Platform.runLater(() -> primary.setScene(nickInputScene));
+                case INSERTMODE -> Platform.runLater(() -> primary.setScene(gameSettingsScene));
+                case GAMEISBEINGCREATED -> Platform.runLater(() -> primary.setScene(tryAgainLater));
+                case RETRY -> Platform.runLater(() -> primary.setScene(tryAnother));
+                case ASSIGNEDNICK -> {
                 }
-                case INSERTMODE: {
-                    Platform.runLater(() -> primary.setScene(gameSettingsScene));
-                    break;
-                }
-                case GAMEISBEINGCREATED: {
-                    Platform.runLater(() -> primary.setScene(tryAgainLater));
-                    break;
-                }
-                case RETRY: {
-                    Platform.runLater(() -> primary.setScene(tryAnother));
-                    break;
-                }
-                case ASSIGNEDNICK: {
-                    break;
-                }
-                case WAITINGFORPLAYERS: {
-                    Platform.runLater(() -> primary.setScene(waitingQueueScene));
-                    break;
-                }
-                case SELECTMAGE: {
+                case WAITINGFORPLAYERS -> Platform.runLater(() -> primary.setScene(waitingQueueScene));
+                case SELECTMAGE ->
                     Platform.runLater(() -> {
                         setPickMageScene();
                         primary.setScene(pickMageScene);
                     });
-                    break;
-                }
-                case MATCHMAKINGCOMPLETE: {
-                    Platform.runLater(()->{
+                case MATCHMAKINGCOMPLETE ->
+                    Platform.runLater(() -> {
                         setSchoolScene();
                         setIslandScene();
                         gameStateView.refresh(client);
                         activeViewContent.getChildren().add(mySchools);
                         primary.setScene(matchIsStartingScene);
                     });
-                    break;
-                }
-                case GAMEISFULL: {
-                    Platform.runLater(() -> primary.setScene(gameIsFullScene));
-                    break;
-                }
-                case PLAYASSISTANT:{
-                    Platform.runLater(()->new AssistantSelectionWindow().displayScene(client));
-                    break;
-                }
-                case DISCONNECTION,WINNER,LOSER:{
-                    Platform.runLater(()->{
+                case GAMEISFULL -> Platform.runLater(() -> primary.setScene(gameIsFullScene));
+                case PLAYASSISTANT -> Platform.runLater(() -> new AssistantSelectionWindow().displayScene(client));
+                case DISCONNECTION, WINNER, LOSER ->
+                    Platform.runLater(() -> {
                         setServerDownScene();
                         setEndMatchScene(message);
                     });
-                    break;
-                }
-                case SERVERUNREACHABLE:{
-                    Platform.runLater(()->
-                        primary.setScene(serverDownScene)
+                case SERVERUNREACHABLE ->
+                    Platform.runLater(() ->
+                            primary.setScene(serverDownScene)
                     );
-                    break;
-                }
-                case ACCEPTED, INVALIDSELECTION, ACTIONCOMPLETED:{
-                    Platform.runLater(()->{
+                case ACCEPTED, INVALIDSELECTION, ACTIONCOMPLETED ->
+                    Platform.runLater(() -> {
                         gameStateView.clearMessages();
                         gameStateView.addMessage(message.getMessage());
                     });
-                    break;
-                }
-                default:
-                    Platform.runLater(()-> {
-                        gameStateView.addMessage(message.getMessage());
-                        primary.setScene(activeScene);
-                    });
-                    break;
+                default -> Platform.runLater(() -> {
+                    gameStateView.addMessage(message.getMessage());
+                    primary.setScene(activeScene);
+                });
             }
         }
     }
@@ -356,7 +330,6 @@ public class GUIView implements View, Runnable{
         HBox.setHgrow(gameStateView, Priority.NEVER);
         activeScene = new Scene(activeViewContent, 800,600);
         gameStateView.getSwitcher().setOnAction(e-> Platform.runLater(this::switchScene));
-
     }
 
     /**
@@ -468,8 +441,7 @@ public class GUIView implements View, Runnable{
      */
     @Override
     public void connectionFailedPrompt(){
-        Platform.runLater(()->{
-            primary.setScene(serverDownScene);
-        });
+        Platform.runLater(()-> primary.setScene(serverDownScene)
+        );
     }
 }

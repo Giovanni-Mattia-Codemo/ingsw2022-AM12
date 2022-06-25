@@ -1,0 +1,27 @@
+List of characters:
+CHARACTER_MONK: Pick one student from the card and select an island where you want to put it.
+CHARACTER_HOST: When you activate this character you can take control of a professor even in a tie.
+CHARACTER_HERBALIST: Take a no entry token from the card and put it on an island, next time mother nature ends on that island the influence isn't computed.
+CHARACTER_HAG: Pick a color, everyone (you included) has to take 3 students of that color from their dining room and put them in the bag.
+CHARACTER_KNIGHT: When this character is activated it grants 2 additional points on your total influence score.
+CHARACTER_MERCHANT: Choose a color, no influence can come from that color this turn.
+CHARACTER_BARD: Exchange up to 2 students between your entrance and your dining room.
+CHARACTER_CENTAUR: When this character is active the towers aren't included in the influence score.
+CHARACTER_PRINCESS: Pick a student from the card and put it in your dining room.
+CHARACTER_JESTER: Replace up to 3 students between this chard and your entrance.
+CHARACTER_BEGGAR: When you activate this character you are granted two additional steps of mother nature.
+CHARACTER_HERALD: Choose an island and resolve it as if mother nature had ended her movement on it.
+
+
+Map of assistants:
+Power   Range
+1       1
+2       1
+3       2
+4       2
+5       3
+6       3
+7       4
+8       4
+9       5
+10      5

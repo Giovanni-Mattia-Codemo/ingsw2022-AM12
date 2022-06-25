@@ -78,14 +78,11 @@ public class ClientInputHandler {
 
                 }
 
-
-
                 ClientStudent clientStudent = new ClientStudent(color, id);
                 gson = new GsonBuilder().registerTypeAdapter(ClientStudent.class, new ClientStudentAdapter()).create();
                 result = gson.toJson(clientStudent);
                 client.forwardJson(result);
             }
-
 
             case "Assistant" -> {
                 if(tokens.length==1||tokens[1].equals("")){
@@ -163,17 +160,6 @@ public class ClientInputHandler {
                 result = gson.toJson(collection);
                 client.forwardJson(result);
             }
-            case "NoEntry" -> {
-                if(client.getClientGame().getCharacterByName("CHARACTER_HERBALIST")==null){
-                    System.out.println("Invalid selection");
-                    break;
-                }
-                int id = client.getClientGame().getCharacterByName("CHARACTER_HERBALIST").getNoEntryCollectionID();
-                ClientNoEntry clientNoEntry = new ClientNoEntry(id);
-                gson = new GsonBuilder().registerTypeAdapter(ClientNoEntry.class, new ClientNoEntryAdapter()).create();
-                result = gson.toJson(clientNoEntry);
-                client.forwardJson(result);
-            }
             case "Character" -> {
                 if(tokens.length==1||tokens[1].equals("")){
                     System.out.println("Message incomplete, retry");
@@ -217,6 +203,12 @@ public class ClientInputHandler {
                 gson = new GsonBuilder().registerTypeAdapter(ColorSelection.class, new ColorSelectionAdapter()).create();
                 result = gson.toJson(sel);
                 client.forwardJson(result);
+            }
+            case "Help"->{
+                client.showHelp(0);
+            }
+            case "CardsList"->{
+                client.showHelp(1);
             }
             case "RETRY" -> client.connect();
             default -> System.out.println("Unrecognized input");

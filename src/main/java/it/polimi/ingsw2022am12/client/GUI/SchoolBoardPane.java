@@ -119,7 +119,6 @@ public class SchoolBoardPane extends GridPane{
         diningRoomButton.prefWidthProperty().bind(stackRoom.widthProperty());
         diningRoomButton.setOnAction(e-> ClientInputHandler.handle("DiningRoom", client));
 
-
         GridPane diningRoom = new GridPane();
         diningRoom.setPickOnBounds(false);
 
@@ -170,9 +169,7 @@ public class SchoolBoardPane extends GridPane{
                 case 5-> blueRoom = students;
             }
 
-
             students.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-
             students.setMinSize(1.0, 1.0);
             room.setMinSize(1.0, 1.0);
 
@@ -198,6 +195,7 @@ public class SchoolBoardPane extends GridPane{
             diningRoom.add(room, 1, i+1);
 
         }
+
         fillDiningRoom();
 
         diningRoom.hgapProperty().bind(this.widthProperty().divide(250));
@@ -206,15 +204,11 @@ public class SchoolBoardPane extends GridPane{
         diningRoom.prefHeightProperty().bind(this.heightProperty());
         diningRoom.prefWidthProperty().bind(this.widthProperty().multiply(0.55));
 
-
         stackRoom.setMinSize(1,1);
         stackRoom.prefHeightProperty().bind(this.heightProperty());
         stackRoom.prefWidthProperty().bind(this.widthProperty().multiply(0.55));
         this.addColumn(1, stackRoom);
-
-
         //end diningroom
-
 
         //start professors
         professors = new GridPane();
@@ -356,49 +350,8 @@ public class SchoolBoardPane extends GridPane{
         }
 
         for (int i=0;i<5;i++){
-            if(myGame.getProfessors()[i].equals(name)){
-                boolean found = false;
-                for(Button b: professorButtons){
-                    if(GridPane.getRowIndex(b)==i+1){
-                        found = true;
-                        break;
-                    }
-                }
-                if(!found){
-                    Image prof = null;
-                    Button pane= new Button();
-                    pane.setMinSize(1.0,1.0);
-                    pane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-                    switch (i+1){
-                        case 1-> prof = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/teacher_green.png")).toString());
-                        case 2-> prof = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/teacher_red.png")).toString());
-                        case 3-> prof = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/teacher_yellow.png")).toString());
-                        case 4-> prof = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/teacher_pink.png")).toString());
-                        case 5-> prof = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/teacher_blue.png")).toString());
-                        default->{}
-                    }
-                    professorButtons.add(pane);
-
-                    BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false,false,true,true);
-                    Background bGround = new Background(new BackgroundImage(prof, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,BackgroundPosition.CENTER, bSize));
-                    pane.setBackground(bGround);
-                    pane.setRotate(90);
-                    professors.add(pane, 1, i+1);
-
-                }
-            }else{
-                Button found = null;
-                for(Button b: professorButtons){
-                    if(GridPane.getRowIndex(b)==i+1){
-                        found = b;
-                        break;
-                    }
-                }
-                if(found!=null){
-                    professors.getChildren().remove(found);
-                    professorButtons.remove(found);
-                }
-            }
+            Button prof = getProfessorByRow(i);
+            prof.setVisible(myGame.getProfessors()[i].equals(name));
         }
         updateCoins();
     }
@@ -450,7 +403,7 @@ public class SchoolBoardPane extends GridPane{
            }else{
                firstAvailablePos = Math.max(maxPos+1, maxEntranceRows);
            }
-           grid.add(newButton, firstAvailablePos>=maxEntranceRows?1:2,firstAvailablePos<maxEntranceRows?firstAvailablePos+1:firstAvailablePos%maxEntranceRows+2);
+           grid.add(newButton, getEntranceColumn(firstAvailablePos, maxEntranceRows),getEntranceRow(firstAvailablePos, maxEntranceRows));
            entrance.add(newButton);
            maxPos=firstAvailablePos;
         }
@@ -463,13 +416,12 @@ public class SchoolBoardPane extends GridPane{
         Image prof = null;
 
         for(int i = 1; i<6; i++){
-            String professor = myGame.getProfessors()[i-1];
-            if(!professor.equals(name)){
-                break;
-            }
-            Button pane= new Button();
-            pane.setMinSize(1.0,1.0);
-            pane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+
+
+            Button button= new Button();
+            button.setMinSize(1.0,1.0);
+            button.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+            //picks an image based on the professor's row
             switch (i){
                 case 1-> prof = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/teacher_green.png")).toString());
                 case 2-> prof = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/teacher_red.png")).toString());
@@ -478,13 +430,13 @@ public class SchoolBoardPane extends GridPane{
                 case 5-> prof = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/teacher_blue.png")).toString());
                 default->{}
             }
-            professorButtons.add(pane);
+            professorButtons.add(button);
 
             BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false,false,true,true);
             Background bGround = new Background(new BackgroundImage(prof, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,BackgroundPosition.CENTER, bSize));
-            pane.setBackground(bGround);
-            pane.setRotate(90);
-            professors.add(pane, 1, i);
+            button.setBackground(bGround);
+            button.setRotate(90);
+            professors.add(button, 1, i);
 
         }
     }
@@ -498,24 +450,9 @@ public class SchoolBoardPane extends GridPane{
         int towersTotal = myGame.getSchoolBoardByNick(name).getTowers();
         towers.getChildren().removeAll();
 
-        if(towerImage == null) {
-            ArrayList<ClientTeam> teams = myGame.getTeams();
-            int col = 0;
-            for (ClientTeam t : teams) {
-                if (t.getPlayer1().equals(name) || t.getPlayer2().equals(name)) {
-                    col = teams.indexOf(t);
-                }
-            }
+        pickTowerColor();
 
-            switch (col) {
-                case 0 -> towerImage = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/white_tower.png")).toString());
-                case 1 -> towerImage = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/grey_tower.png")).toString());
-                case 2 -> towerImage = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/black_tower.png")).toString());
-                default -> {
-                }
-            }
-        }
-
+        //iterates on the grid of towers
         for(int i= 0; i<4;i++){
 
             for(int j = 0; j<2; j++){
