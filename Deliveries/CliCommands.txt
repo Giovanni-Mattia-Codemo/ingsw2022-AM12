@@ -1,0 +1,23 @@
+To select a username enter: Nick x  (with x as your chosen name, without spaces)
+
+To select a student enter: Student x y (with x the color of the student, y either the ID of the collection it is in or Entrance or DiningRoom to select yours )
+
+To select an assistant enter: Assistant x (with x the power of the assistant)
+
+To select a mage enter: Mage x (with x an integer between 0 and 3)
+
+To select an island enter: Island x (with x the ID of the island)
+
+To select a cloud enter: Cloud x (with x the ID of the cloud)
+
+To select the DiningRoom enter: DiningRoom
+
+To select a Character enter: Character x (with x the name of the character)
+
+To select the game settings enter: GameSettings x y (with x the number of players chosen (between 2 and 4), with y either true to play in character mode or false otherwise)
+
+To select a color: Color x (with x the chosen color)
+
+To attempt to reconnect to the server: RETRY
+
+To view the list of characters and assistants enter: CardsList
