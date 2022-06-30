@@ -1,6 +1,7 @@
 package it.polimi.ingsw2022am12.client.GUI;
 
 import it.polimi.ingsw2022am12.client.Client;
+import it.polimi.ingsw2022am12.client.model.ClientTeam;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -23,8 +24,10 @@ public class GameStateView extends VBox {
     private final Label turn;
     private final Label players;
     private final Label freeCoins;
+    private final Label teamsLabel;
     private final Button switcher;
     private final VBox messageList;
+    private boolean alreadySet;
 
     /**
      * Constructor method of GameStateView
@@ -56,6 +59,11 @@ public class GameStateView extends VBox {
         messages.prefHeightProperty().bind(this.heightProperty().divide(2));
         getChildren().add(messages);
         getChildren().add(switcher);
+
+        teamsLabel = new Label("");
+        alreadySet = false;
+        getChildren().add(teamsLabel);
+
         setAlignment(Pos.TOP_CENTER);
     }
 
@@ -99,6 +107,13 @@ public class GameStateView extends VBox {
         this.players.setText(text+"\n\n");
     }
 
+    private void setTeams(ArrayList<ClientTeam> teams){
+        String order = "TEAM 1: "+teams.get(0).getPlayer1()+" "+teams.get(0).getPlayer2()+"\n";
+        order = order.concat("TEAM 2: "+teams.get(1).getPlayer1()+" "+teams.get(1).getPlayer2());
+        teamsLabel.setText(order);
+        alreadySet = true;
+    }
+
     /**
      * setterMethod for freeCoins
      *
@@ -119,6 +134,10 @@ public class GameStateView extends VBox {
         setTurnOrder(client.getClientGame().getOrderedNicks());
         if(client.getClientGame().isCharacterMode()){
             setFreeCoins(client.getClientGame().getFreeCoins());
+        }
+
+        if(!alreadySet && client.getClientGame().getOrderedNicks().size()==4){
+            setTeams(client.getClientGame().getTeams());
         }
     }
 

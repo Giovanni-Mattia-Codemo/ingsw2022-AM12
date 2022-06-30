@@ -45,14 +45,11 @@ public class SerializationTest {
         map2.remove("tag");
         String line = gson.toJson(map2);
 
-
         GsonBuilder b = new GsonBuilder();
         b.registerTypeAdapter(Student.class, new StudentAdapter());
         gson = b.create();
         Student student = gson.fromJson(line, Student.class);
         Assertions.assertEquals(DiskColor.RED ,student.getColor());
-
-
 
         String s = " m";
         String t = " t";
