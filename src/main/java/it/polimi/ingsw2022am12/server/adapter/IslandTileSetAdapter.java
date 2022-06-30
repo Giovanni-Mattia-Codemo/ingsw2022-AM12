@@ -11,8 +11,7 @@ import it.polimi.ingsw2022am12.server.model.StudentDiskCollection;
 import java.io.IOException;
 
 /**
- * Class used to simplify the handling of a certain event.
- * In this case,it helps to handle objects of the type IslandTILESET.
+ * Json adapter class of IslandTileSet's class.
  */
 public class IslandTileSetAdapter extends TypeAdapter<IslandTileSet> {
 

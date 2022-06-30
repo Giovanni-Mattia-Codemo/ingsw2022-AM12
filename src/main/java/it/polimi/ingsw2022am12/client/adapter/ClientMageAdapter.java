@@ -8,8 +8,7 @@ import it.polimi.ingsw2022am12.client.model.ClientMage;
 import java.io.IOException;
 
 /**
- * Class used to simplify the handling of a certain event.
- * In this case,it helps to handle objects of the type ClientMAGE.
+ * Json adapter class of ClientMage's class
  */
 public class ClientMageAdapter extends TypeAdapter<ClientMage> {
 

@@ -10,8 +10,7 @@ import it.polimi.ingsw2022am12.client.model.ClientStudentCollection;
 import java.io.IOException;
 
 /**
- * Class used to simplify the handling of a certain event.
- * In this case,it helps to handle objects of the type ClientISLAND.
+ * Json adapter class of ClientIsland's class
  */
 public class ClientIslandAdapter extends TypeAdapter<ClientIsland> {
 

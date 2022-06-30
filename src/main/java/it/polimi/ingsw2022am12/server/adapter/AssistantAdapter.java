@@ -9,7 +9,7 @@ import it.polimi.ingsw2022am12.server.model.AssistantCreator;
 import java.io.IOException;
 
 /**
- * Class used to simplify the handling of a AssistantCard object
+ * Json adapter class of Assistant's class
  */
 public class AssistantAdapter extends TypeAdapter<Assistant> {
 

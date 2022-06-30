@@ -14,8 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Class used to simplify the handling of a certain event.
- * In this case,it helps to handle objects of the type ClientSCHOOLBOARD.
+ * Json adapter class of ClientSchoolBoard's class
  */
 public class ClientSchoolBoardAdapter extends TypeAdapter<ClientSchoolBoard> {
 

@@ -9,8 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Class used to simplify the handling of a certain event.
- * In this case,it helps to handle objects of the type ClientGAME.
+ * Json adapter class of ClientGame's class. Used to update the client's game state from a server's update
  */
 public class GameStateAdapter extends TypeAdapter<ClientGame> {
 

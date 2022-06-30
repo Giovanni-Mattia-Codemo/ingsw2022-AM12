@@ -7,8 +7,7 @@ import it.polimi.ingsw2022am12.server.model.Team;
 import java.io.IOException;
 
 /**
- * Class used to simplify the handling of a certain event.
- * In this case, it helps to handle objects of the type TEAM.
+ * Json adapter class of Team's class
  */
 public class TeamAdapter extends TypeAdapter<Team> {
 

@@ -9,8 +9,7 @@ import it.polimi.ingsw2022am12.server.model.*;
 import java.io.IOException;
 
 /**
- * Class used to simplify the handling of a certain event.
- * In this case,it helps to handle objects of the type GAME.
+ * Json adapter class of Game's class.
  */
 public class GameAdapter extends TypeAdapter<Game> {
 

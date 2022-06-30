@@ -8,8 +8,7 @@ import it.polimi.ingsw2022am12.client.model.ClientAssistant;
 import java.io.IOException;
 
 /**
- * Class used to simplify the handling of a certain event.
- * In this case,it helps to handle objects of the type ClientASSISTANT.
+ * Json adapter class of ClientAssistant's class
  */
 public class ClientAssistantAdapter extends TypeAdapter<ClientAssistant> {
 

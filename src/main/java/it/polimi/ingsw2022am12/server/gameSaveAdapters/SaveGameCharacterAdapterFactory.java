@@ -17,8 +17,7 @@ import it.polimi.ingsw2022am12.server.model.characters.*;
 import java.io.IOException;
 
 /**
- * Class used to simplify the handling of a certain event.
- * In this case,it helps to handle objects of the type CHARACTERCARD  to save them as JSON encoded data
+ *  * Json adapter class of CharacterCard's class. Used to save the game on disk.
  */
 public class SaveGameCharacterAdapterFactory implements TypeAdapterFactory {
 

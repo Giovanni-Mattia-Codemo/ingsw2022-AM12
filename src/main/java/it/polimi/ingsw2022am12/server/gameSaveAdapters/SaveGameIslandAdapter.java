@@ -10,8 +10,7 @@ import it.polimi.ingsw2022am12.server.model.*;
 import java.io.IOException;
 
 /**
- * Class used to simplify the handling of a certain event.
- * In this case,it helps to handle objects of the type ISLANDTILESET  to save them as JSON encoded data
+ *Json adapter class of IslandTileSet's class. Used to save the game on disk.
  */
 public class SaveGameIslandAdapter extends TypeAdapter<IslandTileSet> {
 

@@ -11,8 +11,7 @@ import it.polimi.ingsw2022am12.server.model.StudentDiskCollection;
 import java.io.IOException;
 
 /**
- * Class used to simplify the handling of a certain event.
- * In this case,it helps to handle objects of the type SchoolBoard.
+ * Json adapter class of SchoolBoard's class
  */
 public class SchoolBoardAdapter extends TypeAdapter<SchoolBoard> {
 

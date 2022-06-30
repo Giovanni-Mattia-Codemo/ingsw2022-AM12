@@ -11,8 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Class used to simplify the handling of a certain event.
- * In this case,it helps to handle objects of the type GAME  to save them as JSON encoded data
+ * Json adapter class of Game's class.
  */
 public class GameSaveAdapter extends TypeAdapter<Game> {
 
@@ -112,7 +111,7 @@ public class GameSaveAdapter extends TypeAdapter<Game> {
         ArrayList<Team> teams = null;
         ArrayList<StudentDiskCollection> clouds=null;
         String[] professors = new String[5];
-        String phase=null, activeCharacter=null;
+        String phase=null, activeCharacter="null";
         Bag bag=null;
         StudentDiskCollection temp;
         while(jsonReader.hasNext()){
@@ -260,6 +259,9 @@ public class GameSaveAdapter extends TypeAdapter<Game> {
 
         }
         jsonReader.endObject();
+        if(playerNicks==null){
+            return null;
+        }
         Game game = new Game(playerNicks, mode, bag, freeCoins, turnOrder, islands, motherNature, clouds, teams, professors, characters);
         game.setTurn(turn);
         game.setRound(round);

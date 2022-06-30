@@ -9,8 +9,7 @@ import it.polimi.ingsw2022am12.server.model.Team;
 import java.io.IOException;
 
 /**
- * Class used to simplify the handling of a certain event.
- * In this case,it helps to handle objects of the type TEAM to save them as JSON encoded data
+ * Json adapter class of Team's class. Used to save the game on disk.
  */
 public class SaveGameTeamAdapter extends TypeAdapter<Team> {
 

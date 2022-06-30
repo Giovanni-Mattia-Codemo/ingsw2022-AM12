@@ -4,10 +4,8 @@ import it.polimi.ingsw2022am12.server.controller.ControlMessages;
 import it.polimi.ingsw2022am12.updateFlag.UpdateFlag;
 import it.polimi.ingsw2022am12.client.View;
 import it.polimi.ingsw2022am12.client.model.ClientGame;
-
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 

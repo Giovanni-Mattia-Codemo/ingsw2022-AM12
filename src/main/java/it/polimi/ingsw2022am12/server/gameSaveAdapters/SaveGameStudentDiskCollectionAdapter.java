@@ -14,8 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Class used to simplify the handling of a certain event.
- * In this case,it helps to handle objects of the type STUDENTDISKCOLLECTION to save them as JSON encoded data
+ * Json adapter class of StudentDiskCollection's class. Used to save the game on disk.
  */
 public class SaveGameStudentDiskCollectionAdapter extends TypeAdapter<StudentDiskCollection> {
 

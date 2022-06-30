@@ -37,7 +37,6 @@ public class AssistantSelectionWindow implements Window {
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Assistant Selection");
         window.setMinWidth(250);
-        //window.setOnCloseRequest(e -> closeProgram(window));
 
         Label label = new Label("Select an Assistant");
         label.setFont(new Font("Algerian", 25));
@@ -103,14 +102,4 @@ public class AssistantSelectionWindow implements Window {
         window.setScene(scene);
         window.show();
     }
-
-    /**
-     * closeProgram is the method associated to the "close window" button
-     *
-     * @param window the stage I want to close
-     */
-    private void closeProgram(Stage window) {
-        window.close();
-    }
-
 }
