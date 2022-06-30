@@ -447,6 +447,10 @@ public class GUIView implements View, Runnable{
         );
     }
 
+    /**
+     * showHelp method allows the player to visualize a guide
+     * @param i the index of the help I need
+     */
     @Override
     public void showHelp(int i) {
 

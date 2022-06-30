@@ -31,5 +31,9 @@ public interface View {
      */
     void connectionFailedPrompt();
 
+    /**
+     * showHelp method allows the player to visualize a guide
+     * @param i the index of the help I need
+     */
     void showHelp(int i);
 }

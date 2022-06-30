@@ -46,6 +46,11 @@ public class CLIView implements View {
         System.out.println("Connection failed (server not found): input RETRY to attempt to reconnect");
     }
 
+    /**
+     * showHelp method allows the player to visualize a guide (if he inputs 0 he will have a guide for the CLI, if he inputs
+     * 1 he will receive hints about the rules of the game); both guides are files read with a scanner
+     * @param i the index of the help I need
+     */
     @Override
     public void showHelp(int i){
         Scanner reader = null;

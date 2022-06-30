@@ -28,7 +28,7 @@ public class ClientInputHandler {
 
     /**
      * handle method deals with string inputs that represent a certain object (considering tokens[0]), and creates a JSON
-     * format data though a switch case that changes based on the input string
+     * format data through a switch case that changes based on the input string
      *
      * @param input the string that represents my object in input
      * @param client the client that is receiving the message

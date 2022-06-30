@@ -43,6 +43,7 @@ public class GameSettingsPane extends VBox {
         mode.getItems().add("CHARACTER MODE");
         mode.getItems().add("EASY MODE");
 
+        //Creating the button that will allow me to submit the game settings I chose
         Button submit = new Button("SUBMIT");
         submit.setAlignment(Pos.CENTER);
         submit.setOnAction(e->{

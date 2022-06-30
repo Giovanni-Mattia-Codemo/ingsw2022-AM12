@@ -20,7 +20,7 @@ public class CLIHandler implements Runnable{
         this.client = client;
     }
     /**
-     * run method makes the client able to accept different inputs
+     * run method makes the client able to accept different inputs from command line
      */
     @Override
     public void run() {
