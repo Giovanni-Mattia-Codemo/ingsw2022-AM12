@@ -280,7 +280,6 @@ public class CharacterPane extends VBox {
             case RED -> colorSel.setBackground(Background.fill(Color.RED));
         }
         colorSel.setOnAction(e->{
-            System.out.println(d.name());
             ClientInputHandler.handle("Color "+d.name(), client);
         });
         colorSel.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);

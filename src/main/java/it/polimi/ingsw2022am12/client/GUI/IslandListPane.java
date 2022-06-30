@@ -59,7 +59,6 @@ public class IslandListPane extends CircularPane{
         }
         for(IslandPane i : temp){
             getChildren().remove(i);
-            System.out.println(getChildren().size());
             islandStacks.remove(i);
         }
     }
