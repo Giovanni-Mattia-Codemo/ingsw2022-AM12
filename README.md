@@ -33,4 +33,5 @@ location as the jar if left unspecified), and the right players join with the sa
 freed.
 
 When launching the client the first option is to select either GUI or CLI, and the client will proceed working accordingly. While using the CLI version it is possible to
-enter the command "Help" to get a message with the accepted formats of input
+enter the command "Help" to get a message with the accepted formats of input.
+The list of commands accepted by the CLI are also contained in the text file "CliCommands" in the deliveries folder.
