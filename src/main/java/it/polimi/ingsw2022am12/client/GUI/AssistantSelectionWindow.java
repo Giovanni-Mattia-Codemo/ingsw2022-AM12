@@ -14,7 +14,6 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.Modality;
 import javafx.scene.image.Image;
-
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -23,6 +22,8 @@ import java.util.Objects;
  * an Assistant
  */
 public class AssistantSelectionWindow implements Window {
+
+    private final double assistantRatio = 1.44;
 
     /**
      * displayScene method creates the new window and the new scene for the assistant's selection; the Assistants are
@@ -76,7 +77,7 @@ public class AssistantSelectionWindow implements Window {
             assistantButton.getProperties().put ("id", s.getTurnPower());
             //Bind button to toggle group
             assistantsLayout.getChildren().add(assistantButton);
-            assistantButton.prefHeightProperty().bind(assistantButton.widthProperty().multiply(1.44));
+            assistantButton.prefHeightProperty().bind(assistantButton.widthProperty().multiply(assistantRatio));
             assistantButton.prefWidthProperty().bind(assistantsLayout.widthProperty().divide(assistantList.size()));
 
             HBox.setHgrow(assistantButton, Priority.ALWAYS);

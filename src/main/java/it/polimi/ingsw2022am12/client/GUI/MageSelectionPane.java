@@ -65,7 +65,8 @@ public class MageSelectionPane extends VBox {
             mageButton.setToggleGroup(mages);
             mageButton.getProperties().put ("id", i);
             mageLayout.getChildren().add(mageButton);
-            mageButton.prefHeightProperty().bind(mageButton.widthProperty().multiply(1.44));
+            double mageImageRatio = 1.44;
+            mageButton.prefHeightProperty().bind(mageButton.widthProperty().multiply(mageImageRatio));
             mageButton.prefWidthProperty().bind(mageLayout.widthProperty().divide(pickable.size()));
             HBox.setHgrow(mageButton, Priority.ALWAYS);
 

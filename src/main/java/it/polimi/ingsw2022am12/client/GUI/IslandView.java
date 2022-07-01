@@ -24,6 +24,7 @@ public class IslandView extends ScrollPane {
      */
     public IslandView(Client client){
         super();
+        double cloudListRatio = 3.0;
         StackPane islandCloudStack = new StackPane();
         islandList = new IslandListPane(client);
         cloudList = new CloudListPane(client);
@@ -36,8 +37,8 @@ public class IslandView extends ScrollPane {
         box.getChildren().add(islandCloudStack);
         box.getChildren().add(characters);
 
-        cloudList.maxHeightProperty().bind(this.widthProperty().divide(3));
-        cloudList.maxWidthProperty().bind(this.widthProperty().divide(3));
+        cloudList.maxHeightProperty().bind(this.widthProperty().divide(cloudListRatio));
+        cloudList.maxWidthProperty().bind(this.widthProperty().divide(cloudListRatio));
         cloudList.setPickOnBounds(false);
 
         islandList.maxHeightProperty().bind(this.widthProperty());
@@ -50,7 +51,7 @@ public class IslandView extends ScrollPane {
         islandCloudStack.prefHeightProperty().bind(this.widthProperty());
         islandCloudStack.prefWidthProperty().bind(this.widthProperty());
 
-        characters.prefHeightProperty().bind(this.widthProperty().multiply(6.0/2.0).multiply(0.33));
+        characters.prefHeightProperty().bind(this.widthProperty().multiply(cloudListRatio).multiply(0.33));
         characters.prefWidthProperty().bind(this.widthProperty());
         VBox.setVgrow(characters, Priority.NEVER);
 

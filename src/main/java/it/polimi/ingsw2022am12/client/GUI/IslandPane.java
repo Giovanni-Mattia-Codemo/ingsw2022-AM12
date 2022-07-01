@@ -73,7 +73,6 @@ public class IslandPane extends StackPane {
         HBox.setHgrow(island, Priority.NEVER);
         String resource = null;
         for (DiskColor c : DiskColor.values()) {
-            int i = c.getValue();
             //For every cycle an HBox is instantiated
             box = new HBox();
             box.setFillHeight(false);
@@ -81,12 +80,12 @@ public class IslandPane extends StackPane {
             box.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
             //Creates button used to visualize student image
             Button studentImg = new Button();
-            switch (i) {
-                case 1 -> resource = Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/student_red.png")).toString();
-                case 4 -> resource = Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/student_blue.png")).toString();
-                case 3 -> resource = Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/student_pink.png")).toString();
-                case 2 -> resource = Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/student_yellow.png")).toString();
-                case 0 -> resource = Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/student_green.png")).toString();
+            switch (c) {
+                case RED -> resource = Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/student_red.png")).toString();
+                case BLUE -> resource = Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/student_blue.png")).toString();
+                case PINK -> resource = Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/student_pink.png")).toString();
+                case YELLOW -> resource = Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/student_yellow.png")).toString();
+                case GREEN -> resource = Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/student_green.png")).toString();
             }
             //Loading the student image from the resources and sets the studentButton graphics
             Image image = null;
@@ -119,7 +118,7 @@ public class IslandPane extends StackPane {
 
             HBox.setHgrow(number, Priority.NEVER);
             box.getChildren().add(number);
-            island.add(box, i % 2, i / 2);
+            island.add(box, c.getValue() % 2, c.getValue() / 2);
 
             box.prefHeightProperty().bind(heightProperty().multiply(0.25));
             box.prefWidthProperty().bind(widthProperty().multiply(0.5));
@@ -229,10 +228,11 @@ public class IslandPane extends StackPane {
         String conqueror = client.getClientGame().getIslandByID(id).getConqueror();
         if (!conqueror.equals("null")) {
             Image towerImage = null;
-            switch (client.getClientGame().getTeams().indexOf(client.getClientGame().getTeamByNick(conqueror))) {
-                case 0 -> towerImage = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/white_tower.png")).toString());
-                case 2 -> towerImage = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/grey_tower.png")).toString());
-                case 1 -> towerImage = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/black_tower.png")).toString());
+            int color = client.getClientGame().getTeams().indexOf(client.getClientGame().getTeamByNick(conqueror));
+            switch (TowerColor.valueOf(TowerColor.WHITE_TOWER.getName(color))) {
+                case WHITE_TOWER -> towerImage = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/white_tower.png")).toString());
+                case GREY_TOWER -> towerImage = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/grey_tower.png")).toString());
+                case BLACK_TOWER -> towerImage = new Image(Objects.requireNonNull(getClass().getResource("/it/polimi/ingsw2022am12/client/GUI/wooden_pieces/black_tower.png")).toString());
                 default -> {
                 }
             }

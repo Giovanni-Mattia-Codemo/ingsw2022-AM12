@@ -95,13 +95,15 @@ public class CharacterPane extends VBox {
         coin.setMaxHeight(Double.MAX_VALUE);
         coin.setMaxWidth(Double.MAX_VALUE);
         coin.setBackground(Background.EMPTY);
-        coin.maxHeightProperty().bind(imgCoinPane.heightProperty().multiply(0.1));
+        double coinHeight = 0.1;
+        coin.maxHeightProperty().bind(imgCoinPane.heightProperty().multiply(coinHeight));
         coin.maxWidthProperty().bind(coin.heightProperty());
         //Adding coin to pane
         imgCoinPane.getChildren().add(coin);
         //Stack pane settings
         imgCoinPane.setAlignment(Pos.TOP_CENTER);
-        imgCoinPane.prefHeightProperty().bind(heightProperty().multiply(0.5));
+        double imgCoinPaneWidthRatio = 0.5;
+        imgCoinPane.prefHeightProperty().bind(heightProperty().multiply(imgCoinPaneWidthRatio));
         imgCoinPane.prefWidthProperty().bind(widthProperty());
         //Shows coin only if the character was used once
         if(client.getClientGame().getCharacterByName(characterName).isHasCoin()){
@@ -122,7 +124,8 @@ public class CharacterPane extends VBox {
             fillStudents(client.getClientGame().getCharacterByName(characterName).getStudents().getStudents());
         }
         //Grid settings
-        grid.prefHeightProperty().bind(heightProperty().multiply(0.5));
+        double gridHeightRatio = 0.5;
+        grid.prefHeightProperty().bind(heightProperty().multiply(gridHeightRatio));
         grid.prefWidthProperty().bind(this.widthProperty());
         grid.setAlignment(Pos.TOP_CENTER);
         grid.setPickOnBounds(false);
@@ -143,7 +146,7 @@ public class CharacterPane extends VBox {
                 VBox.setVgrow(button, Priority.ALWAYS);
                 colors.getChildren().add(button);
             }
-            grid.add(colors, 0 ,0);
+            grid.add(colors, 0 ,0); //column 0, row 0
         }
         //CharacterPane VBox settings
         VBox.setVgrow(grid, Priority.NEVER);
@@ -183,10 +186,11 @@ public class CharacterPane extends VBox {
      * @param newStudents updated
      */
     private void fillStudents(ArrayList<ClientStudent> newStudents){
+        int maxCharacterStudentsOnCard = 6;
         int difference = newStudents.size()-students.size();
         for(int i=0; i<difference; i++){
-            for(int j=0; j<6; j++){
-                if(getNodeByCoordinate((j/2), j%2)==null){
+            for(int j=0; j<maxCharacterStudentsOnCard; j++){
+                if(getNodeByCoordinate((j/2), j%2)==null){ //if the cell is not occupied (j/2 stands for the row, j%2 stands for the column)
                     if(grid.getRowConstraints().size()<=j/2){
                         RowConstraints rc = new RowConstraints();
                         rc.setVgrow(Priority.NEVER);
@@ -205,7 +209,7 @@ public class CharacterPane extends VBox {
                     StudentButton stdButton = new StudentButton(std, client);
                     stdButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
                     stdButton.setMinSize(1.0, 1.0);
-                    grid.add(stdButton, j%2,(j/2));
+                    grid.add(stdButton, j%2,(j/2)); //then add the button in the right cell
                     students.add(stdButton);
                     break;
                 }
@@ -220,8 +224,8 @@ public class CharacterPane extends VBox {
     private void fillNoEntries(){
         int numOfNoEntries = 4;
         for(int i=0; i<numOfNoEntries; i++){
-            for(int j=0; j<4; j++){
-                if(getNodeByCoordinate((j/2), j%2)==null){
+            for(int j=0; j<numOfNoEntries; j++){
+                if(getNodeByCoordinate((j/2), j%2)==null){ //if the cell is not occupied (j/2 stands for the row, j%2 stands for the column)
                     if(grid.getRowConstraints().size()<=j/2){
                         RowConstraints rc = new RowConstraints();
                         rc.setVgrow(Priority.NEVER);
@@ -237,7 +241,7 @@ public class CharacterPane extends VBox {
                         grid.getColumnConstraints().add(cc);
                     }
                     NoEntryImage noEntry = new NoEntryImage();
-                    grid.add(noEntry, j%2,(j/2));
+                    grid.add(noEntry, j%2,(j/2)); //then add the button in the right cell
                     noEntryImages.add(noEntry);
                     break;
                 }
