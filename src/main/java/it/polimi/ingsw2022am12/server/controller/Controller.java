@@ -334,10 +334,8 @@ public class Controller {
         if(userMap.remove(v)!=null){
             System.out.println("A player disconnected");
             virtualViews.remove(v);
-            System.out.println("After remove view");
             v.close();
             endGame();
-            System.out.println("After end game");
         }else{
             System.out.println("Someone disconnected");
             virtualViews.remove(v);

@@ -60,7 +60,6 @@ public class VirtualView{
      */
     public void close(){
         parser.interrupt();
-        System.out.println("parser thread is interrupted:"+ parser.isInterrupted());
         try {
             socket.close();
             in.close();

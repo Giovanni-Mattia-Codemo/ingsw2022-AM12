@@ -160,7 +160,8 @@ public class Client {
      */
     public void disconnected(){
         serverMsg.interrupt();
-
+        clientGame = null;
+        newClientGame = null;
         try {
             socket.close();
             in.close();

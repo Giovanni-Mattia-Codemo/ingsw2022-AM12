@@ -170,9 +170,10 @@ public class GUIView implements View, Runnable{
                         afterFirstUpdate = false;
                     });
                 case SERVERUNREACHABLE ->
-                    Platform.runLater(() ->
-                            primary.setScene(serverDownScene)
-                    );
+                    Platform.runLater(() -> {
+                        primary.setScene(serverDownScene);
+                        afterFirstUpdate = false;
+                    });
                 case ACCEPTED, INVALIDSELECTION, ACTIONCOMPLETED ->
                     Platform.runLater(() -> {
                         gameStateView.clearMessages();
