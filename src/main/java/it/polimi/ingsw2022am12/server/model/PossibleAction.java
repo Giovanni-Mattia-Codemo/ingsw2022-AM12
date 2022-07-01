@@ -51,10 +51,8 @@ public abstract class PossibleAction {
                                 score.put(i,in);
                             }
                         }
-
                     }
                 }
-
             }
             if(score.size()==0){
                 return ActionStep.NOTOK;
@@ -63,7 +61,6 @@ public abstract class PossibleAction {
             }else if (score.size()==input.size()&&score.size()==requiredInputs){
                 return ActionStep.OK;
             }
-
         return ActionStep.NOTOK;
     }
 

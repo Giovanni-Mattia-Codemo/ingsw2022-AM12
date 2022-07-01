@@ -29,11 +29,13 @@ public class MoveMotherNature extends PossibleAction {
     @Override
     public void setSelectables(Game game) {
         ArrayList<Selectable>result = new ArrayList<>();
-        result.add(game.getIslandList().getByIndex(game.getIslandList().getMotherNatureIndex()));
+        IslandTileSet motherNature = game.getIslandList().getByIndex(game.getIslandList().getMotherNatureIndex());
+        result.add(motherNature);
         selectables.put(0, result);
 
         ArrayList<Selectable> tmp = new ArrayList<>(game.getIslandList().getIslandsAsSelectable());
         tmp.removeIf(a->!game.checkIfIslandInRange(((IslandTileSet)a)));
+        tmp.remove(motherNature);
         selectables.put(1, tmp);
     }
 
