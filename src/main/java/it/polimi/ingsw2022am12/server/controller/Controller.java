@@ -337,6 +337,7 @@ public class Controller {
             System.out.println("After remove view");
             v.close();
             endGame();
+            System.out.println("After end game");
         }else{
             System.out.println("Someone disconnected");
             virtualViews.remove(v);
