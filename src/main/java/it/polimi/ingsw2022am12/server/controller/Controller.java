@@ -331,10 +331,10 @@ public class Controller {
      * @param v my Virtual view
      */
     public void removeView(VirtualView v){
-
         if(userMap.remove(v)!=null){
             System.out.println("A player disconnected");
             virtualViews.remove(v);
+            System.out.println("After remove view");
             v.close();
             endGame();
         }else{

@@ -43,7 +43,6 @@ public class VirtualView{
      * @param update the state of the game coded as a string, so that I can forward it
      */
     public void forwardMsg(String update){
-
         out.println(update);
         out.flush();
     }
@@ -62,10 +61,10 @@ public class VirtualView{
     public void close(){
         parser.interrupt();
         System.out.println("parser thread is interrupted:"+ parser.isInterrupted());
-        in.close();
-        out.close();
         try {
             socket.close();
+            in.close();
+            out.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

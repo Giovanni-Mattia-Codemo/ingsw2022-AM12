@@ -160,10 +160,11 @@ public class Client {
      */
     public void disconnected(){
         serverMsg.interrupt();
-        in.close();
-        out.close();
+
         try {
             socket.close();
+            in.close();
+            out.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
