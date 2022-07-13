@@ -1,7 +1,6 @@
 package it.polimi.ingsw2022am12.server;
 
 import it.polimi.ingsw2022am12.DiskColor;
-import it.polimi.ingsw2022am12.communication.InputMode;
 import it.polimi.ingsw2022am12.server.adapter.GameAdapter;
 import it.polimi.ingsw2022am12.server.model.*;
 import it.polimi.ingsw2022am12.server.adapter.StudentAdapter;
@@ -37,7 +36,6 @@ public class SerializationTest {
         Student foo2= gson.fromJson(jsonString, Student.class);
 
         Map map= gson.fromJson(jsonString, Map.class);
-
 
         Gson gson2 = new Gson();
         Map map2 = gson2.fromJson(jsonString, Map.class);

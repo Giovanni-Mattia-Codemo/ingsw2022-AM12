@@ -58,7 +58,6 @@ public class VirtualViewMessagesParser implements Runnable{
                         case "Nick" -> {
                             String nick = (String) map.get("nick");
                             myController.selectUsername(nick, virtualView);
-
                         }
                         case "Student" -> {
                             GsonBuilder builder = new GsonBuilder();
@@ -110,7 +109,6 @@ public class VirtualViewMessagesParser implements Runnable{
                         default -> virtualView.forwardMsg("Unrecognized input" + "\n");
                     }
                     break;
-
                 }
             } catch (RuntimeException e) {
                 tim.cancel();

@@ -10,12 +10,6 @@
     <packaging>jar</packaging>
     <name>AM12</name>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <junit.version>5.8.2</junit.version>
-        <sonar.exclusions>**/adapter/**/*,**/gameSaveAdapters/**/*,**/controller/**/*,**/client/**/*,**/virtualview/**/*,**/Server.java,**/communication/**/*,**/ConnectionHandler.java, **/updateFlag/**/*, **/NickInput.java, **/NickInputAdapter.java</sonar.exclusions>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.google.code.gson</groupId>
@@ -51,17 +45,6 @@
 
     </dependencies>
     <build>
-
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.sonarsource.scanner.maven</groupId>
-                    <artifactId>sonar-maven-plugin</artifactId>
-                    <version>3.7.0.1746</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-
         <plugins>
 
             <plugin>
